@@ -1,0 +1,58 @@
+\documentclass{kththesis}
+\usepackage{csquotes} % Recommended by biblatex
+\usepackage{biblatex}
+\addbibresource{references.bib} % The file containing our references, in BibTeX format
+
+
+\title{Applying dynamic taint propagation in order to enforce domain driven security}
+\alttitle{Tillämpa dynamic taint propagation för att genomdriva domändriven säkerhet}
+\author{Fredrik Adolfsson}
+\email{freado@kth.se}
+\supervisor{Lotta Larsson}
+\examiner{Lennart Bladgren}
+\programme{Master in Computer Science}
+\school{School of Computer Science and Communication}
+\date{\today}
+
+
+\begin{document}
+
+% Frontmatter includes the titlepage, abstracts and table-of-contents
+\frontmatter
+
+\titlepage
+
+
+\input{chapters/Abstract}
+
+
+\tableofcontents
+
+
+% Mainmatter is where the actual contents of the thesis goes
+\mainmatter
+
+
+\chapter{Introduction}
+\input{chapters/Introduction}
+
+\chapter{Theoretical Framework}
+\input{chapters/Theoretical-Framework}
+
+\chapter{Implementation}
+\input{chapters/Implementation}
+
+\chapter{Result and Analysis}
+\input{chapters/Result-and-Analysis}
+
+\chapter{Discussion}
+\input{chapters/Discussion}
+
+
+\printbibliography[heading=bibintoc] % Print the bibliography (and make it appear in the table of contents)
+
+\appendix
+
+\chapter{Unnecessary Appended Material}
+
+\end{document}

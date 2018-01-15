@@ -1,43 +1,11 @@
 {
-    "latex-workshop.latex.toolchain": [
-        {
-          "command": "pdflatex",
-          "args": [
-            "-synctex=1",
-            "-interaction=nonstopmode",
-            "-file-line-error",
-            "%DOC%"
-          ]
-        }, {
-          "command": "biber",
-          "args": [
-            "%DOCFILE%"
-          ]
-        }, 
-        {
-          "command": "makeglossaries",
-          "args": [
-            "%DOCFILE%"
-          ]  
-        }, 
-        {
-          "command": "pdflatex",
-          "args": [
-            "-synctex=1",
-            "-interaction=nonstopmode",
-            "-file-line-error",
-            "%DOC%"
-          ]
-        }, {
-          "command": "pdflatex",
-          "args": [
-            "-synctex=1",
-            "-interaction=nonstopmode",
-            "-file-line-error",
-            "%DOC%"
-          ]
-        }
-      ],
-    "latex-workshop.latex.clean.enabled": true,
-    "workbench.startupEditor": "newUntitledFile",
+  "editor.cursorBlinking": "solid",
+  "telemetry.enableCrashReporter": false,
+  "telemetry.enableTelemetry": false,
+  "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 80,
+  "editor.wrappingIndent": "same",
+  "cSpell.enabled": true,
+  "latex-workshop.latex.clean.enabled": true,
+  "latex-workshop.chktex.enabled": true,
 }
