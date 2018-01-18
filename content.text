@@ -1,0 +1,16 @@
+# Områden
+
+* Domain Driven Design
+  * Bounded Context is important
+
+# Uttryck
+
+* Greenfield: Lacks any constraints imposed by prior work
+* Brownfield: Constraints imposed by prior work
+  * https://stackoverflow.com/questions/1459941/what-are-greenfield-and-brownfield-applications
+
+* Legacy code: Code that is no longe supported, commonly missused for badly written code that are constantly being patched
+  * https://www.techopedia.com/definition/25326/legacy-code
+
+* Bounded Context: Boundary that surrounds a particular model. Keeps the knowledge inside the boundary consistent whilst ignoring the noise from the outside world.
+  * http://culttt.com/2014/11/19/bounded-contexts-context-maps-domain-driven-design/
