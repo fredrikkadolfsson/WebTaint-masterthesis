@@ -1,7 +1,11 @@
 # Områden
 
-* Domain Driven Design
+* Domain Driven Security
+  * Takes ideas from Domain Driven Design to address security concerns.
   * Bounded Context is important
+
+* Domain Driven Design
+
 
 # Uttryck
 
