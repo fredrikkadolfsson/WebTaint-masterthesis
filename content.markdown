@@ -4,7 +4,16 @@
   * Takes ideas from Domain Driven Design to address security concerns.
   * Bounded Context is important
 
+  "Correct data treatment depending on where in the application it is located or travelling to."
+
 * Domain Driven Design
+  * Bounded Context
+  * Ubiquitous Language Continuous Integration
+  * Model-Driven Design
+  * Hands-on Modelers
+  * Refactoring Towards Deeper  Insight
+
+* XSS & SQL Injection
 
 
 # Uttryck
@@ -18,3 +27,10 @@
 
 * Bounded Context: Boundary that surrounds a particular model. Keeps the knowledge inside the boundary consistent whilst ignoring the noise from the outside world.
   * http://culttt.com/2014/11/19/bounded-contexts-context-maps-domain-driven-design/
+
+* OWASP
+  * Open Web Application Security Project
+  * Top 10 security vulnerabilities
+
+# Tidigare arbeten
+ * JONAS STENDAHL, Domain-Driven Security
