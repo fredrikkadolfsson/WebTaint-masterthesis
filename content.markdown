@@ -15,6 +15,11 @@
 
 * XSS & SQL Injection
 
+* Taint Tracking
+  * Tre steg
+    * Identify untrusted inputs, source tainting.
+    * Propagate taint.
+    * Sink verifying taint is taken care of.
 
 # Uttryck
 
@@ -31,6 +36,9 @@
 * OWASP
   * Open Web Application Security Project
   * Top 10 security vulnerabilities
+
+* Perl Taint Mode, Ruby
+  * Perl och Ruby har dynamic taint propagation implementerat.
 
 # Tidigare arbeten
  * JONAS STENDAHL, Domain-Driven Security
