@@ -44,6 +44,9 @@
  * JONAS STENDAHL, Domain-Driven Security
 
 
-# Implementation/Utförande
+# Implementation/Utförande alternativ
   * Utföra implementation med samt utan DDS
    * Gärmföra/testa skillnaderna
+   * Bör dynamic taint propagation finnas med i båda? Eller ska ett tredje fall där bara dynamic taint propagation används introduseras? 
+
+  * Implicit flow, look if dds covers it.
