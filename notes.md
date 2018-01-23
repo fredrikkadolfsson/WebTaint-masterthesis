@@ -42,3 +42,8 @@
 
 # Tidigare arbeten
  * JONAS STENDAHL, Domain-Driven Security
+
+
+# Implementation/Utförande
+  * Utföra implementation med samt utan DDS
+   * Gärmföra/testa skillnaderna
