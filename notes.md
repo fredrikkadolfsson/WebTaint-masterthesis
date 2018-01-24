@@ -1,5 +1,4 @@
 # Områden
-
 * Domain Driven Security
   * Takes ideas from Domain Driven Design to address security concerns.
   * Bounded Context is important
@@ -22,7 +21,6 @@
     * Sink verifying taint is taken care of.
 
 # Uttryck
-
 * Greenfield: Lacks any constraints imposed by prior work
 * Brownfield: Constraints imposed by prior work
   * https://stackoverflow.com/questions/1459941/what-are-greenfield-and-brownfield-applications
@@ -49,4 +47,8 @@
    * Gärmföra/testa skillnaderna
    * Bör dynamic taint propagation finnas med i båda? Eller ska ett tredje fall där bara dynamic taint propagation används introduseras? 
 
-  * Implicit flow, look if dds covers it.
+
+# KTH handledare
+  * Möte 1
+    * Implicit flow, look if DDS covers it.
+    * 
