@@ -20,6 +20,9 @@
     * Propagate taint.
     * Sink verifying taint is taken care of.
 
+* Domain Modeling
+
+
 # Uttryck
 * Greenfield: Lacks any constraints imposed by prior work
 * Brownfield: Constraints imposed by prior work
