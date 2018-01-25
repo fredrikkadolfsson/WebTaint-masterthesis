@@ -10,8 +10,11 @@
 
 
 \section{Taint Propagation}
-\subsection{Dynamic}
-\subsection{Static}
+Taint propagation, also known as taint analysis and taint checking [SOURCE NEEDED?], is a tool to analyse the flow of information in a domain. \parencite{Pan2015} It works by giving input data a tainted property which follows the data and propagate onto other data which it is in contact with. The taint property is later checked in security sensitive sinks. \parencite{Pan2015} 
+
+Perl and Ruby are two programming languages which have adapted to user dynamic taint checking. \parencite{perl, ruby} And there are some tools who enables taint checking for other languages such as TaintDroid \parencite{Ma2010} and FlexTaint \parencite{Venkataramani2008}.
+
+Two of OWASP top 10 application security risks of 2017 is Injection and Cross-Site Scripting (XSS). \parencite{OWASP2017} Protection against these two attacks are best done by validating input data which taint propagation reminds and forces the developer to do.
 
 
 \section{Domain Driven Design}
