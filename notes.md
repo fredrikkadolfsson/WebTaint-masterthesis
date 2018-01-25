@@ -51,4 +51,10 @@
 # KTH handledare
   * Möte 1
     * Implicit flow, look if DDS covers it.
-    * 
+    * Tydligt problem samt område man önskar svar på.
+    * Case att utvärdera området på.
+
+
+# Referenser
+ * reference: \parencite{Evans2015} 
+ * cite: \textcite{Evans2015}
