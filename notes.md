@@ -65,5 +65,5 @@
 
   * Omegapoint
     * Möte 1
-     * Dynamic = at runtime
+      * Dynamic = at runtime
       

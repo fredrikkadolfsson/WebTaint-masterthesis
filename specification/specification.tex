@@ -1,0 +1,106 @@
+\documentclass{../kththesis}
+\usepackage{csquotes} % Recommended by biblatex
+\usepackage{biblatex}
+
+
+\addbibresource{references.bib} % The file containing our references, in BibTeX format
+
+
+\title{Applying dynamic taint propagation in order to enforce domain driven security \\
+        \large Specification and Time Schedule}
+\alttitle{Tillämpa dynamic taint propagation för att genomdriva domändriven säkerhet}
+\author{Fredrik Adolfsson}
+\email{freado@kth.se}
+\supervisor{Musard Balliu}
+\examiner{Mads Dam}
+\programme{Master in Computer Science}
+\school{School of Computer Science and Communication}
+\date{\today}
+  
+
+\begin{document}
+
+% Frontmatter includes the titlepage, abstracts and table-of-contents
+\frontmatter
+
+
+\titlepage
+
+
+\tableofcontents
+
+
+% Mainmatter is where the actual contents of the thesis goes
+\mainmatter
+
+
+
+\chapter{Background}
+% Description of the area within which the degree project is being carried out (e.g. connection to research/development, state-of-the-art, scientific and/or societal interest).
+
+Domain Driven Security (DDS) is a methodology that can be seen as a extension to Domain Driven Design (DDD). The core concept is about the the focus on the development of the domain models  and making sure that they are correctly described and built so validation before propagation can be correctly executed.
+
+The thesis is of importance in the security field where avery step towards more secure software is something good. However, the work will gain those who practices the methodology of DDS.
+
+
+\section{Objective}
+% The principal's interest. The background of the specific assignment to be conducted. What is the desired outcome (from the principal's side and from the perspective of the degree project)
+
+The concept of DDS have been born and in development from consultants at Omegapoint. That means that everything that might validate, invalidate or evolve the mythology in any way is of interest for them. The topic for the given thesis was born and discussed at their latest internal conference. Since Omegapoint regularly offers thesis positions was this a excellent topic to offer. Except for a thesis that is of KTH's expected standard do they have a interest in seeing a prototype of a possible implementation of a dynamic taint propagation tool to support practitioners of DDS. Not ready for production but as a test to see if it could be a possibility.
+
+\chapter{Research Question \& Method}
+% The QUESTION that will be examined. Formulated as an explicit and evaluable question.
+
+How can dynamic taint propagation help a practitioner of Domain Driven Security.
+
+\section{Problem Definition}
+% (e.g. what does the assignment entail and what are the challenges involved?)
+
+The challenge is to implement as 
+
+\section{Examination Method}
+% Preliminary description of, for example, algorithms that will be tested, data that will be used.
+
+\section{Expected Scientific Results}
+% How is the work scientifically relevant and what is the hypothesis being tested? How is this hypothesis being tested?
+
+
+
+\chapter{Evaluation \& News Value}
+
+\section{Evaluation}
+% How is it determined if the objective of the degree project has been fulfilled and if the question has been adequately answered? Preliminary report on the evaluation method, measures and data.
+
+\section{Work's Innovation/News Value}
+% Why does someone want to read the finished work? And who are these people?
+
+
+
+\chapter{Pre-study}
+% What areas will the literature study focus on?
+% How shall the necessary knowledge on background and state-of-the-art be obtained?
+% What preliminarily important references have been identified
+% Description of the literature studies. What areas will the literature study focus on? How shall the necessary knowledge on background and state-of-the-art be obtained? What preliminarily important references have been identified?
+
+
+\chapter{Conditions \& Schedule}
+
+\section{Resources}
+% List of the resources expected to be needed to solve the problem (unless the degree project involves investigating what equipment should be used). This can be technical equipment, but also experiment and interview subjects.
+
+\section{Limitations}
+% Defined limitations on what is to be done (so that it is clear what is not included in the degree project)
+
+\section{Company Supervisor}
+% Describe the way in which the principal will be involved in the project and what the external supervisor has undertaken to do (e.g. in terms oef discussion, implementation, report reading).
+
+\section{Schedule}
+% Show not only the order in which elements will be performed, but also the scope of elements and when they will be performed (calendar week number or date). The schedule should contain clear intermediate goals.
+
+
+
+\printbibliography[heading=bibintoc] % Print the bibliography (and make it appear in the table of contents)
+
+\appendix
+
+\end{document}
