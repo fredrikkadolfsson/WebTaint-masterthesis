@@ -51,13 +51,19 @@
    * Bör dynamic taint propagation finnas med i båda? Eller ska ett tredje fall där bara dynamic taint propagation används introduseras? 
 
 
-# KTH handledare
-  * Möte 1
-    * Implicit flow, look if DDS covers it.
-    * Tydligt problem samt område man önskar svar på.
-    * Case att utvärdera området på.
-
-
 # Referenser
  * reference: \parencite{Evans2015} 
  * cite: \textcite{Evans2015}
+
+
+ # Handledare
+  * KTH
+    * Möte 1
+      * Implicit flow, look if DDS covers it.
+      * Tydligt problem samt område man önskar svar på.
+      * Case att utvärdera området på.
+
+  * Omegapoint
+    * Möte 1
+     * Dynamic = at runtime
+      
