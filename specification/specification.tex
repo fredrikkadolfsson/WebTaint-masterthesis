@@ -37,14 +37,17 @@
 
 \chapter{Background}
 % Description of the area within which the degree project is being carried out (e.g. connection to research/development, state-of-the-art, scientific and/or societal interest).
-Domain Driven Security (DDS) is a methodology that can be seen as a extension to Domain Driven Design (DDD). The core concept is about the focus on the development of the core domain models and making sure that they are correctly described and built so validation before propagation can be correctly executed.
+Domain Driven Security (DDS) is a methodology that can be seen as a extension to Domain Driven Design (DDD). The core concept, in simplified form, is about focusing on the development of the core domain models. By making sure that they are correctly modeled and implemented can we as well make sure that validation before propagation can be correctly executed. \parencite{evans_2015, EvansEric2004Dd:t, Wilander2009, Johnsson2009}
 
-The thesis is of importance in the security field where avery step towards more secure software is something good. However, the work will gain those who practices the methodology of DDS.
+The thesis is of importance in the security field where every step towards more secure applications is something good. However, the work will gain those who practices the methodology of DDD/DDS the most. But by making progress in the DDD/DDS field might lead to more people following the practice and therefore lead to better applications for them as well.
 
 
 \section{Objective}
 % The principal's interest. The background of the specific assignment to be conducted. What is the desired outcome (from the principal's side and from the perspective of the degree project)
-The concept of DDS have been born and in development from consultants at Omegapoint. That means that everything that might validate, invalidate or evolve the mythology in any way is of interest for them. The topic for the given thesis was born and discussed at their latest internal conference. Since Omegapoint regularly offers thesis positions was this a excellent topic to offer. Except for a thesis that is of KTH's expected standard do they have a interest in seeing a prototype of a possible implementation of a dynamic taint propagation tool to support practitioners of DDS. Not ready for production but as a test to see if it could be a possibility.
+The concept of DDS have been born and is in "development" from consultants at Omegapoint. This means that everything that might validate, invalidate or evolve the mythology in any way is of interest for them. The topic for this thesis was born and discussed at Omegapoint's latest tech talk, OP Tech Talks \parencite{Tardell}. Since Omegapoint regularly offers master thesis positions was this a excellent topic to offer.
+
+Omegapoint would like to see, except for a thesis that is of KTH's expected standard, a prototype of a possible implementation of a dynamic taint propagation tool which can support the claims in my thesis.
+
 
 
 \chapter{Research Question \& Method}
@@ -54,41 +57,51 @@ How can dynamic taint propagation help a practitioner of Domain Driven Security.
 
 \section{Problem Definition}
 % (e.g. what does the assignment entail and what are the challenges involved?)
-The first challenge is to implement the dynamic taint propagation tool. It should be sufficient for it to be a prototype and not a tool that is ready for deployment. The second challenge will be to evaluation how well the tool might help a DDS practitioner. It might be possible that it is not worth using at all because of possible overhead it might entail.
+The first challenge is to implement the dynamic taint propagation tool. It should be sufficient for it to be a prototype and not a tool that is ready for deployment. The second challenge will be to evaluation how well the tool might help a DDS practitioner. It might be possible that it is not worth using at all because of possible overhead it might entail. Questions such as accuracy, false positive, added time complexity could/should be answered.
 
 
 \section{Examination Method}
 % Preliminary description of, for example, algorithms that will be tested, data that will be used.
+A dynamic taint propagation tool will be implemented. This tool will then be used to evaluate different implementations of application, both with and without the methodology of DDD/DDS. The applications could be self written but it would also be interesting to validate, if possible, existing applications.
 
 
 \section{Expected Scientific Results}
 % How is the work scientifically relevant and what is the hypothesis being tested? How is this hypothesis being tested?
+The relevance in the report lies in the hypothesis that Domain Driven Design can be used to develope complex and secure software. Which is currently discussed and "developed" by consultants at Omegapoint. The hypothesis is that we can help in the process but the question is with how much and if there are negative side effects. 
+
 
 
 \chapter{Evaluation \& News Value}
 \section{Evaluation}
 % How is it determined if the objective of the degree project has been fulfilled and if the question has been adequately answered? Preliminary report on the evaluation method, measures and data.
+The value of the the implemented tool should be discussed and possible compared with similar tools. The research questions should as well have been answered and discussed in relation to the results.
 
 
 \section{Work's Innovation/News Value}
 % Why does someone want to read the finished work? And who are these people?
+The work will be of interest for practitioners of Domain Driven Design. Where they might be interested to use the tool to secure that the development of their applications is done correctly. It might also be of value to individuals who want to enhance the security of their application but not certain how. The tool will hopefully bring them over to develope software with Domain Driven Design methodology in mind.
+
 
 
 \chapter{Pre-study}
 % What areas will the literature study focus on?
 % How shall the necessary knowledge on background and state-of-the-art be obtained?
-% What preliminarily important references have been identified
+% What preliminarily important references have been identified?
 % Description of the literature studies. What areas will the literature study focus on? How shall the necessary knowledge on background and state-of-the-art be obtained? What preliminarily important references have been identified?
-The literature study will focus on taint propagation and domain driven design/security and what they are all about. Research into JVM modifications must also be included since it is needed for the implementation of the dynamic taint propagation tool. The information will be obtained by researching for relevant books, reports and other relevant material. Two of the founders of the concept of Domain Driven Security work at Omegapoint and are accessible for questions.
+The literature study will focus on taint propagation, DDD/DDS and what they are all about. Research into JVM modifications must also be included since it is needed for the implementation of the dynamic taint propagation tool. The information will be obtained by researching for relevant books, reports and other possible material. Two of the founders of the concept of Domain Driven Security work at Omegapoint and are accessible for questions. Conduction interviews with the founders might be of interest.
+
+
 
 \chapter{Conditions \& Schedule}
 \section{Resources}
 % List of the resources expected to be needed to solve the problem (unless the degree project involves investigating what equipment should be used). This can be technical equipment, but also experiment and interview subjects.
-No special equipment is needed for the project. But depending on the direction of the thesis might a, or more, already existing program implemented on the JVM be needed. They can be used to evaluate the dynamic taint propagation tool to see if we can find vulnerabilities in them.
+No special equipment is needed for the project. But to save some time will the development of the dynamic taint propagation tool continue on the work that Simon Tardell have started. But depending on the direction of the thesis might a, or more, already existing program implemented on the JVM be needed. They can be used to evaluate the dynamic taint propagation tool to see if we can find vulnerabilities in them.
+
 
 \section{Limitations}
 % Defined limitations on what is to be done (so that it is clear what is not included in the degree project)
-The dynamic taint propagation shall not be a production ready tool. It should be a proof of concept.
+The dynamic taint propagation tool is to backup the report and dose not have to be a production ready tool. It should be a proof of concept. 
+
 
 \section{Company Supervisor}
 % Describe the way in which the principal will be involved in the project and what the external supervisor has undertaken to do (e.g. in terms oef discussion, implementation, report reading).
@@ -100,10 +113,10 @@ The dynamic taint propagation shall not be a production ready tool. It should be
 
 \section{Time Plan}
 % Show not only the order in which elements will be performed, but also the scope of elements and when they will be performed (calendar week number or date). The schedule should contain clear intermediate goals.
-Below is my time plan for the Masters Thesis. The goal is to continuously, trough out all the phases, add to the report. But I've also reserved a couple of weeks in the end for writing the report. I believe that this time can be used to polish the report and rewrite sections if needed.  \\ \\
+Below is my time plan for the Masters Thesis. The goal is to continuously, trough out all the phases, add to the report. But I've also reserved a couple of weeks in the end for writing the report. I believe that this time can be used to add to, rewrite sections if needed.  \\ \\
 
 \begin{ganttchart}[vgrid, hgrid, today=2]{1}{20}
-        \gantttitle{Maste Thesis Time Plan (Weeks)}{20} \\
+	\gantttitle{Maste Thesis Time Plan (Weeks)}{20} \\
 	\gantttitlelist{1,...,20}{1}\\
 	\ganttbar{Start-Up}{1}{3} \\
 	\ganttbar{Literature Study}{4}{6} \\
