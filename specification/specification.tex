@@ -39,6 +39,8 @@
 % Description of the area within which the degree project is being carried out (e.g. connection to research/development, state-of-the-art, scientific and/or societal interest).
 Domain Driven Security (DDS) is a methodology that can be seen as a extension to Domain Driven Design (DDD). The core concept, in simplified form, is about focusing on the development of the core domain models. By making sure that they are correctly modeled and implemented can we as well make sure that validation before propagation can be correctly executed. \parencite{evans_2015, EvansEric2004Dd:t, Wilander2009, Johnsson2009}
 
+A functionality that is tightly built around correctly validated objects that some developers and some programming languages even have incorporated into their language is taint checking. \parencite{perl, ruby, Clause2007} This thesis will look at the possibility to apply the later to enforce the programming paradigm of DDS.
+
 The thesis is of importance in the security field where every step towards more secure applications is something good. However, the work will gain those who practices the methodology of DDD/DDS the most. But by making progress in the DDD/DDS field might lead to more people following the practice and therefore lead to better applications for them as well.
 
 
@@ -46,40 +48,40 @@ The thesis is of importance in the security field where every step towards more 
 % The principal's interest. The background of the specific assignment to be conducted. What is the desired outcome (from the principal's side and from the perspective of the degree project)
 The concept of DDS have been born and is in "development" from consultants at Omegapoint. This means that everything that might validate, invalidate or evolve the mythology in any way is of interest for them. The topic for this thesis was born and discussed at Omegapoint's latest tech talk, OP Tech Talks \parencite{Tardell}. Since Omegapoint regularly offers master thesis positions was this a excellent topic to offer.
 
-Omegapoint would like to see, except for a thesis that is of KTH's expected standard, a prototype of a possible implementation of a dynamic taint propagation tool which can support the claims in my thesis.
+Omegapoint would like to see, except for a thesis that is of KTH's expected standard, a prototype of a possible implementation of a dynamic taint propagation tool, including well thought detainting rules, which can support the claims in the thesis.
 
 
 
 \chapter{Research Question \& Method}
 % The QUESTION that will be examined. Formulated as an explicit and evaluable question.
-How can dynamic taint propagation help a practitioner of Domain Driven Security.
+How can dynamic taint propagation help a practitioner of Domain Driven Security and cant it enforce others to follow the security paradigm of Domain Driven Security.
 
 
 \section{Problem Definition}
 % (e.g. what does the assignment entail and what are the challenges involved?)
-The first challenge is to implement the dynamic taint propagation tool. It should be sufficient for it to be a prototype and not a tool that is ready for deployment. The second challenge will be to evaluation how well the tool might help a DDS practitioner. It might be possible that it is not worth using at all because of possible overhead it might entail. Questions such as accuracy, false positive, added time complexity could/should be answered.
+The first challenge is to implement the dynamic taint propagation tool. It should be sufficient for it to be a prototype and not a tool that is ready for deployment. The implementation also includes a evaluation about how detainting should be handled and executed. The second challenge will be to evaluation how well the tool might help a DDS practitioner. It might be possible that it is not worth using at all because of possible overhead it might entail. Questions such as if it effect of preventing security flaws, false positive and added time complexity should be answered.
 
 
 \section{Examination Method}
 % Preliminary description of, for example, algorithms that will be tested, data that will be used.
-A dynamic taint propagation tool will be implemented. This tool will then be used to evaluate different implementations of application, both with and without the methodology of DDD/DDS. The applications could be self written but it would also be interesting to validate, if possible, existing applications.
+A dynamic taint propagation tool will be implemented and logic for detainting needs to be evaluated and developed. This tool will then be used to evaluate different implementations of application, both with and without the methodology of DDD/DDS. The applications could be self written but it would also be interesting to validate, if possible, existing applications.
 
 
 \section{Expected Scientific Results}
 % How is the work scientifically relevant and what is the hypothesis being tested? How is this hypothesis being tested?
-The relevance in the report lies in the hypothesis that Domain Driven Design can be used to develope complex and secure software. Which is currently discussed and "developed" by consultants at Omegapoint. The hypothesis is that we can help in the process but the question is with how much and if there are negative side effects. 
+The relevance in the report lies in the hypothesis that Domain Driven Design can be used to develope complex and secure software. Which is currently discussed and "developed" by consultants at Omegapoint. Then by enforcing users to follow the security paradigm trough usage of dynamic taint propagation will the security level of applications increase. The hypothesis is that we can help in the process of enforcing more secure software. But the question is with how much and if there are negative side effects.
 
 
 
 \chapter{Evaluation \& News Value}
 \section{Evaluation}
 % How is it determined if the objective of the degree project has been fulfilled and if the question has been adequately answered? Preliminary report on the evaluation method, measures and data.
-The value of the the implemented tool should be discussed and possible compared with similar tools. The research questions should as well have been answered and discussed in relation to the results.
+The value of the the implemented tool should be discussed and possible compared with similar tools. The research questions should as well have been answered and discussed in relation to the results. The evaluation will be based variables such as the possible increased security gained trough increase preventions of Injection Attacks and Cross-Site Scripting. But also on if there is extra work and complexity added to the work of the developer.
 
 
 \section{Work's Innovation/News Value}
 % Why does someone want to read the finished work? And who are these people?
-The work will be of interest for practitioners of Domain Driven Design. Where they might be interested to use the tool to secure that the development of their applications is done correctly. It might also be of value to individuals who want to enhance the security of their application but not certain how. The tool will hopefully bring them over to develope software with Domain Driven Design methodology in mind.
+The work should be of interest for anyone wanting to see a gain in security. The core idea is to enforce more secure software trough dynamic taint checking and Domain Driven Design. However, practitioners of DDD/DDS might find it more interesting since it addresses the use of DDS.
 
 
 
