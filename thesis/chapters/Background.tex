@@ -1,8 +1,13 @@
 \chapter{Background}
-One of the greatest problems, but in the same time greatest strength, with deploying applications as a web applications is that they are accessible from everywhere where there exists internet access. This makes the application also easily accessible for people who whishes to harm or abuse the application. Two of the more common security risks are Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw} These two attacks will be described in this chapter. But to understand the security risks do we first need to understand how a web application work.
+One of the greatest problems, but in the same time greatest strength, with deploying applications on the web is that they are accessible from everywhere where there exists internet access. This means that they are also easily accessible for people who whishes to harm or abuse the application. Two of the more common security risks for a web application is Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}
 
-The most common architectural design for a web application is based on three tires. The first is the presentation tire which is the visual components often rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third tier is the storage tier, where the second tier can store data as needed. \parencite{JustinClarke-Salt2009SIAa}
 
+\section{Web Application}
+The most common architectural design for a web application is based on three tires. The first is the presentation tire which is the visual components rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third is the storage tier, where the second tier can store data as needed. \parencite{JustinClarke-Salt2009SIAa} 
+
+\textbf{LÄGG TILL BILD PÅ STRUKTUREN}
+
+As can be seen in picture \textbf{BILD} dose the tires only communicate with the tire closest to itself. This causes the second tire to become a safe guard for the tire three where the valuable information for a attacker lies. The storage tier contains all the information the application needs to provide the wanted service. Such information might for example be name, email, personal number and credit card information. \parencite{JustinClarke-Salt2009SIAa}
 
 \section{Security Vulnerabilities}
 The organization Open Web Applications Security Project, mostly known for its shortening (OWASP), is a online community which aim to help to secure web applications. \parencite{OpenWebApplicationSecurityProject} OWASP produces a report about the top 10 security risks with a web application. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. \parencite{OWASP2017} This report will look at the number one and eight security risks of 2017 which is injection attacks and cross-site scripting. \parencite{OWASP2017}
@@ -15,7 +20,7 @@ There is two kinds of different Injection Attacks. These two are SQL Injection a
 
 
 \subsubsection{SQL Injection}
-SQL Injection is when a SQL query is tampered with which then results in gaining data from the database which were not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays a possible SQL Query which is open to SQL Injections. This is due to the fact that the variable UserId is never validated before it is being used to query the database.
+SQL Injection is when a SQL query is tampered with which then results in gaining data from the database which were not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays a possible SQL Query which is open to SQL Injections. This is due to the fact that the variable UserId is never validated before it is being used to query the database. \parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
 
 \hfill
 \begin{lstlisting}[
@@ -64,7 +69,9 @@ db.Execute(sqlQuery, userId)
 \end{lstlisting}
 \hfill
 
+
 \subsubsection{Blind SQL Injection}
+Blind SQL Injection is very similar to SQL Injection. The only difference is that that attacker dose not receive the wanted information from the database. The information is instead received by monitoring variables such as how long time the response took or what kind of error messages it returns. A example of the first is to tell the server to sleep depending on a condition. The second is by analyzing the error messages and depending on what they return build a image off the wanted answer. \parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
 
 
 \subsection{Cross-site Scripting}
