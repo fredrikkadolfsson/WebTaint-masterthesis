@@ -1,5 +1,7 @@
 \chapter{Background}
-One of the greatest problems with deploying applications as a web applications is that it is accessible by everyone. This causes multiple security issues where two examples are Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw} The most common architectural design for a web application is based on three tires. The first is the presentation tire which is the visual components often rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third tier is the storage tier, where the second tier can store data as needed. \parencite{JustinClarke-Salt2009SIAa}
+One of the greatest problems, but in the same time greatest strength, with deploying applications as a web applications is that they are accessible from everywhere where there exists internet access. This makes the application also easily accessible for people who whishes to harm or abuse the application. Two of the more common security risks are Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw} These two attacks will be described in this chapter. But to understand the security risks do we first need to understand how a web application work.
+
+The most common architectural design for a web application is based on three tires. The first is the presentation tire which is the visual components often rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third tier is the storage tier, where the second tier can store data as needed. \parencite{JustinClarke-Salt2009SIAa}
 
 
 \section{Security Vulnerabilities}
@@ -14,8 +16,6 @@ There is two kinds of different Injection Attacks. These two are SQL Injection a
 
 \subsubsection{SQL Injection}
 SQL Injection is when a SQL query is tampered with which then results in gaining data from the database which were not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays a possible SQL Query which is open to SQL Injections. This is due to the fact that the variable UserId is never validated before it is being used to query the database.
-
-
 
 \hfill
 \begin{lstlisting}[
