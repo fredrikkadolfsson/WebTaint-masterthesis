@@ -1,8 +1,9 @@
 \chapter{Background}
+One of the greatest problems with deploying applications as a web applications is that it is accessible by everyone. This causes multiple security issues where two examples are Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw} The most common architectural design for a web application is based on three tires. The first is the presentation tire which is the visual components often rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third tier is the storage tier, where the second tier can store data as needed. \parencite{JustinClarke-Salt2009SIAa}
 
 
 \section{Security Vulnerabilities}
-The organization Open Web Applications Security Project, mostly known for its shortening (OWASP) \parencite{OpenWebApplicationSecurityProject}, produces yearly a top 10 security risks. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. \parencite{OWASP2017} This report will look at the number one and eight security risks of 2017 which is injection attacks and cross-site scripting. \parencite{OWASP2017}
+The organization Open Web Applications Security Project, mostly known for its shortening (OWASP), is a online community which aim to help to secure web applications. \parencite{OpenWebApplicationSecurityProject} OWASP produces a report about the top 10 security risks with a web application. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. \parencite{OWASP2017} This report will look at the number one and eight security risks of 2017 which is injection attacks and cross-site scripting. \parencite{OWASP2017}
 
 
 \subsection{Injection}
@@ -12,30 +13,56 @@ There is two kinds of different Injection Attacks. These two are SQL Injection a
 
 
 \subsubsection{SQL Injection}
-SQL Injection is when a SQL query is tampered with which then results in gaining data from the database which were not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays a possible SQL Query which is open to SQL Injections. This is due to the fact that the variable UserId is never validated before it is being used to query the database. 
+SQL Injection is when a SQL query is tampered with which then results in gaining data from the database which were not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays a possible SQL Query which is open to SQL Injections. This is due to the fact that the variable UserId is never validated before it is being used to query the database.
+
+
 
 \hfill
 \begin{lstlisting}[
-	language=SQL, 
-	caption=Code Acceptable to SQL Injection,
-	label={lst:acceptable_to_SQL_Injection}]
-UserId = (*@\textit{userInput}@*)
-"SELECT * FROM Users WHERE UserId = " + UserId;
+  language=SQL,
+  caption=Code Acceptable to SQL Injection,
+  label={lst:acceptable_to_SQL_Injection}]
+userId = (*@\textit{userInput}@*)
+"SELECT * FROM Users WHERE userId = " + userId
 \end{lstlisting}
 \hfill
 
-The query will work as intended as long as the user input, notated with \textit{userInput}, only is a user id. But what happens if the user input is \textit{10 or 1 = 1}? This user input would result in the query seen in listing \ref{lst:SQL_Injection}
+The query will work as intended as long as the user input, notated with \textit{userInput}, only is a user id. But what happens if the user input is \textit{10 or 1 = 1}? This user input would result in the query seen in listing \ref{lst:SQL_Injection}.
 
 \hfill
 \begin{lstlisting}[
-	language=SQL, 
-	caption=SQL Injection,
-	label={lst:SQL_Injection}]
-SELECT * FROM Users WHERE UserId = 10 or 1 = 1;
+  language=SQL,
+  caption=SQL Injection,
+  label={lst:SQL_Injection}]
+SELECT * FROM Users WHERE userId = 10 or 1 = 1
 \end{lstlisting}
 \hfill
 
-This query would result in that the database returns the whole table of users sins the second or parameter is always true. This problem can easily be prevented by validating the variable UserId and making sure that it is only a Integer and never something else.
+This query would result in that the database returns the whole table of users sins the second or parameter is always true. This problem can be prevented in a couple of different ways. The first is trough validation of the input. In our example do we expect the input to be a Integer. By verifying that the input as seen in listing \ref{lst:SQL_Injection_Verified} can we protect the query from being injected with unwanted commands.
+
+\hfill
+\begin{lstlisting}[
+  language=SQL,
+  caption=Preventing SQL Injection trough Verification,
+  label={lst:SQL_Injection_Verified}]
+userId = (*@\textit{userInput}@*)
+isInteger(userId)
+"SELECT * FROM Users WHERE userId = " + userId
+\end{lstlisting}
+\hfill
+
+A second more common alternative is to use SQL Parameters which handles the verification for the user. This leaves the verification and validation of input up to the SQL engine. Our example written with SQL Parameters can be seen in listing \ref{lst:SQL_Injection_Parameters}.
+
+\hfill
+\begin{lstlisting}[
+  language=SQL,
+  caption=Preventing SQL Injection trough SQL Parameters,
+  label={lst:SQL_Injection_Parameters}]
+userId = (*@\textit{userInput}@*)
+sqlQuery = "SELECT * FROM Users WHERE userId = @0"
+db.Execute(sqlQuery, userId)
+\end{lstlisting}
+\hfill
 
 \subsubsection{Blind SQL Injection}
 
@@ -55,9 +82,9 @@ Two of OWASP top 10 application security risks of 2017 is Injection and Cross-Si
 There exists a plethora of tools who aim to help in the process of developing complex domain models, but Domain Driven Design (DDD) is not one if them. \parencite{Bankes, 10.1007/978-3-319-24309-2_33} DDD is more of a thought process and methodology to follow every step of the process. \parencite{EvansEric2004Dd:t} In \emph{Domain-driven design reference: definitions and patterns summaries} do \textcite{evans_2015} describe DDD trough three core ideas:
 
 \begin{itemize}
-	\item Focus on the core domain.
-	\item Explore models in a creative collaboration of domain practitioners and software practitioners.
-	\item Speak a ubiquitous language within an explicitly bounded context.
+  \item Focus on the core domain.
+  \item Explore models in a creative collaboration of domain practitioners and software practitioners.
+  \item Speak a ubiquitous language within an explicitly bounded context.
 \end{itemize}
 
 The core domain is the part of your product that is most important and often is your main selling point compared to other similar products. \parencite{millett_2015} A discussion and even possible a documentation describing the core domain is something that will help the development of the product. The idea is to keep everybody on the same track heading in the same direction. \parencite{EvansEric2004Dd:t}
