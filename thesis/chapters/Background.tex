@@ -1,5 +1,5 @@
 \chapter{Background}
-
+This Chapter will present some background knowledge with needed information to comprehend the chapters that follow. The chapters starts with a generally description about how a web application work which then is followed by two of the most common security vulnerabilities to a web application. After that is the two recourses Dynamic Taint Propagation and Domain Driven Security introduced.
 
 
 \section{Web Application}
@@ -88,7 +88,7 @@ The second variant of Blind SQL Injection is by analyzing the error messages and
 \subsection{Cross-site Scripting}
 
 
-\section{Taint Propagation}
+\section{Dynamic Taint Propagation}
 Taint propagation, also known as taint analysis and taint checking [SOURCE NEEDED?], is a tool to analyse the flow of information in a domain. \parencite{Pan2015} It works by giving input data a tainted property which follows the data and propagate onto other data which it is in contact with. The taint property is later checked in security sensitive sinks. \parencite{Pan2015}
 
 Perl and Ruby are two programming languages which have adapted to user dynamic taint checking. \parencite{perl, ruby} And there are some tools who enables taint checking for other languages such as TaintDroid \parencite{Ma2010} and FlexTaint \parencite{Venkataramani2008}.
@@ -96,7 +96,7 @@ Perl and Ruby are two programming languages which have adapted to user dynamic t
 Two of OWASP top 10 application security risks of 2017 is Injection and Cross-Site Scripting (XSS). \parencite{OWASP2017} Protection against these two attacks are best done by validating input data which taint propagation reminds and forces the developer to do.
 
 
-\section{Domain Driven Design}
+\section{Domain Driven Security}
 There exists a plethora of tools who aim to help in the process of developing complex domain models, but Domain Driven Design (DDD) is not one if them. \parencite{Bankes, 10.1007/978-3-319-24309-2_33} DDD is more of a thought process and methodology to follow every step of the process. \parencite{EvansEric2004Dd:t} In \emph{Domain-driven design reference: definitions and patterns summaries} do \textcite{evans_2015} describe DDD trough three core ideas:
 
 \begin{itemize}
@@ -111,6 +111,4 @@ The second idea is to explore and develop every model in collaboration between d
 
 \textcite{evans_2015} do as well argue about the weight of clearly defining the bounded contexts for each defined model, and this needs to be done in the ubiquitous language created for the specific product. The need of this exists because of the otherwise great risk of misunderstandings and erroneous assumptions in the collaborations between the different models. \parencite{millett_2015}
 
-
-\subsection{Domain Driven Security}
 \textcite{Wilander2009, Johnsson2009} created 2009 a blog post each in a synchronous manner where they together introduces the concept of Domain Driven Security (DDS) to the public. They describe DDS as the intersection between Domain Driven Deign (DDD) and application security. DDD is about developing complex domain models and one of the most basic rule of application security is to always validate input data. DDS in other hand, is about the importance of creating and maintaining domain models who are reflecting the product correctly and they are validated so they cant be populated with erroneous data. \parencite{Wilander2009, Johnsson2009, Arnor2016, Stendahl2016}
