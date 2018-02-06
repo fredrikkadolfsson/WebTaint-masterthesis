@@ -1,20 +1,37 @@
 \chapter{Introduction}
+One of the greatest problems, but in the same time greatest strength, with deploying applications on the web is that they are accessible from everywhere where there exists a internet access. This means that they are also easily accessible for people who whishes to harm or abuse the application. Two of the more common security risks for a web application is Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}
+
+To prevent accidentally introducing security flaws in the application have a variety of tools and methodologies been created. One of these is the Domain Driven Security which aim to secure the secure the application by focusing on the core domain models and making certain that validation of the value object is correct. Another example, which is a tool, is Dynamic Taint Analysis which marks input from the user with a taint value. This taint value follows the input trough out the system and propagates into the other values it comes in contact with. The taint value is later checked in sinks and execution is halted if a tainted variable tries to access certain sensitive areas of code.
+
 
 \section{Problem}
+The big question is if we can combine Dynamic Taint Propagation and Domain Driven Security and therefor creating a safer environment for the developer. Where it is harder to accidentally introducing security flaws. 
+
+
 \section{Aim}
+The aim of this thesis is to evaluate if we can enforce users of dynamic taint propagation to follow the programing paradigm Domain Driven Design. This will hopefully result in a resource which helps developers to create more secure applications.
+
+
 \section{Definitions}
+Trough out this thesis will a consistent terminology be used. Some terms might be new or it might just be able to use it in different ways. To remove confusion will a list of definitions be introduced in this section.
+
+\begin{definition}{Application} 
+	is used to denote a computer program witch is design constructed to solve one or more tasks for the user.
+\end{definition}
+
 \begin{definition}{Domain}
-	
+	% Information sida 67 Secure by Design	
+	is explained in \textbf{Secure By Design REFERENS!!!} as part of the real world where something happens.
 \end{definition}
 
 \begin{definition}{Domain Model}
-	% kolla sida 67 Secure by Design
+	% Information sida 67 Secure by Design	
+	is a fraction of the domain where each model have a specific meaning.
 \end{definition}
 
-\begin{definition}{Value Object}
-	% kolla sida 67 Secure by Design	
-\end{definition}
 
 \section{Delimitations}
-% Only wep applications
+One delimitation taken in the thesis is to ony focus on web application when evaluating and discussing Domain Driven Security and Dynamic Taint Propagation. The subject could be expanded to a brother range of plattforms but to keep the focus have the decision been made.
+
+
 \section{Methodology}
