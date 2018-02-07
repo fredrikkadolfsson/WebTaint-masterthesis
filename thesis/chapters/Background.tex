@@ -87,7 +87,11 @@ The second variant of Blind SQL Injection is by analyzing the error messages and
 
 
 \subsection{Cross-site Scripting}
-Cross-Site Scripting have been a vulnerability since the beginning of the internet. \parencite{FogieSeth2007Xacs}
+Cross-Site Scripting (XSS) have been a vulnerability since the beginning of the internet. One of the first XSS attacks created just after the release of JavaScript. The attack was passible by loading another website into a frame on the site that the attacker controls. The attacker could then trough JavaScript access any content that is visible or typed into the loaded frame. To prevent this from being possible were the standard of Same-Origin Policy which restricted JavaScript to only access content on it's own origin. \parencite{FogieSeth2007Xacs, w3csop}
+
+But the introduction of the Same-Origin Policy did not stop the attackers from preforming XSS attacks. The next wave of attacks were mostly towards chat roms where it was possible to inject JavaScript tags into the input of the message. Which would then later be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy. \parencite{FogieSeth2007Xacs}
+
+\textbf{Reflected vs Persistent}
 
 
 \section{Dynamic Taint Propagation}
