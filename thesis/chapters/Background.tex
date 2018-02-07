@@ -71,7 +71,7 @@ db.Execute(sqlQuery, userId)
 
 
 \subsubsection{Blind SQL Injection}
-Blind SQL Injection is very similar to SQL Injection. The only difference is that that attacker dose not receive the wanted information from the database. The information is instead received by monitoring variables such as how long time the response took or what kind of error messages it returns. A example of the first is to create a Blind SQL Injection where the query tells the SQL engine to sleep depending on a condition a example of thid can be seen in listing \ref{lst:Blind_SQL_Injection_Time}. \parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
+Blind SQL Injection is very similar to SQL Injection. The only difference is that that attacker dose not receive the wanted information from the database. The information is instead received by monitoring variables such as how long time the response took or what kind of error messages it returns. A example of the first is to create a Blind SQL Injection where the query tells the SQL engine to sleep depending on a condition a example of this can be seen in listing \ref{lst:Blind_SQL_Injection_Time}. \parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
 
 \hfill
 \begin{lstlisting}[
@@ -85,7 +85,9 @@ SELECT * FROM Users WHERE userId = 1 WAITFOR DELAY '0:0:5'
 
 The second variant of Blind SQL Injection is by analyzing the error messages and depending on what they return build a image off the wanted answer. \parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
 
+
 \subsection{Cross-site Scripting}
+Cross-Site Scripting have been a vulnerability since the beginning of the internet. \parencite{FogieSeth2007Xacs}
 
 
 \section{Dynamic Taint Propagation}
