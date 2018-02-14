@@ -1,7 +1,12 @@
 \chapter{Introduction}
-One of the greatest problems, but in the same time greatest strength, with deploying applications on the web is that they are accessible from everywhere where there exists a internet access. This means that they are also easily accessible for people who whishes to harm or abuse the application. Two of the more common security risks for a web application is Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}
+% Frågeställningen är lätt att identifiera, projektets syfte och mål är tydliga.
+% Problemet (och studentens bidrag) är tydligt avgränsat, dess relevans är motiverad och satt i ett sammanhang.
+One of the greatest strengths with deploying applications on the World Wide Web (web) is that they are accessible from everywhere where there exists a internet access. This is sadly one of its greatest weaknesses as well. The application is easily accessible for people who whishes to harm or abuse the application. Among the number of security risks that a application is vulnerable to is two of the more common Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}
 
-To prevent accidentally introducing security flaws in the application have a variety of tools and methodologies been created. One of these is the Domain Driven Security which aim to secure the secure the application by focusing on the core domain models and making certain that validation of the value object is correct. Another example, which is a tool, is Dynamic Taint Analysis which marks input from the user with a taint value. This taint value follows the input trough out the system and propagates into the other values it comes in contact with. The taint value is later checked in sinks and execution is halted if a tainted variable tries to access certain sensitive areas of code.
+To minimize the risk of accidentally introducing security flaws in to the application have a variety of tools and methodologies been created. One of these is the programming paradigm called Domain Driven Security which aim to secure applications by focusing on the core domain models and making certain that validation of the value object is correct. Another example is Dynamic Taint Analysis which marks input from the user with a taint value. This taint value follows the input trough out the system and propagates into the other values it comes in contact with. The taint value is later checked in sensitive areas and execution is halted if a tainted variable is detected in the sensitive area. 
+
+In the following section of the chapter will aim to specify the why and how the thesis is written. It starts with a description of the \textit{Problem} followed by explanation of the thesis \textit{Aim}. These two sections is then followed by a \textit{Definitions} and a \textit{Delimitations}
+
 
 
 \section{Problem}
@@ -31,7 +36,7 @@ Trough out this thesis will a consistent terminology be used. Some terms might b
 
 
 \section{Delimitations}
-One delimitation taken in the thesis is to ony focus on web application when evaluating and discussing Domain Driven Security and Dynamic Taint Propagation. The subject could be expanded to a brother range of plattforms but to keep the focus have the decision been made.
+One delimitation taken in the thesis is to ony focus on web application when evaluating and discussing Domain Driven Security and Dynamic Taint Propagation. The subject could be expanded to a brother range of platforms but to keep the focus have the decision been made.
 
 
 \section{Methodology}
