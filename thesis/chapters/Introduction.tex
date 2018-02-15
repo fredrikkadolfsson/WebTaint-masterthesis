@@ -3,13 +3,13 @@
 % Problemet (och studentens bidrag) är tydligt avgränsat, dess relevans är motiverad och satt i ett sammanhang.
 One of the greatest strengths with deploying applications on the World Wide Web (web) is that they are accessible from everywhere where there exists a internet access. This is sadly one of its greatest weaknesses as well. The applications is easily accessible for people who whishes to abuse or cause them harm. Among the number of security risks that a web application is vulnerable to is two of the more common Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}
 
-To minimize the risk of accidentally introducing security flaws in to the application have a variety of tools and methodologies been created. One of these is the programming paradigm called Domain Driven Security which aim to secure applications by focusing on the core domain models and making certain that validation of the value object is correct. \parencite{sbd2018, Wilander2009, Johnsson2009} Another example is Dynamic Taint Analysis which marks input from the user as tainted trough a taint variable attached to the input. This taint variable follows the input trough out the system and propagates into the other variables it comes in contact with. The taint value is later checked in sensitive areas trough something called sinks. Execution is halted if a tainted variable is detected trying to enter the sensitive area trough the sink. \parencite{Pan2015, Venkataramani2008}
+To minimize the risk of accidentally introducing security flaws in to the application have a variety of tools and methodologies been created. One of these is the programming paradigm called Domain Driven Security which aim to secure applications by focusing on the core domain models and making certain that validation of the value object is correct. \parencite{sbd2018, Wilander2009, Johnsson2009} Another example is Dynamic Taint Analysis which marks input from the user as tainted through a taint variable attached to the input. This taint variable follows the input throughout the system and propagates onto the other variables it comes in contact with. The taint value is later checked in sensitive areas through something called sinks. Execution is halted if a tainted variable is detected trying to enter the sensitive area through the sink. \parencite{Pan2015, Venkataramani2008}
 
 The following sections of the chapter will aim to specify the why and how behind the conduction of the thesis. It starts with a section of \textit{Definitions} followed by description of the \textit{Problem} and explanation of the \textit{Aim} of the thesis. These sections is then followed by a \textit{Delimitations} section and then lastly is there a section about \textit{Methodology} behind the thesis execution.
 
 
 \section{Definitions}
-Trough out this thesis will a consistent terminology be used. Some terms might be new or it might just be able to use it in different ways. To remove confusion will a list of definitions be introduced in this section.
+throughout this thesis will a consistent terminology be used. Some terms might be new or it might just be able to use it in different ways. To remove confusion will a list of definitions be introduced in this section.
 
 \begin{definition}{Application} 
 	is used to denote a computer process witch is constructed to solve one or more tasks for the user.
@@ -31,7 +31,7 @@ Trough out this thesis will a consistent terminology be used. Some terms might b
 
 
 \section{Problem}
-Is it possible to enforce the programming paradigm Domain Driven Security trough Dynamic Taint Propagation. What drawbacks and advantages would there be.  
+Is it possible to enforce the programming paradigm Domain Driven Security through Dynamic Taint Propagation. What drawbacks and advantages would there be.  
 
 
 \section{Aim}

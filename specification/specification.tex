@@ -37,9 +37,11 @@
 
 \chapter{Background}
 % Description of the area within which the degree project is being carried out (e.g. connection to research/development, state-of-the-art, scientific and/or societal interest).
-Domain Driven Security (DDS) is a methodology that is as a extension to Domain Driven Design (DDD). The core concept, in simplified form, is about focusing on the development of the core domain models. By making sure that they are correctly modeled and implemented can we make sure that validation before propagating data into vulnerable parts of the system such as the database can be correctly executed. \parencite{evans_2015, EvansEric2004Dd:t, Wilander2009, Johnsson2009}
+Domain Driven Security (DDS) is a methodology that is as a extension to Domain Driven Design (DDD). The core concept, in simplified form, is about focusing on the development of the core domain models. By making sure that they are correctly modeled and implemented can we make sure that validation before propagating data into vulnerable parts of the system, such as the database, can be correctly executed. \parencite{evans_2015, EvansEric2004Dd:t, Wilander2009, Johnsson2009}
 
-A functionality that is tightly built around correctly validated objects, that some developers and even some programming languages have incorporated, is taint checking. \parencite{perl, ruby, Clause2007} A form of taint checking is dynamic taint propagation. Which means that the taint checking is executed and handled in runtime. The goal of this thesis is to evaluate and benchmark how well an implementation of dynamic taint propagation can help and ensure protection from injection attacks by enforcing the use of DDS. 
+A functionality that is tightly built around correctly validated objects, that some developers and even some programming languages have incorporated, is taint checking. \parencite{perl, ruby, Clause2007} A form of taint checking is Dynamic Taint Propagation. Dynamic Taint Propagation works by marking input from the user as tainted through a taint variable attached to the input. This taint variable follows the user input throughout the system and propagates onto the other variables it comes in contact with. The taint value is later checked in sensitive areas through something called sinks. Execution is halted if a tainted variable is detected trying to enter the sensitive area through the sink. \parencite{Pan2015, Venkataramani2008}
+
+The goal of this thesis is to evaluate and benchmark how well an implementation of dynamic taint propagation can help and ensure protection from injection attacks by enforcing the use of DDS. 
 
 
 \section{Objective}
@@ -73,19 +75,19 @@ A dynamic taint propagation tool will be implemented and logic for detainting ne
 
 \section{Expected Scientific Results}
 % How is the work scientifically relevant and what is the hypothesis being tested? How is this hypothesis being tested?
-The relevance in the report lies in the hypothesis that Domain Driven Design can be used to develope complex and secure software. Which is currently discussed and developed by consultants at Omegapoint. Then by enforcing users to follow the security paradigm trough usage of dynamic taint propagation will lead to more security applications. The hypothesis is that we can help in the process of enforcing more secure software. But the question is with how much and if there are negative side effects such as to much overhead to the runtime.
+The relevance in the report lies in the hypothesis that Domain Driven Design can be used to develope complex and secure software. Which is currently discussed and developed by consultants at Omegapoint. Then by enforcing users to follow the security paradigm through usage of dynamic taint propagation will lead to more security applications. The hypothesis is that we can help in the process of enforcing more secure software. But the question is with how much and if there are negative side effects such as to much overhead to the runtime.
 
 
 
 \chapter{Evaluation \& News Value}
 \section{Evaluation}
 % How is it determined if the objective of the degree project has been fulfilled and if the question has been adequately answered? Preliminary report on the evaluation method, measures and data.
-The value of the the implemented tool should be discussed and evaluated. The research questions should as well have been discussed in relation to the results. The evaluation will be based on variables such as the possible increased security gained trough increased prevention of Injection Attacks and Cross-Site Scripting. But also if there is extra work and complexity added to the work of the developer or the applications runtime.
+The value of the the implemented tool should be discussed and evaluated. The research questions should as well have been discussed in relation to the results. The evaluation will be based on variables such as the possible increased security gained through increased prevention of Injection Attacks and Cross-Site Scripting. But also if there is extra work and complexity added to the work of the developer or the applications runtime.
 
 
 \section{Work's Innovation/News Value}
 % Why does someone want to read the finished work? And who are these people?
-The work should be of interest for anyone wanting to see a gain in security. The core idea is to enforce more secure software trough dynamic taint checking which enforces Domain Driven Design. However, practitioners of DDD/DDS might find it extra interesting since it addresses the use of DDS and gives a tool to help in the process of using DDS.
+The work should be of interest for anyone wanting to see a gain in security. The core idea is to enforce more secure software through dynamic taint checking which enforces Domain Driven Design. However, practitioners of DDD/DDS might find it extra interesting since it addresses the use of DDS and gives a tool to help in the process of using DDS.
 
 
 
@@ -119,7 +121,7 @@ The dynamic taint propagation tool is to backup the report and dose not have to 
 
 \section{Time Plan}
 % Show not only the order in which elements will be performed, but also the scope of elements and when they will be performed (calendar week number or date). The schedule should contain clear intermediate goals.
-Below is my time plan for the Masters Thesis. The goal is to continuously, trough out all the phases, add to the report. But I've also reserved a couple of weeks in the end for writing the report. I believe that this time can be used to add to, rewrite sections if needed.  \\ \\
+Below is my time plan for the Masters Thesis. The goal is to continuously, throughout all the phases, add to the report. But I've also reserved a couple of weeks in the end for writing the report. I believe that this time can be used to add to, rewrite sections if needed.  \\ \\
 
 \begin{ganttchart}[vgrid, hgrid, today=3]{1}{20}
 	\gantttitle{Maste Thesis Time Plan (Weeks)}{20} \\
