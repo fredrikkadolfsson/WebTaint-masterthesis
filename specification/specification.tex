@@ -6,9 +6,9 @@
 \addbibresource{references.bib} % The file containing our references, in BibTeX format
 
 
-\title{Applying dynamic taint propagation in order to enforce domain driven security \\
+\title{Applying Dynamic Taint Propagation in Order to Enforce Domain Driven Security \\
         \large Specification and Time Schedule}
-\alttitle{Tillämpa dynamic taint propagation för att genomdriva domändriven säkerhet}
+\alttitle{Tillämpa dynamisk taint propagation för att genomdriva domändriven säkerhet}
 \author{Fredrik Adolfsson - freado@kth.se}
 \email{freado@kth.se}
 \supervisor{Musard Balliu}
@@ -41,41 +41,39 @@ Domain Driven Security (DDS) is a methodology that is an extension to Domain Dri
 
 A functionality that is tightly built around correctly validated objects, that some developers and even some programming languages have incorporated, is taint checking. \parencite{perl, ruby, Clause2007} A form of taint checking is Dynamic Taint Propagation (DTP). DTP works by marking input from the user as tainted through a taint variable attached to the input. This taint variable follows the user input throughout the system and propagates onto the other variables it comes in contact with. But the taint variable can be removed, this is done after the user input have been properly validated. The taint value is later checked in sensitive areas through something called sinks. Execution is halted if a tainted variable is detected trying to enter the sensitive area through the sinks.  \parencite{Pan2015, Venkataramani2008}
 
-The goal of this thesis is to evaluate and benchmark how well an implementation of dynamic taint propagation can help and ensure protection from injection attacks by enforcing the use of DDS. 
+
+\section{Goal}
+The goal of this thesis is to evaluate and benchmark how well an implementation of Dynamic Taint Propagation can help and ensure protection from injection attacks through enforcing the use of DDS. Test cases such as injection prevention rate, false positive rate, added time overhead will be conducted.
 
 
 \section{Objective}
 % The principal's interest. The background of the specific assignment to be conducted. What is the desired outcome (from the principal's side and from the perspective of the degree project)
 The concept of DDS have been born and is in development by Omegapoint consultants. This means that everything that might validate, invalidate, evolve or bring a further value to the mythology in any way is of interest to them. 
 
-The topic for this thesis was born and discussed at Omegapoint's latest tech talk, OP Tech Talks \parencite{Tardell}. Since Omegapoint regularly offers master thesis positions was this a excellent topic to offer. Omegapoint would like to see, except for a thesis that is of KTH's expected standard, a prototype of a possible implementation of a dynamic taint propagation tool, including well thought through detainting rules.
-
-
-\section{Goal}
-The goal is to find a use for dynamic taint propagation where it helps and enforces the user to follow DDS. Evaluation of how well it preforms shall also be conducted.
+The topic for this thesis was born and discussed at Omegapoint's latest tech talk, OP Tech Talks \parencite{Tardell}. Since Omegapoint regularly offers master thesis positions was this a excellent topic to offer. Omegapoint would like to see, except for a thesis that is of KTH's expected standard, a prototype of a possible implementation of a Dynamic Taint Propagation tool, including well thought through detainting rules.
 
 
 
 \chapter{Research Question \& Method}
 % The QUESTION that will be examined. Formulated as an explicit and evaluable question.
-How can dynamic taint propagation help and enforce users to follow the security paradigm of Domain Driven Security.
+How can Dynamic Taint Propagation help and enforce users to follow the security paradigm of Domain Driven Security.
 
 
 \section{Problem Definition}
 % (e.g. what does the assignment entail and what are the challenges involved?)
 The first task will be the literature study where information about Domain Driven Security, Dynamic Taint Propagation, injection attacks and general information about application development need to be gathered and presented in the thesis. This is then followed by a discussion of how the detainting rules should be implemented to support DDS. 
 
-The following problem is to further develop the dynamic taint propagation tool. This also includes the implementation of the detainting rules. Next challenge will be to evaluation how well the tool might help to enforce DDS. It might be possible that it is not worth using at all because of the possible overhead it might entail. Questions such as its effects of preventing security flaws, false positive and added time complexity should be answered.
+The following problem is to further develop the Dynamic Taint Propagation tool. This also includes the implementation of the detainting rules. Next challenge will be to evaluation how well the tool might help to enforce DDS. It might be possible that it is not worth using at all because of the possible overhead it might entail. Questions such as its effects of preventing security flaws, false positive and added time complexity should be answered.
 
 
 \section{Examination Method}
 % Preliminary description of, for example, algorithms that will be tested, data that will be used.
-A dynamic taint propagation tool will be implemented and logic for detainting needs to be evaluated and developed. This tool will then be used to evaluate a couple of applications. Questions that will be evaluated during the benchmark for example; possible performance issues and possible taint leaks. One possible application to evaluate is one of Omegapoint's internal systems.
+A Dynamic Taint Propagation tool will be implemented and logic for detainting needs to be evaluated and developed. This tool will then be used to evaluate applications. Questions that will be evaluated during the benchmark for example; possible performance issues and possible taint leaks. One possible application to evaluate is one of Omegapoint's internal systems.
 
 
 \section{Expected Scientific Results}
 % How is the work scientifically relevant and what is the hypothesis being tested? How is this hypothesis being tested?
-The relevance in the report lies in the hypothesis that Domain Driven Design can be used to develope complex and secure software. Which is currently discussed and developed by consultants at Omegapoint. Then by enforcing users to follow the security paradigm through usage of dynamic taint propagation will lead to more security applications. The hypothesis is that we can help in the process of enforcing more secure software. But the question is with how much and if there are negative side effects such as to much overhead to the runtime.
+The relevance in the report lies in the hypothesis that Domain Driven Design can be used to develope complex and secure software. Which is currently discussed and developed by consultants at Omegapoint. Then by enforcing users to follow the security paradigm through usage of Dynamic Taint Propagation will lead to more security applications. The hypothesis is that we can help in the process of enforcing more secure software. But the question is with how much and if there are negative side effects such as to much overhead to the runtime.
 
 
 
@@ -96,25 +94,25 @@ The work should be of interest for anyone wanting to see a gain in security. The
 % How shall the necessary knowledge on background and state-of-the-art be obtained?
 % What preliminarily important references have been identified?
 % Description of the literature studies. What areas will the literature study focus on? How shall the necessary knowledge on background and state-of-the-art be obtained? What preliminarily important references have been identified?
-The literature study will focus on dynamic taint propagation, DDD/DDS and injection attacks. But information about application structure will also be needed. Research into JVM modifications must also be included since it is needed for the implementation of the dynamic taint propagation tool. The information will be obtained by researching for relevant books, reports and other possible material. Two of the founders of the concept of Domain Driven Security work at Omegapoint and are accessible for questions. Conduction interviews with the founders might be of interest.
+The literature study will focus on Dynamic Taint Propagation, DDD/DDS and injection attacks. But information about application structure will also be needed. Research into JVM modifications must also be included since it is needed for the implementation of the Dynamic Taint Propagation tool. The information will be obtained by researching for relevant books, reports and other possible material. Two of the founders of the concept of Domain Driven Security work at Omegapoint and are accessible for questions. Conduction interviews with the founders might be of interest.
 
 
 
 \chapter{Conditions \& Schedule}
 \section{Resources}
 % List of the resources expected to be needed to solve the problem (unless the degree project involves investigating what equipment should be used). This can be technical equipment, but also experiment and interview subjects.
-To save some time will the development of the dynamic taint propagation tool continue on the work that Simon Tardell have started. Applications to evaluate the implementation is also of need. Omegapoint have some internal systems which could be used.
+To save some time will the development of the Dynamic Taint Propagation tool continue on the work that Simon Tardell have started. Applications to evaluate the implementation is also of need. Omegapoint have some internal systems which could be used.
 
 
 \section{Limitations}
 % Defined limitations on what is to be done (so that it is clear what is not included in the degree project)
-The dynamic taint propagation tool is to backup the report and dose not have to be a production ready tool. It should be a proof of concept. The report will also only talk about dynamic taint propagation and not static. 
+The Dynamic Taint Propagation tool is to backup the report and dose not have to be a production ready tool. It should be a proof of concept. The report will also only talk about Dynamic Taint Propagation and not static. 
 
 
 \section{Company Supervisor}
 % Describe the way in which the principal will be involved in the project and what the external supervisor has undertaken to do (e.g. in terms oef discussion, implementation, report reading).
 \begin{itemize}
-	\item \textbf{Simon Tardell:} Is my supervisor in the technical parts of the thesis. He's also constructed a first draft of the dynamic taint propagation tool which I am free to use.
+	\item \textbf{Simon Tardell:} Is my supervisor in the technical parts of the thesis. He's also constructed a first draft of the Dynamic Taint Propagation tool which I am free to use.
 	\item \textbf{Jonatan Landsberg:} Will assist with supervision on the academic part if the thesis.
 \end{itemize}
 
