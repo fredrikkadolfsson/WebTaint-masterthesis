@@ -8,10 +8,11 @@ import static se.tardell.simon.bajs.StringTaintUtil.*;
 import static se.tardell.simon.bajs.TransformerUtils.writeFile;
 
 /**
- * We need to prepare a modification of java.lang.Stringuilder ahead of time that we can put on the bootclasspath, since we are unable to add fields to any class that the java agent itself depends on (we can't get to them before they are loaded the first time).
+ * We need to prepare a modification of java.lang.Stringuilder ahead of time that we can put on the bootclasspath,
+ * since we are unable to add fields to any class that the java agent itself depends on (we can't get to them before
+ * they are loaded the first time).
  */
 public class TaintFieldAdder {
-
   public static final String JAVA_LANG_ABSTRACT_STRING_BUILDER = "java.lang.AbstractStringBuilder";
 
   public static void main(String[] args) {
@@ -21,6 +22,7 @@ public class TaintFieldAdder {
   private void run() {
     try {
       ClassPool cp = ClassPool.getDefault();
+
       final CtClass stringClass = addTaintFieldtoClass(cp, String.class.getName());
       final CtClass abstractStringBuilderClass = addTaintFieldtoClass(cp, JAVA_LANG_ABSTRACT_STRING_BUILDER);
       final CtClass stringBufferClass = cp.get(StringBuffer.class.getName());
@@ -38,11 +40,8 @@ public class TaintFieldAdder {
       writeClass(cp, StringBuilder.class);
       writeClass(cp, StringBuffer.class);
       writeClass(cp, Taintable.class);
-    } catch (NotFoundException e) {
-      throw new RuntimeException(e);
-    } catch (CannotCompileException e) {
-      throw new RuntimeException(e);
-    } catch (IOException e) {
+
+    } catch (NotFoundException | CannotCompileException | IOException e) {
       throw new RuntimeException(e);
     }
   }
@@ -51,18 +50,15 @@ public class TaintFieldAdder {
     try {
       final CtMethod toString = cc.getMethod("toString", "()L" + JAVA_LANG_STRING + ";");
       toString.insertAfter("{$_.setTaint($0.isTainted());}");
+
     } catch (NotFoundException | CannotCompileException e) {
       throw new RuntimeException(e);
     }
-
   }
-
 
   private void writeClass(ClassPool cp, Class<?> aClass) throws NotFoundException, IOException, CannotCompileException {
     final String className = aClass.getName();
     final CtClass ctClass = cp.get(className);
     writeFile(className, ctClass.toBytecode());
   }
-
-
 }

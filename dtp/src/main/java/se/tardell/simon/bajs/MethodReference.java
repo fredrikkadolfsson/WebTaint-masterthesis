@@ -1,6 +1,5 @@
 package se.tardell.simon.bajs;
 
-
 import lombok.Value;
 
 @Value

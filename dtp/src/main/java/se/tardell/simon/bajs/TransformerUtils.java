@@ -1,6 +1,5 @@
 package se.tardell.simon.bajs;
 
-
 import javassist.*;
 
 import java.io.File;
@@ -14,6 +13,7 @@ public class TransformerUtils {
 
   public static List<MethodReference> matchClass(String className, List<MethodReference> methods) {
     String c = className.replace('.', '/');
+
     return methods.stream()
         .filter(r -> r.getClazz().equals(c))
         .collect(Collectors.toList());
@@ -23,18 +23,20 @@ public class TransformerUtils {
     ClassPool cp = ClassPool.getDefault();
     cp.appendClassPath(new LoaderClassPath(Thread.currentThread().getContextClassLoader()));
     cp.insertClassPath(new ByteArrayClassPath(className.replaceAll(".", "/"), classfileBuffer));
+
     return cp.get(className.replaceAll("/", "."));
   }
 
   static void writeFile(String className, byte[] bytes) throws IOException {
     System.out.println(className + ": " + bytes.length);
+
     final String s = className.replace(".", "/");
     File f = new File("build/taint/" + s + ".class");
     f.getParentFile().mkdirs();
     final FileOutputStream fos = new FileOutputStream(f);
+
     fos.write(bytes);
     fos.flush();
-
     fos.close();
   }
 

@@ -1,11 +1,9 @@
 package se.tardell.simon.bajs;
 
-
 import javassist.*;
 import lombok.extern.java.Log;
 
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 import java.util.Arrays;
 import java.util.List;
@@ -14,11 +12,10 @@ import java.util.stream.Stream;
 
 @Log
 public class SpringControllerSourceTransformer implements ClassFileTransformer {
-
   List<String> params = Arrays.asList("org.springframework.web.bind.annotation.PathVariable", "org.springframework.web.bind.annotation.RequestHeader", "org.springframework.web.bind.annotation.RequestBody");
 
   @Override
-  public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
+  public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
     try {
       if (!className.endsWith("Controller")) return null;
       log.log(Level.INFO, "Attempting to transform as controller " + className);
@@ -34,6 +31,7 @@ public class SpringControllerSourceTransformer implements ClassFileTransformer {
           .forEach(this::transformMethod);
 
       return cc.toBytecode();
+
     } catch (Throwable e) {
       log.log(Level.WARNING, e.getMessage(), e);
       throw new RuntimeException(e);
@@ -45,6 +43,7 @@ public class SpringControllerSourceTransformer implements ClassFileTransformer {
       log.log(Level.INFO, "No annotations");
       return false;
     }
+
     return Stream.of(annotations)
         .map(Object::toString)
         .map(s -> {
@@ -59,10 +58,12 @@ public class SpringControllerSourceTransformer implements ClassFileTransformer {
       log.log(Level.INFO, "method " + method.getName());
       final Object[][] parameterAnnotations = method.getParameterAnnotations();
       StringBuilder before = new StringBuilder("{");
+
       for (int i = 0; i < parameterAnnotations.length; i++) {
         if (shouldTaintParameter(method.getParameterTypes()[i], parameterAnnotations[i]))
           before.append(taintParameter(method.getDeclaringClass(), method.getParameterTypes()[i], i + 1));
       }
+
       before.append("}");
       final String src = before.toString();
       log.log(Level.INFO, src);
@@ -79,15 +80,14 @@ public class SpringControllerSourceTransformer implements ClassFileTransformer {
       log.log(Level.INFO, src1);
 
       method.insertAfter(src1);
+
     } catch (ClassNotFoundException | CannotCompileException | NotFoundException e) {
       throw new RuntimeException(e);
     }
-
   }
 
   private boolean shouldTaintParameter(CtClass ctClass, Object[] annotation) {
-    if (ctClass.isPrimitive() || ctClass.isArray()) return false;
-    return true;
+    return !ctClass.isPrimitive() && !ctClass.isArray();
    /* return Stream.of(annotation)
         .anyMatch(o ->  params.contains(o.getClass().getName()));
         */
@@ -96,6 +96,7 @@ public class SpringControllerSourceTransformer implements ClassFileTransformer {
   private String taintParameter(CtClass declaringClass, CtClass type, int index) {
     if (type.getName().equals("java.lang.String")) {
       return "$" + index + ".setTaint(true);";
+
     } else {
       StringBuilder inner = new StringBuilder();
       //TODO traverse bean
@@ -115,7 +116,6 @@ public class SpringControllerSourceTransformer implements ClassFileTransformer {
 
       return inner.toString();
     }
-
   }
 
   private boolean hasMapping(CtMethod method) {
@@ -123,9 +123,9 @@ public class SpringControllerSourceTransformer implements ClassFileTransformer {
       final Object[] annotations = method.getAnnotations();
       return Stream.of(annotations)
           .anyMatch(o -> o.toString().contains("Mapping"));
+
     } catch (ClassNotFoundException e) {
       return false;
     }
-
   }
 }

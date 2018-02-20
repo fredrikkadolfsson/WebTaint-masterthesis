@@ -1,6 +1,5 @@
 package se.tardell.simon.bajs;
 
-
 import lombok.extern.java.Log;
 
 import java.lang.reflect.Field;
@@ -17,6 +16,7 @@ public class TaintUtil {
       log.log(Level.INFO, "Attempted to set taint on " + s.getClass().getName() + " to " + value + ", but not Taintable");
       return;
     }
+
     ((Taintable) s).setTaint(value);
   }
 
@@ -33,6 +33,7 @@ public class TaintUtil {
       log.log(Level.INFO, "Attempted to query taint on " + s.getClass().getName() + ", but not Taintable");
       return false;
     }
+
     return ((Taintable) s).isTainted();
   }
 

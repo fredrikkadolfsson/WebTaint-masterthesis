@@ -6,7 +6,6 @@ import javassist.CtClass;
 import javassist.CtField;
 
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 
 /**
@@ -21,11 +20,12 @@ public class StringTaintPropagationTransformer implements ClassFileTransformer {
                           String className,
                           Class<?> classBeingRedefined,
                           ProtectionDomain protectionDomain,
-                          byte[] classfileBuffer) throws IllegalClassFormatException {
+                          byte[] classfileBuffer) {
     try {
       if (!className.equals("java/lang/String")) {
         return null;
       }
+
       System.out.println("transforming " + className);
 
       ClassPool cp = ClassPool.getDefault();
@@ -35,9 +35,11 @@ public class StringTaintPropagationTransformer implements ClassFileTransformer {
 
       //check for presence of taint field
       final CtField isTainted = cc.getField("isTainted");
+
       if (isTainted == null) {
         System.out.println("no taint field in String");
         return null;
+
       } else {
         System.out.println(isTainted.getName() + " " + isTainted.getSignature());
       }
@@ -45,8 +47,10 @@ public class StringTaintPropagationTransformer implements ClassFileTransformer {
 
       final byte[] bytes = cc.toBytecode();
       return bytes;
+
     } catch (Throwable ignored) {
       System.out.println("ERROR: " + ignored);
+
     } finally {
       return null;
     }
