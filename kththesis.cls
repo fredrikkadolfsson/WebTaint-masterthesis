@@ -190,7 +190,6 @@
 \cleardoublepage
 }
 
-
 \newcommand{\frontmatter}{
   \pagenumbering{roman}
   \setcounter{page}{1}
@@ -200,5 +199,17 @@
   \cleardoublepage
   \pagenumbering{arabic}
 }
+
+% https://tex.stackexchange.com/questions/53377/inspirational-quote-at-start-of-chapter
+\newenvironment{chapquote}[2][2em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill
+  \ifx\chapquote@author\@empty\relax\else --\ \fi
+  \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother
+
 
 \endinput

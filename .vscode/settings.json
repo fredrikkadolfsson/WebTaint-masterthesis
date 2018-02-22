@@ -66,5 +66,10 @@
     "*.xml",
     "*.synctex.gz"
   ],
-  "cSpell.enabled": true
+  "cSpell.enabled": true,
+  "cSpell.words": [
+    "Javassist",
+    "bytecode",
+    "detainting"
+  ]
 }
