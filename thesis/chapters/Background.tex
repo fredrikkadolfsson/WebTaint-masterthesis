@@ -1,15 +1,20 @@
 \chapter{Background}
 % Studenten visar kännedom om teoretisk bakgrund och tidigare utfört arbete (betydande litteratur nämns och relevant material används).
 % Bakgrunden är sammanhängande och relevant.
-This Chapter will present some background knowledge with needed information to comprehend the chapters that follow. The chapters starts with a generally description about how a web application work which then is followed by two of the most common security vulnerabilities to a web application. After that is the two recourses Dynamic Taint Propagation and Domain Driven Security introduced.
+This Chapter will present some background knowledge with needed information to comprehend the chapters to follow. The chapters starts with a generally description about how a \textit{web application} work which then is followed by a section with two of the most common \textit{security vulnerabilities} to a web application. After that is there a chapter describing \textit{Dynamic Taint Propagation} and one describing \textit{Domain Driven Security}. The last section in the chapter is about \textit{JVM bytecode manipulation}.
 
 
 \section{Web Application}
-The most common architectural design for a web application is based on three tiers. The first is the presentation tire which is the visual components rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third is the storage tier, where the second tier can store data as needed. \parencite{JustinClarke-Salt2009SIAa} 
+To make applications available for a large set off people and make te application accessible from now days almost everywhere do businesses deploy their applications to the web. They deployment of an application can vary a lot but the most common architectural structure for a web application is based on three tiers. The first is the presentation tire which is the visual components rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third is the storage tier, where the second tier can store data as needed. \parencite{JustinClarke-Salt2009SIAa} Figure \ref{fig:webApplication-Haldar} illustrates this structure.
 
-\textbf{LÄGG TILL BILD PÅ STRUKTUREN}
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{images/webApplication-Haldar.png}
+  \caption{Web application structure \cite{Haldar}.}
+  \label{fig:webApplication-Haldar}
+\end{figure}
 
-As can be seen in picture \textbf{BILD} dose the tiers only communicate with the tire closest to itself. This causes the second tire to become a safe guard for the tire three where the valuable information for a attacker lies. The storage tier contains all the information the application needs to provide the wanted service. Such information might for example be name, email, personal number and credit card information. \parencite{JustinClarke-Salt2009SIAa}
+As can be seen in picture \ref{fig:webApplication-Haldar} dose the tiers only communicate with the tire closest to itself. This causes the second tire to become a safe guard for the tire three where the valuable information for a attacker lies. The storage tier contains all the information the application needs to provide the wanted service. Such information might for example be name, email, personal number and credit card information. \parencite{JustinClarke-Salt2009SIAa}
 
 \section{Security Vulnerabilities}
 The organization Open Web Applications Security Project, mostly known for its shortening (OWASP), is a online community which aim to help to secure web applications. \parencite{OpenWebApplicationSecurityProject} OWASP produces a report about the top 10 security risks with a web application. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. \parencite{OWASP2017} This report will look at the number one and eight security risks of 2017 which is injection attacks and cross-site scripting. \parencite{OWASP2017}
@@ -122,7 +127,7 @@ The second idea is to explore and develop every model in collaboration between d
 \textcite{Wilander2009, Johnsson2009} created 2009 a blog post each in a synchronous manner where they together introduces the concept of Domain Driven Security (DDS) to the public. They describe DDS as the intersection between Domain Driven Deign (DDD) and application security. DDD is about developing complex domain models and one of the most basic rule of application security is to always validate input data. DDS in other hand, is about the importance of creating and maintaining domain models who are reflecting the product correctly and they are validated so they cant be populated with erroneous data. \parencite{Wilander2009, Johnsson2009, Arnor2016, Stendahl2016}
 
 
-\section{JVM Bytecod Manipulation}
+\section{JVM Bytecode Manipulation}
 
 
 \subsection{Javassist}
