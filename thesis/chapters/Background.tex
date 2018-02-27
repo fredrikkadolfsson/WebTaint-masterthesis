@@ -1,11 +1,11 @@
 \chapter{Background}
 % Studenten visar kännedom om teoretisk bakgrund och tidigare utfört arbete (betydande litteratur nämns och relevant material används).
 % Bakgrunden är sammanhängande och relevant.
-This Chapter will present some background knowledge with needed information to comprehend the chapters to follow. The chapters starts with a generally description about how a \textit{web application} work which then is followed by a section with two of the most common \textit{security vulnerabilities} to a web application. After that is there a chapter describing \textit{Dynamic Taint Propagation} and one describing \textit{Domain Driven Security}. The last section in the chapter is about \textit{JVM bytecode manipulation}.
+This Chapter will present some background knowledge with needed information to comprehend the chapters to follow. The chapter starts with a general description about how a \textit{Web Application} work which then is followed by a section with the two most common \textit{Security Vulnerabilities} to a web application. After that is there a chapter describing \textit{Dynamic Taint Propagation} and one describing \textit{Domain Driven Security}. The last section in the chapter is about \textit{JVM Bytecode Manipulation}.
 
 
 \section{Web Application}
-To make applications available for a large set off people and make te application accessible from now days almost everywhere do businesses deploy their applications to the web. They deployment of an application can vary a lot but the most common architectural structure for a web application is based on three tiers. The first is the presentation tire which is the visual components rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third is the storage tier, where the second tier can store data as needed. \parencite{JustinClarke-Salt2009SIAa} Figure \ref{fig:webApplication-Haldar} illustrates this structure.
+To make applications available for a large set off people and also make the application accessible from, now days, almost everywhere do businesses deploy their applications to the web. They deployment of an application can vary a lot but the most common architectural structure for a web application is based on a three tier architecture. The first is the presentation tire which is the visual components rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third is the storage tier, where the second tier can store data as needed. \parencite{JustinClarke-Salt2009SIAa} This three layer architecture can be seen in figure \ref{fig:webApplication-Haldar}.
 
 \begin{figure}
   \centering
@@ -14,20 +14,25 @@ To make applications available for a large set off people and make te applicatio
   \label{fig:webApplication-Haldar}
 \end{figure}
 
-As can be seen in picture \ref{fig:webApplication-Haldar} dose the tiers only communicate with the tire closest to itself. This causes the second tire to become a safe guard for the tire three where the valuable information for a attacker lies. The storage tier contains all the information the application needs to provide the wanted service. Such information might for example be name, email, personal number and credit card information. \parencite{JustinClarke-Salt2009SIAa}
+As can be seen in figure \ref{fig:webApplication-Haldar} dose the tiers only communicate with the tire closest to itself. This causes the second tier to become a safe guard for tier three where the valuable information which an attacker would be interested in. The storage tier contains all the information the application needs to provide the wanted service. Such information might for example be name, email, personal number and credit card information. \parencite{JustinClarke-Salt2009SIAa}
+
+
+\subsection{Structured Query Language}
+The communication between tier two and tier three is done trough a standardize language called Structured Query Language, mostly known as SQL. SQL is created to programmatically manipulate and access databases. The vast majority of todays database uses SQL. The language work by building queries of the wanted information och task. The query will be evaluated and handled up upon by the SQL engine. \parencite{DarieCristian2003TPGt}
+
 
 \section{Security Vulnerabilities}
-The organization Open Web Applications Security Project, mostly known for its shortening (OWASP), is a online community which aim to help to secure web applications. \parencite{OpenWebApplicationSecurityProject} OWASP produces a report about the top 10 security risks with a web application. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. \parencite{OWASP2017} This report will look at the number one and eight security risks of 2017 which is injection attacks and cross-site scripting. \parencite{OWASP2017}
+The organization Open Web Applications Security Project, mostly known for its shortening (OWASP), is a online community which aim to help to secure web applications. \parencite{OpenWebApplicationSecurityProject} OWASP produces a report about the top 10 security risks with a web application. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. \parencite{OWASP2017} This report will look at security risk number one and eight of 2017 which is Injection Attacks and Cross-site Scripting. \parencite{OWASP2017} 
 
 
 \subsection{Injection}
 The most common security risk is Injection Attacks. \parencite{OWASP2017} A Injection Attack is any attack where the attacker's input changes the intent of the execution and executes malicious code. Common result of Injection Attacks are file destruction, lack of accountability, denial of access and data loss. \parencite{Secure_Web}
 
-There is two kinds of different Injection Attacks. These two are SQL Injection and Blind SQL Injection. \parencite{Secure_Web} Both will be described below.
+Injection Attacks can be devided into two different sub groups. These two subgroups are SQL Injection and Blind SQL Injection. \parencite{Secure_Web}
 
 
 \subsubsection{SQL Injection}
-SQL Injection is when a SQL query is tampered with which then results in gaining data from the database which were not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays a possible SQL Query which is open to SQL Injections. This is due to the fact that the variable UserId is never validated before it is being used to query the database. \parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
+SQL Injection is when a SQL query is tampered which results in gaining content from the database which was not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays a SQL Query which is open to SQL Injections. This is due to the fact that the variable UserId is never validated before it is propagated into the query. \parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
 
 \hfill
 \begin{lstlisting}[
@@ -39,7 +44,7 @@ userId = (*@\textit{userInput}@*)
 \end{lstlisting}
 \hfill
 
-The query will work as intended as long as the user input, notated with \textit{userInput}, only is a user id. But what happens if the user input is \textit{10 or 1 = 1}? This user input would result in the query seen in listing \ref{lst:SQL_Injection}.
+The query will work as intended as long as the user input, notated with \textit{userInput}, only is a valid Integer. Since Integer is what we have decided that user id is in this system. But what happens if the user input is \textit{10 or 1 = 1}? This user input would result in the query seen in listing \ref{lst:SQL_Injection}.
 
 \hfill
 \begin{lstlisting}[
@@ -50,7 +55,7 @@ SELECT * FROM Users WHERE userId = 10 or 1 = 1
 \end{lstlisting}
 \hfill
 
-This query would result in that the database returns the whole table of users sins the second or parameter is always true. This problem can be prevented in a couple of different ways. The first is through validation of the input. In our example do we expect the input to be a Integer. By verifying that the input as seen in listing \ref{lst:SQL_Injection_Verified} can we protect the query from being injected with unwanted commands.
+This query would result in query that always would evaluate to true. The result of this will be that the query returns the whole table of users. This problem can be prevented in a couple of different ways. The first is through validation of the input. By verifying the input as seen in listing \ref{lst:SQL_Injection_Verified} can we protect the query from being assessable to SQL Injection.
 
 \hfill
 \begin{lstlisting}[
@@ -74,39 +79,50 @@ userId = (*@\textit{userInput}@*)
 sqlQuery = "SELECT * FROM Users WHERE userId = @0"
 db.Execute(sqlQuery, userId)
 \end{lstlisting}
-\hfill
 
 
 \subsubsection{Blind SQL Injection}
-Blind SQL Injection is very similar to SQL Injection. The only difference is that that attacker dose not receive the wanted information from the database. The information is instead received by monitoring variables such as how long time the response took or what kind of error messages it returns. A example of the first is to create a Blind SQL Injection where the query tells the SQL engine to sleep depending on a condition a example of this can be seen in listing \ref{lst:Blind_SQL_Injection_Time}. \parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
+Blind SQL Injection is very similar to SQL Injection. The only difference is that that attacker dose not receive the wanted information from the database. The information is instead received by monitoring variables such as how long time the response took or what kind of error messages it returns. A example of the first is a SQL query that tells the SQL engine to sleep depending on a condition. A example of this can be seen in listing \ref{lst:Blind_SQL_Injection_Time}. \parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
 
 \hfill
 \begin{lstlisting}[
   language=SQL,
   caption=Time Based Blind SQL Injection,
   label={lst:Blind_SQL_Injection_Time},
-  xleftmargin=-1cm]
+  xleftmargin=-0.8cm]
 SELECT * FROM Users WHERE userId = 1 WAITFOR DELAY '0:0:5'
 \end{lstlisting}
 \hfill
 
-The second variant of Blind SQL Injection is by analyzing the error messages and depending on what they return build a image off the wanted answer. \parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
+The second variant of Blind SQL Injection, which is by analyzing the error messages, and depending on what they return build a image off the wanted answer. This is mostly done by testing different combination of true and false questions. 
+\parencite{JustinClarke-Salt2009SIAa, Secure_Web} 
 
 
 \subsection{Cross-site Scripting}
-Cross-Site Scripting (XSS) have been a vulnerability since the beginning of the internet. One of the first XSS attacks created just after the release of JavaScript. The attack was passible by loading another website into a frame on the site that the attacker controls. The attacker could then through JavaScript access any content that is visible or typed into the loaded frame. To prevent this from being possible were the standard of Same-Origin Policy which restricted JavaScript to only access content on its own origin. \parencite{FogieSeth2007Xacs, w3csop}
+Cross-Site Scripting (XSS) have been a vulnerability since the beginning of the internet. One of the first XSS attacks was created just after the release of JavaScript. The attack was passible by loading another website into a frame on the site that the attacker controls. The attacker could then through JavaScript access any content that is visible or typed into the loaded frame. To prevent this form of attack were the standard of Same-Origin Policy introduced. Same-Origin Policy restricts JavaScript to only access content from its own origin. \parencite{FogieSeth2007Xacs, w3csop}
 
 But the introduction of the Same-Origin Policy did not stop the attackers from preforming XSS attacks. The next wave of attacks were mostly towards chat roms where it was possible to inject JavaScript tags into the input of the message. Which would then later be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy. \parencite{FogieSeth2007Xacs}
 
-\textbf{Reflected vs Persistent}
+XSS can be divided into three different sub categories. Which are: reflected, Stored and DOM Based XSS.
+
+\subsubsection{Reflected XSS}
+Reflected XSS is mostly conducted trough a malicious link that an unknowing user clicks. The malicious link will exploit a vulnerable input on the targeted web application and though the input reflect back content to the user. \parencite{Secure_Web}
+
+
+\subsubsection{Stored XSS}
+Stored XSS is when malicious scripts is stored in the targeted web applications database. This malicious script is then loaded and presented for each user which is trying to access the application. \parencite{Secure_Web}
+
+
+\subsubsection{DOM Based XSS}
+DOM Based XSS is very similar to Reflected XSS but it dose not necessary have to be reflected from the application server. DOM Based XSS modifies the DOM tree and is able to exploit the user. \parencite{Secure_Web}
 
 
 \section{Dynamic Taint Propagation}
-Taint propagation, also known as taint analysis and taint checking [SOURCE NEEDED?], is a tool to analyse the flow of information in a domain. \parencite{Pan2015} It works by giving input data a tainted property which follows the data and propagate onto other data which it is in contact with. The taint property is later checked in security sensitive sinks. \parencite{Pan2015}
+Taint Propagation, also known as taint analysis and taint checking, is a tool to analyse the flow of information in a domain. \parencite{Pan2015} It works by giving input data a tainted property which follows the data and propagates onto other data which it comes in contact with. Tainted data can be detainted. This is done by validating the data. The taint property is later checked in security sensitive sinks. \parencite{Pan2015} Taint Propagation can be done in two different ways: Static and dynamic. The static is a evaluation tool which is done statically and before runtime. Dynamic Taint Propagation is a tool that is executing in runtime. Dynamic Taint Propagation works by actively blocking any data that is trying to enter the sink. This thesis will not be handle the Static version of Taint Propagation. 
 
-Perl and Ruby are two programming languages which have adapted to user dynamic taint checking. \parencite{perl, ruby} And there are some tools who enables taint checking for other languages such as TaintDroid \parencite{Ma2010} and FlexTaint \parencite{Venkataramani2008}.
+Perl and Ruby are two programming languages which have adapted to user Dynamic Taint Checking. \parencite{perl, ruby} And there are some tools who enables taint checking for other languages such as TaintDroid \parencite{Ma2010} and FlexTaint \parencite{Venkataramani2008}.
 
-Two of OWASP top 10 application security risks of 2017 is Injection and Cross-Site Scripting (XSS). \parencite{OWASP2017} Protection against these two attacks are best done by validating input data which taint propagation reminds and forces the developer to do.
+As named earlier is two of OWASP's top 10 application security risks of 2017 Injection Attack and Cross-Site Scripting (XSS). \parencite{OWASP2017} Protection against these two attacks are best done by validating input data which Dynamic Taint Propagation helps to enforce.
 
 
 \section{Domain Driven Security}
@@ -124,10 +140,11 @@ The second idea is to explore and develop every model in collaboration between d
 
 \textcite{evans_2015} do as well argue about the weight of clearly defining the bounded contexts for each defined model, and this needs to be done in the ubiquitous language created for the specific product. The need of this exists because of the otherwise great risk of misunderstandings and erroneous assumptions in the collaborations between the different models. \parencite{millett_2015}
 
-\textcite{Wilander2009, Johnsson2009} created 2009 a blog post each in a synchronous manner where they together introduces the concept of Domain Driven Security (DDS) to the public. They describe DDS as the intersection between Domain Driven Deign (DDD) and application security. DDD is about developing complex domain models and one of the most basic rule of application security is to always validate input data. DDS in other hand, is about the importance of creating and maintaining domain models who are reflecting the product correctly and they are validated so they cant be populated with erroneous data. \parencite{Wilander2009, Johnsson2009, Arnor2016, Stendahl2016}
+\textcite{Wilander2009, Johnsson2009} created 2009 a blog post each in a synchronous manner where they together introduces the concept of Domain Driven Security (DDS) to the public. They describe DDS as the intersection between DDD and application security. DDD is about developing complex domain models and one of the most basic rule of application security is to always validate input data. DDS in other hand, is about the importance of creating and maintaining domain models who are reflecting the product correctly and that they are validated so they cant be populated with erroneous data. \parencite{Wilander2009, Johnsson2009, Arnor2016, Stendahl2016}
 
 
-\section{JVM Bytecode Manipulation}
+\section{Java Instrumentation}
+
 
 
 \subsection{Javassist}
