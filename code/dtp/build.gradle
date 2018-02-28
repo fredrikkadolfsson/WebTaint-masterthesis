@@ -14,3 +14,17 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+jar {
+    archiveName = "${rootProject.name}-${rootProject.version}.jar"
+    manifest {
+        attributes(
+                'Premain-Class': 'TaintAgent',
+                'Can-Redefine-Classes': 'true',
+                'Can-Retransform-Classes': 'true',
+                'Can-Set-Native-Method-Prefix': 'true',
+                'Implementation-Title': "dtp",
+                'Implementation-Version': rootProject.version
+        )
+    }
+}
