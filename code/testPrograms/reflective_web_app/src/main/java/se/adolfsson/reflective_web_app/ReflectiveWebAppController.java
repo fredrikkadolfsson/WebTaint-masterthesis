@@ -13,8 +13,8 @@ public class ReflectiveWebAppController {
 
   /**
    * Disables Springs built in XSS protection header that some browsers support.
-   *
    * https://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html#headers-xss-protection
+   *
    * @param response contains function to set header -> X-XSS-Protection: Disabled
    */
   @ModelAttribute
@@ -31,4 +31,3 @@ public class ReflectiveWebAppController {
             "</div>";
   }
 }
-
