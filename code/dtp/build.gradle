@@ -1,4 +1,4 @@
-group 'se.adolfsson'
+group 'se.adolfsson.dtp'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
@@ -19,7 +19,7 @@ jar {
     archiveName = "${rootProject.name}-${rootProject.version}.jar"
     manifest {
         attributes(
-                'Premain-Class': 'TaintAgent',
+                'Premain-Class': 'se.adolfsson.dtp.TaintAgent',
                 'Can-Redefine-Classes': 'true',
                 'Can-Retransform-Classes': 'true',
                 'Can-Set-Native-Method-Prefix': 'true',

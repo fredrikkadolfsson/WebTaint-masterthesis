@@ -1,3 +1,5 @@
+package se.adolfsson.dtp;
+
 import java.lang.instrument.Instrumentation;
 
 public class TaintAgent {
