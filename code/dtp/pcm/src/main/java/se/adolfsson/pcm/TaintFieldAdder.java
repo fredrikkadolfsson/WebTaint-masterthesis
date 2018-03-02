@@ -25,16 +25,16 @@ public class TaintFieldAdder {
     try {
       ClassPool cp = ClassPool.getDefault();
 
-      final CtClass stringClass = addTaintFieldToClass(cp, String.class.getName());
-
-      writeClass(cp, String.class.getName());
+      addTaintFieldToClass(cp, String.class.getName());
+      addTaintFieldToClass(cp, StringBuffer.class.getName());
+      addTaintFieldToClass(cp, StringBuilder.class.getName());
 
     } catch (NotFoundException | CannotCompileException | IOException e) {
       throw new RuntimeException(e);
     }
   }
 
-  private CtClass addTaintFieldToClass(ClassPool cp, String className) throws NotFoundException, CannotCompileException {
+  private void addTaintFieldToClass(ClassPool cp, String className) throws NotFoundException, CannotCompileException, IOException {
     CtClass cClass = cp.get(className);
     cClass.defrost();
 
@@ -45,12 +45,7 @@ public class TaintFieldAdder {
     cClass.addMethod(CtMethod.make("public void setTaint(boolean value){ this.tainted = value; }", cClass));
     cClass.addMethod(CtMethod.make("public boolean isTainted(){ return this.tainted; }", cClass));
 
-    return cClass;
-  }
-
-  private void writeClass(ClassPool cp, String className) throws NotFoundException, IOException, CannotCompileException {
-    final CtClass ctClass = cp.get(className);
-    byte[] bytes = ctClass.toBytecode();
+    byte[] bytes = cClass.toBytecode();
 
     System.out.println("Added taint to: " + className + " " + bytes.length);
 
