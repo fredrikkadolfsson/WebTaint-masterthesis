@@ -1,22 +1,30 @@
 \chapter{Introduction}
 % Frågeställningen är lätt att identifiera, projektets syfte och mål är tydliga.
 % Problemet (och studentens bidrag) är tydligt avgränsat, dess relevans är motiverad och satt i ett sammanhang.
-One of the greatest strengths with deploying applications on the World Wide Web (web) is that they are accessible from everywhere where there exists a internet access. This is sadly one of its greatest weaknesses as well. The applications are easily accessible for people who whishes to abuse or cause them harm. Among the number of security risks that a web application is vulnerable to is two of the more common Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}
+One of the greatest strengths with deploying applications on the World Wide Web is that they are accessible from everywhere where there exists a internet access. This is sadly one of its greatest weaknesses as well. The applications are easily accessible for people who whishes to abuse or cause them harm. Among the number of security risks that a web application is vulnerable to is two of the more common Injection Attack and Cross-Site Scripting. \parencite{OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}
 
-To minimize the risk of accidentally introducing security flaws in to the application have a variety of tools and methodologies been created. One of these is Dynamic Taint Propagation which marks input from the user as tainted through a taint variable attached to the input. This taint variable follows the input throughout the system and propagates onto the other variables it comes in contact with. It is possible to detaint the input but this is only done after the input have been validated. The taint value is later checked in sensitive areas through something called sinks. Execution is halted if a tainted variable is detected trying to enter the sensitive area through the sink. \parencite{Pan2015, Venkataramani2008} One of the methodologies that have been coined is the programming paradigm Domain Driven Security. Domain Driven Security aim to secure applications by focusing on the core domain models and making certain that validation of the value object is correct. \parencite{Wilander2009, Johnsson2009}
+To minimize the risk of accidentally introducing security flaws in to the application have a variety of tools and methodologies been created. One of these is Dynamic Taint Propagation which marks input from the user as tainted through a taint variable attached to the input. This taint variable follows the input throughout the application and propagates onto the other variables it comes in contact with. It is possible to detaint the input but this is only done after the input have been validated. The taint value is later checked in sensitive areas through something called sinks. Execution is halted if a tainted variable is detected trying to enter the sensitive area through the sink. \parencite{Pan2015, Venkataramani2008} One of the methodologies that have been coined is the programming paradigm Domain Driven Security. Domain Driven Security aim to secure applications by focusing on the core domain models and making certain that validation of the value objects are correct. \parencite{Wilander2009, Johnsson2009}
 
-The following sections of the chapter will aim to specify the why and how behind the conduction of the thesis. It starts with a section of \textit{Definitions} followed by \textit{Problem} description and explanation of the thesis \textit{Aim}. These sections is then followed by \textit{Related Work} and \textit{Delimitations} section and then, lastly, is there a section about the \textit{Methodology} behind the thesis execution.
+The following sections of the chapter will aim to specify the why and how behind the conduction of the thesis. It starts with a section of \textit{Definitions} followed by \textit{Problem} description and explanation of the thesis \textit{Aim}. These sections is then followed by \textit{Related Work} in the field and a \textit{Delimitations} section. Lastly, is there a section about the \textit{Methodology} behind the thesis.
 
 
 \section{Definitions}
-Throughout this thesis will a consistent terminology be used. Some terms might be new or might just be usable in different ways. To remove confusion will a list of definitions be introduced in this section.
+Throughout this thesis will a consistent terminology be used. Some terms might be new or might just be usable in different ways. To remove confusion will a list of definitions be defined in this section.
 
 \begin{definition}{Application} 
-	is used to denote a computer process witch is constructed to solve one or more tasks for the user.
+	is a computer process which is constructed to solve one or more tasks for the user.
 \end{definition}
 
 \begin{definition}{Web Application} 
-	is used to denote applications deployed with accessability from the web.
+	is a application deployed with accessability from the web.
+\end{definition}
+
+\begin{definition}{Taint}
+	is denoting a flag that is attached to values indicating that the value might be of possible harm to the application.
+\end{definition}
+
+\begin{definition}{Detaint}
+	denotes the process of removing the taint flag from a value and therefore marking the value as safe to the application.
 \end{definition}
 
 \begin{definition}{Domain}
@@ -51,7 +59,7 @@ Domain Driven Security is somewhat more unknown, compared to Dynamic Taint Propa
 
 
 \section{Delimitations}
-The thesis will focus on security risks of web applications. Even though other application areas might be vulnerable to the same kind of vulnerabilities have this delimitation been drawn to keep the scope small and precise. The thesis dose nether create nor benchmark any form of Static Taint Analysis. 
+The thesis will focus on security risks of web applications. Even though other application areas might be vulnerable to the same kind of vulnerabilities have this delimitation been drawn to keep the scope small and precise. The thesis dose nether create nor benchmark any form of Static Taint Analyser. 
 
 The Dynamic Taint Propagation tool is created in and for Java applications with the help of the Java library Javassist. No comparison of different bytecode manipulators will be conducted.
 
