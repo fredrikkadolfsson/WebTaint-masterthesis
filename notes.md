@@ -74,26 +74,21 @@
     * Tydligt problem samt område man önskar svar på.
     * Case att utvärdera området på.
 
-  * Möte 5 MArs
-
+  * Möte 5 Mars
     * What applications to benchmark
-
       * maybe 10-20
         * Specify programs to test on
           * two in house
         * Specify soa
-        * Mention droidbench
+        * Mention DroidBench
         * SecuriBench
         * Security policy
           * Sources and Sinks
-          * Confidentiallity an dintegrity (Viktigt!!!)
-            * Beskriv exakta flödet!!!
-          * Ge exemplel på taint flow
+          * Confidentiality and integrity (Important!!!)
+            * Give example of flow
         * False positive and negative!!!!
-        * Hur hanteras libraries
+        * How is libraries handled?
 
 * Omegapoint
-
   * Möte 1
-
     * Dynamic = at runtime
