@@ -69,11 +69,31 @@
 * KTH
 
   * Möte 1
+
     * Implicit flow, look if DDS covers it.
     * Tydligt problem samt område man önskar svar på.
     * Case att utvärdera området på.
 
+  * Möte 5 MArs
+
+    * What applications to benchmark
+
+      * maybe 10-20
+        * Specify programs to test on
+          * two in house
+        * Specify soa
+        * Mention droidbench
+        * SecuriBench
+        * Security policy
+          * Sources and Sinks
+          * Confidentiallity an dintegrity (Viktigt!!!)
+            * Beskriv exakta flödet!!!
+          * Ge exemplel på taint flow
+        * False positive and negative!!!!
+        * Hur hanteras libraries
+
 * Omegapoint
+
   * Möte 1
 
     * Dynamic = at runtime
