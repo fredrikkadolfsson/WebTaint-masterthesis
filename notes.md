@@ -92,3 +92,16 @@
 * Omegapoint
   * Möte 1
     * Dynamic = at runtime
+
+An short example of how Dynamic Taint Propagation could help to coworks can be seen in listing \ref{lst:vulnerableTaint}.
+\hfill
+\begin{lstlisting}[
+caption=Vulnerable code,
+label={lst:vulnerableTaint}]
+...
+String userId = session.getAttribute("userId");
+String query = "SELECT \* FROM Users WHERE userId = " + userId;
+ResultSet rs = stmt.executeQuery(query);
+...
+\end{lstlisting}
+\hfill

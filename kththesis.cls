@@ -212,4 +212,17 @@
 \makeatother
 
 
+% My own added packages
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[all]{nowidow}
+
+\lstset{
+  escapeinside={(*@}{@*)},
+  language=Java,
+  numbers=left,
+	breaklines=true,
+}
+
 \endinput
