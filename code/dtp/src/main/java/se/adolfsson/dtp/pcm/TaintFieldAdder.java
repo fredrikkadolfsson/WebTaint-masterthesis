@@ -27,8 +27,8 @@ public class TaintFieldAdder {
       ClassPool cp = ClassPool.getDefault();
 
       addTaintFieldToClass(cp, String.class.getName());
-      addTaintFieldToClass(cp, StringBuffer.class.getName());
-      addTaintFieldToClass(cp, StringBuilder.class.getName());
+      //addTaintFieldToClass(cp, StringBuffer.class.getName());
+      //addTaintFieldToClass(cp, StringBuilder.class.getName());
 
     } catch (NotFoundException | CannotCompileException | IOException e) {
       throw new RuntimeException(e);
@@ -43,33 +43,19 @@ public class TaintFieldAdder {
 
     CtField taintField = new CtField(CtClass.booleanType, "tainted", cClass);
     taintField.setModifiers(Modifier.PRIVATE);
-    cClass.addField(taintField, "false");
+    cClass.addField(taintField, "propagateParamTaint($args)");
 
     cClass.addMethod(CtMethod.make("public void setTaint(boolean value){ this.tainted = value; }", cClass));
     cClass.addMethod(CtMethod.make("public boolean isTainted(){ return this.tainted; }", cClass));
-
-    /*
-    CtConstructor[] cConstructors = cClass.getConstructors();
-
-    for (CtConstructor cConstructor : cConstructors) {
-      CtClass[] paremTypes = cConstructor.getParameterTypes();
-
-      StringBuilder query = new StringBuilder();
-      for (int par = 0; par < paremTypes.length; par++) {
-        if (paremTypes[par] instanceof Taintable) {
-          query.append("$");
-          query.append(par + 1);
-          query.append(".isTainted() ||");
-        }
-      }
-
-      if (query.length() == 0) cConstructor.insertBefore("{ $0.tainted = false ; }");
-      else {
-        query.setLength(query.length() - 2);
-        cConstructor.insertBefore("{ $0.tainted = " + query + "; }");
-      }
-    }
-    */
+    cClass.addMethod(CtMethod.make("private boolean propagateParamTaint(Object[] args) {" +
+        "    boolean tainted = false;" +
+        "    for (int i = 0; i < args.length; i++) {" +
+        "      if (args[i] instanceof " + Taintable.class.getName() + ") {" +
+        "        tainted = tainted || ((" + Taintable.class.getName() + ") args[i]).isTainted();" +
+        "      }" +
+        "    }" +
+        "    return tainted;" +
+        "  }", cClass));
 
     byte[] bytes = cClass.toBytecode();
 
