@@ -22,13 +22,21 @@ public class TaintFieldAdder {
     System.out.println();
   }
 
+  public static boolean isNative(CtMethod method) {
+    return Modifier.isNative(method.getModifiers());
+  }
+
+  public static boolean isStatic(CtMethod method) {
+    return Modifier.isStatic(method.getModifiers());
+  }
+
   private void run() {
     try {
       ClassPool cp = ClassPool.getDefault();
 
       addTaintFieldToClass(cp, String.class.getName());
-      //addTaintFieldToClass(cp, StringBuffer.class.getName());
-      //addTaintFieldToClass(cp, StringBuilder.class.getName());
+      addTaintFieldToClass(cp, StringBuffer.class.getName());
+      addTaintFieldToClass(cp, StringBuilder.class.getName());
 
     } catch (NotFoundException | CannotCompileException | IOException e) {
       throw new RuntimeException(e);
@@ -56,6 +64,18 @@ public class TaintFieldAdder {
         "    }" +
         "    return tainted;" +
         "  }", cClass));
+
+    CtMethod[] cMethods = cClass.getDeclaredMethods();
+    for (CtMethod cMethod : cMethods) {
+      if (cMethod.getParameterTypes().length > 0 &&
+          !isNative(cMethod) &&
+          !isStatic(cMethod) &&
+          !cMethod.getName().equals("setTaint") &&
+          !cMethod.getName().equals("isTainted") &&
+          !cMethod.getName().equals("propagateParamTaint")) {
+        cMethod.insertBefore("{ $0.setTaint($0.propagateParamTaint($args)); }");
+      }
+    }
 
     byte[] bytes = cClass.toBytecode();
 
