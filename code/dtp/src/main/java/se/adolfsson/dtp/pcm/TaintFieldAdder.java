@@ -1,6 +1,7 @@
-package se.adolfsson.pcm;
+package se.adolfsson.dtp.pcm;
 
 import javassist.*;
+import se.adolfsson.dtp.pcm.api.Taintable;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,12 +39,37 @@ public class TaintFieldAdder {
     CtClass cClass = cp.get(className);
     cClass.defrost();
 
+    cClass.addInterface(cp.get(Taintable.class.getName()));
+
     CtField taintField = new CtField(CtClass.booleanType, "tainted", cClass);
     taintField.setModifiers(Modifier.PRIVATE);
     cClass.addField(taintField, "false");
 
     cClass.addMethod(CtMethod.make("public void setTaint(boolean value){ this.tainted = value; }", cClass));
     cClass.addMethod(CtMethod.make("public boolean isTainted(){ return this.tainted; }", cClass));
+
+    /*
+    CtConstructor[] cConstructors = cClass.getConstructors();
+
+    for (CtConstructor cConstructor : cConstructors) {
+      CtClass[] paremTypes = cConstructor.getParameterTypes();
+
+      StringBuilder query = new StringBuilder();
+      for (int par = 0; par < paremTypes.length; par++) {
+        if (paremTypes[par] instanceof Taintable) {
+          query.append("$");
+          query.append(par + 1);
+          query.append(".isTainted() ||");
+        }
+      }
+
+      if (query.length() == 0) cConstructor.insertBefore("{ $0.tainted = false ; }");
+      else {
+        query.setLength(query.length() - 2);
+        cConstructor.insertBefore("{ $0.tainted = " + query + "; }");
+      }
+    }
+    */
 
     byte[] bytes = cClass.toBytecode();
 

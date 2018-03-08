@@ -10,10 +10,26 @@ repositories {
 }
 
 dependencies {
+    compile 'org.projectlombok:lombok:1.16.18'
     compile group: 'org.javassist', name: 'javassist', version: '3.21.0-GA'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+task rtCompile(type: JavaExec, dependsOn: compileJava){
+    main 'se.adolfsson.dtp.pcm.TaintFieldAdder'
+    classpath sourceSets.main.runtimeClasspath
+}
+
+task rtJar(type: Jar, dependsOn: rtCompile){
+    from 'build/taint'
+    baseName 'pcm-rt'
+}
+
+artifacts{
+    archives rtJar
+}
+
 
 jar {
     archiveName = "${rootProject.name}-${rootProject.version}.jar"
