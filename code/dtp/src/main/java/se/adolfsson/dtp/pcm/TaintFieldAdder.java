@@ -56,22 +56,6 @@ public class TaintFieldAdder {
     writeClass(cp, className);
   }
 
-  private void writeClass(ClassPool cp, String className) throws IOException, CannotCompileException, NotFoundException {
-    CtClass cClass = cp.get(className);
-    byte[] bytes = cClass.toBytecode();
-
-    System.out.println("Added taint to: " + className + " " + bytes.length);
-
-    final String s = className.replace(".", "/");
-    File f = new File("build/taint/" + s + ".class");
-    f.getParentFile().mkdirs();
-    final FileOutputStream fos = new FileOutputStream(f);
-
-    fos.write(bytes);
-    fos.flush();
-    fos.close();
-  }
-
   private void addTaintVar(CtClass cClass) throws CannotCompileException {
     CtField taintField = new CtField(CtClass.booleanType, "tainted", cClass);
     taintField.setModifiers(Modifier.PRIVATE);
@@ -104,5 +88,21 @@ public class TaintFieldAdder {
         cMethod.insertBefore("{ $0.setTaint($0.propagateParamTaint($args)); }");
       }
     }
+  }
+
+  private void writeClass(ClassPool cp, String className) throws IOException, CannotCompileException, NotFoundException {
+    CtClass cClass = cp.get(className);
+    byte[] bytes = cClass.toBytecode();
+
+    System.out.println("Added taint to: " + className + " " + bytes.length);
+
+    final String s = className.replace(".", "/");
+    File f = new File("build/taint/" + s + ".class");
+    f.getParentFile().mkdirs();
+    final FileOutputStream fos = new FileOutputStream(f);
+
+    fos.write(bytes);
+    fos.flush();
+    fos.close();
   }
 }
