@@ -22,11 +22,11 @@ public class TaintFieldAdder {
     System.out.println();
   }
 
-  public static boolean isNative(CtMethod method) {
+  private static boolean isNative(CtMethod method) {
     return Modifier.isNative(method.getModifiers());
   }
 
-  public static boolean isStatic(CtMethod method) {
+  private static boolean isStatic(CtMethod method) {
     return Modifier.isStatic(method.getModifiers());
   }
 
@@ -34,49 +34,28 @@ public class TaintFieldAdder {
     try {
       ClassPool cp = ClassPool.getDefault();
 
-      addTaintFieldToClass(cp, String.class.getName());
-      addTaintFieldToClass(cp, StringBuffer.class.getName());
-      addTaintFieldToClass(cp, StringBuilder.class.getName());
+      addTaintableToClass(cp, String.class.getName());
+      addTaintableToClass(cp, StringBuffer.class.getName());
+      addTaintableToClass(cp, StringBuilder.class.getName());
 
     } catch (NotFoundException | CannotCompileException | IOException e) {
       throw new RuntimeException(e);
     }
   }
 
-  private void addTaintFieldToClass(ClassPool cp, String className) throws NotFoundException, CannotCompileException, IOException {
+  private void addTaintableToClass(ClassPool cp, String className) throws NotFoundException, CannotCompileException, IOException {
     CtClass cClass = cp.get(className);
     cClass.defrost();
 
     cClass.addInterface(cp.get(Taintable.class.getName()));
 
-    CtField taintField = new CtField(CtClass.booleanType, "tainted", cClass);
-    taintField.setModifiers(Modifier.PRIVATE);
-    cClass.addField(taintField, "propagateParamTaint($args)");
+    addTaintVar(cClass);
+    addTaintMethods(cClass);
+    propagateTaintInMethods(cClass);
+    writeClass(className, cClass);
+  }
 
-    cClass.addMethod(CtMethod.make("public void setTaint(boolean value){ this.tainted = value; }", cClass));
-    cClass.addMethod(CtMethod.make("public boolean isTainted(){ return this.tainted; }", cClass));
-    cClass.addMethod(CtMethod.make("private boolean propagateParamTaint(Object[] args) {" +
-        "    boolean tainted = false;" +
-        "    for (int i = 0; i < args.length; i++) {" +
-        "      if (args[i] instanceof " + Taintable.class.getName() + ") {" +
-        "        tainted = tainted || ((" + Taintable.class.getName() + ") args[i]).isTainted();" +
-        "      }" +
-        "    }" +
-        "    return tainted;" +
-        "  }", cClass));
-
-    CtMethod[] cMethods = cClass.getDeclaredMethods();
-    for (CtMethod cMethod : cMethods) {
-      if (cMethod.getParameterTypes().length > 0 &&
-          !isNative(cMethod) &&
-          !isStatic(cMethod) &&
-          !cMethod.getName().equals("setTaint") &&
-          !cMethod.getName().equals("isTainted") &&
-          !cMethod.getName().equals("propagateParamTaint")) {
-        cMethod.insertBefore("{ $0.setTaint($0.propagateParamTaint($args)); }");
-      }
-    }
-
+  private void writeClass(String className, CtClass cClass) throws IOException, CannotCompileException {
     byte[] bytes = cClass.toBytecode();
 
     System.out.println("Added taint to: " + className + " " + bytes.length);
@@ -89,5 +68,39 @@ public class TaintFieldAdder {
     fos.write(bytes);
     fos.flush();
     fos.close();
+  }
+
+  private void addTaintVar(CtClass cClass) throws CannotCompileException {
+    CtField taintField = new CtField(CtClass.booleanType, "tainted", cClass);
+    taintField.setModifiers(Modifier.PRIVATE);
+    cClass.addField(taintField, "propagateParamTaint($args)");
+  }
+
+  private void addTaintMethods(CtClass cClass) throws CannotCompileException {
+    cClass.addMethod(CtMethod.make("public void setTaint(boolean value){ this.tainted = value; }", cClass));
+    cClass.addMethod(CtMethod.make("public boolean isTainted(){ return this.tainted; }", cClass));
+    cClass.addMethod(CtMethod.make("private boolean propagateParamTaint(Object[] args) {" +
+        "    boolean tainted = false;" +
+        "    for (int i = 0; i < args.length; i++) {" +
+        "      if (args[i] instanceof " + Taintable.class.getName() + ") {" +
+        "        tainted = tainted || ((" + Taintable.class.getName() + ") args[i]).isTainted();" +
+        "      }" +
+        "    }" +
+        "    return tainted;" +
+        "  }", cClass));
+  }
+
+  private void propagateTaintInMethods(CtClass cClass) throws NotFoundException, CannotCompileException {
+    CtMethod[] cMethods = cClass.getDeclaredMethods();
+    for (CtMethod cMethod : cMethods) {
+      if (cMethod.getParameterTypes().length > 0 &&
+          !isNative(cMethod) &&
+          !isStatic(cMethod) &&
+          !cMethod.getName().equals("setTaint") &&
+          !cMethod.getName().equals("isTainted") &&
+          !cMethod.getName().equals("propagateParamTaint")) {
+        cMethod.insertBefore("{ $0.setTaint($0.propagateParamTaint($args)); }");
+      }
+    }
   }
 }

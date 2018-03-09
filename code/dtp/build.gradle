@@ -16,17 +16,17 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-task rtCompile(type: JavaExec, dependsOn: compileJava){
+task rtCompile(type: JavaExec, dependsOn: compileJava) {
     main 'se.adolfsson.dtp.pcm.TaintFieldAdder'
     classpath sourceSets.main.runtimeClasspath
 }
 
-task rtJar(type: Jar, dependsOn: rtCompile){
+task rtJar(type: Jar, dependsOn: rtCompile) {
     from 'build/taint'
     baseName 'pcm-rt'
 }
 
-artifacts{
+artifacts {
     archives rtJar
 }
 
