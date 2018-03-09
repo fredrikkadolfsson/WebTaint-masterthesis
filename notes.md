@@ -94,6 +94,7 @@
     * Dynamic = at runtime
 
 Primitives are never modifiable #https://docs.oracle.com/javase/7/docs/api/java/lang/instrument/Instrumentation.html
+Boxing & Unboxing kan lösa primitiv problem.
 
 # Skriv in i rapporten
 
