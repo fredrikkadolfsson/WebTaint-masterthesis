@@ -37,6 +37,7 @@ public class TaintFieldAdder {
       addTaintableToClass(cp, String.class.getName());
       addTaintableToClass(cp, StringBuffer.class.getName());
       addTaintableToClass(cp, StringBuilder.class.getName());
+      writeClass(cp, Taintable.class.getName());
 
     } catch (NotFoundException | CannotCompileException | IOException e) {
       throw new RuntimeException(e);
@@ -52,10 +53,11 @@ public class TaintFieldAdder {
     addTaintVar(cClass);
     addTaintMethods(cClass);
     propagateTaintInMethods(cClass);
-    writeClass(className, cClass);
+    writeClass(cp, className);
   }
 
-  private void writeClass(String className, CtClass cClass) throws IOException, CannotCompileException {
+  private void writeClass(ClassPool cp, String className) throws IOException, CannotCompileException, NotFoundException {
+    CtClass cClass = cp.get(className);
     byte[] bytes = cClass.toBytecode();
 
     System.out.println("Added taint to: " + className + " " + bytes.length);

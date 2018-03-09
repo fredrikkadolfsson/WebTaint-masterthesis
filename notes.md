@@ -98,3 +98,4 @@ Primitives are never modifiable #https://docs.oracle.com/javase/7/docs/api/java/
 # Skriv in i rapporten
 
 * Använder Javas Intrument API som kräver bytecode
+* Xbootclass & Agent

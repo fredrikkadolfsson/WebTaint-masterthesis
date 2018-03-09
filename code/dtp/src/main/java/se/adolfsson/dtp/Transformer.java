@@ -9,7 +9,7 @@ public class Transformer implements ClassFileTransformer {
                           Class classBeingRedefined, ProtectionDomain protectionDomain,
                           byte[] classfileBuffer) {
 
-    System.out.println("Instrumenting: " + className);
+    //System.out.println("Instrumenting: " + className);
 
     return null;
   }

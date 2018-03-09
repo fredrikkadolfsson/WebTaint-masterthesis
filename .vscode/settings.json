@@ -71,5 +71,6 @@
     "Javassist",
     "bytecode",
     "detainting"
-  ]
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }
