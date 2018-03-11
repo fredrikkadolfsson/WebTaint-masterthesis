@@ -24,6 +24,7 @@
 \frontmatter
 
 
+
 \titlepage
 
 
@@ -52,7 +53,7 @@ Cross-Site Scripting in other hand was listed as number seven at OWASP top 10 se
 
 To prevent these form of security vulnerabilities in web applications, a variety of tools and methodologies have been created. In this thesis will we look at Dynamic Taint Propagation and Domain Driven Security. 
 
-Dynamic Taint Propagation’s goal is to prevent possible Injection and Cross-Site Scripting attacks in runtime. This is done by marking input variables from sources, which is a marking point where malicious data might enter the system, as tainted through a taint flag attached to the variable. This taint flag follows the variable throughout the application and propagates onto any other variables it encounters. It is possible to detaint (remove the taint flag) a tainted variable but this is only done after the variable have been sanitized through validation. The taint flags are checked in areas called sinks which is a marking for entry points to sensitive code such as SQL executions \parencite{Pan2015, Venkataramani2008}. The decision of what to do when a tainted variable tries to pass through a sink might vary depending on the application. In general, for a Dynamic Taint Propagation tool is the common reaction to stop the execution of the tainted code. But other actions such as logging or raising an alarm is not uncommon. 
+Dynamic Taint Propagation’s goal is to prevent possible Injection and Cross-Site Scripting attacks in runtime. This is done by marking input variables from sources, which is a marking point where malicious data might enter the system, as tainted through a taint flag attached to the variable. This taint flag follows the variable throughout the application and propagates onto any other variables it encounters. It is possible to detaint (remove the taint flag) a tainted variable but this is only done after the variable have been sanitized through validation. The taint flags are checked in areas called sinks which is a marking for entry points to sensitive code such as SQL executions \parencite{Pan2015, Venkataramani2008}. The decision of what to do when a tainted variable try to pass through a sink might vary depending on the application. In general, for a Dynamic Taint Propagation tool is the common reaction to stop the execution of the tainted code. But other actions such as logging or raising an alarm is not uncommon. 
 
 The above described Dynamic Taint Propagation tool is a solution to protect the integrity of the system. There are security policies detailing that no information from the sources can pass through a sink without first being sanitized through validation. The same application could however be used to enhance the confidentiality of the system. The security policy for doing this would be opposite of the integrity policy. The policy would be that the data that comes from a sink must be sanitized and validated to not contain confidential information that is sensitive before letting it pass through a source. This thesis will focus on the integrity policy. Specifically, the question of how it might help confidentiality policies as well is an interesting aspect and there might be reasoning and tests upon the question.
 
