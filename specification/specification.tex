@@ -1,199 +1,210 @@
 \documentclass{../kththesis}
-\usepackage{csquotes} % Recommended by biblatex
-\usepackage{biblatex}
-\usepackage{pgfgantt}
-
-\addbibresource{../references.bib} % The file containing our references, in BibTeX format
-
-
-\title{Implementing Dynamic Taint Propagation to Enforce Domain Driven Security \\
-				\large Specification and Time Schedule}
-\author{Fredrik Adolfsson - freado@kth.se}
-\email{freado@kth.se}
-\supervisor{Musard Balliu}
-\examiner{Mads Dam}
-\principal{Jonatan Landsberg \& Simon Tardell}
-\programme{Master in Computer Science}
-\school{School of Computer Science and Communication}
-\date{\today}
+	\usepackage{csquotes} % Recommended by biblatex
+	\usepackage{biblatex}
+	\usepackage{pgfgantt}
 	
-
-\begin{document}
-
-% Frontmatter includes the title page, abstracts and table-of-contents
-\frontmatter
-
-
-
-\titlepage
-
-
-\tableofcontents
-
-
-% Mainmatter is where the actual contents of the thesis goes
-\mainmatter
-
-
-
-\chapter{Introduction}
-In 1990 was the World Wide Web (Web) founded and the creation have cause a huge impact on today’s society \parencite{www}. The Web is a source for information and it connects the world through a unanimous platform. Many businesses have decided to take advantage of this to gain accessibility for their users. But this accessibility gain for the targeted and wanted user group does not come without its drawbacks. The accessibility is a weakness in the same manner as it is a strength. The web application is not only accessible for the targeted user group but for all user groups. Which entails that users who wishes to abuse and/or cause harm to the application have the accessibility to possibly do so. 
-
-There are several possible attacks that a web application is vulnerable to and the attack most frequently conducted today will probably not be the same as the most conducted in the future. The organization Open Web Applications Security Project, mostly known for its shortening OWASP, is an online community which aims to provide knowledge about how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP have produced reports about the top 10 security risks for a web application and the latest was published 2017. Among the security risks in the latest report is the number one Injection Attack and number seven Cross-Site Scripting \parencite{OWASP2017, OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}.
-
-This thesis will look at the two named security risks and perform evaluations and benchmarks of a possible solution to prevent these kinds of attacks in runtime. 
-
-
-
-\chapter{Background}
-% Description of the area within which the degree project is being carried out (e.g. connection to research/development, state-of-the-art, scientific and/or societal interest).
-As said in the previous chapter, Injection Attack is the number one security vulnerability for web applications. Injection Attack is a collection name for any attack where the attacker’s input changes the intent of the execution. Some possible versions of Injection Attack are injection of queries that manipulates SQL, NoSQL, OS and LDAP executions \parencite{OWASP2017}. The most common goals and result of Injection Attack is file destruction, lack of accountability, denial of access and data loss \parencite{Secure_Web}.
-
-Cross-Site Scripting in other hand was listed as number seven at OWASP top 10 security vulnerabilities published in 2017 \parencite{OWASP2017}. But the origin of the attack goes back to the beginning of the Web and one of the first Cross-Site Scripting attack was conducted just after the release of JavaScript. The attack was conducted through loading a malicious web application into a frame on the site that the attacker wanted to gain control of. The attacker could then through malicious scripts from the malicious frame access any content that was visible or typed into the web application. The first prevention for Cross-Site Scripting was then introduces through the standard of Same-Origin Policy. Same-Origin Policy restricts JavaScript to only access content from its own origin \parencite{FogieSeth2007Xacs, w3csop}.
-
-To prevent these form of security vulnerabilities in web applications, a variety of tools and methodologies have been created. In this thesis will we look at Dynamic Taint Propagation and Domain Driven Security. 
-
-Dynamic Taint Propagation’s goal is to prevent possible Injection and Cross-Site Scripting attacks in runtime. This is done by marking input variables from sources, which is a marking point where malicious data might enter the system, as tainted through a taint flag attached to the variable. This taint flag follows the variable throughout the application and propagates onto any other variables it encounters. It is possible to detaint (remove the taint flag) a tainted variable but this is only done after the variable have been sanitized through validation. The taint flags are checked in areas called sinks which is a marking for entry points to sensitive code such as SQL executions \parencite{Pan2015, Venkataramani2008}. The decision of what to do when a tainted variable try to pass through a sink might vary depending on the application. In general, for a Dynamic Taint Propagation tool is the common reaction to stop the execution of the tainted code. But other actions such as logging or raising an alarm is not uncommon. 
-
-The above described Dynamic Taint Propagation tool is a solution to protect the integrity of the system. There are security policies detailing that no information from the sources can pass through a sink without first being sanitized through validation. The same application could however be used to enhance the confidentiality of the system. The security policy for doing this would be opposite of the integrity policy. The policy would be that the data that comes from a sink must be sanitized and validated to not contain confidential information that is sensitive before letting it pass through a source. This thesis will focus on the integrity policy. Specifically, the question of how it might help confidentiality policies as well is an interesting aspect and there might be reasoning and tests upon the question.
-
-But there is not only tools that have been created to help prevent Injection Attacks and Cross-Site Scripting. One methodology that have been coined to help secure applications is the programming paradigm Domain Driven Security. Domain Driven Security aim to secure applications by focusing on the core domain models and making certain that validation of the value objects is correct. \textcite{Wilander2009} describes the methodology as a mixture of Domain Driven Design and application security \parencite{Wilander2009, Johnsson2009}.
-
-Both Dynamic Taint Propagation and Domain Driven Security focuses on the validation of data. This creates some interesting thoughts where one question is if we see the gains of both if we follow one of them. This thesis will take the perspective from the Dynamic Taint Propagation tools side where a version of said tool will be developed and evaluated. 
-
-
-
-\section{Related Work}
-\textcite{Stendahl2016} wrote a thesis in 2016 where he evaluated if a Domain Driven Security can prevent Injection Attacks and Cross-Site Scripting. He concluded that there is a security gain towards Injection Attacks and Cross-Site Scripting by following the Domain Driven Security methodology. The gained security comes from proper validation of variables before propagating the data into the value objects.
-
-\textcite{Haldar} have written a report about Dynamic Taint Propagation in Java where they try to solve the problem of not properly validating user input. They managed to construct a tool that is independent from the web applications source code and the results from using the tool is a gain in security. \textcite{Haldar} ran their benchmarks on OWASP’s project WebGoat \parencite{webgoat} but acknowledged in their report that benchmarks of real-world web applications need to be tested.
-
-There do exist two Dynamic Taint Propagation tools where Phosphor \parencite{phosphor} is one and Security Taint Propagation \parencite{securityTaint} is another. Both are open source projects and developed for Java applications.
-
-
-\section{Goal \& Objective}
-% The principal’s interest. The background of the specific assignment to be conducted. What is the desired outcome (from the principal’s side and from the perspective of the degree project)
-The goal of this thesis is to implement and benchmark a Dynamic Taint Propagation tool which aims to enforce the security gains of Domain Driven Security. The Dynamic Taint Propagation tools objective will be to prevent Injection Attacks and Cross-Site Scripting in runtime were possible malicious code shall be prevented from executing and logged.
-
-The principal, Omegapoint, is interested in everything that might validate, invalidate, evolve or bring a further value to the programming paradigm Domain Driven Security. The reason for this is because the concept of Domain Driven Security was born and is in development by Omegapoint consultants. Omegapoint also like to see a prototype of a Dynamic Taint Propagation tool which can block attacks in runtime.
-
-
-
-\chapter{Research Question \& Method} \label{ResearchQuestionMethod}
-% The QUESTION that will be examined. Formulated as an explicit and evaluable question.
-\begin{chapquote}{}
-	How can an implementation of a Dynamic Taint Propagation tool enforce the security gains of Domain Driven Security.
-\end{chapquote}
-
-\noindent
-% (e.g. what does the assignment entail and what are the challenges involved?)
-% Preliminary description of, for example, algorithms that will be tested, data that will be used.
-The assignment would be to benchmark and evaluate the implementation of a Dynamic Taint Propagation tool and discuss if it helps to enforce the security gains of Domain Driven Security. The process of this thesis would be to conduct, in order:
-
-\begin{description}  
-	\item [Literature Study]
-	The literature study is where information relevant to the thesis need to be gathered and presented. Details of what the focus will lie upon is presented in chapter \ref{Pre-study}.
-
-	\item [Tainting \& Detainting]
-	This step is the part where tainting and detainting rules are decided. These needs to be decided since the next step is the implementation of the Dynamic Taint Propagation tool. I will focus on defining rules that enforces security policies to protect for integrity. But the question of how these can be reused or slightly modified to enforce policies of confidentiality protection should also be mentioned.
-
-	\item [Implementation]
-	The implementation step is where the Dynamic Taint Propagation tool is implemented. Omegapoint have developed a proof of concept product which I will continue my work upon. This tool is developed in and for Java with help of the Javassist \parencite{Javassist} which makes the manipulation of bytecode easier. The proof of concept is developed to check taint on HTTP query strings through a Spring server. I will continue the work and expand its coverage.
-
-	\item [Benchmarking]
-	This step is where the Dynamic Taint Propagation tool will be benchmarked. The benchmarking will be a comparison to see how it relates to other similar applications. The two application that will be the reference points are Phosphor \parencite{phosphor} and Security Taint Propagation \parencite{securityTaint}. The applications to benchmark will be a mixture of some real-world applications and benchmarking applications. Omegapoint have two internal applications that can be used and Standford SecuriBench \parencite{securiBench} is a set of open source programs that is developed for evaluating security tools, which therefor is optimal to use for benchmarking.
+	\addbibresource{../references.bib} % The file containing our references, in BibTeX format
 	
-	The values that is in focus during the benchmark are the values in the table below. 
 	
+	\title{Implementing Dynamic Taint Propagation to Enforce Security Gains of Domain Driven Security \\
+					\large Specification and Time Schedule}
+	\author{Fredrik Adolfsson - freado@kth.se}
+	\email{freado@kth.se}
+	\supervisor{Musard Balliu}
+	\examiner{Mads Dam}
+	\principal{Jonatan Landsberg \& Simon Tardell}
+	\programme{Master in Computer Science}
+	\school{School of Computer Science and Communication}
+	\date{\today}
+		
+	
+	\begin{document}
+	
+	% Frontmatter includes the title page, abstracts and table-of-contents
+	\frontmatter
+	
+	
+	
+	\titlepage
+	
+	
+	\tableofcontents
+	
+	
+	% Mainmatter is where the actual contents of the thesis go
+	\mainmatter
+	
+	
+	
+	\chapter{Introduction}
+	The creation of the World Wide Web (web) has caused a huge impact on today’s society \parencite{www}. The web is a source for information and it connects the world through a unanimous platform. Many businesses have decided to take advantage of the web platform to share information and communicate with customers. However, this does not come without drawbacks. The information sharing is a weakness in the same manner as it is a strength. The web application is not only accessible for the targeted user groups but for anyone with access to the web. This entails that malicious users who wish to abuse and/or cause harm to other users have the accessibility to possibly do so. 
+	
+	There are several possible attacks that a web application is vulnerable to. The attack most frequently conducted today will probably not be the same as the most conducted in the future. The Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge about how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP have produced reports about the top 10 security risks for a web application and the latest was published 2017. In this report was Injection Attacks number one and Cross-Site Scripting number seven. \parencite{OWASP2017, OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}.
+	
+	This thesis will look at the two named security risks and perform evaluations and benchmarks of a possible solution to prevent these types of attacks in runtime. 
+	
+	
+	
+	\chapter{Background}
+	% Description of the area within which the degree project is being carried out (e.g. connection to research/development, state-of-the-art, scientific and/or societal interest).
+	Discussions about application security often relies on the CIA Triad which represent the three primary concepts in information security. These three are confidentiality, integrity and availability. Confidentiality are rules that specifies the access restrictions to the application. Integrity specifies that application data should be accurate and not altered. Availability is about ability to access the application and application data \parencite{2014C1-W}. This thesis focuses on confidentiality and integrity vulnerabilities and how we can prevent them.
+	
+	Injection Attacks are the number one security vulnerability for web applications. Injection Attack is a collection name for any attack where the attacker’s input changes the intent of the execution. Some possible versions of Injection Attack are injection of queries that manipulates SQL, NoSQL, OS and LDAP executions \parencite{OWASP2017}. The most common goals and result of Injection Attack is file destruction, lack of accountability, denial of access and data loss \parencite{Secure_Web}.
+	
+	Cross-Site Scripting on the other hand was listed as number seven in OWASP top 10 security vulnerabilities published 2017 \parencite{OWASP2017}. The origin of the attack goes back to the beginning of the web and one of the first Cross-Site Scripting attack was conducted just after the release of JavaScript. The attack was conducted through loading a malicious web application into a frame on the site that the attacker wanted to gain control of. The attacker could then leverage malicious scripts from the malicious frame to access any content that was entered into the web application. The first prevention for Cross-Site Scripting was then introduced through the standard of Same-Origin Policy. Same-Origin Policy restricts JavaScript to only access content from its own origin \parencite{FogieSeth2007Xacs, w3csop}.
+	
+	To prevent these types of security vulnerabilities in web applications, a variety of tools and methodologies have been created. Dynamic Taint Propagation is one of these tools which goal is to prevent possible Injection and Cross-Site Scripting attacks in runtime. This is done by marking untrusted input from sources, which is a marking point where malicious data might enter the system, as tainted. This is done through a taint flag attached to the input. This taint flag follows the input throughout the application and propagates onto any other data it encounters. It is possible to detaint (remove the taint flag) tainted data but this is only done after the data have been sanitized through validation. The taint flags are checked in areas called sinks which are markings for entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do when a tainted variable try to pass through a sink might vary depending on the application. However, the common reaction is to stop the execution of the tainted code. Other actions such as logging or raising an alarm are also common. 
+	
+	An example of Taint Propagation can be seen in listing \ref{lst:taint_propagation}. In this example is \textit{getAttribute} a source, \textit{executeQuery} a sink and \textit{validate} a sanitizer. This code work since the untrusted input from the source is sanitized before entering the sink. However, removing line two would result in an error since \textit{userId} would never be detainted.
+	
+	\hfill
+	\begin{lstlisting}[
+		caption=Taint Propagation,
+		numbers=left,
+		label={lst:taint_propagation}]
+	userId = getAttribute("userId");
+	validate(userId)
+	executeQuery("SELECT * FROM Users WHERE userId = " + userId);
+	\end{lstlisting}
+	\hfill
+	
+	The above described Dynamic Taint Propagation tool focuses on preventing malicious code to enter the application. There are security policies restricting input from sources to pass through sinks without first being sanitized through validation. The same application could however be used to enforce policies restricting sensitive data from sinks to pass through sources without being sanitized to not contain sensitive data. 
+	
+	This thesis will look at Dynamic Taint Propagation and how the tool can be used to prevent Injection Attack and Cross-Site Scripting vulnerabilities. This thesis will also evaluate if we can see all the security gains from the programming paradigm Domain Driven Security, which have been proven to combat vulnerabilities with information disclosure, by using the benchmarked Dynamic Taint Propagation tool. 
+	
+	
+	\section{Related Work}
+	\textcite{Stendahl2016} wrote a thesis in 2016 where he evaluated if a Domain Driven Security can prevent Injection Attacks and Cross-Site Scripting. He concluded that there is a security gain towards Injection Attacks and Cross-Site Scripting by following the Domain Driven Security methodology. The gained security comes from proper validation of variables before propagating the data into the value objects.
+	
+	\textcite{Haldar} have written a report about Dynamic Taint Propagation in Java where they try to solve the problem of not properly validating user input. They managed to construct a tool that is independent from the web applications source code and the results from using the tool is a gain in security. \textcite{Haldar} ran their benchmarks on OWASP’s project WebGoat \parencite{webgoat} but acknowledged in their report that benchmarks of real-world web applications need to be tested.
+	
+	There do exist two Dynamic Taint Propagation tools where Phosphor \parencite{phosphor} is one and Security Taint Propagation \parencite{securityTaint} is another. Both are open source projects and developed for Java applications.
+	
+	
+	\section{Goal \& Objective}
+	% The principal’s interest. The background of the specific assignment to be conducted. What is the desired outcome (from the principal’s side and from the perspective of the degree project)
+	The goal of this thesis is to implement and benchmark a Dynamic Taint Propagation tool which aims to enforce the security gains of Domain Driven Security. The Dynamic Taint Propagation tools objective will be to prevent Injection Attacks and Cross-Site Scripting in runtime were possible malicious code shall be prevented from executing and logged.
+	
+	The principal, Omegapoint, is interested in everything that might validate, invalidate, evolve or bring a further value to the programming paradigm Domain Driven Security. The reason for this is because the concept of Domain Driven Security was born and is in development by Omegapoint consultants. Omegapoint also like to see a prototype of a Dynamic Taint Propagation tool which can block attacks in runtime.
+	
+	
+	
+	\chapter{Research Question \& Method} \label{ResearchQuestionMethod}
+	% The QUESTION that will be examined. Formulated as an explicit and evaluable question.
+	\begin{chapquote}{}
+		How can an implementation of a Dynamic Taint Propagation tool enforce the security gains of Domain Driven Security.
+	\end{chapquote}
+	
+	\noindent
+	% (e.g. what does the assignment entail and what are the challenges involved?)
+	% Preliminary description of, for example, algorithms that will be tested, data that will be used.
+	The assignment would be to benchmark and evaluate the implementation of a Dynamic Taint Propagation tool and discuss if it helps to enforce the security gains of Domain Driven Security. The process of this thesis would be to conduct, in order:
+	
+	\begin{description}  
+		\item [Literature Study]
+		The literature study is where information relevant to the thesis need to be gathered and presented. Details of what the focus will lie upon is presented in chapter \ref{Pre-study}.
+	
+		\item [Tainting \& Detainting]
+		This step is the part where tainting and detainting rules are decided. These needs to be decided since the next step is the implementation of the Dynamic Taint Propagation tool. I will focus on defining rules that enforces security policies to protect for integrity. The question of how these can be reused or slightly modified to enforce policies of confidentiality protection should also be mentioned.
+	
+		\item [Implementation]
+		The implementation step is where the Dynamic Taint Propagation tool is implemented. Omegapoint have developed a proof of concept product which I will continue my work upon. This tool is developed in and for Java with help of the Javassist \parencite{Javassist} which makes the manipulation of bytecode easier. The proof of concept is developed to check taint on HTTP query strings through a Spring server. I will continue the work and expand its coverage.
+	
+	
+		\item [Benchmarking]
+		This step is where the Dynamic Taint Propagation tool will be benchmarked. The benchmarking will be a comparison to see how it relates to other similar applications. The two application that will be the reference points are Phosphor \parencite{phosphor} and Security Taint Propagation \parencite{securityTaint}. The applications to benchmark will be a mixture of some real-world applications and benchmarking applications. Omegapoint have two internal applications that can be used and Standford SecuriBench \parencite{securiBench} is a set of open source programs that is developed for evaluating security tools, which therefor is optimal to use for benchmarking.
+		
+		The values that is in focus during the benchmark are the values in the table below. 
+		
+		\begin{itemize}  
+			\item \textbf{Added Time Complexity} - Also called performance overhead. Measure of time added to the execution by using the Dynamic Taint Propagation tool.
+			\item \textbf{Prevention Rate} - Percentage measure of ratio between total attacks and prevented attacks.
+			\item \textbf{False Positive Rate} - Percentage measure of ratio between total attacks and undetected attacks.
+		\end{itemize}
+	
+		The tools to use to test the previously named applications will be all or some of; OWASP Zed \parencite{zed}, w3af \parencite{w3af} and Loader \parencite{loader}.
+	
+		\item [Analysis]
+		The analysis step is where the benchmarking results is reflected upon and written into the report. The discussion will contain thought of how it helps to secure applications and what have been successful and unsuccessful.
+	
+		\item [Report Writing \& Presentation]
+		The last steps are to finalize the report and present the thesis.
+	\end{description}
+	
+	
+	
+	\chapter{Evaluation \& News Value}
+	% How is it determined if the objective of the degree project has been fulfilled and if the question has been adequately answered? Preliminary report on the evaluation method, measures and data.
+	The thesis is considered to reach its objective if a Dynamic Taint Propagation tool have been developed and is in working state where integrity and confidentiality policies are enforced. The tool must have been benchmarked with comparisons to current state of art applications where the parameters time complexity, prevention rate and false positive rate are the values for the reasoning. There should also be an evaluation containing well thought comments and observations about the benchmarking results and how the results might or might not enforce the programing paradigm Domain Driven Security.
+	
+	% Why does someone want to read the finished work? And who are these people?
+	% How is the work scientifically relevant and what is the hypothesis being tested? How is this hypothesis being tested?
+	The relevance in the thesis lies in the problem with software security. Since we are going towards an age where digitalization only grows larger is the question about how we can secure our software extremely important and relevant. The hypothesis is that we can help in the process of enforcing more secure software. The question is with how much and if there are negative side effects. The work should be of interest for anyone wanting to see a gain in their systems security. This application, or an application of similar sort, could protect their system without any, or minor, modifications to the source code. This is especially of interest for individuals or business who have applications where the work needed to secure them would result in too much rework.
+	
+	
+	
+	\chapter{Pre-study} \label{Pre-study}
+	% What areas will the literature study focus on?
+	% How shall the necessary knowledge on background and state-of-the-art be obtained?
+	% What preliminarily important references have been identified?
+	% Description of the literature studies. What areas will the literature study focus on? How shall the necessary knowledge on background and state-of-the-art be obtained? What preliminarily important references have been identified?
+	The literature study will focus on gathering the relevant information needed for the report. These areas are listed in the table below:
+		
+		\begin{itemize}  
+			\item Java Applications
+			\item Injection Attacks
+			\item Cross-Site Scripting
+			\item Dynamic Taint Propagation
+			\item Domain Driven Security
+			\item Javassist
+		\end{itemize}
+	
+	\noindent
+	Research into JVM modifications must also be included since it is needed for the implementation of the Dynamic Taint Propagation tool. The information will be obtained by researching for relevant books, reports and other possible material. Two of the founders of the concept of Domain Driven Security work at Omegapoint and are accessible for questions. Conduction interviews with the founders might be of interest.
+	
+	
+	
+	\chapter{Conditions \& Schedule}
+	\section{Resources}
+	% List of the resources expected to be needed to solve the problem (unless the degree project involves investigating what equipment should be used). This can be technical equipment, but also experiment and interview subjects.
+	To save some time the development of the Dynamic Taint Propagation tool will continue the work that Simon Tardell have started. Which is a tool developed in and for Java with help of the Java library Javassist \parencite{Javassist}. Applications to use to evaluate the implementation is also of need. Examples of these have been mentioned in chapter \ref{ResearchQuestionMethod}.
+	
+	
+	\section{Limitations}
+	% Defined limitations on what is to be done (so that it is clear what is not included in the degree project)
 	\begin{itemize}  
-		\item \textbf{Added Time Complexity} - Also called performance overhead. Measure of time added to the execution by using the Dynamic Taint Propagation tool.
-		\item \textbf{Prevention Rate} - Percentage measure of ratio between total attacks and prevented attacks.
-		\item \textbf{False Positive Rate} - Percentage measure of ratio between total attacks and undetected attacks.
+		\item The Dynamic Taint Propagation tool does not have to be a production ready. The goal is to develop a prototype.
+		\item Web applications is the targeted applications.
+		\item The scope of the thesis will not contain Static Taint Propagation.
+		\item The tool is developed in Java with Javassist.
 	\end{itemize}
-
-	The tools to use to test the previously named applications will be all or some of; OWASP Zed \parencite{zed}, w3af \parencite{w3af} and Loader \parencite{loader}.
-
-	\item [Analysis]
-	The analysis step is where the benchmarking results is reflected upon and written into the report. The discussion will contain thought of how it helps to secure applications and what have been successful and unsuccessful.
-
-	\item [Report Writing \& Presentation]
-	The last steps are to finalize the report and present the thesis.
-\end{description}
-
-
-
-\chapter{Evaluation \& News Value}
-% How is it determined if the objective of the degree project has been fulfilled and if the question has been adequately answered? Preliminary report on the evaluation method, measures and data.
-The thesis is considered to reach its objective if a Dynamic Taint Propagation tool have been developed and is in working state where integrity and confidentiality policies are enforced. The tool must have been benchmarked with comparisons to current state of art applications where the parameters time complexity, prevention rate and false positive rate are the values for the reasoning. There should also be a evaluation containing well thought comments and observations about the benchmarking results and how the results might or might not enforce the programing paradigm Domain Driven Security.
-
-% Why does someone want to read the finished work? And who are these people?
-% How is the work scientifically relevant and what is the hypothesis being tested? How is this hypothesis being tested?
-The relevance in the thesis lies in the problem with software security. Since we are going towards an age where digitalization only grows larger is the question about how we can secure our software extremely important and relevant. The hypothesis is that we can help in the process of enforcing more secure software. But the question is with how much and if there are negative side effects. The work should be of interest for anyone wanting to see a gain in their systems security. This application, or an application of similar sort, could protect their system without any, or minor, modifications to the source code. This is especially of interest for individuals or business who have applications where the work needed to secure them would result in too much rework.
-
-
-
-\chapter{Pre-study} \label{Pre-study}
-% What areas will the literature study focus on?
-% How shall the necessary knowledge on background and state-of-the-art be obtained?
-% What preliminarily important references have been identified?
-% Description of the literature studies. What areas will the literature study focus on? How shall the necessary knowledge on background and state-of-the-art be obtained? What preliminarily important references have been identified?
-The literature study will focus on gathering the relevant information needed for the report. These areas are listed in the table below:
 	
-	\begin{itemize}  
-		\item Java Applications
-		\item Injection Attacks
-		\item Cross-Site Scripting
-		\item Dynamic Taint Propagation
-		\item Domain Driven Security
-		\item Javassist
+	
+	\section{Company Supervisor}
+	% Describe the way in which the principal will be involved in the project and what the external supervisor has undertaken to do (e.g. in terms oef discussion, implementation, report reading).
+	\begin{itemize}
+		\item \textbf{Jonatan Landsberg:} Will assist with supervision on the academic part if the thesis.
+		\item \textbf{Simon Tardell:} Supervisor in the technical parts of the thesis. He is also the author of the first draft of the Dynamic Taint Propagation tool which this thesis will continue its work upon. 
 	\end{itemize}
-
-\noindent
-Research into JVM modifications must also be included since it is needed for the implementation of the Dynamic Taint Propagation tool. The information will be obtained by researching for relevant books, reports and other possible material. Two of the founders of the concept of Domain Driven Security work at Omegapoint and are accessible for questions. Conduction interviews with the founders might be of interest.
-
-
-
-\chapter{Conditions \& Schedule}
-\section{Resources}
-% List of the resources expected to be needed to solve the problem (unless the degree project involves investigating what equipment should be used). This can be technical equipment, but also experiment and interview subjects.
-To save some time the development of the Dynamic Taint Propagation tool will continue the work that Simon Tardell have started. Which is a tool developed in and for Java with help of the Java library Javassist \parencite{Javassist}. Applications to use to evaluate the implementation is also of need. But example of these have been mentioned in chapter \ref{ResearchQuestionMethod}.
-
-
-\section{Limitations}
-% Defined limitations on what is to be done (so that it is clear what is not included in the degree project)
-\begin{itemize}  
-	\item The Dynamic Taint Propagation tool does not have to be a production ready. The goal is to develop a prototype.
-	\item Web applications is the targeted applications.
-	\item The scope of the thesis will not contain Static Taint Propagation.
-	\item The tool is developed in Java with Javassist.
-\end{itemize}
-
-
-\section{Company Supervisor}
-% Describe the way in which the principal will be involved in the project and what the external supervisor has undertaken to do (e.g. in terms oef discussion, implementation, report reading).
-\begin{itemize}
-	\item \textbf{Jonatan Landsberg:} Will assist with supervision on the academic part if the thesis.
-	\item \textbf{Simon Tardell:} Supervisor in the technical parts of the thesis. He is also the author of the first draft of the Dynamic Taint Propagation tool which this thesis will continue its work upon. 
-\end{itemize}
-
-
-\section{Time Plan}
-% Show not only the order in which elements will be performed, but also the scope of elements and when they will be performed (calendar week number or date). The schedule should contain clear intermediate goals.
-Below is my time plan for the Master’s Thesis. The goal is to continuously, throughout all phases, add to the report. But I have also reserved a couple of weeks in the end for writing the report. I believe that this time can be used to add to or rewrite sections if needed. \\ \\
-
-% today=5
-\begin{ganttchart}[vgrid, hgrid]{1}{20}
-	\gantttitle{Maste Thesis Time Plan (Weeks)}{20} \\
-	\gantttitlelist{1,...,20}{1}\\
-	\ganttbar{Start-Up}{1}{3} \\
-	\ganttbar{Literature Study}{4}{6} \\
-	\ganttbar{Tainting \& Detainting}{7}{7} \\
-	\ganttbar{Implementation}{8}{13} \\
-	\ganttbar{Benchmarking \& Analysis}{14}{16} \\
-	\ganttbar{Report Writing}{17}{19} \\
-	\ganttbar{Presentation}{20}{20}
-\end{ganttchart}
-
-\printbibliography[heading=bibintoc] % Print the bibliography (and make it appear in the table of contents)
-
-\end{document}	
+	
+	
+	\section{Time Plan}
+	% Show not only the order in which elements will be performed, but also the scope of elements and when they will be performed (calendar week number or date). The schedule should contain clear intermediate goals.
+	Below is my time plan for the Master’s Thesis. The goal is to continuously, throughout all phases, add to the report. I have also reserved a couple of weeks in the end for writing the report. I believe that this time can be used to add to or rewrite sections if needed. \\ \\
+	
+	% today=5
+	\begin{ganttchart}[vgrid, hgrid]{1}{20}
+		\gantttitle{Maste Thesis Time Plan (Weeks)}{20} \\
+		\gantttitlelist{1,...,20}{1}\\
+		\ganttbar{Start-Up}{1}{3} \\
+		\ganttbar{Literature Study}{4}{6} \\
+		\ganttbar{Tainting \& Detainting}{7}{7} \\
+		\ganttbar{Implementation}{8}{13} \\
+		\ganttbar{Benchmarking \& Analysis}{14}{16} \\
+		\ganttbar{Report Writing}{17}{19} \\
+		\ganttbar{Presentation}{20}{20}
+	\end{ganttchart}
+	
+	\printbibliography[heading=bibintoc] % Print the bibliography (and make it appear in the table of contents)
+	
+	\end{document}		
