@@ -217,6 +217,7 @@
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage[all]{nowidow}
+\usepackage{parskip} % Paragraph: indent -> space
 
 \lstset{
   escapeinside={(*@}{@*)},
