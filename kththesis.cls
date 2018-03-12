@@ -222,7 +222,6 @@
 \lstset{
   escapeinside={(*@}{@*)},
   language=Java,
-  numbers=left,
 	breaklines=true,
 }
 
