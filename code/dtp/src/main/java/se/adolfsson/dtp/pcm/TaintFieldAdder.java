@@ -66,7 +66,7 @@ public class TaintFieldAdder {
     cClass.addMethod(CtMethod.make("public void setTaint(boolean value){ this.tainted = value; }", cClass));
     cClass.addMethod(CtMethod.make("public boolean isTainted(){ return this.tainted; }", cClass));
     cClass.addMethod(CtMethod.make("private boolean propagateParamTaint(Object[] args) {" +
-        "    boolean tainted = false;" +
+        "    boolean tainted = this.isTainted();" +
         "    for (int i = 0; i < args.length; i++) {" +
         "      if (args[i] instanceof " + Taintable.class.getName() + ") {" +
         "        tainted = tainted || ((" + Taintable.class.getName() + ") args[i]).isTainted();" +
