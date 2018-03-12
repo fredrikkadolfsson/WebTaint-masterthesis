@@ -18,9 +18,7 @@
     },
     {
       "command": "biber",
-      "args": [
-        "%DOCFILE%"
-      ]
+      "args": ["%DOCFILE%"]
     },
     {
       "command": "pdflatex",
@@ -66,11 +64,8 @@
     "*.xml",
     "*.synctex.gz"
   ],
+  "cSpell.language": "en-GB",
   "cSpell.enabled": true,
-  "cSpell.words": [
-    "Javassist",
-    "bytecode",
-    "detainting"
-  ],
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "cSpell.words": ["Javassist", "OWASP", "OWASP’s", "bytecode", "detainting"],
+  "cSpell.flagWords": ["trough"]
 }
