@@ -56,6 +56,7 @@ task rtJar(type: Jar, dependsOn: rtCompile) {
 
 shadowJar {
     baseName 'dtp-agent'
+    classifier ''
 }
 
 artifacts {
