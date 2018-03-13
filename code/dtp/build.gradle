@@ -1,4 +1,5 @@
 group 'se.adolfsson.dtp'
+version '1.0-SNAPSHOT'
 
 buildscript {
     repositories {
@@ -54,8 +55,7 @@ task rtJar(type: Jar, dependsOn: rtCompile) {
 }
 
 shadowJar {
-    archiveName = "${rootProject.name}-agent.jar"
-    classifier 'agent'
+    baseName 'dtp-agent'
 }
 
 artifacts {
