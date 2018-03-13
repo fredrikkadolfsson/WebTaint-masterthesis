@@ -53,12 +53,6 @@
 
 * JONAS STENDAHL, Domain-Driven Security
 
-# Implementation/Utförande alternativ
-
-* Utföra implementation med samt utan DDS
-* Gärmföra/testa skillnaderna
-* Bör Dynamic Taint Propagation finnas med i båda? Eller ska ett tredje fall där bara Dynamic Taint Propagation används introduseras?
-
 # Referenser
 
 * reference: \parencite{Evans2015}
@@ -100,3 +94,7 @@ Boxing & Unboxing kan lösa primitiv problem.
 
 * Använder Javas Intrument API som kräver bytecode
 * Xbootclass & Agent
+
+# Funderingar
+
+* Bara instrumentera Object classen. Testat men får problem med att instrumentera in en variable...

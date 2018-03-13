@@ -3,13 +3,17 @@ package se.adolfsson.dtp;
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 
-//this class will be registered with instrumentation agent
-public class Transformer implements ClassFileTransformer {
+import static se.adolfsson.dtp.SourceTransformer.isSource;
+
+public class TransformerAgent implements ClassFileTransformer {
+
+  @Override
   public byte[] transform(ClassLoader loader, String className,
                           Class classBeingRedefined, ProtectionDomain protectionDomain,
                           byte[] classfileBuffer) {
 
-    //System.out.println("Instrumenting: " + className);
+    if (isSource(className))
+      return new SourceTransformer().transform(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
 
     return null;
   }

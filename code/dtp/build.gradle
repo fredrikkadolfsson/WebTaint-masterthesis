@@ -1,35 +1,33 @@
 group 'se.adolfsson.dtp'
-version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.2'
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.plugin-shadow'
 apply plugin: 'java'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    compile 'org.projectlombok:lombok:1.16.18'
-    compile group: 'org.javassist', name: 'javassist', version: '3.21.0-GA'
+sourceSets {
+    main
+}
 
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.16.18'
+    compile group: 'org.javassist', name: 'javassist', version: '3.22.0-GA'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
-
-task rtCompile(type: JavaExec, dependsOn: compileJava) {
-    main 'se.adolfsson.dtp.pcm.TaintFieldAdder'
-    classpath sourceSets.main.runtimeClasspath
-}
-
-task rtJar(type: Jar, dependsOn: rtCompile) {
-    from 'build/taint'
-    baseName 'pcm-rt'
-}
-
-artifacts {
-    archives rtJar
-}
-
 
 jar {
     archiveName = "${rootProject.name}-${rootProject.version}.jar"
@@ -43,4 +41,24 @@ jar {
                 'Implementation-Version': rootProject.version
         )
     }
+}
+
+task rtCompile(type: JavaExec, dependsOn: compileJava) {
+    main 'se.adolfsson.dtp.pcm.TaintFieldAdder'
+    classpath sourceSets.main.runtimeClasspath
+}
+
+task rtJar(type: Jar, dependsOn: rtCompile) {
+    from 'build/taint'
+    baseName 'dtp-rt'
+}
+
+shadowJar {
+    archiveName = "${rootProject.name}-agent.jar"
+    classifier 'agent'
+}
+
+artifacts {
+    archives rtJar
+    archives shadowJar
 }
