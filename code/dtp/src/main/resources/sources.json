@@ -1,7 +1,15 @@
 [
   {
-    "clazz": "",
-    "method": "",
-    "descriptor": ""
+    "clazz": "javax/servlet/http/HttpServletResponse",
+    "methods": [
+      "sendError",
+      "setDateHeader",
+      "addDateHeader",
+      "setHeader",
+      "addHeader",
+      "setIntHeader",
+      "addIntHeader"
+    ],
+    "descriptor": "An HTTP servlet response. This interface allows a servlet's service method to manipulate HTTP-protocol specified header information and return data to its client. It is implemented by network service developers for use within servlets."
   }
 ]
