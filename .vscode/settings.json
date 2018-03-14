@@ -67,5 +67,5 @@
   "cSpell.language": "en-GB",
   "cSpell.enabled": true,
   "cSpell.words": ["Javassist", "OWASP", "OWASP’s", "bytecode", "detainting"],
-  "cSpell.flagWords": ["trough"]
+  "cSpell.flagWords": ["trough", "ether"]
 }
