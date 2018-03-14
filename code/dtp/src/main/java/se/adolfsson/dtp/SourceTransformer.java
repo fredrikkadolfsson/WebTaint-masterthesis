@@ -1,9 +1,6 @@
 package se.adolfsson.dtp;
 
-import javassist.CannotCompileException;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.NotFoundException;
+import javassist.*;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
@@ -34,10 +31,21 @@ class SourceTransformer {
       log.log(Level.INFO, "########################################");
       log.log(Level.INFO, "");
       log.log(Level.INFO, "Transforming: " + className);
+      log.log(Level.INFO, "Methods: ");
 
       ClassPool cp = ClassPool.getDefault();
-      CtClass cClass = cp.get(className.replaceAll("/", "."));
-      //System.out.println(cClass);
+      CtClass cClass = cp.get(className);
+
+      SourceAndSinkReference source = sources.stream().filter(src -> src.getClazz().equals(className)).findFirst().get();
+      String[] methods = source.getMethods();
+
+      for (String method : methods) {
+        CtMethod cMethod = cClass.getDeclaredMethod(method);
+
+        //cMethod.setBody("{ $0.setTaint(true); }");
+
+        log.log(Level.INFO, "\t" + method);
+      }
 
 
       log.log(Level.INFO, "");

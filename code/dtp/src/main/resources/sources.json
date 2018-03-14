@@ -1,15 +1,24 @@
 [
   {
-    "clazz": "javax/servlet/http/HttpServletResponse",
+    "clazz": "javax.servlet.ServletRequest",
     "methods": [
-      "sendError",
-      "setDateHeader",
-      "addDateHeader",
-      "setHeader",
-      "addHeader",
-      "setIntHeader",
-      "addIntHeader"
+      "getAttribute",
+      "getAttributeNames",
+      "getCharacterEncoding",
+      "getContentType",
+      "getParameter",
+      "getParameterNames",
+      "getParameterValues",
+      "getParameterMap",
+      "getProtocol",
+      "getScheme",
+      "getServerName",
+      "getRemoteAddr",
+      "getRemoteHost",
+      "getLocalName",
+      "getLocalAddr",
+      "getReader"
     ],
-    "descriptor": "An HTTP servlet response. This interface allows a servlet's service method to manipulate HTTP-protocol specified header information and return data to its client. It is implemented by network service developers for use within servlets."
+    "descriptor": "Defines an object to provide client request information to a servlet. The servlet container creates a ServletRequest object and passes it as an argument to the servlet's service method."
   }
 ]

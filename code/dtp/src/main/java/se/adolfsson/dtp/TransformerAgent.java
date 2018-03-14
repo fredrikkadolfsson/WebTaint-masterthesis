@@ -20,6 +20,8 @@ public class TransformerAgent implements ClassFileTransformer {
 
     SourceTransformer sourceTransformer = new SourceTransformer(sources);
 
+    className = className.replaceAll("/", ".");
+
     if (sourceTransformer.isSource(className))
       return sourceTransformer.transform(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
 
