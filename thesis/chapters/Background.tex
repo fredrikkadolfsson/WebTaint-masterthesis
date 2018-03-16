@@ -1,7 +1,7 @@
 \chapter{Background}
 % Studenten visar kännedom om teoretisk bakgrund och tidigare utfört arbete (betydande litteratur nämns och relevant material används).
 % Bakgrunden är sammanhängande och relevant.
-This Chapter will present some background knowledge with needed information to comprehend the chapters to follow. The chapter starts with a general description about \textit{Web Application} structure and is followed by a section with the two most common \textit{Security Vulnerabilities} to a web application. After those sections follows  two sections describing \textit{Dynamic Taint Propagation} and \textit{Domain Driven Security}. The last section is a chapter about \textit{Java Instrumentation}.
+This Chapter will present some background knowledge with needed information to comprehend the chapters to follow. The chapter starts with a general description about \textit{Web Application} structure and is followed by a section with the two most common \textit{Security Vulnerabilities} to a web application. After those sections follows two sections describing \textit{Dynamic Taint Traking} and \textit{Domain Driven Security}. The last section is a chapter about \textit{Java Instrumentation}.
 
 
 \section{Web Application}
@@ -116,12 +116,12 @@ Stored XSS is when malicious scripts is stored in the targeted web applications 
 DOM Based XSS is very similar to Reflected XSS but it dose not necessary have to be reflected from the application server. DOM Based XSS modifies the DOM tree and is able to exploit the user \parencite{Secure_Web}.
 
 
-\section{Dynamic Taint Propagation}
-Taint Propagation, also known as taint analysis and taint checking, is a tool to analyse the flow of information in a domain \parencite{Pan2015}. It works by giving input data a tainted property which follows the data and propagates onto other data which it comes in contact with. Tainted data can be detainted. This is done by validating the data. The taint property is later checked in security sensitive sinks \parencite{Pan2015}. Taint Propagation can be done in two different ways: Static and dynamic. The static is a evaluation tool which is done statically and before runtime. Dynamic Taint Propagation is a tool that is executing in runtime. Dynamic Taint Propagation works by actively blocking any data that is trying to enter the sink. This thesis will not be handle the Static version of Taint Propagation. 
+\section{Dynamic Taint Tracking}
+Taint Tracking, also known as taint analysis, taint checking and taint propagation, is a tool to analyse the flow of information in a domain \parencite{Pan2015}. It works by giving input data a tainted property which follows the data and propagates onto other data which it comes in contact with. Tainted data can be detainted. This is done by validating the data. The taint property is later checked in security sensitive sinks \parencite{Pan2015}. Taint Tracking can be done in two different ways: Static and dynamic. The static is a evaluation tool which is done statically and before runtime. Dynamic Taint Tracking is a tool that is executing in runtime. Dynamic Taint Tracking works by actively blocking any data that is trying to enter the sink. This thesis will not be handle the Static version of Taint Tracking. 
 
 Perl and Ruby are two programming languages which have adapted to user Dynamic Taint Checking \parencite{perl, ruby}. And there are some tools who enables taint checking for other languages such as TaintDroid \parencite{Ma2010} and FlexTaint \parencite{Venkataramani2008}.
 
-As named earlier is two of OWASP's top 10 application security risks of 2017 Injection Attack and Cross-Site Scripting (XSS) \parencite{OWASP2017}. Protection against these two attacks are best done by validating input data which Dynamic Taint Propagation helps to enforce.
+As named earlier is two of OWASP's top 10 application security risks of 2017 Injection Attack and Cross-Site Scripting (XSS) \parencite{OWASP2017}. Protection against these two attacks are best done by validating input data which Dynamic Taint Tracking helps to enforce.
 
 
 \section{Domain Driven Security}
