@@ -206,6 +206,7 @@
 \usepackage{graphicx}
 \usepackage[all]{nowidow}
 \usepackage{parskip} % Paragraph: indent -> space
+\usepackage{nameref}
 
 \lstset{
   escapeinside={(*@}{@*)},

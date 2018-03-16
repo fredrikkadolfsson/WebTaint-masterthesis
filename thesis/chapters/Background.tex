@@ -1,10 +1,11 @@
 \chapter{Background}
 % Studenten visar kännedom om teoretisk bakgrund och tidigare utfört arbete (betydande litteratur nämns och relevant material används).
 % Bakgrunden är sammanhängande och relevant.
-This Chapter will present some background knowledge with needed information to comprehend the chapters to follow. The chapter starts with a general description about \textit{Web Application} structure and is followed by a section with the two most common \textit{Security Vulnerabilities} to a web application. After those sections follows two sections describing \textit{Dynamic Taint Traking} and \textit{Domain Driven Security}. The last section is a chapter about \textit{Java Instrumentation}.
+This Chapter will present background knowledge needed to comprehend the chapters to follow. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed by a section with two of the most common \textit{\nameref{SecurityVulnerabilities}} to web applications. After those follows two sections describing \textit{\nameref{DynamicTaintTracking}} and \textit{\nameref{DomainDrivenSecurity}}. The last section is a chapter about \textit{\nameref{JavaInstrumentation}}.
 
 
 \section{Web Application}
+\label{WebApplication}
 To make applications available for a large set off people and also make the application accessible from, now days, almost everywhere do businesses deploy their applications to the web. They deployment of an application can vary a lot but the most common architectural structure for a web application is based on a three tier architecture. The first is the presentation tire which is the visual components rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third is the storage tier, where the second tier can store data as needed \parencite{JustinClarke-Salt2009SIAa}. A illustration of the three layer architecture can be seen in figure \ref{fig:webApplication-Haldar}.
 
 \begin{figure}
@@ -18,10 +19,11 @@ As can be seen in figure \ref{fig:webApplication-Haldar} dose the tiers only com
 
 
 \subsection{Structured Query Language}
-The communication between tier two and tier three is done through a standardize language called Structured Query Language, mostly known as SQL. SQL is created to programmatically manipulate and access databases. The vast majority of todays database uses SQL. The language works by building queries specifying the wanted information or task. The query will be evaluated and handled up upon by the SQL engine \parencite{DarieCristian2003TPGt}.
+The communication between tier two and tier three is done through a standardize language called Structured Query Language, mostly known as SQL. SQL is created to anagrammatically manipulate and access databases. The vast majority of today's database uses SQL. The language works by building queries specifying the wanted information or task. The query will be evaluated and handled up upon by the SQL engine \parencite{DarieCristian2003TPGt}.
 
 
 \section{Security Vulnerabilities}
+\label{SecurityVulnerabilities}
 The organization Open Web Applications Security Project, mostly known for its shortening (OWASP), is a online community which aim to provide knowledge how to to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP have produced reports about the top 10 security risks with a web application and the latest was published 2017. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. This thesis will look at security risk number one and eight which is Injection Attacks and Cross-site Scripting \parencite{OWASP2017}.
 
 
@@ -94,7 +96,7 @@ SELECT * FROM Users WHERE userId = 1 WAITFOR DELAY '0:0:5'
 \end{lstlisting}
 \hfill
 
-The second variant of Blind SQL Injection, which is by analyzing the error messages, and depending on what they return build a image off the wanted answer. This is mostly done by testing different combination of true and false questions \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
+The second variant of Blind SQL Injection, which is by analysing the error messages, and depending on what they return build a image off the wanted answer. This is mostly done by testing different combination of true and false questions \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
 
 
 \subsection{Cross-site Scripting}
@@ -117,6 +119,7 @@ DOM Based XSS is very similar to Reflected XSS but it dose not necessary have to
 
 
 \section{Dynamic Taint Tracking}
+\label{DynamicTaintTracking}
 Taint Tracking, also known as taint analysis, taint checking and taint propagation, is a tool to analyse the flow of information in a domain \parencite{Pan2015}. It works by giving input data a tainted property which follows the data and propagates onto other data which it comes in contact with. Tainted data can be detainted. This is done by validating the data. The taint property is later checked in security sensitive sinks \parencite{Pan2015}. Taint Tracking can be done in two different ways: Static and dynamic. The static is a evaluation tool which is done statically and before runtime. Dynamic Taint Tracking is a tool that is executing in runtime. Dynamic Taint Tracking works by actively blocking any data that is trying to enter the sink. This thesis will not be handle the Static version of Taint Tracking. 
 
 Perl and Ruby are two programming languages which have adapted to user Dynamic Taint Checking \parencite{perl, ruby}. And there are some tools who enables taint checking for other languages such as TaintDroid \parencite{Ma2010} and FlexTaint \parencite{Venkataramani2008}.
@@ -125,6 +128,7 @@ As named earlier is two of OWASP's top 10 application security risks of 2017 Inj
 
 
 \section{Domain Driven Security}
+\label{DomainDrivenSecurity}
 There exists a plethora of tools who aim to help in the process of developing complex domain models, but Domain Driven Design is not one if them \parencite{Bankes, 10.1007/978-3-319-24309-2_33}. Domain Driven Design is more of a thought process and methodology to follow every step of the process \parencite{EvansEric2004Dd:t}. In \emph{Domain-driven design reference: definitions and patterns summaries} do \textcite{evans_2015} describe Domain Driven Design through three core ideas:
 
 \begin{itemize}
@@ -143,6 +147,7 @@ The second idea is to explore and develop every model in collaboration between d
 
 
 \section{Java Instrumentation}
+\label{JavaInstrumentation}
 Java Instrumentation is a way to modify the execution of a application on the Java Virtual Machine (JVM) without having knowledge nor the need of modifying the application code itself. This makes it beneficial to implement for example monitoring agents and event loggers. Java Instrumentation works by modifying the bytecode of the JVM \parencite{Java_Instrument}. There exists a number of libraries that can help the developer in the task of instrumenting the JVM. The one that will be used in this thesis is called Javassist. Javassist provides a library that simplifies the task of editing and creating java class file at runtime \parencite{Javassist}.
 
 \subsection{JVM}

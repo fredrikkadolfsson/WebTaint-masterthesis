@@ -1,4 +1,5 @@
 \chapter{Introduction}
+\label{Introduction}
 % Frågeställningen är lätt att identifiera, projektets syfte och mål är tydliga.
 % Problemet (och studentens bidrag) är tydligt avgränsat, dess relevans är motiverad och satt i ett sammanhang.
 The creation of the World Wide Web (web) has caused a huge impact on today's society \parencite{www}. The web is a source for information and it connects the world through a unanimous platform. Many businesses have decided to take advantage of the web platform to share information and communicate with customers. However, this does not come without drawbacks. The information sharing is a weakness in the same manner as it is a strength. The web application is not only accessible for the targeted user groups but for anyone with access to the web. This entails that malicious users who wish to abuse and/or cause harm to other users have the accessibility to possibly do so. 
@@ -7,10 +8,11 @@ There are several possible attacks that a web application is vulnerable to. The 
 
 To minimize the risk of accidentally introducing security flaws in to the application have a variety of tools and methodologies been created. One of these is Dynamic Taint Tracking which marks input from the user as tainted through a taint variable attached to the input. This taint variable follows the input throughout the application and propagates onto the other variables it encounters. It is possible to detaint the input but this is only done after the input have been validated. The taint value is later checked in sensitive areas through something called sinks. Execution is halted if a tainted variable is detected trying to enter the sensitive area through the sink \parencite{Pan2015, Venkataramani2008}. One of the methodologies that have been coined is the programming paradigm Domain Driven Security. Domain Driven Security aim to secure applications by focusing on the core domain models and making certain that validation of the value objects is correct \parencite{Wilander2009, Johnsson2009}.
 
-The following sections of the chapter will aim to specify the why and how behind the conduction of the thesis. It starts with a section of \textit{Definitions} followed by \textit{Problem} description and explanation of the thesis \textit{Aim}. These sections is then followed by \textit{Related Work} in the field and a \textit{Delimitations} section. Lastly, is there a section about the \textit{Methodology} behind the thesis.
+The following sections of the chapter will aim to specify the why and how behind the conduction of the thesis. It starts with a section of \textit{\nameref{Definitions}} followed by \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections is then followed by \textit{\nameref{RelatedWork}} in the field and a \textit{\nameref{Delimitations}} section. Lastly, is there a section about the \textit{\nameref{Methodology}} behind the thesis.
 
 
 \section{Definitions}
+\label{Definitions}
 \begin{definition}{Application} 
 	is a computer process which is constructed to solve one or more tasks for the user.
 	\\ 
@@ -55,6 +57,7 @@ The following sections of the chapter will aim to specify the why and how behind
 
 
 \section{Problem}
+\label{Problem}
 \hfill \\
 \begin{chapquote}{}
 	How can an implementation of a Dynamic Taint Tracking tool enforce the security gains of Domain Driven Security.
@@ -65,10 +68,12 @@ Unwanted information disclosure is a growing problem today. Work towards protect
 
 
 \section{Aim}
+\label{Aim}
 This thesis will implement and evaluate a Dynamic Taint Tracking tool to prevent confidentiality and integrity vulnerabilities in web applications. The thesis will also evaluate the security benefits of Domain Driven Security, a programming paradigm which has been proposed to combat confidentiality and integrity vulnerabilities. Concretely, we will benchmark our Dynamic Taint Tracking tool against injection, cross-site scripting and information disclosure vulnerabilities.
 
 
 \section{Related Work}
+\label{RelatedWork}
 \textcite{Stendahl2016} wrote a thesis in 2016 where he evaluated if a Domain Driven Security can prevent Injection Attacks and Cross-Site Scripting. He concluded that there is a security gain towards Injection Attacks and Cross-Site Scripting by following the Domain Driven Security methodology. The gained security comes from proper validation of variables before propagating the data into the value objects.
 	
 \textcite{Haldar} have written a report about Dynamic Taint Tracking in Java where they try to solve the problem of not properly validating user input. They managed to construct a tool that is independent from the web applications source code and the results from using the tool is a gain in security. \textcite{Haldar} ran their benchmarks on OWASP’s project WebGoat \parencite{webgoat} but acknowledged in their report that benchmarks of real-world web applications need to be tested.
@@ -77,10 +82,12 @@ There do exist two Dynamic Taint Tracking tools where Phosphor \parencite{phosph
 
 
 \section{Delimitations}
+\label{Delimitations}
 The focus of the thesis lies on web applications security vulnerabilities. However, other application areas might be vulnerable to the same kind of vulnerabilities. Information and discussions about those areas will not be given.
 
 Some delimitations for the applications is that it will only consist of a dynamic taint tracker and not in any form a static version. The application will as well only be developed for java application. Development will be conducted in Java with the help of the library Javassist.
 
 
 \section{Methodology}
+\label{Methodology}
 The methodology of this thesis is a combination of quantitative and qualitative research. The first part of the thesis consists of a literature study followed by reasoning about tainting and detainting rules. This is done on quantitative research. The Second part of the thesis is to evaluate the implemented Dynamic Taint Tracking tool. This is done quantitatively where benchmarks evaluating performance and security gain functionality will be conducted and evaluated.
