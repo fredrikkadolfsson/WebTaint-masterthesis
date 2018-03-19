@@ -2,6 +2,7 @@ package se.adolfsson.dtp;
 
 import javassist.*;
 import lombok.extern.java.Log;
+import se.adolfsson.dtp.pcm.api.Taintable;
 
 import java.io.IOException;
 import java.security.ProtectionDomain;
@@ -40,13 +41,33 @@ class SourceTransformer {
       String[] methods = source.getMethods();
 
       for (String method : methods) {
+        log.log(Level.INFO, "\t" + method);
+
         CtMethod cMethod = cClass.getDeclaredMethod(method);
 
-        //cMethod.setBody("{ $0.setTaint(true); }");
+        CtClass[] cParams = cMethod.getParameterTypes();
+        System.out.println(cParams.length);
+        for (int i = 1; i < cParams.length + 1; i++) {
+          log.log(Level.INFO, "\t\t param?" + i);
 
-        log.log(Level.INFO, "\t" + method);
+          if (cParams[i] instanceof Taintable) {
+            log.log(Level.INFO, "\t\t parampre" + i);
+
+            cMethod.insertBefore("{ $" + i + ".setTaint(true); }");
+            log.log(Level.INFO, "\t\t param" + i);
+          }
+          log.log(Level.INFO, "\t\t paramnote" + i);
+
+        }
+
+        CtClass retClass = cMethod.getReturnType();
+        System.out.println(retClass);
+        if (retClass instanceof Taintable) {
+          cMethod.insertAfter("{ $_.setTaint(true); }");
+          cMethod.insertAfter("System.out.println( $_.tainted );");  // remove later, just for testing
+          log.log(Level.INFO, "\t\t return");
+        }
       }
-
 
       log.log(Level.INFO, "");
       log.log(Level.INFO, "########################################");

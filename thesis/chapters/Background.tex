@@ -1,30 +1,43 @@
 \chapter{Background}
 % Studenten visar kännedom om teoretisk bakgrund och tidigare utfört arbete (betydande litteratur nämns och relevant material används).
 % Bakgrunden är sammanhängande och relevant.
-This Chapter will present background knowledge needed to comprehend the chapters to follow. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed by a section with two of the most common \textit{\nameref{SecurityVulnerabilities}} to web applications. After those follows two sections describing \textit{\nameref{DynamicTaintTracking}} and \textit{\nameref{DomainDrivenSecurity}}. The last section is a chapter about \textit{\nameref{JavaInstrumentation}}.
+This Chapter will present background knowledge needed to comprehend conduction of the thesis. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed by a section discussion common \textit{\nameref{SecurityVulnerabilities}} to web applications. After those follows two sections describing \textit{\nameref{DynamicTaintTracking}} and \textit{\nameref{DomainDrivenSecurity}}. The last section is a chapter about \textit{\nameref{JavaInstrumentation}}.
 
 
 \section{Web Application}
 \label{WebApplication}
-To make applications available for a large set off people and also make the application accessible from, now days, almost everywhere do businesses deploy their applications to the web. They deployment of an application can vary a lot but the most common architectural structure for a web application is based on a three tier architecture. The first is the presentation tire which is the visual components rendered by a browser. The second is the logic tire which can be seen as the brain of the application. The last and third is the storage tier, where the second tier can store data as needed \parencite{JustinClarke-Salt2009SIAa}. A illustration of the three layer architecture can be seen in figure \ref{fig:webApplication-Haldar}.
+To make applications available for large set of people and make them accessible from now days almost everywhere do businesses deploy their applications on the web. The deployment of an application can vary a lot but the most common structure for a web application is based on a three-tier architecture. The first tier is the presentation which is the visual components rendered by the browser. The second is the logic tire which is the brain of the application. The last and third tier is the storage, where the second tier can store data as needed \parencite{JustinClarke-Salt2009SIAa}. A illustration of the three layer architecture can be seen in figure \ref{fig:webApplication-Haldar}.
 
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{images/webApplication-Haldar.png}
-  \caption{Web application structure \cite{Haldar}.}
+  \caption{Web application architecture \cite{Haldar}.}
   \label{fig:webApplication-Haldar}
 \end{figure}
 
-As can be seen in figure \ref{fig:webApplication-Haldar} dose the tiers only communicate with the tire closest to itself. This causes the second tier to become a safe guard for tier three where the valuable and possibly sensitive information is stored. The storage tier contains all the information the application needs to provide the wanted service. Such information might for example be name, email, personal number and credit card information \parencite{JustinClarke-Salt2009SIAa}.
+It can be seen in figure \ref{fig:webApplication-Haldar} that the tiers only communicate with the tire closest to themselves. This causes the second tier to become a safe guard for tier three where the valuable and possibly sensitive information is stored. The storage tier contains all the information the application needs to provide the wanted service. Such information might for example be name, email, personal number and credit card information \parencite{JustinClarke-Salt2009SIAa}.
+
+The scope of the thesis lies in tier two where the brain of the application lies. The programming language for tier two might vary a lot but one common and the chosen language for this thesis is Java.  
 
 
 \subsection{Structured Query Language}
-The communication between tier two and tier three is done through a standardize language called Structured Query Language, mostly known as SQL. SQL is created to anagrammatically manipulate and access databases. The vast majority of today's database uses SQL. The language works by building queries specifying the wanted information or task. The query will be evaluated and handled up upon by the SQL engine \parencite{DarieCristian2003TPGt}.
+Communication between tier two and tier three is done through a standardize language called Structured Query Language, mostly known as SQL. SQL is created to anagrammatically manipulate and access databases. The clear majority of today's database uses SQL. The language works by building queries specifying the wanted information or task. The query will be evaluated and handled up upon by the SQL engine \parencite{DarieCristian2003TPGt}.
 
 
 \section{Security Vulnerabilities}
 \label{SecurityVulnerabilities}
 The organization Open Web Applications Security Project, mostly known for its shortening (OWASP), is a online community which aim to provide knowledge how to to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP have produced reports about the top 10 security risks with a web application and the latest was published 2017. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. This thesis will look at security risk number one and eight which is Injection Attacks and Cross-site Scripting \parencite{OWASP2017}.
+
+
+\subsection{CIA Triad}
+Discussions about application security often relies on the CIA Triad which represent the three primary concepts in information security. These three are confidentiality, integrity and availability. Confidentiality are rules that specifies the access restrictions to the application. Integrity specifies that application data should be accurate and not altered. Availability is about ability to access the application and application data \parencite{2014C1-W}. This thesis focuses on confidentiality and integrity vulnerabilities and how we can prevent them.
+
+\begin{figure}
+  \centering
+  \includegraphics[height=6cm]{images/CIATriad.jpg}
+  \caption{CIA Triad}
+  \label{fig:CIATriad}
+\end{figure}
 
 
 \subsection{Injection}
@@ -96,7 +109,7 @@ SELECT * FROM Users WHERE userId = 1 WAITFOR DELAY '0:0:5'
 \end{lstlisting}
 \hfill
 
-The second variant of Blind SQL Injection, which is by analysing the error messages, and depending on what they return build a image off the wanted answer. This is mostly done by testing different combination of true and false questions \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
+The second variant of Blind SQL Injection, which is by analysing the error messages, and depending on what they return build a image of the wanted answer. This is mostly done by testing different combination of true and false questions \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
 
 
 \subsection{Cross-site Scripting}
@@ -148,7 +161,18 @@ The second idea is to explore and develop every model in collaboration between d
 
 \section{Java Instrumentation}
 \label{JavaInstrumentation}
-Java Instrumentation is a way to modify the execution of a application on the Java Virtual Machine (JVM) without having knowledge nor the need of modifying the application code itself. This makes it beneficial to implement for example monitoring agents and event loggers. Java Instrumentation works by modifying the bytecode of the JVM \parencite{Java_Instrument}. There exists a number of libraries that can help the developer in the task of instrumenting the JVM. The one that will be used in this thesis is called Javassist. Javassist provides a library that simplifies the task of editing and creating java class file at runtime \parencite{Javassist}.
+Java Instrumentation is a way to modify the execution of a application on the Java Virtual Machine (JVM) without having knowledge nor the need of modifying the application code itself. This makes it beneficial to implement for example monitoring agents and event loggers through Java Instrumentation. Java Instrumentation works by modifying the bytecode of the JVM \parencite{Java_Instrument} and this can be dun in runtime. There exists a number of libraries that can help the developer in the task of instrumenting the JVM by providing libraries with functionality of translating Java code into the needed bytecode that the JVM Instrumentation api understand. The library used in this thesis is Javassist \parencite{Javassist}.
 
-\subsection{JVM}
+\subsection{Java Virtual Machine}
+"Write once, run anywhere" is a slogan describing the benefits of using Java as the chosen development language. The slogan was created by Sun Microsystems which att the time were the company behind Java and the Java Virtual Machine, known as JVM. \parencite{Craig_2006}. The idea behind the JVM is to have one language that executed the same on all platforms. And then modify the JVM to be able to run on as many platforms as possible. The JVM is a virtual machine with its own components of heap storage, stack and program counter, method area and runtime constant pool. 
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{images/JvmSpec7.png}
+  \caption{Java Virtual Machine Architecture}
+  \label{fig:JVM}
+\end{figure}
+
+Figure \ref{fig:JVM} illustrates the architecture of the JVM. The compiled Java code that the developer creates is loaded trough the Class Loader and added into the JVM Memory. \parencite{venners_1999}.
+
 \subsection{Javassist}
