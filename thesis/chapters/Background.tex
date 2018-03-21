@@ -103,8 +103,7 @@ Blind SQL Injection is very similar to SQL Injection. The only difference is tha
 \begin{lstlisting}[
   language=SQL,
   caption=Time Based Blind SQL Injection,
-  label={lst:Blind_SQL_Injection_Time},
-  xleftmargin=-0.8cm]
+  label={lst:Blind_SQL_Injection_Time}]
 SELECT * FROM Users WHERE userId = 1 WAITFOR DELAY '0:0:5'
 \end{lstlisting}
 \hfill
@@ -152,19 +151,22 @@ There exists a plethora of tools who aim to help in the process of developing co
 
 The core domain is the part of your product that is most important and often is your main selling point compared to other similar products \parencite{millett_2015}. A discussion and even possible a documentation describing the core domain is something that will help the development of the product. The idea is to keep everybody on the same track heading in the same direction \parencite{EvansEric2004Dd:t}.
 
-The second idea is to explore and develop every model in collaboration between domain practitioners, who are experts in the given domain, and software developers. This ensures that important knowledge needed to successfully develope the product is communicated back and forth between the two parties \parencite{millett_2015}. The third idea is important to enable and streamline the second. By using a ubiquitous language will miscommunication between domain and software practitioners be minimized and the collaboration between the two parties can instead focus on the important parts which is to develop the product \parencite{evans_2015}.
+The second idea is to explore and develop every model in collaboration between domain practitioners, who are experts in the given domain, and software developers. This ensures that important knowledge needed to successfully develop the product is communicated back and forth between the two parties \parencite{millett_2015}. The third idea is important to enable and streamline the second. By using a ubiquitous language will miscommunication between domain and software practitioners be minimized and the collaboration between the two parties can instead focus on the important parts which is to develop the product \parencite{evans_2015}.
 
 \textcite{evans_2015} do as well argue about the weight of clearly defining the bounded contexts for each defined model, and this needs to be done in the ubiquitous language created for the specific product. The need of this exists because of the otherwise great risk of misunderstandings and erroneous assumptions in the collaborations between the different models \parencite{millett_2015}.
 
 \textcite{Wilander2009, Johnsson2009} created 2009 a blog post each in a synchronous manner where they together introduces the concept of Domain Driven Security to the public. They describe Domain Driven Security as the intersection between Domain Driven Design and application security. Domain Driven Design is about developing complex domain models and one of the most basic rule of application security is to always validate input data. Domain Driven Security in other hand, is about the importance of creating and maintaining domain models who are reflecting the product correctly and that they are validated so they cant be populated with erroneous data \parencite{Wilander2009, Johnsson2009, Arnor2016, Stendahl2016}.
 
 
-\section{Java Instrumentation}
+\section{Java}
 \label{JavaInstrumentation}
-Java Instrumentation is a way to modify the execution of a application on the Java Virtual Machine (JVM) without having knowledge nor the need of modifying the application code itself. This makes it beneficial to implement for example monitoring agents and event loggers through Java Instrumentation. Java Instrumentation works by modifying the bytecode of the JVM \parencite{Java_Instrument} and this can be dun in runtime. There exists a number of libraries that can help the developer in the task of instrumenting the JVM by providing libraries with functionality of translating Java code into the needed bytecode that the JVM Instrumentation api understand. The library used in this thesis is Javassist \parencite{Javassist}.
+Java have been around since the early 90's. The founders objective was to developing a new improved programming language that simplified the task for the developer but still had a familiar C/C++ syntax. \parencite{OracleVoice}. Today is Java one of the most common programming languages \parencite{octoverse}.
+
+Java is a statically typed language which means that no variable can be used before they have been declared. These variables can be of two different types. These are primitives and references to objects. Among the primitives dose Java have support for eight. These are byte, short, int, long, float, double, boolean and char \parencite{primjav}.
+
 
 \subsection{Java Virtual Machine}
-"Write once, run anywhere" is a slogan describing the benefits of using Java as the chosen development language. The slogan was created by Sun Microsystems which att the time were the company behind Java and the Java Virtual Machine, known as JVM. \parencite{Craig_2006}. The idea behind the JVM is to have one language that executed the same on all platforms. And then modify the JVM to be able to run on as many platforms as possible. The JVM is a virtual machine with its own components of heap storage, stack and program counter, method area and runtime constant pool. 
+There exists a plethora of implementation of the JVM but the official that Oracle develop is HotSpot \parencite{hotSpot}. One of the core ideas with Java during its development was "Write once, run anywhere". The slogan was created by Sun Microsystems which at the time were the company behind Java and the Java Virtual Machine, known as JVM. \parencite{Craig_2006}. The idea behind the JVM was to have one language that executed the same on all platforms. And then modify the JVM to be able to run on as many platforms as possible. The JVM is a virtual machine with its own components of heap storage, stack and program counter, method area and runtime constant pool. 
 
 \begin{figure}
   \centering
@@ -173,6 +175,12 @@ Java Instrumentation is a way to modify the execution of a application on the Ja
   \label{fig:JVM}
 \end{figure}
 
-Figure \ref{fig:JVM} illustrates the architecture of the JVM. The compiled Java code that the developer creates is loaded trough the Class Loader and added into the JVM Memory. \parencite{venners_1999}.
+Figure \ref{fig:JVM} illustrates the architecture of the JVM. The compiled Java code that the developer creates is loaded through the Class Loader and added into the JVM Memory. \parencite{venners_1999}.
+
+
+\subsection{Instrumentation}
+Java Instrumentation is a way to modify the execution of a application on the Java Virtual Machine (JVM) without having knowledge nor the need of modifying the application code itself. This makes it beneficial to implement for example monitoring agents and event loggers through Java Instrumentation. Instrumentation is a Java package that provides services for modifying the bytecode of the program execution. Instrumentation works by implementing an Agent that will have the possibility to modify any application loaded in runtime \parencite{Java_Instrument}.
+
 
 \subsection{Javassist}
+There exists a number of libraries that can help the developer in the task of creating an Instrumentation Agent. The help comes in libraries of high level functions that later can be translated into bytecode that the JVM will understand. The library used in this thesis is Javassist. Javassist stands for Java programming Assistant and is a bytecode engineering toolkit. Javassist provides two levels of API where the one used in this thesis provides functionality of editing class files on source level which require no understanding of Java bytecode \parencite{Javassist}.
