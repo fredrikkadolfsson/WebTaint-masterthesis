@@ -1,19 +1,57 @@
 \chapter{Implementation}
+This Chapter presents the fundamental parts in the process of implementing the Dynamic Taint Tracking tool. The chapter starts with a section describing the \textit{\nameref{Policies}} of the tool. This chapter is then followed by \textit{\nameref{NotableProblems}} about the development and a explanation about the application \textit{\nameref{SoftwareArchitecture}}.
 
 
 \section{Policies}
+\label{Policies}
+The development of the Dynamic Taint Tracking tool relies on tainting, detainting and propagation logic. However, to implement the logic of the application need the security policies first be defined. Security policies are principles or actions that that the application strives to fulfil \parencite{BayukJenniferL2012Cspg}. In the application developed in this thesis will these be based on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
 
 
 \subsection{Confidentiality}
+The confidentiality policies entailed that data given to the user should only be data that the user have the right to access. This gives us the policy below.
+
+\hfill
+\begin{itemize}  
+  \item No information shall be released to users without permission.
+\end{itemize}
+\hfill
 
 
 \subsection{Integrity}
+Integrity entails that users may not modify data which id dose not have permission to alter. This gives us the policy below.
+
+\hfill
+\begin{itemize}  
+  \item No information shall be altered without permission.
+\end{itemize}
+\hfill
+
+
+\subsection{Taint Checking}
+The policies above will be enforced by forcing validation of data that is or have been in contact with data coming from a source before they enter a sink. By enforcing this rule should preventions of confidentiality and integrity volubilities be reduces severely. One core policy preventing this is as well that no unintended code shall be able to execute.
+
+The policies above can also be combine into tainting policies which are:
+
+\hfill
+\begin{itemize}
+  \item Data passing through sources going into the domain should be marked tainted.
+  \item No tainted data is allowed to pass through a sink. 
+  \item Data can only be detainted by validation.
+\end{itemize}
+\hfill
+
+
+\subsubsection{Taint Propagation}
+
 
 
 \section{Notable Problems}
+\label{NotableProblems}
 One of the first problems that was introduced during the development phase of the application is that some classes can't be instrumented during runtime. More precisely, the classes that the JVM relies on can't be instrumented in realtime. But these is a solution to this. The solution is to create a JAR file with statically modified versions of the classes. In this case is the String class one of these. This JAR file can then be loaded through the option Xbootclasspath/p that appends the JAR file to the front of the bootstrap path. Forcing the JVM to use our modified versions of classes \parencite{xboot}. Because of this limitation were the decision of instrumenting as many classes as possible statically. This is to keep the code consistent.
 
 Another problem is that primitives can't be instrumented. This causes a problem since it opens the ability to miss propagation of tainted data if they ever pass through a byte- or char-array. The solution that can solve this is to create shadow variables that lie in the closest class or objective to the byte- or char-array. This shadow variable will contain the taint.
 
 
 \section{Software Architecture}
+\label{SoftwareArchitecture}
+
