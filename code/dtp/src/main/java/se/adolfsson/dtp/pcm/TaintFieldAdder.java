@@ -39,8 +39,10 @@ public class TaintFieldAdder {
       addTaintableToClass(cp, StringBuilder.class.getName());
       writeClass(cp, Taintable.class.getName());
 
-    } catch (NotFoundException | CannotCompileException | IOException e) {
+    } catch (NotFoundException | CannotCompileException e) {
       throw new RuntimeException(e);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
@@ -63,14 +65,12 @@ public class TaintFieldAdder {
   }
 
   private void addTaintMethods(CtClass cClass) throws CannotCompileException {
-    cClass.addMethod(CtMethod.make("public void setTaint(boolean value){ this.tainted = value; }", cClass));
+    cClass.addMethod(CtMethod.make("public void setTaint(){ }", cClass));
     cClass.addMethod(CtMethod.make("public boolean isTainted(){ return this.tainted; }", cClass));
     cClass.addMethod(CtMethod.make("private boolean propagateParamTaint(Object[] args) {" +
         "    boolean tainted = this.isTainted();" +
         "    for (int i = 0; i < args.length; i++) {" +
-        "      if (args[i] instanceof " + Taintable.class.getName() + ") {" +
-        "        tainted = tainted || ((" + Taintable.class.getName() + ") args[i]).isTainted();" +
-        "      }" +
+        "      tainted = tainted || args[i].isTainted();" +
         "    }" +
         "    return tainted;" +
         "  }", cClass));
