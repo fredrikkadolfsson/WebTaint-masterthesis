@@ -36,6 +36,7 @@ class SourceTransformer {
 
       ClassPool cp = ClassPool.getDefault();
       CtClass cClass = cp.get(className);
+      cClass.defrost();
 
       SourceAndSinkReference source = sources.stream().filter(src -> src.getClazz().equals(className)).findFirst().get();
       String[] methods = source.getMethods();
@@ -44,29 +45,31 @@ class SourceTransformer {
         log.log(Level.INFO, "\t" + method);
 
         CtMethod cMethod = cClass.getDeclaredMethod(method);
-
         CtClass[] cParams = cMethod.getParameterTypes();
-        System.out.println(cParams.length);
-        for (int i = 1; i < cParams.length + 1; i++) {
-          log.log(Level.INFO, "\t\t param?" + i);
 
-          if (cParams[i] instanceof Taintable) {
-            log.log(Level.INFO, "\t\t parampre" + i);
+        for (int i = 0; i < cParams.length; i++) {
+          log.log(Level.INFO, "\t\t " + cParams[i].getName());
+          CtClass[] interfaces = cParams[i].getInterfaces();
 
-            cMethod.insertBefore("{ $" + i + ".setTaint(true); }");
-            log.log(Level.INFO, "\t\t param" + i);
+          for (CtClass interfac : interfaces) {
+            if (interfac.getName().equals(Taintable.class.getName())) {
+              log.log(Level.INFO, "\t\t\t is Taintable");
+
+              if (cMethod.isEmpty()) log.log(Level.INFO, "\t\t\t EMPTY"); //TODO FIX HANDLING OF EMPTY METHOD BODY
+              else cMethod.insertBefore("{ $" + (i + 1) + ".setTaint(true); }");
+              break;
+            }
           }
-          log.log(Level.INFO, "\t\t paramnote" + i);
-
         }
 
+        /*
         CtClass retClass = cMethod.getReturnType();
-        System.out.println(retClass);
         if (retClass instanceof Taintable) {
           cMethod.insertAfter("{ $_.setTaint(true); }");
           cMethod.insertAfter("System.out.println( $_.tainted );");  // remove later, just for testing
           log.log(Level.INFO, "\t\t return");
         }
+        */
       }
 
       log.log(Level.INFO, "");

@@ -20,5 +20,39 @@
       "getReader"
     ],
     "descriptor": "Defines an object to provide client request information to a servlet. The servlet container creates a ServletRequest object and passes it as an argument to the servlet's service method."
+  },
+  {
+    "clazz": "javax.servlet.http.HttpServletRequest",
+    "methods": [
+      "getAuthType",
+      "getHeader",
+      "getHeaders",
+      "getMethod",
+      "getPathInfo",
+      "getPathTranslated",
+      "getContextPath",
+      "getQueryString",
+      "getRemoteUser",
+      "getRequestedSessionId",
+      "getRequestURI",
+      "getRequestURL",
+      "getServletPath"
+    ],
+    "descriptor": "Provides a convenient implementation of the HttpServletRequest interface that can be subclassed by developers wishing to adapt the request to a Servlet."
+  },
+  {
+    "clazz": "java.util.Properties",
+    "methods": [
+      "getProperty"
+    ],
+    "descriptor": "The Properties class represents a persistent set of properties. The Properties can be saved to a stream or loaded from a stream. Each key and its corresponding value in the property list is a string."
+  },
+  {
+    "clazz": "java.lang.Class",
+    "methods": [
+      "getResource",
+      "getResourceAsStream"
+    ],
+    "descriptor": "Instances of the class Class represent classes and interfaces in a running Java application. An enum is a kind of class and an annotation is a kind of interface. Every array also belongs to a class that is reflected as a Class object that is shared by all arrays with the same element type and number of dimensions. The primitive Java types (boolean, byte, char, short, int, long, float, and double), and the keyword void are also represented as Class objects."
   }
 ]
