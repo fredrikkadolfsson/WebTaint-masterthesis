@@ -79,8 +79,7 @@ public class TaintFieldAdder {
           !isNative(cMethod) &&
           !isStatic(cMethod) &&
           !cMethod.getName().equals("setTaint") &&
-          !cMethod.getName().equals("isTainted") &&
-          !cMethod.getName().equals("propagateParamTaint")) {
+          !cMethod.getName().equals("isTainted")) {
         cMethod.insertBefore("{ $0.setTaint(TaintUtilBootClass.propagateParameterTaint($0, $args)); }");
       }
     }
