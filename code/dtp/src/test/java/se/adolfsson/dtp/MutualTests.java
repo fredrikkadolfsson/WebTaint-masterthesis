@@ -11,11 +11,10 @@ import java.util.Collection;
 import static se.adolfsson.dtp.TestUtils.assertTaintAndLog;
 
 @RunWith(Parameterized.class)
-public class TaintTests {
-
+public class MutualTests {
   private Object fObject;
 
-  public TaintTests(Object object) {
+  public MutualTests(Object object) {
     fObject = object;
   }
 

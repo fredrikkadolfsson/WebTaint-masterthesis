@@ -28,7 +28,6 @@ public class TaintUtil {
     return s.getClass().getField("tainted");
   }
 
-
   static public boolean isTainted(Object s) {
     if (!(s instanceof Taintable)) {
       log.log(Level.INFO, "Attempted to query taint on " + s.getClass().getName() + ", but not Taintable");

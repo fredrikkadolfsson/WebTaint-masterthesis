@@ -1,6 +1,7 @@
 package se.adolfsson.dtp.pcm;
 
 import javassist.*;
+import se.adolfsson.dtp.pcm.api.TaintUtilBootClass;
 import se.adolfsson.dtp.pcm.api.Taintable;
 
 import java.io.File;
@@ -33,11 +34,13 @@ public class TaintFieldAdder {
   private void run() {
     try {
       ClassPool cp = ClassPool.getDefault();
+      cp.importPackage(TaintUtilBootClass.class.getName());
 
       addTaintableToClass(cp, String.class.getName());
       addTaintableToClass(cp, StringBuffer.class.getName());
       addTaintableToClass(cp, StringBuilder.class.getName());
       writeClass(cp, Taintable.class.getName());
+      writeClass(cp, TaintUtilBootClass.class.getName());
 
     } catch (NotFoundException | CannotCompileException e) {
       throw new RuntimeException(e);
@@ -61,19 +64,12 @@ public class TaintFieldAdder {
   private void addTaintVar(CtClass cClass) throws CannotCompileException {
     CtField taintField = new CtField(CtClass.booleanType, "tainted", cClass);
     taintField.setModifiers(Modifier.PRIVATE);
-    cClass.addField(taintField, "propagateParamTaint($args)");
+    cClass.addField(taintField, "TaintUtilBootClass.propagateParameterTaint($0, $args)");
   }
 
   private void addTaintMethods(CtClass cClass) throws CannotCompileException {
-    cClass.addMethod(CtMethod.make("public void setTaint(){ }", cClass));
+    cClass.addMethod(CtMethod.make("public void setTaint(boolean value){ this.tainted = value; }", cClass));
     cClass.addMethod(CtMethod.make("public boolean isTainted(){ return this.tainted; }", cClass));
-    cClass.addMethod(CtMethod.make("private boolean propagateParamTaint(Object[] args) {" +
-        "    boolean tainted = this.isTainted();" +
-        "    for (int i = 0; i < args.length; i++) {" +
-        "      tainted = tainted || args[i].isTainted();" +
-        "    }" +
-        "    return tainted;" +
-        "  }", cClass));
   }
 
   private void propagateTaintInMethods(CtClass cClass) throws NotFoundException, CannotCompileException {
@@ -85,7 +81,7 @@ public class TaintFieldAdder {
           !cMethod.getName().equals("setTaint") &&
           !cMethod.getName().equals("isTainted") &&
           !cMethod.getName().equals("propagateParamTaint")) {
-        cMethod.insertBefore("{ $0.setTaint($0.propagateParamTaint($args)); }");
+        cMethod.insertBefore("{ $0.setTaint(TaintUtilBootClass.propagateParameterTaint($0, $args)); }");
       }
     }
   }
