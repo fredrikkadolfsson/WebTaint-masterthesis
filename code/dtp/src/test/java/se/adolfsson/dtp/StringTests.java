@@ -19,23 +19,21 @@ public class StringTests {
     assertTaintAndLog(tainted, true);
     assertTaintAndLog(notTainted, false);
 
-    int taintedCharsLength = tainted.length();
-    int charsLength = notTainted.length();
-
-    char[] arrc = notTainted.toCharArray();
-    assertTaintAndLog(arrc, false);
-
-    tainted.getChars(0, taintedCharsLength, arrc, charsLength - taintedCharsLength);
-
-    assertTaintAndLog(arrc, true);
-    assertTaintAndLog(new String(arrc), true);
-
-    /*
     assertTaintAndLog(notTainted + notTainted, false);
     assertTaintAndLog(tainted + notTainted, true);
     assertTaintAndLog(notTainted + notTainted, false);
     assertTaintAndLog(tainted + tainted, true);
-    */
+
+    System.out.println();
+
+    assertTaintAndLog(tainted, true);
+    assertTaintAndLog(notTainted, false);
+
+    assertTaintAndLog(notTainted.concat(notTainted), false);
+    assertTaintAndLog(tainted.concat(notTainted), true);
+    assertTaintAndLog(notTainted.concat(notTainted), false);
+    assertTaintAndLog(tainted.concat(tainted), true);
+
     System.out.println();
   }
 }

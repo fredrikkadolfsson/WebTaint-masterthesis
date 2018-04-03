@@ -42,9 +42,7 @@ public class TaintFieldAdder {
       writeClass(cp, Taintable.class.getName());
       writeClass(cp, TaintUtilBootClass.class.getName());
 
-    } catch (NotFoundException | CannotCompileException e) {
-      throw new RuntimeException(e);
-    } catch (IOException e) {
+    } catch (IOException | CannotCompileException | NotFoundException e) {
       e.printStackTrace();
     }
   }
@@ -75,12 +73,23 @@ public class TaintFieldAdder {
   private void propagateTaintInMethods(CtClass cClass) throws NotFoundException, CannotCompileException {
     CtMethod[] cMethods = cClass.getDeclaredMethods();
     for (CtMethod cMethod : cMethods) {
-      if (cMethod.getParameterTypes().length > 0 &&
+      if (!isStatic(cMethod) &&
           !isNative(cMethod) &&
-          !isStatic(cMethod) &&
           !cMethod.getName().equals("setTaint") &&
           !cMethod.getName().equals("isTainted")) {
-        cMethod.insertBefore("{ $0.setTaint(TaintUtilBootClass.propagateParameterTaint($0, $args)); }");
+
+        String returnType = cMethod.getReturnType().getName();
+
+        if (returnType.equals(String.class.getName()) ||
+            returnType.equals(StringBuilder.class.getName()) ||
+            returnType.equals(StringBuffer.class.getName())) {
+          cMethod.insertAfter("{ $_.setTaint(TaintUtilBootClass.propagateParameterTaint($0, $args)); }");
+        }
+
+        if (cMethod.getParameterTypes().length > 0) {
+          cMethod.insertBefore("{ $0.setTaint(TaintUtilBootClass.propagateParameterTaint($0, $args)); }");
+        }
+
       }
     }
   }

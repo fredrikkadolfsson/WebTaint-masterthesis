@@ -6,15 +6,15 @@ import se.adolfsson.dtp.pcm.api.TaintUtil;
 import static se.adolfsson.dtp.TestUtils.assertTaintAndLog;
 
 
-public class StringBufferTests {
+public class StringBuilderTests {
 
   @Test
   public void TaintPropagationStringBufferAppend() {
-    System.out.println("##### TAINT PROPAGATION APPEND - StringBuffer");
+    System.out.println("##### TAINT PROPAGATION APPEND - StringBuilder");
 
-    StringBuffer tainted = new StringBuffer("StringBuffer");
+    StringBuffer tainted = new StringBuffer("StringBuilder");
     TaintUtil.taint(tainted);
-    StringBuffer notTainted = new StringBuffer("StringBuffer");
+    StringBuffer notTainted = new StringBuffer("StringBuilder");
 
     assertTaintAndLog(tainted, true);
     assertTaintAndLog(notTainted, false);
