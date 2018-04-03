@@ -7,7 +7,10 @@ public class TaintUtilBootClass {
       if (arg instanceof Taintable) {
         tainted = tainted || ((Taintable) arg).isTainted();
       }
+
+      if (tainted) break;
     }
+
     return tainted;
   }
 }
