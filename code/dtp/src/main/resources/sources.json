@@ -79,7 +79,7 @@
     "clazz": "java.awt.TextComponent",
     "methods": [
       "getSelectedText",
-      "getSelectedText"
+      "getText"
     ],
     "descriptor": ""
   },
@@ -131,13 +131,6 @@
       "getResourceAsStream",
       "getRealPath",
       "getHeaderNames"
-    ],
-    "descriptor": ""
-  },
-  {
-    "clazz": "java.util.Properties",
-    "methods": [
-      "getProperty"
     ],
     "descriptor": ""
   },

@@ -3,9 +3,9 @@ package se.adolfsson.dtp.xboot;
 import javassist.*;
 import se.adolfsson.dtp.utils.SourceAndSinkReference;
 import se.adolfsson.dtp.utils.SourceTransformer;
-import se.adolfsson.dtp.utils.TaintUtilBootClass;
+import se.adolfsson.dtp.utils.TaintUtils;
 import se.adolfsson.dtp.utils.api.TaintException;
-import se.adolfsson.dtp.utils.api.TaintUtil;
+import se.adolfsson.dtp.utils.api.TaintTools;
 import se.adolfsson.dtp.utils.api.Taintable;
 
 import java.io.File;
@@ -13,6 +13,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static se.adolfsson.dtp.utils.SourceAndSinkReference.getSources;
+import static se.adolfsson.dtp.utils.TaintUtils.isNative;
+import static se.adolfsson.dtp.utils.TaintUtils.isStatic;
 
 /**
  * We need to prepare a modification of java.lang.Stringuilder ahead of time that we can put on the bootclasspath,
@@ -29,18 +31,10 @@ public class TaintFieldAdder {
     System.out.println();
   }
 
-  private static boolean isNative(CtMethod method) {
-    return Modifier.isNative(method.getModifiers());
-  }
-
-  private static boolean isStatic(CtMethod method) {
-    return Modifier.isStatic(method.getModifiers());
-  }
-
   private void run() {
     try {
       ClassPool cp = ClassPool.getDefault();
-      cp.importPackage(TaintUtilBootClass.class.getName());
+      cp.importPackage(TaintUtils.class.getName());
 
       addTaintableToClass(cp, String.class.getName());
       addTaintableToClass(cp, StringBuffer.class.getName());
@@ -48,10 +42,10 @@ public class TaintFieldAdder {
 
       writeClass(cp, Taintable.class.getName());
       writeClass(cp, TaintException.class.getName());
-      writeClass(cp, TaintUtil.class.getName());
-      writeClass(cp, TaintUtilBootClass.class.getName());
+      writeClass(cp, TaintTools.class.getName());
+      writeClass(cp, TaintUtils.class.getName());
 
-      //addTaintableToSources(cp);
+      addTaintableToSources(cp);
     } catch (IOException | CannotCompileException | NotFoundException e) {
       e.printStackTrace();
     }
@@ -59,20 +53,19 @@ public class TaintFieldAdder {
 
   private void addTaintableToSources(ClassPool cp) {
     try {
-      getSources().forEach(
-          (SourceAndSinkReference src) -> {
-            try {
-              CtClass cClass = cp.get(src.getClazz());
-              SourceTransformer sourceTransformer = new SourceTransformer(getSources(), false);
+      SourceTransformer sourceTransformer = new SourceTransformer(getSources(), false);
 
-              byte[] bytes = sourceTransformer.transformSources(cp, cClass.getName());
-              writeBytes(cClass.getName(), bytes);
+      for (SourceAndSinkReference src : getSources()) {
+        try {
+          CtClass cClass = cp.get(src.getClazz());
 
-            } catch (NotFoundException ignored) {
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-          });
+          byte[] bytes = sourceTransformer.transformSources(cp, cClass.getName());
+
+          if (bytes != null) writeBytes(cClass.getName(), bytes);
+
+        } catch (NotFoundException ignored) {
+        }
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -93,7 +86,7 @@ public class TaintFieldAdder {
   private void addTaintVar(CtClass cClass) throws CannotCompileException {
     CtField taintField = new CtField(CtClass.booleanType, "tainted", cClass);
     taintField.setModifiers(Modifier.PRIVATE);
-    cClass.addField(taintField, "TaintUtilBootClass.propagateParameterTaint($0, $args)");
+    cClass.addField(taintField, "TaintUtils.propagateParameterTaint($0, $args)");
   }
 
   private void addTaintMethods(CtClass cClass) throws CannotCompileException {
@@ -114,11 +107,11 @@ public class TaintFieldAdder {
         if (returnType.equals(String.class.getName()) ||
             returnType.equals(StringBuilder.class.getName()) ||
             returnType.equals(StringBuffer.class.getName())) {
-          cMethod.insertAfter("{ $_.setTaint(TaintUtilBootClass.propagateParameterTaint($0, $args)); }");
+          cMethod.insertAfter("{ $_.setTaint(TaintUtils.propagateParameterTaint($0, $args)); }");
         }
 
         if (cMethod.getParameterTypes().length > 0) {
-          cMethod.insertBefore("{ $0.setTaint(TaintUtilBootClass.propagateParameterTaint($0, $args)); }");
+          cMethod.insertBefore("{ $0.setTaint(TaintUtils.propagateParameterTaint($0, $args)); }");
         }
       }
     }

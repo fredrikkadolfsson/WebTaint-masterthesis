@@ -1,7 +1,7 @@
 package se.adolfsson.dtp;
 
 import org.junit.Test;
-import se.adolfsson.dtp.utils.api.TaintUtil;
+import se.adolfsson.dtp.utils.api.TaintTools;
 
 import static se.adolfsson.dtp.TestUtils.assertTaintAndLog;
 
@@ -13,7 +13,7 @@ public class StringTests {
     System.out.println("##### TAINT PROPAGATION CONCAT - String");
 
     String tainted = "Tainted String";
-    TaintUtil.taint(tainted);
+    TaintTools.taint(tainted);
     String notTainted = "Not Tainted String";
 
     assertTaintAndLog(tainted, true);

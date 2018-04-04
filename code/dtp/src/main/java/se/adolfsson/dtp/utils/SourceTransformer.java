@@ -2,11 +2,13 @@ package se.adolfsson.dtp.utils;
 
 import javassist.*;
 import lombok.extern.java.Log;
-import se.adolfsson.dtp.utils.api.Taintable;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
+
+import static se.adolfsson.dtp.utils.TaintUtils.isNative;
+import static se.adolfsson.dtp.utils.TaintUtils.isStatic;
 
 @Log
 public class SourceTransformer {
@@ -41,32 +43,33 @@ public class SourceTransformer {
       CtClass cClass = cp.get(className);
       cClass.defrost();
 
-      SourceAndSinkReference source = sources.stream().filter(src -> src.getClazz().equals(className)).findFirst().get();
-      String[] methods = source.getMethods();
+      if (cClass.isInterface()) {
+        print("IS INTERFACE!!!");
+        return null;
 
-      for (String method : methods) {
-        print("\t" + method);
+      } else {
+        SourceAndSinkReference source = sources.stream().filter(src -> src.getClazz().equals(className)).findFirst().get();
+        String[] methods = source.getMethods();
 
-        try {
-          CtMethod cMethod = cClass.getDeclaredMethod(method);
-          CtClass[] cParams = cMethod.getParameterTypes();
+        for (String method : methods) {
+          print("\t" + method);
 
-          for (int i = 0; i < cParams.length; i++) {
-            print("\t\t " + cParams[i].getName());
-            CtClass[] interfaces = cParams[i].getInterfaces();
+          try {
+            CtMethod cMethod = cClass.getDeclaredMethod(method);
+            String returnType = cMethod.getReturnType().getName();
 
-            for (CtClass interfac : interfaces) {
-              if (interfac.getName().equals(Taintable.class.getName())) {
-                print("\t\t\t is Taintable");
-
-                if (cMethod.isEmpty()) print("\t\t\t EMPTY"); //TODO FIX HANDLING OF EMPTY METHOD BODY
-                else cMethod.insertBefore("{ $" + (i + 1) + ".setTaint(true); }");
-                break;
+            if (!isStatic(cMethod) &&
+                !isNative(cMethod)) {
+              if (returnType.equals(String.class.getName()) ||
+                  returnType.equals(StringBuilder.class.getName()) ||
+                  returnType.equals(StringBuffer.class.getName())) {
+                cMethod.insertAfter("{ $_.setTaint(true); }");
               }
             }
+
+          } catch (NotFoundException e) {
+            print("\t\tdose not exist");
           }
-        } catch (NotFoundException e) {
-          print("\t\tdose not exist");
         }
       }
 

@@ -3,7 +3,7 @@ package se.adolfsson.dtp;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import se.adolfsson.dtp.utils.api.TaintUtil;
+import se.adolfsson.dtp.utils.api.TaintTools;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,9 +32,9 @@ public class MutualTests {
     System.out.println("##### TAINT AND DETAINT - " + fObject);
 
     assertTaintAndLog(fObject, false);
-    TaintUtil.taint(fObject);
+    TaintTools.taint(fObject);
     assertTaintAndLog(fObject, true);
-    TaintUtil.detaint(fObject);
+    TaintTools.detaint(fObject);
     assertTaintAndLog(fObject, false);
 
     System.out.println();
@@ -44,7 +44,7 @@ public class MutualTests {
   public void TaintPropagation() {
     System.out.println("##### TAINT PROPAGATION - " + fObject);
 
-    TaintUtil.taint(fObject);
+    TaintTools.taint(fObject);
     assertTaintAndLog(fObject, true);
     Object objectCopy = fObject;
     assertTaintAndLog(objectCopy, true);

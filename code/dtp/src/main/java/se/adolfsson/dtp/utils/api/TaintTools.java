@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import java.util.logging.Level;
 
 @Log
-public class TaintUtil {
+public class TaintTools {
   public static void taint(Object s) {
     setTaint(s, true);
   }

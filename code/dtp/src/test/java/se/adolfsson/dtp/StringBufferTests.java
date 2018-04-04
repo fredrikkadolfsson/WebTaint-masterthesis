@@ -1,7 +1,7 @@
 package se.adolfsson.dtp;
 
 import org.junit.Test;
-import se.adolfsson.dtp.utils.api.TaintUtil;
+import se.adolfsson.dtp.utils.api.TaintTools;
 
 import static se.adolfsson.dtp.TestUtils.assertTaintAndLog;
 
@@ -13,7 +13,7 @@ public class StringBufferTests {
     System.out.println("##### TAINT PROPAGATION APPEND - StringBuffer");
 
     StringBuffer tainted = new StringBuffer("StringBuffer");
-    TaintUtil.taint(tainted);
+    TaintTools.taint(tainted);
     StringBuffer notTainted = new StringBuffer("StringBuffer");
 
     assertTaintAndLog(tainted, true);
