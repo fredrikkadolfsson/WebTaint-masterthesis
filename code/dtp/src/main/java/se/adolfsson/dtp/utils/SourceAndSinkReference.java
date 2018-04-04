@@ -14,7 +14,6 @@ public class SourceAndSinkReference {
   private String[] methods;
   private String descriptor;
 
-
   public static List<SourceAndSinkReference> getSources() throws IOException {
     return getSourcesOrSinks("sources.json");
   }

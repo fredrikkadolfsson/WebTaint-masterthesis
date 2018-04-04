@@ -41,13 +41,13 @@ public class SourceTransformer {
       print("Methods: ");
 
       CtClass cClass = cp.get(className);
-      cClass.defrost();
 
       if (cClass.isInterface()) {
-        print("IS INTERFACE!!!");
-        return null;
+        print("\tIS INTERFACE!!!");
 
       } else {
+        cClass.defrost();
+
         SourceAndSinkReference source = sources.stream().filter(src -> src.getClazz().equals(className)).findFirst().get();
         String[] methods = source.getMethods();
 
@@ -55,18 +55,20 @@ public class SourceTransformer {
           print("\t" + method);
 
           try {
-            CtMethod cMethod = cClass.getDeclaredMethod(method);
-            String returnType = cMethod.getReturnType().getName();
+            CtMethod[] cMethods = cClass.getDeclaredMethods(method);
 
-            if (!isStatic(cMethod) &&
-                !isNative(cMethod)) {
-              if (returnType.equals(String.class.getName()) ||
-                  returnType.equals(StringBuilder.class.getName()) ||
-                  returnType.equals(StringBuffer.class.getName())) {
-                cMethod.insertAfter("{ $_.setTaint(true); }");
+            for (CtMethod cMethod : cMethods) {
+              String returnType = cMethod.getReturnType().getName();
+
+              if (!isStatic(cMethod) &&
+                  !isNative(cMethod)) {
+                if (returnType.equals(String.class.getName()) ||
+                    returnType.equals(StringBuilder.class.getName()) ||
+                    returnType.equals(StringBuffer.class.getName())) {
+                  cMethod.insertAfter("{ if ($_ != null) $_.setTaint(true);  }");
+                }
               }
             }
-
           } catch (NotFoundException e) {
             print("\t\tdose not exist");
           }
@@ -76,7 +78,9 @@ public class SourceTransformer {
       print("");
       print("########################################");
 
-      return cClass.toBytecode();
+      if (cClass.isInterface()) return null;
+      else return cClass.toBytecode();
+
     } catch (NotFoundException | IOException | CannotCompileException e) {
       e.printStackTrace();
       return null;

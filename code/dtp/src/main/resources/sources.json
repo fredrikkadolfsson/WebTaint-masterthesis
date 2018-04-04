@@ -135,6 +135,13 @@
     "descriptor": ""
   },
   {
+    "clazz": "java.util.Properties",
+    "methods": [
+      "getProperty"
+    ],
+    "descriptor": ""
+  },
+  {
     "clazz": "java.lang.Class",
     "methods": [
       "getResource",
