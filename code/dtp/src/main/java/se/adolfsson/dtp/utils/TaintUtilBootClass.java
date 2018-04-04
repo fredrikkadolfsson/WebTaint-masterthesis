@@ -1,4 +1,6 @@
-package se.adolfsson.dtp.pcm.api;
+package se.adolfsson.dtp.utils;
+
+import se.adolfsson.dtp.utils.api.Taintable;
 
 public class TaintUtilBootClass {
   static public boolean propagateParameterTaint(Object s, Object[] args) {

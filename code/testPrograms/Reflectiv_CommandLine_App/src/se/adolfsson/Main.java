@@ -11,6 +11,7 @@ public class Main {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter reflective content: ");
     String reflect = scanner.next();
+
     System.out.println(reflect);
 
     System.out.println();

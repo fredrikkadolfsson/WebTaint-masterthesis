@@ -1,4 +1,4 @@
-package se.adolfsson.dtp;
+package se.adolfsson.dtp.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
@@ -9,17 +9,17 @@ import java.net.URL;
 import java.util.List;
 
 @Value
-class SourceAndSinkReference {
+public class SourceAndSinkReference {
   private String clazz;
   private String[] methods;
   private String descriptor;
 
 
-  static List<SourceAndSinkReference> getSources() throws IOException {
+  public static List<SourceAndSinkReference> getSources() throws IOException {
     return getSourcesOrSinks("sources.json");
   }
 
-  static List<SourceAndSinkReference> getSinks() throws IOException {
+  public static List<SourceAndSinkReference> getSinks() throws IOException {
     return getSourcesOrSinks("sinks.json");
   }
 

@@ -1,10 +1,10 @@
-package se.adolfsson.dtp;
+package se.adolfsson.dtp.agent;
 
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 
-import static se.adolfsson.dtp.SourceAndSinkReference.getSinks;
-import static se.adolfsson.dtp.SourceAndSinkReference.getSources;
+import static se.adolfsson.dtp.utils.SourceAndSinkReference.getSinks;
+import static se.adolfsson.dtp.utils.SourceAndSinkReference.getSources;
 
 public class TaintAgent {
   public static void premain(String agentArgs, Instrumentation inst) {

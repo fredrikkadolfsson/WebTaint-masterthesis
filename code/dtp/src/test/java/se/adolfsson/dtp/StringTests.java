@@ -1,7 +1,7 @@
 package se.adolfsson.dtp;
 
 import org.junit.Test;
-import se.adolfsson.dtp.pcm.api.TaintUtil;
+import se.adolfsson.dtp.utils.api.TaintUtil;
 
 import static se.adolfsson.dtp.TestUtils.assertTaintAndLog;
 

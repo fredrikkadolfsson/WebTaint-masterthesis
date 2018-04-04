@@ -19,7 +19,7 @@
       "getLocalAddr",
       "getReader"
     ],
-    "descriptor": "Defines an object to provide client request information to a servlet. The servlet container creates a ServletRequest object and passes it as an argument to the servlet's service method."
+    "descriptor": ""
   },
   {
     "clazz": "javax.servlet.http.HttpServletRequest",
@@ -38,14 +38,108 @@
       "getRequestURL",
       "getServletPath"
     ],
-    "descriptor": "Provides a convenient implementation of the HttpServletRequest interface that can be subclassed by developers wishing to adapt the request to a Servlet."
+    "descriptor": ""
+  },
+  {
+    "clazz": "javax.servlet.http.Cookie",
+    "methods": [
+      "getComment",
+      "getDomain",
+      "getPath",
+      "getName",
+      "getValue"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "javax.servlet.ServletConfig",
+    "methods": [
+      "getInitParameter",
+      "getInitParameterNames"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "javax.servlet.GenericServlet",
+    "methods": [
+      "getInitParameter",
+      "getInitParameterNames"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "java.sql.ResultSet",
+    "methods": [
+      "getString",
+      "getObject"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "java.awt.TextComponent",
+    "methods": [
+      "getSelectedText",
+      "getSelectedText"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "java.io.Console",
+    "methods": [
+      "readLine",
+      "readPassword"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "java.io.DataInputStream",
+    "methods": [
+      "readLine",
+      "readUTF"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "java.io.LineNumberReader",
+    "methods": [
+      "readLine"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "javax.servlet.http.HttpSession",
+    "methods": [
+      "getAttribute",
+      "getAttributeNames",
+      "getValue",
+      "getValueNames"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "java.lang.System",
+    "methods": [
+      "getProperty",
+      "getProperties",
+      "getenv"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "javax.servlet.ServletContext",
+    "methods": [
+      "getResourceAsStream",
+      "getRealPath",
+      "getHeaderNames"
+    ],
+    "descriptor": ""
   },
   {
     "clazz": "java.util.Properties",
     "methods": [
       "getProperty"
     ],
-    "descriptor": "The Properties class represents a persistent set of properties. The Properties can be saved to a stream or loaded from a stream. Each key and its corresponding value in the property list is a string."
+    "descriptor": ""
   },
   {
     "clazz": "java.lang.Class",
@@ -53,6 +147,28 @@
       "getResource",
       "getResourceAsStream"
     ],
-    "descriptor": "Instances of the class Class represent classes and interfaces in a running Java application. An enum is a kind of class and an annotation is a kind of interface. Every array also belongs to a class that is reflected as a Class object that is shared by all arrays with the same element type and number of dimensions. The primitive Java types (boolean, byte, char, short, int, long, float, and double), and the keyword void are also represented as Class objects."
+    "descriptor": ""
+  },
+  {
+    "clazz": "org.apache.xmlrpc.XmlRpcClient",
+    "methods": [
+      "execute",
+      "search"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "javax.xml.xpath.XPath",
+    "methods": [
+      "evaluate"
+    ],
+    "descriptor": ""
+  },
+  {
+    "clazz": "javax.xml.xpath.XPathExpression",
+    "methods": [
+      "evaluate"
+    ],
+    "descriptor": ""
   }
 ]

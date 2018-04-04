@@ -35,7 +35,7 @@ jar {
     archiveName = "${rootProject.name}-${rootProject.version}.jar"
     manifest {
         attributes(
-                'Premain-Class': 'se.adolfsson.dtp.TaintAgent',
+                'Premain-Class': 'se.adolfsson.dtp.agent.TaintAgent',
                 'Can-Redefine-Classes': 'true',
                 'Can-Retransform-Classes': 'true',
                 'Can-Set-Native-Method-Prefix': 'true',
@@ -46,7 +46,7 @@ jar {
 }
 
 task rtCompile(type: JavaExec, dependsOn: compileJava) {
-    main 'se.adolfsson.dtp.pcm.TaintFieldAdder'
+    main 'se.adolfsson.dtp.xboot.TaintFieldAdder'
     classpath sourceSets.main.runtimeClasspath
 }
 

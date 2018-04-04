@@ -1,4 +1,7 @@
-package se.adolfsson.dtp;
+package se.adolfsson.dtp.agent;
+
+import se.adolfsson.dtp.utils.SourceAndSinkReference;
+import se.adolfsson.dtp.utils.SourceTransformer;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
@@ -18,12 +21,12 @@ public class TransformerAgent implements ClassFileTransformer {
                           Class classBeingRedefined, ProtectionDomain protectionDomain,
                           byte[] classfileBuffer) {
 
-    SourceTransformer sourceTransformer = new SourceTransformer(sources);
+    SourceTransformer sourceTransformer = new SourceTransformer(sources, true);
 
     className = className.replaceAll("/", ".");
 
     if (sourceTransformer.isSource(className))
-      return sourceTransformer.transform(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
+      return sourceTransformer.transform(className);
 
     return null;
   }

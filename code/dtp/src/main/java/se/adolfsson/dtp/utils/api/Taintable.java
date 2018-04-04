@@ -1,4 +1,4 @@
-package se.adolfsson.dtp.pcm.api;
+package se.adolfsson.dtp.utils.api;
 
 public interface Taintable {
   void setTaint(boolean value);

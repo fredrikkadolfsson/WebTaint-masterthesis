@@ -1,12 +1,18 @@
-package se.adolfsson.dtp.pcm;
+package se.adolfsson.dtp.xboot;
 
 import javassist.*;
-import se.adolfsson.dtp.pcm.api.TaintUtilBootClass;
-import se.adolfsson.dtp.pcm.api.Taintable;
+import se.adolfsson.dtp.utils.SourceAndSinkReference;
+import se.adolfsson.dtp.utils.SourceTransformer;
+import se.adolfsson.dtp.utils.TaintUtilBootClass;
+import se.adolfsson.dtp.utils.api.TaintException;
+import se.adolfsson.dtp.utils.api.TaintUtil;
+import se.adolfsson.dtp.utils.api.Taintable;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import static se.adolfsson.dtp.utils.SourceAndSinkReference.getSources;
 
 /**
  * We need to prepare a modification of java.lang.Stringuilder ahead of time that we can put on the bootclasspath,
@@ -39,10 +45,35 @@ public class TaintFieldAdder {
       addTaintableToClass(cp, String.class.getName());
       addTaintableToClass(cp, StringBuffer.class.getName());
       addTaintableToClass(cp, StringBuilder.class.getName());
+
       writeClass(cp, Taintable.class.getName());
+      writeClass(cp, TaintException.class.getName());
+      writeClass(cp, TaintUtil.class.getName());
       writeClass(cp, TaintUtilBootClass.class.getName());
 
+      //addTaintableToSources(cp);
     } catch (IOException | CannotCompileException | NotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void addTaintableToSources(ClassPool cp) {
+    try {
+      getSources().forEach(
+          (SourceAndSinkReference src) -> {
+            try {
+              CtClass cClass = cp.get(src.getClazz());
+              SourceTransformer sourceTransformer = new SourceTransformer(getSources(), false);
+
+              byte[] bytes = sourceTransformer.transformSources(cp, cClass.getName());
+              writeBytes(cClass.getName(), bytes);
+
+            } catch (NotFoundException ignored) {
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          });
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
@@ -89,7 +120,6 @@ public class TaintFieldAdder {
         if (cMethod.getParameterTypes().length > 0) {
           cMethod.insertBefore("{ $0.setTaint(TaintUtilBootClass.propagateParameterTaint($0, $args)); }");
         }
-
       }
     }
   }
@@ -98,6 +128,10 @@ public class TaintFieldAdder {
     CtClass cClass = cp.get(className);
     byte[] bytes = cClass.toBytecode();
 
+    writeBytes(className, bytes);
+  }
+
+  private void writeBytes(String className, byte[] bytes) throws IOException {
     System.out.println("Added taint to: " + className + " " + bytes.length);
 
     final String s = className.replace(".", "/");

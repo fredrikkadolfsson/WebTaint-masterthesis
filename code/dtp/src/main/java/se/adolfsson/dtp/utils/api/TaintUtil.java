@@ -1,4 +1,4 @@
-package se.adolfsson.dtp.pcm.api;
+package se.adolfsson.dtp.utils.api;
 
 
 import lombok.extern.java.Log;
@@ -8,15 +8,15 @@ import java.util.logging.Level;
 
 @Log
 public class TaintUtil {
-  static public void taint(Object s) {
+  public static void taint(Object s) {
     setTaint(s, true);
   }
 
-  static public void detaint(Object s) {
+  public static void detaint(Object s) {
     setTaint(s, false);
   }
 
-  static private void setTaint(Object s, boolean value) {
+  private static void setTaint(Object s, boolean value) {
     if (!(s instanceof Taintable)) {
       log.log(Level.INFO, "Attempted to set taint on " + s.getClass().getName() + " to " + value + ", but not Taintable");
       return;
@@ -24,11 +24,11 @@ public class TaintUtil {
     ((Taintable) s).setTaint(value);
   }
 
-  static private Field taintField(Object s) throws NoSuchFieldException {
+  private static Field taintField(Object s) throws NoSuchFieldException {
     return s.getClass().getField("tainted");
   }
 
-  static public boolean isTainted(Object s) {
+  public static boolean isTainted(Object s) {
     if (!(s instanceof Taintable)) {
       log.log(Level.INFO, "Attempted to query taint on " + s.getClass().getName() + ", but not Taintable");
       return false;
@@ -36,7 +36,7 @@ public class TaintUtil {
     return ((Taintable) s).isTainted();
   }
 
-  static public void checkTaint(Object s, String signature) {
+  public static void checkTaint(Object s, String signature) {
     if (isTainted(s))
       throw new TaintException(s.toString(), signature);
   }
