@@ -1,7 +1,7 @@
 package se.adolfsson.dtp.xboot;
 
 import javassist.*;
-import se.adolfsson.dtp.utils.SourceAndSinkReference;
+import se.adolfsson.dtp.utils.SourceOrSink;
 import se.adolfsson.dtp.utils.SourceTransformer;
 import se.adolfsson.dtp.utils.TaintUtils;
 import se.adolfsson.dtp.utils.api.TaintException;
@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static se.adolfsson.dtp.utils.SourceAndSinkReference.getSources;
+import static se.adolfsson.dtp.utils.SourcesOrSinks.getSources;
 import static se.adolfsson.dtp.utils.TaintUtils.isNative;
 import static se.adolfsson.dtp.utils.TaintUtils.isStatic;
 
@@ -53,9 +53,9 @@ public class TaintFieldAdder {
 
   private void addTaintableToSources(ClassPool cp) {
     try {
-      SourceTransformer sourceTransformer = new SourceTransformer(getSources(), false);
+      SourceTransformer sourceTransformer = new SourceTransformer(getSources().getClasses(), false);
 
-      for (SourceAndSinkReference src : getSources()) {
+      for (SourceOrSink src : getSources().getClasses()) {
         try {
           CtClass cClass = cp.get(src.getClazz());
 

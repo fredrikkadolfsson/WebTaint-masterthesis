@@ -12,16 +12,16 @@ import static se.adolfsson.dtp.utils.TaintUtils.isStatic;
 
 @Log
 public class SourceTransformer {
-  private List<SourceAndSinkReference> sources;
+  private List<SourceOrSink> sources;
   private Boolean isAgent;
 
-  public SourceTransformer(List<SourceAndSinkReference> sources, Boolean isAgent) {
+  public SourceTransformer(List<SourceOrSink> sources, Boolean isAgent) {
     this.sources = sources;
     this.isAgent = isAgent;
   }
 
   public boolean isSource(String className) {
-    for (SourceAndSinkReference source : sources) {
+    for (SourceOrSink source : sources) {
       if (className.equals(source.getClazz())) return true;
     }
 
@@ -48,7 +48,7 @@ public class SourceTransformer {
       } else {
         cClass.defrost();
 
-        SourceAndSinkReference source = sources.stream().filter(src -> src.getClazz().equals(className)).findFirst().get();
+        SourceOrSink source = sources.stream().filter(src -> src.getClazz().equals(className)).findFirst().get();
         String[] methods = source.getMethods();
 
         for (String method : methods) {
