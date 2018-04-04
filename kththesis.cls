@@ -207,6 +207,7 @@
 \usepackage[all]{nowidow}
 \usepackage{parskip} % Paragraph: indent -> space
 \usepackage{nameref}
+\usepackage{color}
 
 \lstset{
   escapeinside={(*@}{@*)},
