@@ -4,6 +4,7 @@ import javassist.*;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 
 import static se.adolfsson.dtp.utils.SourcesOrSinks.isSourceOrSink;
@@ -30,26 +31,28 @@ public class SourceTransformer {
   public byte[] isSource(String className) {
 
     String ret;
-    if (isClass(className)) return transform(className, className);
-    else if ((ret = isInterface(className)) != null) return transform(className, ret);
+    if (isClass(className)) return transform(className, className, true);
+    else if ((ret = isInterface(className)) != null) return transform(className, ret, false);
 
     return null;
   }
 
-  private byte[] transform(String className, String interfaceName) {
+  private byte[] transform(String className, String alteredAsClassName, boolean isClass) {
     ClassPool cp = ClassPool.getDefault();
     try {
       print("########################################");
       print("");
-      print("Transforming: " + className + (className.equals(interfaceName) ? "" : " as Interface " + interfaceName));
+      print("Transforming: " + className + (className.equals(alteredAsClassName) ? "" : " as Interface " + alteredAsClassName));
       print("Methods: ");
 
       CtClass cClass = cp.get(className);
       cClass.defrost();
 
-      SourceOrSink source = sources.getClasses().stream()
+      List<SourceOrSink> sources = (isClass ? this.sources.getClasses() : this.sources.getInterfaces());
+
+      SourceOrSink source = sources.stream()
           .filter(
-              src -> src.getClazz().equals(interfaceName)
+              src -> src.getClazz().equals(alteredAsClassName)
           ).findFirst().get();
 
       String[] methods = source.getMethods();
@@ -103,14 +106,12 @@ public class SourceTransformer {
 
     try {
       CtClass cClass = cp.get(className);
-      CtClass[] interfaces = cClass.getInterfaces();
 
-      for (CtClass interfazz : interfaces) {
-        boolean ret = isSourceOrSink(sources.getInterfaces(), interfazz.getName());
+      for (SourceOrSink source : sources.getInterfaces()) {
+        boolean ret = cClass.subtypeOf(cp.get(source.getClazz()));
 
-        if (ret) return interfazz.getName();
+        if (ret) return source.getClazz();
       }
-
     } catch (NotFoundException ignored) {
     }
 
