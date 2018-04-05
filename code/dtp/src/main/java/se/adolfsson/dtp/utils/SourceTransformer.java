@@ -4,82 +4,84 @@ import javassist.*;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Level;
 
-import static se.adolfsson.dtp.utils.TaintUtils.isNative;
-import static se.adolfsson.dtp.utils.TaintUtils.isStatic;
+import static se.adolfsson.dtp.utils.SourcesOrSinks.isSourceOrSink;
+
 
 @Log
 public class SourceTransformer {
-  private List<SourceOrSink> sources;
+  private SourcesOrSinks sources;
   private Boolean isAgent;
 
-  public SourceTransformer(List<SourceOrSink> sources, Boolean isAgent) {
+  public SourceTransformer(SourcesOrSinks sources, Boolean isAgent) {
     this.sources = sources;
     this.isAgent = isAgent;
   }
 
-  public boolean isSource(String className) {
-    for (SourceOrSink source : sources) {
-      if (className.equals(source.getClazz())) return true;
-    }
-
-    return false;
+  private static boolean isNative(CtMethod method) {
+    return Modifier.isNative(method.getModifiers());
   }
 
-  public byte[] transform(String className) {
+  private static boolean isStatic(CtMethod method) {
+    return Modifier.isStatic(method.getModifiers());
+  }
+
+  public byte[] isSource(String className) {
+
+    String ret;
+    if (isClass(className)) return transform(className, className);
+    else if ((ret = isInterface(className)) != null) return transform(className, ret);
+
+    return null;
+  }
+
+  private byte[] transform(String className, String interfaceName) {
     ClassPool cp = ClassPool.getDefault();
-    return transformSources(cp, className);
-  }
-
-  public byte[] transformSources(ClassPool cp, String className) {
     try {
       print("########################################");
       print("");
-      print("Transforming: " + className);
+      print("Transforming: " + className + (className.equals(interfaceName) ? "" : " as Interface " + interfaceName));
       print("Methods: ");
 
       CtClass cClass = cp.get(className);
+      cClass.defrost();
 
-      if (cClass.isInterface()) {
-        print("\tIS INTERFACE!!!");
+      SourceOrSink source = sources.getClasses().stream()
+          .filter(
+              src -> src.getClazz().equals(interfaceName)
+          ).findFirst().get();
 
-      } else {
-        cClass.defrost();
+      String[] methods = source.getMethods();
 
-        SourceOrSink source = sources.stream().filter(src -> src.getClazz().equals(className)).findFirst().get();
-        String[] methods = source.getMethods();
+      for (String method : methods) {
+        print("\t" + method);
 
-        for (String method : methods) {
-          print("\t" + method);
+        try {
+          CtMethod[] cMethods = cClass.getDeclaredMethods(method);
 
-          try {
-            CtMethod[] cMethods = cClass.getDeclaredMethods(method);
+          for (CtMethod cMethod : cMethods) {
+            String returnType = cMethod.getReturnType().getName();
+            if (!isStatic(cMethod) &&
+                !isNative(cMethod)) {
 
-            for (CtMethod cMethod : cMethods) {
-              String returnType = cMethod.getReturnType().getName();
-
-              if (!isStatic(cMethod) &&
-                  !isNative(cMethod)) {
-                if (returnType.equals(String.class.getName()) ||
-                    returnType.equals(StringBuilder.class.getName()) ||
-                    returnType.equals(StringBuffer.class.getName())) {
-                  cMethod.insertAfter("{ if ($_ != null) $_.setTaint(true);  }");
-                }
+              if (returnType.equals(String.class.getName()) ||
+                  returnType.equals(StringBuilder.class.getName()) ||
+                  returnType.equals(StringBuffer.class.getName())) {
+                print("\t\tSource Defined");
+                cMethod.insertAfter("{ if ($_ != null) $_.setTaint(true);  }");
               }
             }
-          } catch (NotFoundException e) {
-            print("\t\tdose not exist");
           }
+        } catch (NotFoundException e) {
+          print("\t\tdose not exist");
         }
       }
 
       print("");
       print("########################################");
 
-      if (cClass.isInterface()) return null;
-      else return cClass.toBytecode();
+      return cClass.toBytecode();
 
     } catch (NotFoundException | IOException | CannotCompileException e) {
       e.printStackTrace();
@@ -90,5 +92,28 @@ public class SourceTransformer {
   private void print(String content) {
     if (isAgent) log.log(Level.INFO, content);
     else System.out.println(content);
+  }
+
+  private boolean isClass(String className) {
+    return isSourceOrSink(sources.getClasses(), className);
+  }
+
+  private String isInterface(String className) {
+    ClassPool cp = ClassPool.getDefault();
+
+    try {
+      CtClass cClass = cp.get(className);
+      CtClass[] interfaces = cClass.getInterfaces();
+
+      for (CtClass interfazz : interfaces) {
+        boolean ret = isSourceOrSink(sources.getInterfaces(), interfazz.getName());
+
+        if (ret) return interfazz.getName();
+      }
+
+    } catch (NotFoundException ignored) {
+    }
+
+    return null;
   }
 }

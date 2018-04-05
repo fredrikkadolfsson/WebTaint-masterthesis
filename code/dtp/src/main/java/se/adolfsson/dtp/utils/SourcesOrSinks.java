@@ -26,5 +26,13 @@ public class SourcesOrSinks {
 
     return mapper.readValue(fileUrl, SourcesOrSinks.class);
   }
+
+  static boolean isSourceOrSink(List<SourceOrSink> sourcesOrSinks, String className) {
+    for (SourceOrSink source : sourcesOrSinks) {
+      if (className.equals(source.getClazz())) return true;
+    }
+
+    return false;
+  }
 }
 

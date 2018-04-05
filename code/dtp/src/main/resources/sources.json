@@ -149,6 +149,13 @@
         "search"
       ],
       "descriptor": ""
+    },
+    {
+      "clazz": "java.util.Scanner",
+      "methods": [
+        "next"
+      ],
+      "descriptor": ""
     }
   ],
   "interfaces": [

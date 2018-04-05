@@ -11,7 +11,7 @@ public class TaintAgent {
     System.out.println("Executing taint premain.........");
     System.out.println();
     try {
-      inst.addTransformer(new TransformerAgent(getSources().getClasses(), getSinks().getClasses()));
+      inst.addTransformer(new TransformerAgent(getSources(), getSinks()));
     } catch (IOException e) {
       e.printStackTrace();
     }

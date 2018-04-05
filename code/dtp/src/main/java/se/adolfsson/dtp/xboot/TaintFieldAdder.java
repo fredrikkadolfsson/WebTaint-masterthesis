@@ -1,8 +1,6 @@
 package se.adolfsson.dtp.xboot;
 
 import javassist.*;
-import se.adolfsson.dtp.utils.SourceOrSink;
-import se.adolfsson.dtp.utils.SourceTransformer;
 import se.adolfsson.dtp.utils.TaintUtils;
 import se.adolfsson.dtp.utils.api.TaintException;
 import se.adolfsson.dtp.utils.api.TaintTools;
@@ -12,9 +10,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static se.adolfsson.dtp.utils.SourcesOrSinks.getSources;
 import static se.adolfsson.dtp.utils.TaintUtils.isNative;
 import static se.adolfsson.dtp.utils.TaintUtils.isStatic;
+
 
 /**
  * We need to prepare a modification of java.lang.Stringuilder ahead of time that we can put on the bootclasspath,
@@ -45,28 +43,7 @@ public class TaintFieldAdder {
       writeClass(cp, TaintTools.class.getName());
       writeClass(cp, TaintUtils.class.getName());
 
-      addTaintableToSources(cp);
     } catch (IOException | CannotCompileException | NotFoundException e) {
-      e.printStackTrace();
-    }
-  }
-
-  private void addTaintableToSources(ClassPool cp) {
-    try {
-      SourceTransformer sourceTransformer = new SourceTransformer(getSources().getClasses(), false);
-
-      for (SourceOrSink src : getSources().getClasses()) {
-        try {
-          CtClass cClass = cp.get(src.getClazz());
-
-          byte[] bytes = sourceTransformer.transformSources(cp, cClass.getName());
-
-          if (bytes != null) writeBytes(cClass.getName(), bytes);
-
-        } catch (NotFoundException ignored) {
-        }
-      }
-    } catch (IOException e) {
       e.printStackTrace();
     }
   }
