@@ -29,10 +29,28 @@ public class SourceTransformer {
   }
 
   public byte[] isSource(String className) {
+    try {
+      ClassPool cp = ClassPool.getDefault();
+      if (cp.get(className).isInterface()) return null;
+    } catch (NotFoundException ignored) {
+      return null;
+    }
 
     String ret;
-    if (isClass(className)) return transform(className, className, true);
-    else if ((ret = isInterface(className)) != null) return transform(className, ret, false);
+    if (isSourceClass(className)) return transform(className, className, true);
+    else if ((ret = usesInterface(className)) != null) return transform(className, ret, false);
+    else return extendsSourceClassOrNull(className);
+  }
+
+  private byte[] extendsSourceClassOrNull(String className) {
+    ClassPool cp = ClassPool.getDefault();
+
+    try {
+      CtClass cClass = cp.get(className);
+      CtClass scClass = cClass.getSuperclass();
+      return isSource(scClass.getName());
+    } catch (NotFoundException ignored) {
+    }
 
     return null;
   }
@@ -97,24 +115,48 @@ public class SourceTransformer {
     else System.out.println(content);
   }
 
-  private boolean isClass(String className) {
+  private boolean isSourceClass(String className) {
     return isSourceOrSink(sources.getClasses(), className);
   }
 
-  private String isInterface(String className) {
+  private String usesInterface(String className) {
+    boolean ret;
+    for (SourceOrSink interfazz : sources.getInterfaces()) {
+      ret = implementsSourceInterface(interfazz.getClazz(), className);
+      if (ret) return interfazz.getClazz();
+    }
+
+    return extendsSourceInterface(className);
+  }
+
+  private String extendsSourceInterface(String clazz) {
+    boolean ret;
+    for (SourceOrSink interfazz : sources.getInterfaces()) {
+      ClassPool cp = ClassPool.getDefault();
+
+      try {
+        CtClass cClass = cp.get(clazz);
+        CtClass ecClass = cp.get(interfazz.getClazz());
+
+        ret = cClass.subtypeOf(ecClass);
+
+        if (ret) return interfazz.getClazz();
+      } catch (NotFoundException ignored) {
+      }
+    }
+    return null;
+  }
+
+  private boolean implementsSourceInterface(String interfazz, String className) {
     ClassPool cp = ClassPool.getDefault();
 
     try {
       CtClass cClass = cp.get(className);
 
-      for (SourceOrSink source : sources.getInterfaces()) {
-        boolean ret = cClass.subtypeOf(cp.get(source.getClazz()));
-
-        if (ret) return source.getClazz();
-      }
+      return cClass.subtypeOf(cp.get(interfazz));
     } catch (NotFoundException ignored) {
     }
 
-    return null;
+    return false;
   }
 }

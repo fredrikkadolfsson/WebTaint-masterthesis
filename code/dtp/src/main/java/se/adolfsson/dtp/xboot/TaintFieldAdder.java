@@ -42,7 +42,6 @@ public class TaintFieldAdder {
       writeClass(cp, TaintException.class.getName());
       writeClass(cp, TaintTools.class.getName());
       writeClass(cp, TaintUtils.class.getName());
-
     } catch (IOException | CannotCompileException | NotFoundException e) {
       e.printStackTrace();
     }
