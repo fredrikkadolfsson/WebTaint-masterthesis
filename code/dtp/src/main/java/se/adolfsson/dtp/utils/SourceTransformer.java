@@ -2,6 +2,7 @@ package se.adolfsson.dtp.utils;
 
 import javassist.*;
 import lombok.extern.java.Log;
+import se.adolfsson.dtp.utils.api.Taintable;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,36 +38,46 @@ public class SourceTransformer {
     }
 
     String ret;
-    if (isSourceClass(className)) return transform(className, className, true);
-    else if ((ret = usesInterface(className)) != null) return transform(className, ret, false);
-    else return extendsSourceClassOrNull(className);
+    if (isSourceClass(className)) return transform(className, className);
+    else if ((ret = usesInterface(className)) != null) return transform(className, ret);
+    else if ((ret = extendsSourceClass(className)) != null) return transform(className, ret);
+    else return null;
   }
 
-  private byte[] extendsSourceClassOrNull(String className) {
+  private String extendsSourceClass(String className) {
     ClassPool cp = ClassPool.getDefault();
 
     try {
       CtClass cClass = cp.get(className);
       CtClass scClass = cClass.getSuperclass();
-      return isSource(scClass.getName());
+
+      if (scClass != null) return isSuperSource(scClass.getName());
     } catch (NotFoundException ignored) {
     }
 
     return null;
   }
 
-  private byte[] transform(String className, String alteredAsClassName, boolean isClass) {
+  private String isSuperSource(String className) {
+    String ret;
+    if (isSourceClass(className)) return className;
+    else if ((ret = usesInterface(className)) != null) return ret;
+    else if ((ret = extendsSourceClass(className)) != null) return ret;
+    else return null;
+  }
+
+  private byte[] transform(String className, String alteredAsClassName) {
     ClassPool cp = ClassPool.getDefault();
     try {
       print("########################################");
       print("");
-      print("Transforming: " + className + (className.equals(alteredAsClassName) ? "" : " as Interface " + alteredAsClassName));
+      print("Transforming: " + className + (className.equals(alteredAsClassName) ? "" : " as " + alteredAsClassName));
       print("Methods: ");
 
       CtClass cClass = cp.get(className);
       cClass.defrost();
 
-      List<SourceOrSink> sources = (isClass ? this.sources.getClasses() : this.sources.getInterfaces());
+      List<SourceOrSink> sources = (cp.get(alteredAsClassName).isInterface() ? this.sources.getInterfaces() : this.sources.getClasses());
 
       SourceOrSink source = sources.stream()
           .filter(
@@ -78,30 +89,24 @@ public class SourceTransformer {
       for (String method : methods) {
         print("\t" + method);
 
-        try {
-          CtMethod[] cMethods = cClass.getDeclaredMethods(method);
+        CtMethod[] cMethods = cClass.getDeclaredMethods(method);
 
+        if (cMethods.length > 0) {
           for (CtMethod cMethod : cMethods) {
-            String returnType = cMethod.getReturnType().getName();
             if (!isStatic(cMethod) &&
                 !isNative(cMethod)) {
-
-              if (returnType.equals(String.class.getName()) ||
-                  returnType.equals(StringBuilder.class.getName()) ||
-                  returnType.equals(StringBuffer.class.getName())) {
-                print("\t\tSource Defined");
+              CtClass returnType = cMethod.getReturnType();
+              if (returnType.subtypeOf(ClassPool.getDefault().get(Taintable.class.getName()))) {
                 cMethod.insertAfter("{ if ($_ != null) $_.setTaint(true);  }");
-              }
-            }
+                print("\t\tSource Defined");
+              } else print("\t\t Untaintable returntype: " + returnType.getName());
+            } else print("\t\tStatic or Native Method, can't taint");
           }
-        } catch (NotFoundException e) {
-          print("\t\tdose not exist");
-        }
+        } else print("\t\tDose not exist in class");
       }
 
       print("");
       print("########################################");
-
       return cClass.toBytecode();
 
     } catch (NotFoundException | IOException | CannotCompileException e) {
