@@ -1,6 +1,9 @@
 package se.adolfsson.dtp.xboot;
 
 import javassist.*;
+import se.adolfsson.dtp.utils.SourceOrSink;
+import se.adolfsson.dtp.utils.SourceTransformer;
+import se.adolfsson.dtp.utils.SourcesOrSinks;
 import se.adolfsson.dtp.utils.TaintUtils;
 import se.adolfsson.dtp.utils.api.TaintException;
 import se.adolfsson.dtp.utils.api.TaintTools;
@@ -10,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static se.adolfsson.dtp.utils.SourcesOrSinks.getSources;
 import static se.adolfsson.dtp.utils.TaintUtils.isNative;
 import static se.adolfsson.dtp.utils.TaintUtils.isStatic;
 
@@ -42,7 +46,26 @@ public class TaintFieldAdder {
       writeClass(cp, TaintException.class.getName());
       writeClass(cp, TaintTools.class.getName());
       writeClass(cp, TaintUtils.class.getName());
+
+      addSourcesToClasses(cp);
     } catch (IOException | CannotCompileException | NotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void addSourcesToClasses(ClassPool cp) {
+    try {
+      SourcesOrSinks sources = getSources();
+      SourceTransformer sourceTransformer = new SourceTransformer(sources, false);
+
+      byte[] bytes;
+      String className;
+      for (SourceOrSink source : sources.getClasses()) {
+        className = source.getClazz();
+        bytes = sourceTransformer.transform(className, className);
+        if (bytes != null) writeBytes(className, bytes);
+      }
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }

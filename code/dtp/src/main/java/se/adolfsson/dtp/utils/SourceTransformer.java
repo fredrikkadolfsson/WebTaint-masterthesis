@@ -66,15 +66,22 @@ public class SourceTransformer {
     else return null;
   }
 
-  private byte[] transform(String className, String alteredAsClassName) {
+  public byte[] transform(String className, String alteredAsClassName) {
     ClassPool cp = ClassPool.getDefault();
     try {
       print("########################################");
       print("");
       print("Transforming: " + className + (className.equals(alteredAsClassName) ? "" : " as " + alteredAsClassName));
-      print("Methods: ");
 
-      CtClass cClass = cp.get(className);
+      CtClass cClass = cp.getOrNull(className);
+      if (cClass == null) {
+        print("\tClass not loaded");
+        print("");
+        print("########################################");
+        return null;
+      }
+
+      print("Methods: ");
       cClass.defrost();
 
       List<SourceOrSink> sources = (cp.get(alteredAsClassName).isInterface() ? this.sources.getInterfaces() : this.sources.getClasses());
@@ -102,7 +109,7 @@ public class SourceTransformer {
               } else print("\t\t Untaintable returntype: " + returnType.getName());
             } else print("\t\tStatic or Native Method, can't taint");
           }
-        } else print("\t\tDose not exist in class");
+        } else print("\t\tDo not exist in class");
       }
 
       print("");
