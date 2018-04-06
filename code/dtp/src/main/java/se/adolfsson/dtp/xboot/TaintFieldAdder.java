@@ -47,13 +47,13 @@ public class TaintFieldAdder {
       writeClass(cp, TaintTools.class.getName());
       writeClass(cp, TaintUtils.class.getName());
 
-      addSourcesToClasses(cp);
+      addSourcesToClasses();
     } catch (IOException | CannotCompileException | NotFoundException e) {
       e.printStackTrace();
     }
   }
 
-  private void addSourcesToClasses(ClassPool cp) {
+  private void addSourcesToClasses() {
     try {
       SourcesOrSinks sources = getSources();
       SourceTransformer sourceTransformer = new SourceTransformer(sources, false);
