@@ -78,11 +78,9 @@ public class TaintFieldAdder {
           !cMethod.getName().equals("setTaint") &&
           !cMethod.getName().equals("isTainted")) {
 
-        String returnType = cMethod.getReturnType().getName();
+        CtClass returnType = cMethod.getReturnType();
 
-        if (returnType.equals(String.class.getName()) ||
-            returnType.equals(StringBuilder.class.getName()) ||
-            returnType.equals(StringBuffer.class.getName())) {
+        if (returnType.subtypeOf(ClassPool.getDefault().get(Taintable.class.getName()))) {
           cMethod.insertAfter("{ $_.setTaint(TaintUtils.propagateParameterTaint($0, $args)); }");
         }
 
