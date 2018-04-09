@@ -93,6 +93,16 @@ public class SourceTransformer {
 
       String[] methods = source.getMethods();
 
+      if (methods[0].equals("*")) {
+        CtMethod[] cMethods = cClass.getDeclaredMethods();
+        methods = new String[cMethods.length];
+
+        int idx = 0;
+        for (CtMethod cMethod : cMethods) {
+          methods[idx++] = cMethod.getName();
+        }
+      }
+
       for (String method : methods) {
         print("\t" + method);
 

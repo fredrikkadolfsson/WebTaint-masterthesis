@@ -149,6 +149,447 @@
         "search"
       ],
       "descriptor": ""
+    },
+    {
+      "clazz": "java.io.BufferedInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.BufferedReader",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.BufferedWriter",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.ByteArrayInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.ByteArrayOutputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.CharArrayReader",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.CharArrayWriter",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.Console",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.DataInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.DataOutputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.File",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.FileDescriptor",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.FileInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.FileOutputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.FilePermission",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.FileReader",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.FileWriter",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.FilterInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.FilterOutputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.FilterReader",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.FilterWriter",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.InputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.InputStreamReader",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.LineNumberInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.LineNumberReader",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.ObjectInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.ObjectOutputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.ObjectStreamClass",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.ObjectStreamField",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.OutputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.OutputStreamWriter",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.PipedInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.PipedOutputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.PipedReader",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.PipedWriter",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.PrintStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.PrintWriter",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.PushbackInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.PushbackReader",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.RandomAccessFile",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.Reader",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.SequenceInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.SerializablePermission",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.StreamTokenizer",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.StringBufferInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.StringReader",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.StringWriter",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.Writer",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.AsyncEvent",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.GenericServlet",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.HttpConstraintElement",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.HttpMethodConstraintElement",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.MultipartConfigElement",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletContextAttributeEvent",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletContextEvent",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletInputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletOutputStream",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletRequestAttributeEvent",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletRequestEvent",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletRequestWrapper",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletResponseWrapper",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletSecurityElement",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "org.springframework.web.bind.annotation",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
     }
   ],
   "interfaces": [
@@ -171,6 +612,181 @@
       "methods": [
         "getString",
         "getObject"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.DataInput",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "java.io.ObjectInput",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.AsyncContext",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.AsyncListener",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.Filter",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.FilterChain",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.FilterConfig",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.FilterRegistration",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ReadListener",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.Registration",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.RequestDispatcher",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.Servlet",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletConfig",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletContainerInitializer",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletContext",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletContextAttributeListener",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletContextListener",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletRegistration",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletRequest",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletRequestAttributeListener",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletRequestListener",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.ServletResponse",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.SessionCookieConfig",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.SingleThreadModel",
+      "methods": [
+        "*"
+      ],
+      "descriptor": ""
+    },
+    {
+      "clazz": "javax.servlet.WriteListener",
+      "methods": [
+        "*"
       ],
       "descriptor": ""
     }
