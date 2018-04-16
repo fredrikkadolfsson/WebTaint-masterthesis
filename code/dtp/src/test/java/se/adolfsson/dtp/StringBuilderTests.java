@@ -10,7 +10,7 @@ public class StringBuilderTests {
 
   @Test
   public void TaintPropagationStringBufferAppend() {
-    System.out.println("##### TAINT PROPAGATION APPEND - StringBuilder");
+    System.out.println("##### TAINT PROPAGATION APPEND - " + StringBuilder.class.getName());
 
     StringBuffer tainted = new StringBuffer("StringBuilder");
     TaintTools.taint(tainted);
@@ -25,6 +25,9 @@ public class StringBuilderTests {
     assertTaintAndLog(notTainted.append(tainted), true);
     assertTaintAndLog(notTainted, true);
     assertTaintAndLog(notTainted.toString(), true);
+
+    TaintTools.detaint(tainted);
+    TaintTools.detaint(notTainted);
 
     System.out.println();
   }

@@ -5,34 +5,26 @@ import se.adolfsson.dtp.utils.api.TaintTools;
 
 import static se.adolfsson.dtp.TestUtils.assertTaintAndLog;
 
-
-public class StringTests {
+public class IntTests {
 
   @Test
   public void TaintPropagationStringConcat() {
-    System.out.println("##### TAINT PROPAGATION CONCAT - " + String.class.getName());
+    System.out.println("##### TAINT PROPAGATION - " + int.class.getName());
 
-    String tainted = "Tainted String";
+    int tainted = 10;
     TaintTools.taint(tainted);
-    String notTainted = "Not Tainted String";
+    int notTainted = 0;
 
     assertTaintAndLog(tainted, true);
     assertTaintAndLog(notTainted, false);
+
+    int tmp = tainted;
+    assertTaintAndLog(tmp, true);
 
     assertTaintAndLog(notTainted + notTainted, false);
     assertTaintAndLog(tainted + notTainted, true);
     assertTaintAndLog(notTainted + notTainted, false);
     assertTaintAndLog(tainted + tainted, true);
-
-    System.out.println();
-
-    assertTaintAndLog(tainted, true);
-    assertTaintAndLog(notTainted, false);
-
-    assertTaintAndLog(notTainted.concat(notTainted), false);
-    assertTaintAndLog(tainted.concat(notTainted), true);
-    assertTaintAndLog(notTainted.concat(notTainted), false);
-    assertTaintAndLog(tainted.concat(tainted), true);
 
     TaintTools.detaint(tainted);
     TaintTools.detaint(notTainted);

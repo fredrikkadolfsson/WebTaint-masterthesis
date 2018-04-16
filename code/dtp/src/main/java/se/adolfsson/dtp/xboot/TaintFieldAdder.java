@@ -34,6 +34,29 @@ public class TaintFieldAdder {
   }
 
   private void run() {
+    /*
+    String JREPath = System.getProperty("java.home").concat("/lib/rt.jar");
+    List<String> classNames = new ArrayList<String>();
+
+    try {
+      ZipInputStream zip = new ZipInputStream(new FileInputStream(JREPath));
+      for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
+        if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
+          // This ZipEntry represents a class. Now, what class does it represent?
+          String className = entry.getName().replace('/', '.'); // including ".class"
+          classNames.add(className.substring(0, className.length() - ".class".length()));
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    for (String className : classNames) {
+      System.out.println(className);
+      addTaintableToClass(cp, className);
+    }
+    */
+
     try {
       ClassPool cp = ClassPool.getDefault();
       cp.importPackage(TaintUtils.class.getName());
@@ -41,13 +64,15 @@ public class TaintFieldAdder {
       addTaintableToClass(cp, String.class.getName());
       addTaintableToClass(cp, StringBuffer.class.getName());
       addTaintableToClass(cp, StringBuilder.class.getName());
+      addTaintableToClass(cp, Integer.class.getName());
+      addTaintableToClass(cp, Number.class.getName());
 
       writeClass(cp, Taintable.class.getName());
       writeClass(cp, TaintException.class.getName());
       writeClass(cp, TaintTools.class.getName());
       writeClass(cp, TaintUtils.class.getName());
 
-      addSourcesToClasses();
+      //addSourcesToClasses();
     } catch (IOException | CannotCompileException | NotFoundException e) {
       e.printStackTrace();
     }
@@ -85,7 +110,7 @@ public class TaintFieldAdder {
   private void addTaintVar(CtClass cClass) throws CannotCompileException {
     CtField taintField = new CtField(CtClass.booleanType, "tainted", cClass);
     taintField.setModifiers(Modifier.PRIVATE);
-    cClass.addField(taintField, "TaintUtils.propagateParameterTaint($0, $args)");
+    cClass.addField(taintField, "false"); // TODO: TaintUtils.propagateParameterTaint($0, $args)
   }
 
   private void addTaintMethods(CtClass cClass) throws CannotCompileException {

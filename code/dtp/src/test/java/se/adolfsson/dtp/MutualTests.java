@@ -23,13 +23,15 @@ public class MutualTests {
     return Arrays.asList(new Object[][]{
         {"String"},
         {new StringBuilder("StringBuilder")},
-        {new StringBuffer("StringBuffer")}
+        {new StringBuffer("StringBuffer")},
+        {1},
+        {new Integer(1)}
     });
   }
 
   @Test
   public void TaintAndDetaint() {
-    System.out.println("##### TAINT AND DETAINT - " + fObject);
+    System.out.println("##### MutualTests - " + fObject.getClass().getName());
 
     assertTaintAndLog(fObject, false);
     TaintTools.taint(fObject);
@@ -42,13 +44,14 @@ public class MutualTests {
 
   @Test
   public void TaintPropagation() {
-    System.out.println("##### TAINT PROPAGATION - " + fObject);
+    System.out.println("##### MutualTests1 - " + fObject.getClass().getName());
 
     TaintTools.taint(fObject);
     assertTaintAndLog(fObject, true);
     Object objectCopy = fObject;
     assertTaintAndLog(objectCopy, true);
 
+    TaintTools.detaint(fObject);
     System.out.println();
   }
 }
