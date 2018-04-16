@@ -11,8 +11,8 @@ The development of the Dynamic Taint Tracking tool relies on tainting, detaintin
 The confidentiality policies entailed that data given to the user should only be data that the user have the right to access. This gives us the policy below.
 
 \hfill
-\begin{itemize}  
-  \item No information shall be released to users without permission.
+\begin{itemize}
+	\item No information shall be released to users without permission.
 \end{itemize}
 \hfill
 
@@ -21,8 +21,8 @@ The confidentiality policies entailed that data given to the user should only be
 Integrity entails that users may not modify data which id dose not have permission to alter. This gives us the policy below.
 
 \hfill
-\begin{itemize}  
-  \item No information shall be altered without permission.
+\begin{itemize}
+	\item No information shall be altered without permission.
 \end{itemize}
 \hfill
 
@@ -34,9 +34,9 @@ The policies above can also be combine into tainting policies which are:
 
 \hfill
 \begin{itemize}
-  \item Data passing through sources going into the domain should be marked tainted.
-  \item No tainted data is allowed to pass through a sink. 
-  \item Data can only be detainted by validation.
+	\item Data passing through sources going into the domain should be marked tainted.
+	\item No tainted data is allowed to pass through a sink.
+	\item Data can only be detainted by validation.
 \end{itemize}
 \hfill
 
@@ -51,6 +51,7 @@ One of the first problems that was introduced during the development phase of th
 
 Another problem is that primitives can't be instrumented. This causes a problem since it opens the ability to miss propagation of tainted data if they ever pass through a byte- or char-array. The solution that can solve this is to create shadow variables that lie in the closest class or objective to the byte- or char-array. This shadow variable will contain the taint.
 
+Possible solution to instrument primitives is to transform all primitives into their corresponding class, so call Unboxing. This logic is used in a similar manner called Autoboxing. This is used to transform the primitive, which only holds a value, into its corresponding object which contains sets of functions. Un idea I had, to solve the problem with instrumenting primitives, is to Unbox all primitives in runtime and never use primitives. This would make it easy to instrument each of the primitives corresponding classes to propagate taint. However, this is probably not a optimal solutions. The reason to this is the added overhead it would add to the execution. \parencite{BlochJoshua2008EJ}
 
 \section{Software Architecture}
 \label{SoftwareArchitecture}
