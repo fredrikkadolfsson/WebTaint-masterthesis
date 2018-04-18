@@ -1,5 +1,9 @@
 package se.adolfsson.dtp.agent;
 
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtField;
+import javassist.CtMethod;
 import se.adolfsson.dtp.utils.SourceTransformer;
 import se.adolfsson.dtp.utils.SourcesOrSinks;
 
@@ -22,9 +26,49 @@ public class TransformerAgent implements ClassFileTransformer {
 
     className = className.replaceAll("/", ".");
 
+    if (className.equals("se.adolfsson.dtp.IntTests")) {
+      return addTaintVariables(className);
+    }
+
+    /*
     byte[] ret;
     if ((ret = sourceTransformer.isSource(className)) != null) return ret;
       //else if ((ret = isSink(className)) != null) return ret;
     else return null;
+    */
+    return null;
+  }
+
+  private byte[] addTaintVariables(String className) {
+    System.out.println(className);
+
+    ClassPool cp = ClassPool.getDefault();
+    CtClass cClass = cp.getOrNull(className);
+
+    if (cClass == null) {
+      System.out.println("Class dose not exist");
+      return null;
+    }
+
+    cClass.defrost();
+
+    CtField[] fields = cClass.getFields();
+    for (CtField field : fields) {
+      String name = field.getName();
+      System.out.println(name);
+    }
+
+
+
+    CtMethod[] cMethods = cClass.getDeclaredMethods();
+      for (CtMethod cMethod : cMethods) {
+      cMethod.
+    }
+
+
+
+    System.out.println();
+    System.out.println();
+    return null;
   }
 }

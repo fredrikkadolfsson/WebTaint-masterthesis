@@ -61,10 +61,9 @@ public class TaintFieldAdder {
       ClassPool cp = ClassPool.getDefault();
       cp.importPackage(TaintUtils.class.getName());
 
-      addTaintableToClass(cp, String.class.getName());
-      addTaintableToClass(cp, StringBuffer.class.getName());
-      addTaintableToClass(cp, StringBuilder.class.getName());
-      addTaintableToClass(cp, Integer.class.getName());
+      //addTaintableToClass(cp, String.class.getName());
+      //addTaintableToClass(cp, StringBuffer.class.getName());
+      //addTaintableToClass(cp, StringBuilder.class.getName());
       addTaintableToClass(cp, Number.class.getName());
 
       writeClass(cp, Taintable.class.getName());
@@ -110,7 +109,7 @@ public class TaintFieldAdder {
   private void addTaintVar(CtClass cClass) throws CannotCompileException {
     CtField taintField = new CtField(CtClass.booleanType, "tainted", cClass);
     taintField.setModifiers(Modifier.PRIVATE);
-    cClass.addField(taintField, "false"); // TODO: TaintUtils.propagateParameterTaint($0, $args)
+    cClass.addField(taintField, "TaintUtils.propagateParameterTaint($0, $args)"); // TODO:
   }
 
   private void addTaintMethods(CtClass cClass) throws CannotCompileException {

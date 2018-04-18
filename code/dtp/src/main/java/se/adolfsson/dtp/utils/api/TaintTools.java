@@ -29,10 +29,20 @@ public class TaintTools {
   }
 
   public static boolean isTainted(Object s) {
-    if (!(s instanceof Taintable)) {
+    Class<?> classType = s.getClass();
+    if (classType.isArray()) {
+      log.log(Level.INFO, "Attempted to query taint on array" + s.getClass().getName() + ", but not supported yet");
+      return false;
+
+    } else if (classType.isPrimitive()) {
+      log.log(Level.INFO, "Attempted to query taint on primitive" + s.getClass().getName() + ", but not supported yet");
+      return false;
+
+    } else if (!(s instanceof Taintable)) {
       log.log(Level.INFO, "Attempted to query taint on " + s.getClass().getName() + ", but not Taintable");
       return false;
     }
+
     return ((Taintable) s).isTainted();
   }
 
