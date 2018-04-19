@@ -24,8 +24,6 @@ public class MutualTests {
         {"String"},
         {new StringBuilder("StringBuilder")},
         {new StringBuffer("StringBuffer")},
-        {1},
-        {new Integer(1)}
     });
   }
 
