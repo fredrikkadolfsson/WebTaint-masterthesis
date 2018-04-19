@@ -6,7 +6,7 @@
   "editor.wordWrapColumn": 80,
   "editor.wrappingIndent": "same",
   "latex-workshop.chktex.enabled": true,
-  "latex-workshop.latex.toolchain": [
+  "latex-workshop.latex.tools": [
     {
       "command": "pdflatex",
       "args": [
@@ -37,8 +37,22 @@
         "-file-line-error",
         "%DOC%"
       ]
+    },
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-xelatex",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
     }
   ],
+  "[latex]": {
+    "editor.formatOnSave": false
+  },
   "latex-workshop.latex.clean.enabled": true,
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux",
