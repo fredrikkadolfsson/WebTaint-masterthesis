@@ -57,6 +57,10 @@ public class SourcesOrSinks {
 		return Modifier.isStatic(method.getModifiers());
 	}
 
+	public static boolean isAbstract(CtMethod method) {
+		return Modifier.isAbstract(method.getModifiers());
+	}
+
 	private static SourcesOrSinks getSourcesOrSinks(String fileName) throws IOException {
 		URL fileUrl = ClassLoader.getSystemClassLoader().getResource(fileName);
 		ObjectMapper mapper = new ObjectMapper();
@@ -151,18 +155,18 @@ public class SourcesOrSinks {
 				if (cMethods.length > 0) {
 					for (CtMethod cMethod : cMethods) {
 						if (!isStatic(cMethod) &&
-								!isNative(cMethod)) {
-
+								!isNative(cMethod) &&
+								!isAbstract(cMethod)) {
+							CtClass returnType = cMethod.getReturnType();
 							if (sourcesOrSinksIn.getSourcesOrSinksEnum() == SOURCES) {
-								CtClass returnType = cMethod.getReturnType();
 								if (returnType.subtypeOf(ClassPool.getDefault().get(Taintable.class.getName()))) {
 									cp.importPackage(TaintUtils.class.getName());
 									cMethod.insertAfter("{ TaintUtils.propagateMethodTaint($0, $_); }");
 									print("\t\tSource Defined");
-								} else print("\t\t Untaintable returntype: " + returnType.getName());
+								} else print("\t\t Untaintable return type: " + returnType.getName());
 							} else {
 								cp.importPackage(TaintUtils.class.getName());
-								cMethod.insertAfter("{ TaintUtils.checkMethodTaint($0, $_, " + cMethod.getName() + "); }");
+								cMethod.insertBefore("{ TaintUtils.checkMethodTaint($0, $args, \"" + cMethod.getSignature() + "\"); }");
 								print("\t\tSink Defined");
 							}
 						} else print("\t\tStatic or Native Method, can't taint");
@@ -205,7 +209,7 @@ public class SourcesOrSinks {
 	}
 
 	private static void print(String content) {
-		boolean debug = true;
+		boolean debug = false;
 		if (debug) System.out.println(content);
 	}
 }

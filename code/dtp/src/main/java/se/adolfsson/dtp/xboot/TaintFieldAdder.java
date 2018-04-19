@@ -7,11 +7,13 @@ import se.adolfsson.dtp.utils.api.TaintTools;
 import se.adolfsson.dtp.utils.api.Taintable;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
-import static se.adolfsson.dtp.utils.SourcesOrSinks.isNative;
-import static se.adolfsson.dtp.utils.SourcesOrSinks.isStatic;
+import static se.adolfsson.dtp.utils.SourcesOrSinks.*;
 
 
 /**
@@ -43,53 +45,30 @@ public class TaintFieldAdder {
 			writeClass(cp, TaintTools.class.getName());
 			writeClass(cp, TaintUtils.class.getName());
 
-			//addSourcesToClasses();
+			//addSourcesAndSinksRT();
 		} catch (IOException | CannotCompileException | NotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
+	private void addSourcesAndSinksRT() {
+		String JREPath = System.getProperty("java.home").concat("/lib/rt.jar");
 
-
-	/*
-			  String JREPath = System.getProperty("java.home").concat("/lib/rt.jar");
-    List<String> classNames = new ArrayList<String>();
-
-    try {
-      ZipInputStream zip = new ZipInputStream(new FileInputStream(JREPath));
-      for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
-        if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
-          // This ZipEntry represents a class. Now, what class does it represent?
-          String className = entry.getName().replace('/', '.'); // including ".class"
-          classNames.add(className.substring(0, className.length() - ".class".length()));
-
-	        System.out.println(className);
-        }
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-
-
-
-		private void addSourcesToClasses() {
 		try {
-			SourcesOrSinks sources = getSources();
-			SourceTransformer sourceTransformer = new SourceTransformer(sources);
+			ZipInputStream zip = new ZipInputStream(new FileInputStream(JREPath));
+			for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
+				if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
+					String className = entry.getName().replace('/', '.').replaceAll(".class", "");
 
-			byte[] bytes;
-			String className;
-			for (SourceOrSink source : sources.getClasses()) {
-				className = source.getClazz();
-				bytes = sourceTransformer.transform(className, className);
-				if (bytes != null) writeBytes(className, bytes);
+					byte[] ret;
+					if ((ret = isSourceOrSink(getSources(), className)) != null ||
+							(ret = isSourceOrSink(getSinks(), className)) != null) writeBytes(className, ret);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	*/
 
 	private void addTaintableToClass(ClassPool cp, String className) throws NotFoundException, CannotCompileException, IOException {
 		CtClass cClass = cp.get(className);
@@ -119,6 +98,7 @@ public class TaintFieldAdder {
 		for (CtMethod cMethod : cMethods) {
 			if (!isStatic(cMethod) &&
 					!isNative(cMethod) &&
+					!isAbstract(cMethod) &&
 					!cMethod.getName().equals("setTaint") &&
 					!cMethod.getName().equals("isTainted")) {
 

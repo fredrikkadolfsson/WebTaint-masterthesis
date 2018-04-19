@@ -24,8 +24,8 @@ public class TransformerAgent implements ClassFileTransformer {
 		className = className.replaceAll("/", ".");
 
 		byte[] ret;
-		//if ((ret = isSourceOrSink(sources, className)) != null) return ret;
-		if ((ret = isSourceOrSink(sinks, className)) != null) return ret;
+		if ((ret = isSourceOrSink(sources, className)) != null) return ret;
+		else if ((ret = isSourceOrSink(sinks, className)) != null) return ret;
 		else return null;
 	}
 }

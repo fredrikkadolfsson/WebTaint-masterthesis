@@ -8,6 +8,8 @@ import java.util.logging.Level;
 
 @Log
 public class TaintTools {
+	private static boolean debug = false;
+
 	public static void taint(Object s) {
 		setTaint(s, true);
 	}
@@ -18,7 +20,8 @@ public class TaintTools {
 
 	private static void setTaint(Object s, boolean value) {
 		if (!(s instanceof Taintable)) {
-			log.log(Level.INFO, "Attempted to set taint on " + s.getClass().getName() + " to " + value + ", but not Taintable");
+			if (debug)
+				log.log(Level.INFO, "Attempted to set taint on " + s.getClass().getName() + " to " + value + ", but not Taintable");
 			return;
 		}
 		((Taintable) s).setTaint(value);
@@ -30,7 +33,7 @@ public class TaintTools {
 
 	public static boolean isTainted(Object s) {
 		if (!(s instanceof Taintable)) {
-			log.log(Level.INFO, "Attempted to query taint on " + s.getClass().getName() + ", but not Taintable");
+			if (debug) log.log(Level.INFO, "Attempted to query taint on " + s.getClass().getName() + ", but not Taintable");
 			return false;
 		}
 

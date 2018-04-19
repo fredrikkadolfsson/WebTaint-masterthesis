@@ -36,6 +36,7 @@ jar {
     manifest {
         attributes(
                 'Premain-Class': 'se.adolfsson.dtp.agent.TaintAgent',
+                'Agent-Class': 'se.adolfsson.dtp.agent.TaintAgent',
                 'Can-Redefine-Classes': 'true',
                 'Can-Retransform-Classes': 'true',
                 'Can-Set-Native-Method-Prefix': 'true',

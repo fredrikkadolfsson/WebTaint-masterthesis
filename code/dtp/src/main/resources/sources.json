@@ -160,21 +160,7 @@
       "descriptor": ""
     },
     {
-      "clazz": "java.io.BufferedWriter",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
       "clazz": "java.io.ByteArrayInputStream",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
-      "clazz": "java.io.ByteArrayOutputStream",
       "methods": [
         "*"
       ],
@@ -188,28 +174,7 @@
       "descriptor": ""
     },
     {
-      "clazz": "java.io.CharArrayWriter",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
-      "clazz": "java.io.Console",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
       "clazz": "java.io.DataInputStream",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
-      "clazz": "java.io.DataOutputStream",
       "methods": [
         "*"
       ],
@@ -237,13 +202,6 @@
       "descriptor": ""
     },
     {
-      "clazz": "java.io.FileOutputStream",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
       "clazz": "java.io.FilePermission",
       "methods": [
         "*"
@@ -258,13 +216,6 @@
       "descriptor": ""
     },
     {
-      "clazz": "java.io.FileWriter",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
       "clazz": "java.io.FilterInputStream",
       "methods": [
         "*"
@@ -272,21 +223,7 @@
       "descriptor": ""
     },
     {
-      "clazz": "java.io.FilterOutputStream",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
       "clazz": "java.io.FilterReader",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
-      "clazz": "java.io.FilterWriter",
       "methods": [
         "*"
       ],
@@ -328,13 +265,6 @@
       "descriptor": ""
     },
     {
-      "clazz": "java.io.ObjectOutputStream",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
       "clazz": "java.io.ObjectStreamClass",
       "methods": [
         "*"
@@ -349,20 +279,6 @@
       "descriptor": ""
     },
     {
-      "clazz": "java.io.OutputStream",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
-      "clazz": "java.io.OutputStreamWriter",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
       "clazz": "java.io.PipedInputStream",
       "methods": [
         "*"
@@ -370,35 +286,7 @@
       "descriptor": ""
     },
     {
-      "clazz": "java.io.PipedOutputStream",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
       "clazz": "java.io.PipedReader",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
-      "clazz": "java.io.PipedWriter",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
-      "clazz": "java.io.PrintStream",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
-      "clazz": "java.io.PrintWriter",
       "methods": [
         "*"
       ],
@@ -468,20 +356,6 @@
       "descriptor": ""
     },
     {
-      "clazz": "java.io.StringWriter",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
-      "clazz": "java.io.Writer",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
       "clazz": "javax.servlet.AsyncEvent",
       "methods": [
         "*"
@@ -532,13 +406,6 @@
     },
     {
       "clazz": "javax.servlet.ServletInputStream",
-      "methods": [
-        "*"
-      ],
-      "descriptor": ""
-    },
-    {
-      "clazz": "javax.servlet.ServletOutputStream",
       "methods": [
         "*"
       ],
