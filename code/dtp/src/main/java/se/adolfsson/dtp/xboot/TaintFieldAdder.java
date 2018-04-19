@@ -45,7 +45,7 @@ public class TaintFieldAdder {
 			writeClass(cp, TaintTools.class.getName());
 			writeClass(cp, TaintUtils.class.getName());
 
-			//addSourcesAndSinksRT();
+			addSourcesAndSinksRT();
 		} catch (IOException | CannotCompileException | NotFoundException e) {
 			e.printStackTrace();
 		}
@@ -61,8 +61,8 @@ public class TaintFieldAdder {
 					String className = entry.getName().replace('/', '.').replaceAll(".class", "");
 
 					byte[] ret;
-					if ((ret = isSourceOrSink(getSources(), className)) != null ||
-							(ret = isSourceOrSink(getSinks(), className)) != null) writeBytes(className, ret);
+					if ((ret = isSourceOrSink(getSources(), className)) != null) writeBytes(className, ret);
+					else if ((ret = isSourceOrSink(getSinks(), className)) != null) writeBytes(className, ret);
 				}
 			}
 		} catch (IOException e) {
