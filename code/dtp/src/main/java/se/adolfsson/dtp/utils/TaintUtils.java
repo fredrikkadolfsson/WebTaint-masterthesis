@@ -1,28 +1,36 @@
 package se.adolfsson.dtp.utils;
 
-import javassist.CtMethod;
-import javassist.Modifier;
+import se.adolfsson.dtp.utils.api.TaintException;
 import se.adolfsson.dtp.utils.api.Taintable;
 
 public class TaintUtils {
-  public static boolean propagateParameterTaint(Object s, Object[] args) {
-    boolean tainted = ((Taintable) s).isTainted();
-    for (Object arg : args) {
-      if (arg instanceof Taintable) {
-        tainted = tainted || ((Taintable) arg).isTainted();
-      }
+	public static boolean propagateParameterTaint(Object s, Object[] args) {
+		boolean tainted = ((Taintable) s).isTainted();
+		for (Object arg : args) {
+			if (arg instanceof Taintable) {
+				tainted = tainted || ((Taintable) arg).isTainted();
+			}
+			if (tainted) break;
+		}
+		return tainted;
+	}
 
-      if (tainted) break;
-    }
+	public static void propagateMethodTaint(Object s, Object ret) {
+		if (s instanceof Taintable) {
+			((Taintable) s).setTaint(true);
+		}
+		((Taintable) ret).setTaint(true);
+	}
 
-    return tainted;
-  }
+	public static void checkMethodTaint(Object s, Object[] args, String methodName) {
+		if (s instanceof Taintable && ((Taintable) s).isTainted()) {
+			throw new TaintException("TAINTED LOVE!!!", methodName);
+		}
 
-  public static boolean isNative(CtMethod method) {
-    return Modifier.isNative(method.getModifiers());
-  }
-
-  public static boolean isStatic(CtMethod method) {
-    return Modifier.isStatic(method.getModifiers());
-  }
+		for (Object arg : args) {
+			if (arg instanceof Taintable && ((Taintable) arg).isTainted()) {
+				throw new TaintException("TAINTED LOVE!!!", methodName);
+			}
+		}
+	}
 }

@@ -8,46 +8,37 @@ import java.util.logging.Level;
 
 @Log
 public class TaintTools {
-  public static void taint(Object s) {
-    setTaint(s, true);
-  }
+	public static void taint(Object s) {
+		setTaint(s, true);
+	}
 
-  public static void detaint(Object s) {
-    setTaint(s, false);
-  }
+	public static void detaint(Object s) {
+		setTaint(s, false);
+	}
 
-  private static void setTaint(Object s, boolean value) {
-    if (!(s instanceof Taintable)) {
-      log.log(Level.INFO, "Attempted to set taint on " + s.getClass().getName() + " to " + value + ", but not Taintable");
-      return;
-    }
-    ((Taintable) s).setTaint(value);
-  }
+	private static void setTaint(Object s, boolean value) {
+		if (!(s instanceof Taintable)) {
+			log.log(Level.INFO, "Attempted to set taint on " + s.getClass().getName() + " to " + value + ", but not Taintable");
+			return;
+		}
+		((Taintable) s).setTaint(value);
+	}
 
-  private static Field taintField(Object s) throws NoSuchFieldException {
-    return s.getClass().getField("tainted");
-  }
+	private static Field taintField(Object s) throws NoSuchFieldException {
+		return s.getClass().getField("tainted");
+	}
 
-  public static boolean isTainted(Object s) {
-    Class<?> classType = s.getClass();
-    if (classType.isArray()) {
-      log.log(Level.INFO, "Attempted to query taint on array" + s.getClass().getName() + ", but not supported yet");
-      return false;
+	public static boolean isTainted(Object s) {
+		if (!(s instanceof Taintable)) {
+			log.log(Level.INFO, "Attempted to query taint on " + s.getClass().getName() + ", but not Taintable");
+			return false;
+		}
 
-    } else if (classType.isPrimitive()) {
-      log.log(Level.INFO, "Attempted to query taint on primitive" + s.getClass().getName() + ", but not supported yet");
-      return false;
+		return ((Taintable) s).isTainted();
+	}
 
-    } else if (!(s instanceof Taintable)) {
-      log.log(Level.INFO, "Attempted to query taint on " + s.getClass().getName() + ", but not Taintable");
-      return false;
-    }
-
-    return ((Taintable) s).isTainted();
-  }
-
-  public static void checkTaint(Object s, String signature) {
-    if (isTainted(s))
-      throw new TaintException(s.toString(), signature);
-  }
+	public static void checkTaint(Object s, String signature) {
+		if (isTainted(s))
+			throw new TaintException(s.toString(), signature);
+	}
 }

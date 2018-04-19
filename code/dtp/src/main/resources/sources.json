@@ -1,6 +1,13 @@
 {
   "classes": [
     {
+      "clazz": "java.util.Scanner",
+      "methods": [
+        "next"
+      ],
+      "descriptor": ""
+    },
+    {
       "clazz": "javax.servlet.ServletRequest",
       "methods": [
         "getAttribute",

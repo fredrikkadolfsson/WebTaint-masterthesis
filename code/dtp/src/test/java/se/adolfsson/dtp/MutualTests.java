@@ -12,44 +12,44 @@ import static se.adolfsson.dtp.TestUtils.assertTaintAndLog;
 
 @RunWith(Parameterized.class)
 public class MutualTests {
-  private Object fObject;
+	private Object fObject;
 
-  public MutualTests(Object object) {
-    fObject = object;
-  }
+	public MutualTests(Object object) {
+		fObject = object;
+	}
 
-  @Parameterized.Parameters(name = "{0}")
-  public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][]{
-        {"String"},
-        {new StringBuilder("StringBuilder")},
-        {new StringBuffer("StringBuffer")},
-    });
-  }
+	@Parameterized.Parameters(name = "{0}")
+	public static Collection<Object[]> data() {
+		return Arrays.asList(new Object[][]{
+				{"String"},
+				{new StringBuilder("StringBuilder")},
+				{new StringBuffer("StringBuffer")},
+		});
+	}
 
-  @Test
-  public void TaintAndDetaint() {
-    System.out.println("##### MutualTests - " + fObject.getClass().getName());
+	@Test
+	public void TaintAndDetaint() {
+		System.out.println("##### MutualTests - " + fObject.getClass().getName());
 
-    assertTaintAndLog(fObject, false);
-    TaintTools.taint(fObject);
-    assertTaintAndLog(fObject, true);
-    TaintTools.detaint(fObject);
-    assertTaintAndLog(fObject, false);
+		assertTaintAndLog(fObject, false);
+		TaintTools.taint(fObject);
+		assertTaintAndLog(fObject, true);
+		TaintTools.detaint(fObject);
+		assertTaintAndLog(fObject, false);
 
-    System.out.println();
-  }
+		System.out.println();
+	}
 
-  @Test
-  public void TaintPropagation() {
-    System.out.println("##### MutualTests1 - " + fObject.getClass().getName());
+	@Test
+	public void TaintPropagation() {
+		System.out.println("##### MutualTests1 - " + fObject.getClass().getName());
 
-    TaintTools.taint(fObject);
-    assertTaintAndLog(fObject, true);
-    Object objectCopy = fObject;
-    assertTaintAndLog(objectCopy, true);
+		TaintTools.taint(fObject);
+		assertTaintAndLog(fObject, true);
+		Object objectCopy = fObject;
+		assertTaintAndLog(objectCopy, true);
 
-    TaintTools.detaint(fObject);
-    System.out.println();
-  }
+		TaintTools.detaint(fObject);
+		System.out.println();
+	}
 }
