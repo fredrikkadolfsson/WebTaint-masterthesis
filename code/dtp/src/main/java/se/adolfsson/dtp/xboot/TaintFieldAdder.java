@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static se.adolfsson.dtp.utils.SourcesOrSinks.*;
+import static se.adolfsson.dtp.utils.SourcesSinksOrSanitizers.*;
 
 
 /**
@@ -35,6 +35,7 @@ public class TaintFieldAdder {
 		try {
 			ClassPool cp = ClassPool.getDefault();
 			cp.importPackage(TaintUtils.class.getName());
+			cp.importPackage(TaintTools.class.getName());
 
 			addTaintableToClass(cp, String.class.getName());
 			addTaintableToClass(cp, StringBuffer.class.getName());
@@ -45,13 +46,13 @@ public class TaintFieldAdder {
 			writeClass(cp, TaintTools.class.getName());
 			writeClass(cp, TaintUtils.class.getName());
 
-			addSourcesAndSinksRT();
+			addSourcesSinksAndSanitizorsRT();
 		} catch (IOException | CannotCompileException | NotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void addSourcesAndSinksRT() {
+	private void addSourcesSinksAndSanitizorsRT() {
 		String JREPath = System.getProperty("java.home").concat("/lib/rt.jar");
 
 		try {
@@ -63,6 +64,7 @@ public class TaintFieldAdder {
 					byte[] ret;
 					if ((ret = isSourceOrSink(getSources(), className)) != null) writeBytes(className, ret);
 					else if ((ret = isSourceOrSink(getSinks(), className)) != null) writeBytes(className, ret);
+					else if ((ret = isSourceOrSink(getSanitizers(), className)) != null) writeBytes(className, ret);
 				}
 			}
 		} catch (IOException e) {
@@ -125,10 +127,10 @@ public class TaintFieldAdder {
 	private void writeBytes(String className, byte[] bytes) throws IOException {
 		System.out.println("Added taint to: " + className + " " + bytes.length);
 
-		final String s = className.replace(".", "/");
+		String s = className.replace(".", "/");
 		File f = new File("build/taint/" + s + ".class");
 		f.getParentFile().mkdirs();
-		final FileOutputStream fos = new FileOutputStream(f);
+		FileOutputStream fos = new FileOutputStream(f);
 
 		fos.write(bytes);
 		fos.flush();

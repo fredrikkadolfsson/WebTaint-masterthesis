@@ -6,7 +6,7 @@ import javassist.NotFoundException;
 import lombok.Getter;
 
 @Getter
-class SourceOrSink {
+class SourceSinkOrSanitizers {
 	private String clazz;
 	private String[] methods;
 	private String descriptor;

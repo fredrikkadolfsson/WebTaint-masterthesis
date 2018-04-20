@@ -12,7 +12,8 @@ public class Main {
 		System.out.print("Enter reflective content: ");
 		String reflect = scanner.next();
 
-		System.out.println(reflect);
+		System.out.println(reflect.replaceAll("[^\\d.]", ""));
+		//System.out.println(reflect);
 
 		System.out.println();
 		System.out.println("Reflective CommandLine App Ending");

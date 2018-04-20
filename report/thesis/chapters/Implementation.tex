@@ -53,6 +53,14 @@ Another problem is that primitives can't be instrumented. This causes a problem 
 
 Possible solution to instrument primitives is to transform all primitives into their corresponding class, so call Unboxing. This logic is used in a similar manner called Autoboxing. This is used to transform the primitive, which only holds a value, into its corresponding object which contains sets of functions. Un idea I had, to solve the problem with instrumenting primitives, is to Unbox all primitives in runtime and never use primitives. This would make it easy to instrument each of the primitives corresponding classes to propagate taint. However, this is probably not a optimal solutions. The reason to this is the added overhead it would add to the execution \parencite{BlochJoshua2008EJ}. 
 
+addition and subtraction (+ -) are bytecode level. Javassist cant handle this. Need to wrap.
+
 \section{Software Architecture}
 \label{SoftwareArchitecture}
+
+
+
+
+
+
 
