@@ -16,6 +16,8 @@ The confidentiality policies entailed that data given to the user should only be
 \end{itemize}
 \hfill
 
+(??? Information from sinks should not go where ???)
+
 
 \subsection{Integrity}
 Integrity entails that users may not modify data which id dose not have permission to alter. This gives us the policy below.
@@ -25,6 +27,8 @@ Integrity entails that users may not modify data which id dose not have permissi
 	\item No information shall be altered without permission.
 \end{itemize}
 \hfill
+
+This entails that no information from sources shall gain access of a sink without first being sanitized.
 
 
 \subsection{Taint Checking}
@@ -53,7 +57,7 @@ Another problem is that primitives can't be instrumented. This causes a problem 
 
 Possible solution to instrument primitives is to transform all primitives into their corresponding class, so call Unboxing. This logic is used in a similar manner called Autoboxing. This is used to transform the primitive, which only holds a value, into its corresponding object which contains sets of functions. Un idea I had, to solve the problem with instrumenting primitives, is to Unbox all primitives in runtime and never use primitives. This would make it easy to instrument each of the primitives corresponding classes to propagate taint. However, this is probably not a optimal solutions. The reason to this is the added overhead it would add to the execution \parencite{BlochJoshua2008EJ}. 
 
-addition and subtraction (+ -) are bytecode level. Javassist cant handle this. Need to wrap.
+Another problem that emerged was that operations with primitives are direct bytecode translations. Two examples of these are usage of + (addition) and - (subtraction).
 
 \section{Software Architecture}
 \label{SoftwareArchitecture}
