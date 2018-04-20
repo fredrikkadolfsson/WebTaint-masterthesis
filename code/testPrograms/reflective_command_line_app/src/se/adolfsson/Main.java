@@ -13,7 +13,7 @@ public class Main {
 		String reflect = scanner.next();
 
 		System.out.println(reflect.replaceAll("[^\\d.]", ""));
-		//System.out.println(reflect);
+		System.out.println(reflect); // Will crash here!!!
 
 		System.out.println();
 		System.out.println("Reflective CommandLine App Ending");

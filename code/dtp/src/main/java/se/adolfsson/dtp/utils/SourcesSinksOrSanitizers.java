@@ -34,12 +34,12 @@ public class SourcesSinksOrSanitizers {
 	}
 
 	public static SourcesSinksOrSanitizers getSanitizers() throws IOException {
-		SourcesSinksOrSanitizers ret = getSourcesOrSinks("sinks.json");
+		SourcesSinksOrSanitizers ret = getSourcesOrSinks("sanitizers.json");
 		ret.setSourcesSinksOrSanitizersEnum(SANITIZERS);
 		return ret;
 	}
 
-	public static byte[] isSourceOrSink(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
+	public static CtClass isSourceSinkOrSanitizer(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className, CtClass cClass) {
 		try {
 			ClassPool cp = ClassPool.getDefault();
 			if (cp.get(className).isInterface()) return null;
@@ -47,13 +47,13 @@ public class SourcesSinksOrSanitizers {
 			return null;
 		}
 
-		String ret;
-		if (isSourceOrSinkClass(sourcesSinksOrSanitizers, className))
-			return transform(sourcesSinksOrSanitizers, className, className);
-		else if ((ret = usesInterface(sourcesSinksOrSanitizers, className)) != null)
-			return transform(sourcesSinksOrSanitizers, className, ret);
-		else if ((ret = extendsSourceOrSinkClass(sourcesSinksOrSanitizers, className)) != null)
-			return transform(sourcesSinksOrSanitizers, className, ret);
+		String alteredAsClassName;
+		if (isSourceSinkOrSanitizerClass(sourcesSinksOrSanitizers, className))
+			return transform(cClass, sourcesSinksOrSanitizers, className, className);
+		else if ((alteredAsClassName = usesInterface(sourcesSinksOrSanitizers, className)) != null)
+			return transform(cClass, sourcesSinksOrSanitizers, className, alteredAsClassName);
+		else if ((alteredAsClassName = extendsSourceOrSinkClass(sourcesSinksOrSanitizers, className)) != null)
+			return transform(cClass, sourcesSinksOrSanitizers, className, alteredAsClassName);
 		else return null;
 	}
 
@@ -76,8 +76,8 @@ public class SourcesSinksOrSanitizers {
 		return mapper.readValue(fileUrl, SourcesSinksOrSanitizers.class);
 	}
 
-	private static boolean isSourceOrSinkClass(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
-		return isSourceOrSink(sourcesSinksOrSanitizers.getClasses(), className);
+	private static boolean isSourceSinkOrSanitizerClass(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
+		return isSourceSinkOrSanitizer(sourcesSinksOrSanitizers.getClasses(), className);
 	}
 
 	private static String usesInterface(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
@@ -109,7 +109,7 @@ public class SourcesSinksOrSanitizers {
 		return null;
 	}
 
-	private static boolean isSourceOrSink(List<SourceSinkOrSanitizers> sourcesOrSinks, String className) {
+	private static boolean isSourceSinkOrSanitizer(List<SourceSinkOrSanitizers> sourcesOrSinks, String className) {
 		for (SourceSinkOrSanitizers source : sourcesOrSinks) {
 			if (className.equals(source.getClazz())) return true;
 		}
@@ -117,7 +117,7 @@ public class SourcesSinksOrSanitizers {
 		return false;
 	}
 
-	private static byte[] transform(SourcesSinksOrSanitizers sourcesSinksOrSanitizersIn, String className, String alteredAsClassName) {
+	private static CtClass transform(CtClass cClass, SourcesSinksOrSanitizers sourcesSinksOrSanitizersIn, String className, String alteredAsClassName) {
 		ClassPool cp = ClassPool.getDefault();
 
 		try {
@@ -125,7 +125,7 @@ public class SourcesSinksOrSanitizers {
 			print("");
 			print("Transforming " + (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SOURCES ? "Source: " : "" + "Sink: ") + className + (className.equals(alteredAsClassName) ? "" : " as " + alteredAsClassName));
 
-			CtClass cClass = cp.getOrNull(className);
+			if (cClass == null) cClass = cp.getOrNull(className);
 			if (cClass == null) {
 				print("\tClass not loaded");
 				print("");
@@ -196,9 +196,9 @@ public class SourcesSinksOrSanitizers {
 			print("########################################");
 			print("");
 
-			return cClass.toBytecode();
+			return cClass;
 
-		} catch (NotFoundException | IOException | CannotCompileException e) {
+		} catch (NotFoundException | CannotCompileException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -221,7 +221,7 @@ public class SourcesSinksOrSanitizers {
 
 	private static String isSuperSourceOrSink(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
 		String ret;
-		if (isSourceOrSinkClass(sourcesSinksOrSanitizers, className)) return className;
+		if (isSourceSinkOrSanitizerClass(sourcesSinksOrSanitizers, className)) return className;
 		else if ((ret = usesInterface(sourcesSinksOrSanitizers, className)) != null) return ret;
 		else if ((ret = extendsSourceOrSinkClass(sourcesSinksOrSanitizers, className)) != null)
 			return ret;

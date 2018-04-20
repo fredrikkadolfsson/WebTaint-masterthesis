@@ -6,9 +6,9 @@ import static junit.framework.TestCase.assertEquals;
 
 class TestUtils {
 	static void assertTaintAndLog(Object s, boolean taintExpected) {
-		final boolean tainted = TaintTools.isTainted(s);
-
+		boolean tainted = TaintTools.isTainted(s);
 		assertEquals(taintExpected, tainted);
+
 
 		System.out.println(
 				(tainted == taintExpected ? " OK" : "NOK") +

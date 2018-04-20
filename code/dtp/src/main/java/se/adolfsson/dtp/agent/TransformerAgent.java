@@ -1,11 +1,14 @@
 package se.adolfsson.dtp.agent;
 
+import javassist.CannotCompileException;
+import javassist.CtClass;
 import se.adolfsson.dtp.utils.SourcesSinksOrSanitizers;
 
+import java.io.IOException;
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 
-import static se.adolfsson.dtp.utils.SourcesSinksOrSanitizers.isSourceOrSink;
+import static se.adolfsson.dtp.utils.SourcesSinksOrSanitizers.*;
 
 public class TransformerAgent implements ClassFileTransformer {
 	private final SourcesSinksOrSanitizers sources;
@@ -25,10 +28,15 @@ public class TransformerAgent implements ClassFileTransformer {
 
 		className = className.replaceAll("/", ".");
 
-		byte[] ret;
-		if ((ret = isSourceOrSink(sources, className)) != null) return ret;
-		else if ((ret = isSourceOrSink(sinks, className)) != null) return ret;
-		else if ((ret = isSourceOrSink(sanitizers, className)) != null) return ret;
-		else return null;
+		try {
+			CtClass ret, tmp;
+			ret = isSourceSinkOrSanitizer(getSources(), className, null);
+			if ((tmp = isSourceSinkOrSanitizer(getSinks(), className, ret)) != null) ret = tmp;
+			if ((tmp = isSourceSinkOrSanitizer(getSanitizers(), className, ret)) != null) ret = tmp;
+			if (ret != null) return ret.toBytecode();
+		} catch (IOException | CannotCompileException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

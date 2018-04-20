@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -22,6 +23,7 @@ import static se.adolfsson.dtp.utils.SourcesSinksOrSanitizers.*;
  * they are loaded the first time).
  */
 public class TaintFieldAdder {
+	HashMap<String, CtClass> propagatingDataTypes = new HashMap<>();
 
 	public static void main(String[] args) {
 		System.out.println();
@@ -46,13 +48,13 @@ public class TaintFieldAdder {
 			writeClass(cp, TaintTools.class.getName());
 			writeClass(cp, TaintUtils.class.getName());
 
-			addSourcesSinksAndSanitizorsRT();
+			addSourcesSinksAndSanitizorsRT(cp);
 		} catch (IOException | CannotCompileException | NotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void addSourcesSinksAndSanitizorsRT() {
+	private void addSourcesSinksAndSanitizorsRT(ClassPool cp) {
 		String JREPath = System.getProperty("java.home").concat("/lib/rt.jar");
 
 		try {
@@ -61,13 +63,15 @@ public class TaintFieldAdder {
 				if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
 					String className = entry.getName().replace('/', '.').replaceAll(".class", "");
 
-					byte[] ret;
-					if ((ret = isSourceOrSink(getSources(), className)) != null) writeBytes(className, ret);
-					else if ((ret = isSourceOrSink(getSinks(), className)) != null) writeBytes(className, ret);
-					else if ((ret = isSourceOrSink(getSanitizers(), className)) != null) writeBytes(className, ret);
+					CtClass ret, tmp;
+					ret = propagatingDataTypes.getOrDefault(className, null);
+					if ((tmp = isSourceSinkOrSanitizer(getSources(), className, ret)) != null) ret = tmp;
+					if ((tmp = isSourceSinkOrSanitizer(getSinks(), className, ret)) != null) ret = tmp;
+					if ((tmp = isSourceSinkOrSanitizer(getSanitizers(), className, ret)) != null) ret = tmp;
+					if (ret != null) writeBytes(className, ret.toBytecode());
 				}
 			}
-		} catch (IOException e) {
+		} catch (IOException | CannotCompileException e) {
 			e.printStackTrace();
 		}
 	}
@@ -81,6 +85,7 @@ public class TaintFieldAdder {
 		addTaintVar(cClass);
 		addTaintMethods(cClass);
 		propagateTaintInMethods(cClass);
+		propagatingDataTypes.put(className, cClass);
 		writeClass(cp, className);
 	}
 
@@ -105,7 +110,6 @@ public class TaintFieldAdder {
 					!cMethod.getName().equals("isTainted")) {
 
 				CtClass returnType = cMethod.getReturnType();
-
 				if (returnType.subtypeOf(ClassPool.getDefault().get(Taintable.class.getName()))) {
 					cMethod.insertAfter("{ $_.setTaint(TaintUtils.propagateParameterTaint($0, $args)); }");
 				}
