@@ -6,7 +6,9 @@ The creation of the World Wide Web (web) has caused a huge impact on today's soc
 
 There are several possible attacks that a web application is vulnerable to. The attack most frequently conducted today will probably not be the same as the most conducted in the future. The Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge about how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP have produced reports about the top 10 security risks for a web application and the latest was published 2017. In this report was Injection Attacks number one and Cross-Site Scripting number seven \parencite{OWASP2017, OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}.
 
-To minimize the risk of accidentally introducing security flaws in to the application have a variety of tools and methodologies been created. One of these is Dynamic Taint Tracking which marks input from the user as tainted through a taint variable attached to the input. This taint variable follows the input throughout the application and propagates onto the other variables it encounters. It is possible to detaint the input but this is only done after the input have been validated. The taint value is later checked in sensitive areas through something called sinks. Execution is halted if a tainted variable is detected trying to enter the sensitive area through the sink \parencite{Pan2015, Venkataramani2008}. One of the methodologies that have been coined is the programming paradigm Domain Driven Security. Domain Driven Security aim to secure applications by focusing on the core domain models and making certain that validation of the value objects is correct \parencite{Wilander2009, Johnsson2009}.
+To minimize the risk of accidentally introducing security flaws in to the application have a variety of tools and methodologies been created. One of these is Dynamic Taint Tracking which marks input from the user as tainted through a taint variable attached to data type representing the input data. This taint variable follows the input throughout the application and propagates onto the other variables it encounters. It is possible to detaint the input but this is only done after the input have been validated. The taint value is later checked in sensitive areas through something called sinks. Execution is halted if a tainted variable is detected trying to enter the sensitive area through the sink \parencite{Pan2015, Venkataramani2008}. 
+
+One of the methodologies that have been coined is the programming paradigm Domain Driven Security. Domain Driven Security aim to secure applications by focusing on the core domain models and making certain that validation of the value objects is correct \parencite{Wilander2009, Johnsson2009}.
 
 The following sections of the chapter will aim to specify the why and how behind the conduction of the thesis. It starts with a section of \textit{\nameref{Definitions}} followed by \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections is then followed by \textit{\nameref{RelatedWork}} in the field and a \textit{\nameref{Delimitations}} section. Lastly, is there a section about the \textit{\nameref{Methodology}} behind the thesis.
 
@@ -43,6 +45,11 @@ The following sections of the chapter will aim to specify the why and how behind
 	\\
 \end{definition}
 
+\begin{definition}{Sanitizer}
+	denotes method that validates and sanitized data to be safe to the system.
+	\\
+\end{definition}
+
 \begin{definition}{Domain}
 	% Information sida 67 Secure by Design	
 	is explained in Secure by Design \parencite{sbd2018} as part of the real world where something happens.
@@ -64,7 +71,7 @@ The following sections of the chapter will aim to specify the why and how behind
 \end{chapquote}
 
 \noindent
-Unwanted information disclosure is a growing problem today. Work towards protecting user data is needed and Domain Driven Security have been proven to secure applications from Injection and Cross-Site Scripting attacks. Is it then possible to achieve the security gains of Domain Driven Security through applying Dynamic Taint Tracking to web applications. What would the possible drawbacks and advantages be.
+Unwanted information disclosure is a growing problem. Work towards protecting user data is needed and Domain Driven Security have been proven to secure applications from Injection and Cross-Site Scripting attacks. Is it then possible to achieve the security gains of Domain Driven Security through applying Dynamic Taint Tracking to web applications. What would the possible drawbacks and advantages be.
 
 
 \section{Aim}
@@ -85,9 +92,9 @@ There do exist two Dynamic Taint Tracking tools where Phosphor \parencite{phosph
 \label{Delimitations}
 The focus of the thesis lies on web applications security vulnerabilities. However, other application areas might be vulnerable to the same kind of vulnerabilities. Information and discussions about those areas will not be given.
 
-Some delimitations for the applications is that it will only consist of a dynamic taint tracker and not in any form a static version. The application will as well only be developed for java application. Development will be conducted in Java with the help of the library Javassist.
+Delimitations for the application is that it will only consist of a Dynamic Taint Tracker and not, in any form, a static version. The application will only be developed for Java application. Development will be conducted in Java with the help of the library Javassist.
 
 
 \section{Methodology}
 \label{Methodology}
-The methodology of this thesis is a combination of quantitative and qualitative research. The first part of the thesis consists of a literature study followed by reasoning about tainting and detainting rules. This is done on quantitative research. The Second part of the thesis is to evaluate the implemented Dynamic Taint Tracking tool. This is done quantitatively where benchmarks evaluating performance and security gain functionality will be conducted and evaluated.
+The methodology of this thesis is a combination of quantitative and qualitative research. The first part of the thesis consists of a literature study followed by reasoning about tainting and detainting rules. This is done through qualitative research. The Second part of the thesis is to evaluate the implemented Dynamic Taint Tracking tool. This is done quantitatively where benchmarks evaluating performance and security gain functionality will be conducted and evaluated.

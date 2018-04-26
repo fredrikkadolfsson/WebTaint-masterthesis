@@ -21,33 +21,22 @@ The scope of the thesis lies in tier two where the brain of the application lies
 
 
 \subsection{Structured Query Language}
-Communication between tier two and tier three is done through a standardize language called Structured Query Language, mostly known as SQL. SQL is created to anagrammatically manipulate and access databases. The clear majority of today's database uses SQL. The language works by building queries specifying the wanted information or task. The query will be evaluated and handled up upon by the SQL engine \parencite{DarieCristian2003TPGt}.
+Communication between tier two and tier three is done through a standardize language called Structured Query Language, mostly known as SQL. SQL is created to programmatically manipulate and access databases. The clear majority of today's database uses SQL. The language works by building queries specifying the wanted information or task. The query will be evaluated and handled up upon by the SQL engine \parencite{DarieCristian2003TPGt}.
 
 
 \section{Security Vulnerabilities}
 \label{SecurityVulnerabilities}
-The organization Open Web Applications Security Project, mostly known for its shortening (OWASP), is an online community which aim to provide knowledge how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP have produced reports about the top 10 security risks with a web application and the latest was published 2017. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. This thesis will look at security risk number one and eight which is Injection Attacks and Cross-site Scripting \parencite{OWASP2017}.
+The organization Open Web Applications Security Project, mostly known for its shortening OWASP, is an online community which aim to provide knowledge how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP have produced reports about the top 10 security risks with a web application and the latest was published 2017. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. This thesis will look at security risk number one and eight which is Injection Attacks and Cross-site Scripting \parencite{OWASP2017}.
 
 
-\subsection{CIA Triad}
-Discussions about application security often relies on the CIA Triad which represent the three primary concepts in information security. These three are confidentiality, integrity and availability. Confidentiality are rules that specifies the access restrictions to the application. Integrity specifies that application data should be accurate and not altered. Availability is about ability to access the application and application data \parencite{2014C1-W}. This thesis focuses on confidentiality and integrity vulnerabilities and how we can prevent them.
-
-\begin{figure}
-	\centering
-	\includegraphics[height=6cm]{images/CIATriad.jpg}
-	\caption{CIA Triad}
-	\label{fig:CIATriad}
-\end{figure}
-
-
-\subsection{Injection}
+\subsection{Injection Attacks}
 The most common security risk is Injection Attacks \parencite{OWASP2017}. Injection Attack is any attack where the attacker's input changes the intent of the execution. Common result of Injection Attacks is file destruction, lack of accountability, denial of access and data loss \parencite{Secure_Web}.
 
 Injection Attacks can be divided into two different subgroups. These two subgroups are SQL Injection and Blind SQL Injection \parencite{Secure_Web}.
 
 
 \subsubsection{SQL Injection}
-SQL Injection is when a SQL query is tampered which results in gaining content from the database which was not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays a SQL Query which is open to SQL Injections. This is due to the fact that the variable UserId is never validated before it is propagated into the query \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
+SQL Injection is when a SQL query is tampered which results in gaining content or executing command on the database which was not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays a SQL Query which is open to SQL Injections. This is due to the fact that the variable UserId is never validated before it is propagated into the query \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
 
 \hfill
 \begin{lstlisting}[
@@ -59,7 +48,7 @@ userId = (*@\textit{userInput}@*)
 \end{lstlisting}
 \hfill
 
-The query will work as intended if the user input, notated with \textit{userInput}, only is a valid Integer (since Integer is what we have decided that user id is in this application). But what happens if the user input is \textit{10 or 1 = 1}? This user input would result in the query seen in listing \ref{lst:SQL_Injection}.
+The query will work as intended if the user input, notated with \textit{userInput}, is a valid Integer (since Integer is what we have decided that user id is in this application). But what happens if the user input is \textit{10 or 1 = 1}? This user input would result in the query seen in listing \ref{lst:SQL_Injection}.
 
 \hfill
 \begin{lstlisting}[
@@ -114,7 +103,7 @@ The second variant of Blind SQL Injection, which is by analysing the error messa
 \subsection{Cross-site Scripting}
 Cross-Site Scripting (XSS) have been a vulnerability since the beginning of the internet. One of the first XSS attacks was created just after the release of JavaScript. The attack was conducted through loading a malicious web application into a frame on the site that the attacker want to gain information of. The attacker could then through JavaScript access any content that is visible or typed into the web application. To prevent this form of attack were the standard of Same-Origin Policy introduced. Same-Origin Policy restricts JavaScript to only access content from its own origin \parencite{FogieSeth2007Xacs, w3csop}.
 
-But the introduction of the Same-Origin Policy did not stop the attackers from preforming XSS attacks. The next wave of attacks was mostly towards chat rooms where it was possible to inject malicious scripts into the input of the message. Which would then later be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy \parencite{FogieSeth2007Xacs}.
+The introduction of the Same-Origin Policy did not stop the attackers from preforming XSS attacks. The next wave of attacks was mostly towards chat rooms where it was possible to inject malicious scripts into the input of the message. Which would then later be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy \parencite{FogieSeth2007Xacs}.
 
 XSS can be divided into three different sub categories. Which are: reflected, Stored and DOM Based XSS.
 
@@ -130,9 +119,22 @@ Stored XSS is when malicious scripts are stored in the targeted web applications
 DOM Based XSS is very similar to Reflected XSS but it does not necessary have to be reflected from the application server. DOM Based XSS modifies the DOM tree and can exploit the user \parencite{Secure_Web}.
 
 
+\subsection{CIA Triad}
+Discussions about application security often relies on the CIA Triad which represent the three primary concepts in information security. These three are confidentiality, integrity and availability. Confidentiality are rules that specifies the access restrictions to the application. Integrity specifies that application data should be accurate and not altered. Availability is about ability to access the application and application data \parencite{2014C1-W}. This thesis focuses on confidentiality and integrity vulnerabilities and how we can prevent them.
+
+\begin{figure}
+	\centering
+	\includegraphics[height=6cm]{images/CIATriad.jpg}
+	\caption{CIA Triad}
+	\label{fig:CIATriad}
+\end{figure}
+
+Injection Attacks and Cross-site Scripting could be both attacks towards the confidentiality and integrity of a system. they are attacks towards confidentiality when the attackers intention is to gain restricted information such as user data. Integrity attacks are conducted when for example Injection Attacks are used to redirect users to malicious websites.
+
+
 \section{Dynamic Taint Tracking}
 \label{DynamicTaintTracking}
-Taint tracking, also known as taint analysis, taint checking and taint propagation, is a tool to analyse the flow of information in a domain \parencite{Pan2015}. the goal of taint tracking is to prevent possible attacks such as Injection Attacks and Cross-Site Scripting. Taint tracking can be done in two different ways: static and dynamic. The static is an evaluation tool which is done statically before runtime. Dynamic Taint Tracking is a tool that is executed in runtime. The tool works by tracking data in runtime and actively blocking any data that is trying to enter the sink without being detainted through validation first. Perl and Ruby are two programming languages which have adapted to user Taint checking \parencite{perl, ruby}. There are some tools who enables taint checking for other languages such as TaintDroid \parencite{Ma2010} and FlexTaint \parencite{Venkataramani2008}. This thesis will handle Dynamic Taint Checking and how it can increase the security of an application.
+Taint tracking, also known as taint analysis, taint checking and taint propagation, is a tool to analyse the flow of information in a domain \parencite{Pan2015}. The goal of taint tracking is to prevent possible attacks such as Injection Attacks and Cross-Site Scripting by enforcing the usage of sanitizers on possibly harmful data. Taint tracking can be done in two different ways: static and dynamic. The static is an evaluation tool which is done statically before runtime. Dynamic Taint Tracking is a tool that is executed in runtime. The tool works by tracking data in runtime and actively blocking any data that is trying to enter the sink without being detainted through sanitation first. Perl and Ruby are two programming languages which have adapted to user Taint checking \parencite{perl, ruby}. There are some tools who enables taint checking for other languages such as TaintDroid \parencite{Ma2010} and FlexiTaint \parencite{Venkataramani2008}. This thesis will handle Dynamic Taint Checking and how it can increase the security of an application.
 
 This is done by marking untrusted input from sources, which is a marking point where malicious data might enter the system, as tainted. This is done through a taint flag attached to the input. This taint flag follows the input throughout the application and propagates onto any other data it encounters. It is possible to detaint (remove the taint flag) tainted data but this is only done after the data have been sanitized through validation. The taint flags are checked in areas called sinks which are markings for entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do when a tainted variable try to pass through a sink might vary depending on the application. However, the common reaction is to stop the execution of the tainted code. Other actions such as logging or raising an alarm are also common.
 
