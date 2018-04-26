@@ -1,9 +1,11 @@
 \chapter{Benchmarking}
-
+This section describes the conduction of the benchmarking and comparison of the implemented Dynamic Taint Tracker. The chapter starts with a description of the \textit{\nameref{TestEnvironment}} followed by a detailed description about the \textit{\nameref{Evaluation}}
 
 \section{Test Environment}
+\label{TestEnvironment}
 The execution of the benchmarking is conducted on a Asus Zenbook UZ32LN with the following specification:
 
+\hfill
 \begin{description}
 	\item [Processor:] 2 GHz i7-4510U
 	\item [Memory:] 8 GB 1600 MHz DDR3
@@ -11,6 +13,10 @@ The execution of the benchmarking is conducted on a Asus Zenbook UZ32LN with the
 	\item [Java:] OpenJDK 1.8.0\_162
 	\item [Java Virtual Machine:] OpenJDK 25.162-b12, 64-Bit, mixed mode
 \end{description}
+\hfill
+
+Execution if the applications are executed through the command line command "java". Executions of benchmarking tests where no Dynamic Taint Tracker is enabled is run without a flag. Executions of tests with Dynamic Taint Trackers are called with the two flags "javaagent" and "xbootclasspath/p" where the first will point towards the Agent project jar and the second points towards the Xboot project jar.
 
 
 \section{Evaluation}
+\label{Evaluation}
