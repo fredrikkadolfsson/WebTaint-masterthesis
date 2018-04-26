@@ -103,9 +103,9 @@ public class TaintFieldAdder {
 	private void propagateTaintInMethods(CtClass cClass) throws NotFoundException, CannotCompileException {
 		CtMethod[] cMethods = cClass.getDeclaredMethods();
 		for (CtMethod cMethod : cMethods) {
-			if (!isStatic(cMethod) &&
-					!isNative(cMethod) &&
-					!isAbstract(cMethod) &&
+			if (isNotStatic(cMethod) &&
+					isNotNative(cMethod) &&
+					isNotAbstract(cMethod) &&
 					!cMethod.getName().equals("setTaint") &&
 					!cMethod.getName().equals("isTainted")) {
 

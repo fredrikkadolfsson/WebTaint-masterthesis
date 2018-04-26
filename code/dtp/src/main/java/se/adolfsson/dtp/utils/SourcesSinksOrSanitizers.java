@@ -57,16 +57,16 @@ public class SourcesSinksOrSanitizers {
 		else return null;
 	}
 
-	public static boolean isNative(CtMethod method) {
-		return Modifier.isNative(method.getModifiers());
+	public static boolean isNotNative(CtMethod method) {
+		return !Modifier.isNative(method.getModifiers());
 	}
 
-	public static boolean isStatic(CtMethod method) {
-		return Modifier.isStatic(method.getModifiers());
+	public static boolean isNotStatic(CtMethod method) {
+		return !Modifier.isStatic(method.getModifiers());
 	}
 
-	public static boolean isAbstract(CtMethod method) {
-		return Modifier.isAbstract(method.getModifiers());
+	public static boolean isNotAbstract(CtMethod method) {
+		return !Modifier.isAbstract(method.getModifiers());
 	}
 
 	private static SourcesSinksOrSanitizers getSourcesOrSinks(String fileName) throws IOException {
@@ -162,9 +162,9 @@ public class SourcesSinksOrSanitizers {
 
 				if (cMethods.length > 0) {
 					for (CtMethod cMethod : cMethods) {
-						if (!isStatic(cMethod) &&
-								!isNative(cMethod) &&
-								!isAbstract(cMethod)) {
+						if (isNotStatic(cMethod) &&
+								isNotNative(cMethod) &&
+								isNotAbstract(cMethod)) {
 							CtClass returnType = cMethod.getReturnType();
 							if (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SOURCES) {
 								if (returnType.subtypeOf(ClassPool.getDefault().get(Taintable.class.getName()))) {
