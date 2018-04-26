@@ -1,5 +1,5 @@
 \chapter{Implementation}
-This Chapter presents the fundamental parts in the process of implementing the Dynamic Taint Tracking tool. The chapter starts with a section describing the \textit{\nameref{Policies}} of the tool. This chapter is then followed by \textit{\nameref{NotableProblems}} about the development and a explanation about the application \textit{\nameref{SoftwareArchitecture}}.
+This Chapter presents the fundamental parts in the process of implementing the Dynamic Taint Tracking tool. The chapter starts with a section describing the \textit{\nameref{Policies}} of the tool. This chapter is then followed by \textit{\nameref{SoftwareArchitecture}} and \textit{\nameref{NotableProblems}}.
 
 
 \section{Policies}
@@ -16,7 +16,7 @@ The confidentiality policies entailed that data given to the user should only be
 \end{itemize}
 \hfill
 
-(??? Information from sinks should not go where ???)
+(??? Information from sinks should not go where. Any where els than defined exits. ???)
 
 
 \subsection{Integrity}
@@ -34,19 +34,59 @@ This entails that no information from sources shall gain access of a sink withou
 \subsection{Taint Checking}
 The policies above will be enforced by forcing validation of data that is or have been in contact with data coming from a source before they enter a sink. By enforcing this rule should preventions of confidentiality and integrity volubilities be reduces severely. One core policy preventing this is as well that no unintended code shall be able to execute.
 
-The policies above can also be combine into tainting policies which are:
+The policies above can also be combine into tainting policies. These are presented below.
 
 \hfill
 \begin{itemize}
 	\item Data passing through sources going into the domain should be marked tainted.
 	\item No tainted data is allowed to pass through a sink.
-	\item Data can only be detainted by validation.
+	\item Data can only be detainted through validation.
 \end{itemize}
 \hfill
 
 
 \subsubsection{Taint Propagation}
+To enable the tracking of taint in the system is a complete implementation of taint propagation needed. The ultimate goal would be to have support for propagation of taint for each class and data type. This is however a complex problem. Instrumentation of classes is decently straight forward but Instrumentation of Java primitives is a rather complex problem. However, the main behind the propagation is the same for all data types. 
 
+Below are rules defining when taint variables should propagate.
+
+\hfill
+\begin{itemize}
+	\item Data resulting in a clone, subset or combination.
+	\item Data disclosing information about tainted data.
+\end{itemize}
+\hfill
+
+
+\section{Software Architecture}
+\label{SoftwareArchitecture}
+The implementation of the Dynamic Taint Tracking tool is divided into three subprojects. These three are Agent, Xboot and Utils. 
+
+\hfill
+\begin{description}
+	\item[Agent] Project that transforms classes loaded in runtime into source, sink or sanitizer.
+	\item[Xboot] Project that loops through all classes in rt.jar and transforms into source, sink or sanitizer.
+	\item[Utils] Utilities to transform classes into sources, sinks and sanitizers. 
+\end{description}
+\hfill
+
+The reasoning behind the division is because of the need of transforming classes both before runtime and during runtime. Agent is handling the transformation in runtime and Xboot transforms classes on command before runtime. The logic of transforming the classes is however the same in both project. Therefore, to remove duplications of code, is al logic of transforming classes extracted from Xboot and Agent and placed into the Utils project.
+
+
+\subsection{Project Utils}
+The Utils project includes the core logic of marking methods and classes as sources, sinks and sanitizers. It works by taking an class as a argument that is to be checked if it qualifies for any of the three below criteria.
+
+\hfill
+\begin{itemize}
+	\item Is same class as defined source, sink or sanitizer.
+	\item Implements interface of defined source, sink or sanitizer.
+	\item Extends defined source, sink or sanitizer class (recursive call. Checks all in list for each extended class). 
+\end{itemize}
+\hfill
+
+If a class fulfils any of the three criteria will the list of defined method correlating to either source, sinks or sanitizer be used and Instrumentation of the methods will be conducted.
+
+The Instrumentation of the method works differently for the three different kinds. Where Instrumentation of sources will set the return parameter of the method as tainted. For sinks will a check where the taint flag is checked and if it is tainted is an error thrown. Instrumentation of sanitizers is works by detainting the return value of the method.
 
 
 \section{Notable Problems}
@@ -58,13 +98,3 @@ Another problem is that primitives can't be instrumented. This causes a problem 
 Possible solution to instrument primitives is to transform all primitives into their corresponding class, so call Unboxing. This logic is used in a similar manner called Autoboxing. This is used to transform the primitive, which only holds a value, into its corresponding object which contains sets of functions. Un idea I had, to solve the problem with instrumenting primitives, is to Unbox all primitives in runtime and never use primitives. This would make it easy to instrument each of the primitives corresponding classes to propagate taint. However, this is probably not a optimal solutions. The reason to this is the added overhead it would add to the execution \parencite{BlochJoshua2008EJ}. 
 
 Another problem that emerged was that operations with primitives are direct bytecode translations. Two examples of these are usage of + (addition) and - (subtraction).
-
-\section{Software Architecture}
-\label{SoftwareArchitecture}
-
-
-
-
-
-
-
