@@ -1,11 +1,15 @@
 {
   "telemetry.enableCrashReporter": false,
   "telemetry.enableTelemetry": false,
+
   "editor.cursorBlinking": "solid",
   "editor.wordWrap": "on",
   "editor.wordWrapColumn": 80,
   "editor.wrappingIndent": "same",
+
   "latex-workshop.chktex.enabled": true,
+  "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": true,
+  "latex-workshop.latex.autoBuild.onSave.enabled": true,
   "latex-workshop.latex.tools": [
     {
       "command": "pdflatex",
@@ -50,9 +54,6 @@
       ]
     }
   ],
-  "[latex]": {
-    "editor.formatOnSave": false
-  },
   "latex-workshop.latex.clean.enabled": true,
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux",
@@ -73,11 +74,13 @@
     "*.gls",
     "*.ist",
     "*.fls",
+    "*.xdv",
     "*.log",
     "*.fdb_latexmk",
     "*.xml",
     "*.synctex.gz"
   ],
+
   "cSpell.language": "en-GB",
   "cSpell.enabled": true,
   "cSpell.words": ["Javassist", "OWASP", "OWASP’s", "bytecode", "detainting"],
