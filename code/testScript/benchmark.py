@@ -14,10 +14,10 @@ def main():
     dtpAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/masterthesis-fredrik/code/dtp/build/libs/dtp-agent-1.0-SNAPSHOT.jar"
 
     # Phosphor
-    phosXboot = "-Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/masterthesis-fredrik/code/dtp/build/libs/dtp-rt-1.0-SNAPSHOT.jar"
-    phosAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic\ Taint\ Trackers/phosphor-master/Phosphor/target/Phosphor-0.0.4-SNAPSHOT.jar"
+    phosXboot = "-Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/phosphor-master/Phosphor/target/Phosphor-0.0.4-SNAPSHOT.jar"
+    phosAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/phosphor-master/Phosphor/target/Phosphor-0.0.4-SNAPSHOT.jar"
 
-    # Phosphor
+    # Dynamic Security Taint Propagation
     stpXboot = "-Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/security_taint_propagation/security_taint_extension/target/tainted-rt-1.8.jar"
     stpAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/security_taint_propagation/aspectjweaver-1.9.1.jar"
 
@@ -57,7 +57,8 @@ def measureTime(text, *params):
 
         start_time = int(round(time.time() * 1000))
         retcode = subprocess.call(
-            params, stdout=FNULL, stderr=subprocess.STDOUT)
+            params)
+        # params, stdout=FNULL, stderr=subprocess.STDOUT)
         time_diff = current_milli_time() - start_time
 
         averageTime += time_diff / runtTestsXTimes

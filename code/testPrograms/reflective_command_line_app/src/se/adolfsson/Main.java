@@ -10,10 +10,10 @@ public class Main {
 
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter reflective content: ");
-		String reflect = scanner.next();
+		//String reflect = scanner.next();
 
-		System.out.println(reflect.replaceAll("[^\\d.]", ""));
-		System.out.println(reflect); // Will crash here!!!
+		//System.out.println(reflect.replaceAll("[^\\d.]", ""));
+		//System.out.println(reflect); // Will crash here!!!
 
 		System.out.println();
 		System.out.println("Reflective CommandLine App Ending");
