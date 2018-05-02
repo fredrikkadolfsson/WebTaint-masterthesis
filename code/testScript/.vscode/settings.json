@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    ".stylelintrc": "json",
+    "stdlib.h": "c"
+  }
+}
