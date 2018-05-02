@@ -237,3 +237,5 @@ $RECYCLE.BIN/
 !/gradle/wrapper/gradle-wrapper.jar
 
 .gradle/*
+
+scratch/
