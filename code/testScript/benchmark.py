@@ -11,7 +11,7 @@ def main():
 
     # ##### Dynamic Taint Tracking Tools #####
     # Dynamic Taint Tracker
-    dtpXboot = "-Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/Benchmarking/Phosphor/jre-instr"
+    dtpXboot = "-Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/masterthesis-fredrik/code/dtp/build/libs/dtp-rt-1.0-SNAPSHOT.jar"
     dtpAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/masterthesis-fredrik/code/dtp/build/libs/dtp-agent-1.0-SNAPSHOT.jar"
     dynamicTaintTracker = ["Dynamic Taint Tracker", 'java', dtpXboot, dtpAgent]
 
@@ -31,8 +31,8 @@ def main():
     # DeCapo
     daCapo = [
         '-jar', "/home/fredrik/Documents/Omegapoint/Benchmarking/Test Suites/dacapo-9.12-MR1-bach.jar"]
-    # daCapoPrograms = ["avrora", "eclipse", "fop",  "h2", "jython", "luindex", "lusearch", "pmd", "sunflow", "tomcat", "tradebeans", "tradesoap", "xalan"]
-    daCapoPrograms = ["fop", "jython"]
+    daCapoPrograms = ["avrora", "eclipse", "fop",  "h2", "jython", "luindex",
+                      "lusearch", "pmd", "sunflow", "tomcat", "tradebeans", "tradesoap", "xalan"]
 
     print("##### ADDED OVERHEAD #####")
     for daCapoProgram in daCapoPrograms:
