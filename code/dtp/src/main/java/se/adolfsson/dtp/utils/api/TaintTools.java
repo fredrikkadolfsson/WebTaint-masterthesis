@@ -27,7 +27,7 @@ public class TaintTools {
 	}
 
 	public static void checkTaint(Object s, String signature) {
-		if (isTainted(s)) throw new TaintException(s.toString(), signature);
+		//if (isTainted(s)) throw new TaintException(s.toString(), signature);
 	}
 }
 
