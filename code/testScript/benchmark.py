@@ -6,7 +6,7 @@ runtTestsXTimes = 1
 
 
 def main():
-    print("Starting Benchmarking Script")
+    print("Starting Benchmarking Script\n\r")
     clean = ["Clean", 'java']
 
     # ##### Dynamic Taint Tracking Tools #####
@@ -34,12 +34,14 @@ def main():
     # daCapoPrograms = ["avrora", "eclipse", "fop",  "h2", "jython", "luindex", "lusearch", "pmd", "sunflow", "tomcat", "tradebeans", "tradesoap", "xalan"]
     daCapoPrograms = ["fop", "jython"]
 
-    for trackingTools in [clean, dynamicTaintTracker, securityTaintPropagation, phosphor]:
-        [text, *rest] = trackingTools
-        print("\n\r##### " + text + " #####")
+    print("##### ADDED OVERHEAD #####")
+    for daCapoProgram in daCapoPrograms:
+        print("\n\r\t# DaCapo " + daCapoProgram)
 
-        for daCapoProgram in daCapoPrograms:
-            daCapoExec = ["DaCapo " + daCapoProgram] + \
+        for trackingTools in [clean, dynamicTaintTracker, securityTaintPropagation, phosphor]:
+            [text, *rest] = trackingTools
+
+            daCapoExec = [text] + \
                 rest + daCapo + [daCapoProgram]
             measureTime(*daCapoExec)
 
@@ -57,7 +59,7 @@ def measureTime(text, *params):
     slowestTime = 0
     for x in range(1, runtTestsXTimes + 1):
         print("", end="\r")
-        print("\tLoading (", x, "/", runtTestsXTimes, ")", end='', flush=True)
+        print("\t\tLoading (", x, "/", runtTestsXTimes, ")", end='', flush=True)
 
         start_time = int(round(time.time() * 1000))
         retcode = subprocess.call(
@@ -71,12 +73,12 @@ def measureTime(text, *params):
             slowestTime = time_diff
 
     print("", end="\r")
-    print("\t" + text, "OK" if retcode == 0 else "ERROR",
+    print("\t\t" + text, "OK" if retcode == 0 else "ERROR",
           "                                                   ")
     if retcode == 0:
-        print("\t\t Average time", round(averageTime), "(ms)")
-        print("\t\t Fastest time", round(fastestTime), "(ms)")
-        print("\t\t Slowest time", round(slowestTime), "(ms)")
+        print("\t\t\t Average", round(averageTime), "(ms)")
+        print("\t\t\t Fastest", round(fastestTime), "(ms)")
+        print("\t\t\t Slowest", round(slowestTime), "(ms)")
 
 
 if __name__ == "__main__":
