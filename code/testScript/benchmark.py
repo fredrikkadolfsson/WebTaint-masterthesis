@@ -39,7 +39,7 @@ def main():
     for daCapoProgram in daCapoPrograms:
         print("\n\r\t# DaCapo " + daCapoProgram)
 
-        for trackingTools in [clean, dynamicTaintTracker, securityTaintPropagation, phosphor]:
+        for trackingTools in [clean, dynamicTaintTracker, phosphor]:
             [text, *rest] = trackingTools
 
             daCapoExec = [text] + \
