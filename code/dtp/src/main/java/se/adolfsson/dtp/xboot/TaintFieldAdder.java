@@ -1,6 +1,7 @@
 package se.adolfsson.dtp.xboot;
 
 import javassist.*;
+import se.adolfsson.dtp.utils.SourcesSinksOrSanitizers;
 import se.adolfsson.dtp.utils.TaintUtils;
 import se.adolfsson.dtp.utils.api.TaintException;
 import se.adolfsson.dtp.utils.api.TaintTools;
@@ -10,7 +11,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -36,6 +41,7 @@ public class TaintFieldAdder {
 	private void run() {
 		try {
 			ClassPool cp = ClassPool.getDefault();
+
 			cp.importPackage(TaintUtils.class.getName());
 			cp.importPackage(TaintTools.class.getName());
 
@@ -48,30 +54,57 @@ public class TaintFieldAdder {
 			writeClass(cp, TaintTools.class.getName());
 			writeClass(cp, TaintUtils.class.getName());
 
-			addSourcesSinksAndSanitizorsRT(cp);
+			String JREPath = System.getProperty("java.home").concat("/lib/rt.jar");
+			addSourcesSinksAndSanitizorsRT(cp, JREPath);
+
+			/*
+			walkJars(cp, "/opt/tomcat/apache-tomcat-8.5.30/bin");
+			walkJars(cp, "/opt/tomcat/apache-tomcat-8.5.30/lib");
+			walkJars(cp, "/home/fredrik/Documents/Omegapoint/Benchmarking/Test Suites/securibench-micro-master/lib");
+			*/
 		} catch (IOException | CannotCompileException | NotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void addSourcesSinksAndSanitizorsRT(ClassPool cp) {
-		String JREPath = System.getProperty("java.home").concat("/lib/rt.jar");
+	private void walkJars(ClassPool cp, String path) {
+		try (Stream<Path> paths = Files.walk(Paths.get(path))) {
+			paths
+					.filter(Files::isRegularFile)
+					.forEach(s -> {
+						if (s.toString().endsWith(".jar")) {
+							addSourcesSinksAndSanitizorsRT(cp, s.toString());
+						}
+					});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
+	private void addSourcesSinksAndSanitizorsRT(ClassPool cp, String path) {
 		try {
-			ZipInputStream zip = new ZipInputStream(new FileInputStream(JREPath));
+			SourcesSinksOrSanitizers sinksOrSanitizers = new SourcesSinksOrSanitizers();
+
+			cp.insertClassPath(path);
+
+			ZipInputStream zip = new ZipInputStream(new FileInputStream(path));
 			for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
 				if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
 					String className = entry.getName().replace('/', '.').replaceAll(".class", "");
 
 					CtClass ret, tmp;
 					ret = propagatingDataTypes.getOrDefault(className, null);
-					if ((tmp = isSourceSinkOrSanitizer(getSources(), className, ret)) != null) ret = tmp;
-					if ((tmp = isSourceSinkOrSanitizer(getSinks(), className, ret)) != null) ret = tmp;
-					if ((tmp = isSourceSinkOrSanitizer(getSanitizers(), className, ret)) != null) ret = tmp;
+					if ((tmp = sinksOrSanitizers.isSourceSinkOrSanitizer(getSources(), className, ret)) != null)
+						ret = tmp;
+					if ((tmp = sinksOrSanitizers.isSourceSinkOrSanitizer(getSinks(), className, ret)) != null)
+						ret = tmp;
+					if ((tmp = sinksOrSanitizers.isSourceSinkOrSanitizer(getSanitizers(), className, ret)) != null)
+						ret = tmp;
 					if (ret != null) writeBytes(className, ret.toBytecode());
+					//else writeClass(cp, className);
 				}
 			}
-		} catch (IOException | CannotCompileException e) {
+		} catch (IOException | CannotCompileException | NotFoundException e) {
 			e.printStackTrace();
 		}
 	}

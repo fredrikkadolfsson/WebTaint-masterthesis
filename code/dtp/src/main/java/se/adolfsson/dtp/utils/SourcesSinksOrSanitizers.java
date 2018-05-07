@@ -20,45 +20,14 @@ public class SourcesSinksOrSanitizers {
 	private List<SourceSinkOrSanitizers> interfaces;
 	@Setter
 	private SourcesSinksOrSanitizersEnum SourcesSinksOrSanitizersEnum;
+	@Setter
+	private ClassPool cp;
 
-	public static SourcesSinksOrSanitizers getSources() throws IOException {
-		SourcesSinksOrSanitizers ret = getSourcesOrSinks("sources.json");
-		ret.setSourcesSinksOrSanitizersEnum(SOURCES);
-		return ret;
+	public SourcesSinksOrSanitizers() {
+		cp = new ClassPool();
+		cp.appendSystemPath();
 	}
 
-	public static SourcesSinksOrSanitizers getSinks() throws IOException {
-		SourcesSinksOrSanitizers ret = getSourcesOrSinks("sinks.json");
-		ret.setSourcesSinksOrSanitizersEnum(SINKS);
-		return ret;
-	}
-
-	public static SourcesSinksOrSanitizers getSanitizers() throws IOException {
-		SourcesSinksOrSanitizers ret = getSourcesOrSinks("sanitizers.json");
-		ret.setSourcesSinksOrSanitizersEnum(SANITIZERS);
-		return ret;
-	}
-
-	public static CtClass isSourceSinkOrSanitizer(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className,
-			CtClass cClass) {
-		try {
-			ClassPool cp = ClassPool.getDefault();
-			if (cp.get(className).isInterface())
-				return null;
-		} catch (NotFoundException ignored) {
-			return null;
-		}
-
-		String alteredAsClassName;
-		if (isSourceSinkOrSanitizerClass(sourcesSinksOrSanitizers, className))
-			return transform(cClass, sourcesSinksOrSanitizers, className, className);
-		else if ((alteredAsClassName = usesInterface(sourcesSinksOrSanitizers, className)) != null)
-			return transform(cClass, sourcesSinksOrSanitizers, className, alteredAsClassName);
-		else if ((alteredAsClassName = extendsSourceOrSinkClass(sourcesSinksOrSanitizers, className)) != null)
-			return transform(cClass, sourcesSinksOrSanitizers, className, alteredAsClassName);
-		else
-			return null;
-	}
 
 	public static boolean isNotNative(CtMethod method) {
 		return !Modifier.isNative(method.getModifiers());
@@ -84,7 +53,52 @@ public class SourcesSinksOrSanitizers {
 		return isSourceSinkOrSanitizer(sourcesSinksOrSanitizers.getClasses(), className);
 	}
 
-	private static String usesInterface(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
+	private static boolean isSourceSinkOrSanitizer(List<SourceSinkOrSanitizers> sourcesOrSinks, String className) {
+		for (SourceSinkOrSanitizers source : sourcesOrSinks) {
+			if (className.equals(source.getClazz()))
+				return true;
+		}
+
+		return false;
+	}
+
+	private static void print(String content) {
+		boolean debug = true;
+		if (debug)
+			System.out.println(content);
+	}
+
+	public static SourcesSinksOrSanitizers getSinks() throws IOException {
+		SourcesSinksOrSanitizers ret = getSourcesOrSinks("sinks.json");
+		ret.setSourcesSinksOrSanitizersEnum(SINKS);
+		return ret;
+	}
+
+	public static SourcesSinksOrSanitizers getSanitizers() throws IOException {
+		SourcesSinksOrSanitizers ret = getSourcesOrSinks("sanitizers.json");
+		ret.setSourcesSinksOrSanitizersEnum(SANITIZERS);
+		return ret;
+	}
+
+	public static SourcesSinksOrSanitizers getSources() throws IOException {
+		SourcesSinksOrSanitizers ret = getSourcesOrSinks("sources.json");
+		ret.setSourcesSinksOrSanitizersEnum(SOURCES);
+		return ret;
+	}
+
+	private String isSuperSourceOrSink(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
+		String ret;
+		if (isSourceSinkOrSanitizerClass(sourcesSinksOrSanitizers, className))
+			return className;
+		else if ((ret = usesInterface(sourcesSinksOrSanitizers, className)) != null)
+			return ret;
+		else if ((ret = extendsSourceOrSinkClass(sourcesSinksOrSanitizers, className)) != null)
+			return ret;
+		else
+			return null;
+	}
+
+	private String usesInterface(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
 		boolean ret;
 		for (SourceSinkOrSanitizers interfazz : sourcesSinksOrSanitizers.getInterfaces()) {
 			ret = implementsSourceOrSinkInterface(interfazz.getClazz(), className);
@@ -95,44 +109,16 @@ public class SourcesSinksOrSanitizers {
 		return extendsSourceOrSinkInterface(sourcesSinksOrSanitizers, className);
 	}
 
-	private static String extendsSourceOrSinkInterface(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String clazz) {
-		boolean ret;
-		for (SourceSinkOrSanitizers interfazz : sourcesSinksOrSanitizers.getInterfaces()) {
-			ClassPool cp = ClassPool.getDefault();
-
-			try {
-				CtClass cClass = cp.get(clazz);
-				CtClass ecClass = cp.get(interfazz.getClazz());
-
-				ret = cClass.subtypeOf(ecClass);
-
-				if (ret)
-					return interfazz.getClazz();
-			} catch (NotFoundException ignored) {
-				// ignore
-			}
-		}
-		return null;
-	}
-
-	private static boolean isSourceSinkOrSanitizer(List<SourceSinkOrSanitizers> sourcesOrSinks, String className) {
-		for (SourceSinkOrSanitizers source : sourcesOrSinks) {
-			if (className.equals(source.getClazz()))
-				return true;
-		}
-
-		return false;
-	}
-
-	private static CtClass transform(CtClass cClass, SourcesSinksOrSanitizers sourcesSinksOrSanitizersIn,
+	private CtClass transform(CtClass cClass, SourcesSinksOrSanitizers sourcesSinksOrSanitizersIn,
 			String className, String alteredAsClassName) {
-		ClassPool cp = ClassPool.getDefault();
 
 		try {
 			print("########################################");
 			print("");
 			print("Transforming "
-					+ (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SOURCES ? "Source: " : "" + "Sink: ")
+					+ (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SOURCES ? "Source: " : "")
+					+ (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SINKS ? "Sink: " : "")
+					+ (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SANITIZERS ? "Sanitizer: " : "")
 					+ className + (className.equals(alteredAsClassName) ? "" : " as " + alteredAsClassName));
 
 			if (cClass == null)
@@ -176,7 +162,7 @@ public class SourcesSinksOrSanitizers {
 						if (isNotStatic(cMethod) && isNotNative(cMethod) && isNotAbstract(cMethod)) {
 							CtClass returnType = cMethod.getReturnType();
 							if (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SOURCES) {
-								if (returnType.subtypeOf(ClassPool.getDefault().get(Taintable.class.getName()))) {
+								if (returnType.subtypeOf(cp.get(Taintable.class.getName()))) {
 									cp.importPackage(TaintUtils.class.getName());
 									cp.importPackage(TaintTools.class.getName());
 									cMethod.insertAfter("{ TaintUtils.addTaintToMethod($0, $_); }");
@@ -217,8 +203,7 @@ public class SourcesSinksOrSanitizers {
 		}
 	}
 
-	private static String extendsSourceOrSinkClass(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
-		ClassPool cp = ClassPool.getDefault();
+	private String extendsSourceOrSinkClass(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
 
 		try {
 			CtClass cClass = cp.get(className);
@@ -232,21 +217,42 @@ public class SourcesSinksOrSanitizers {
 		return null;
 	}
 
-	private static String isSuperSourceOrSink(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
-		String ret;
-		if (isSourceSinkOrSanitizerClass(sourcesSinksOrSanitizers, className))
-			return className;
-		else if ((ret = usesInterface(sourcesSinksOrSanitizers, className)) != null)
-			return ret;
-		else if ((ret = extendsSourceOrSinkClass(sourcesSinksOrSanitizers, className)) != null)
-			return ret;
-		else
-			return null;
+	private String extendsSourceOrSinkInterface(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String clazz) {
+		boolean ret;
+		for (SourceSinkOrSanitizers interfazz : sourcesSinksOrSanitizers.getInterfaces()) {
+
+			try {
+				CtClass cClass = cp.get(clazz);
+				CtClass ecClass = cp.get(interfazz.getClazz());
+
+				ret = cClass.subtypeOf(ecClass);
+
+				if (ret)
+					return interfazz.getClazz();
+			} catch (NotFoundException ignored) {
+				// ignore
+			}
+		}
+		return null;
 	}
 
-	private static void print(String content) {
-		boolean debug = false;
-		if (debug)
-			System.out.println(content);
+	public CtClass isSourceSinkOrSanitizer(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className,
+	                                       CtClass cClass) {
+
+		try {
+			if (cp.get(className).isInterface())
+				return null;
+		} catch (NotFoundException ignored) {
+			return null;
+		}
+
+		String alteredAsClassName;
+		if (isSourceSinkOrSanitizerClass(sourcesSinksOrSanitizers, className))
+			return transform(cClass, sourcesSinksOrSanitizers, className, className);
+		else if ((alteredAsClassName = usesInterface(sourcesSinksOrSanitizers, className)) != null)
+			return transform(cClass, sourcesSinksOrSanitizers, className, alteredAsClassName);
+		else if ((alteredAsClassName = extendsSourceOrSinkClass(sourcesSinksOrSanitizers, className)) != null)
+			return transform(cClass, sourcesSinksOrSanitizers, className, alteredAsClassName);
+		else return null;
 	}
 }

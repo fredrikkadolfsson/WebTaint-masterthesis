@@ -6,6 +6,15 @@
         "getWriter"
       ],
       "descriptor": ""
+    },
+    {
+      "clazz": "java.io.PrintWriter",
+      "methods": [
+        "print",
+        "println",
+        "write"
+      ],
+      "descriptor": ""
     }
   ],
   "interfaces": []

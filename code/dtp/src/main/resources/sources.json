@@ -1,27 +1,12 @@
 {
-  "classes": [
+  "classes": [],
+  "interfaces": [
     {
-      "clazz": "javax.servlet.ServletRequestWrapper",
+      "clazz": "javax.servlet.ServletRequest",
       "methods": [
-        "getAttribute",
-        "getAttributeNames",
-        "getCharacterEncoding",
-        "getContentType",
-        "getParameter",
-        "getParameterNames",
-        "getParameterValues",
-        "getParameterMap",
-        "getProtocol",
-        "getScheme",
-        "getServerName",
-        "getRemoteAddr",
-        "getRemoteHost",
-        "getLocalName",
-        "getLocalAddr",
-        "getReader"
+        "getParameter"
       ],
       "descriptor": ""
     }
-  ],
-  "interfaces": []
+  ]
 }

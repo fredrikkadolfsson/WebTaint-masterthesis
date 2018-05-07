@@ -27,7 +27,12 @@ public class TaintTools {
 	}
 
 	public static void checkTaint(Object s, String signature) {
-		//if (isTainted(s)) throw new TaintException(s.toString(), signature);
+		if (isTainted(s)) {
+			((Taintable) s).setTaint(false);
+			//System.out.println("Tainted object entering Sink!: " + s.toString().substring(0, 10) + "(END)");
+			//Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).warning("Tainted object entering Sink!");
+			throw new TaintException(s.toString(), signature);
+		}
 	}
 }
 
