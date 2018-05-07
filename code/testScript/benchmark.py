@@ -15,11 +15,12 @@ def main():
     dtpAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/masterthesis-fredrik/code/dtp/build/libs/dtp-agent-1.0-SNAPSHOT.jar"
     dynamicTaintTracker = ["Dynamic Taint Tracker", 'java', dtpXboot, dtpAgent]
 
-    # Dynamic Security Taint Propagation
+    # Dynamic Security Taint Propagation DONT WORK!!!
     stpXboot = "-Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/security_taint_propagation/security_taint_extension/target/tainted-rt-1.8.jar"
     stpAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/security_taint_propagation/aspectjweaver-1.9.1.jar"
     securityTaintPropagation = [
         "Dynamic Security Taint Propagation", 'java',   stpXboot, stpAgent]
+    # -Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic\ Taint\ Trackers/security_taint_propagation/security_taint_extension/target/tainted-rt-1.8.jar -javaagent:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic\ Taint\ Trackers/security_taint_propagation/aspectjweaver-1.9.1.jar
 
     # Phosphor
     phosJava = "/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/phosphor-master/Phosphor/target/jre-inst/bin/java"

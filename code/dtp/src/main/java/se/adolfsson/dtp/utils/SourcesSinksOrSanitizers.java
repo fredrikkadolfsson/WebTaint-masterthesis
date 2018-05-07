@@ -39,10 +39,12 @@ public class SourcesSinksOrSanitizers {
 		return ret;
 	}
 
-	public static CtClass isSourceSinkOrSanitizer(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className, CtClass cClass) {
+	public static CtClass isSourceSinkOrSanitizer(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className,
+			CtClass cClass) {
 		try {
 			ClassPool cp = ClassPool.getDefault();
-			if (cp.get(className).isInterface()) return null;
+			if (cp.get(className).isInterface())
+				return null;
 		} catch (NotFoundException ignored) {
 			return null;
 		}
@@ -54,7 +56,8 @@ public class SourcesSinksOrSanitizers {
 			return transform(cClass, sourcesSinksOrSanitizers, className, alteredAsClassName);
 		else if ((alteredAsClassName = extendsSourceOrSinkClass(sourcesSinksOrSanitizers, className)) != null)
 			return transform(cClass, sourcesSinksOrSanitizers, className, alteredAsClassName);
-		else return null;
+		else
+			return null;
 	}
 
 	public static boolean isNotNative(CtMethod method) {
@@ -76,7 +79,8 @@ public class SourcesSinksOrSanitizers {
 		return mapper.readValue(fileUrl, SourcesSinksOrSanitizers.class);
 	}
 
-	private static boolean isSourceSinkOrSanitizerClass(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
+	private static boolean isSourceSinkOrSanitizerClass(SourcesSinksOrSanitizers sourcesSinksOrSanitizers,
+			String className) {
 		return isSourceSinkOrSanitizer(sourcesSinksOrSanitizers.getClasses(), className);
 	}
 
@@ -84,7 +88,8 @@ public class SourcesSinksOrSanitizers {
 		boolean ret;
 		for (SourceSinkOrSanitizers interfazz : sourcesSinksOrSanitizers.getInterfaces()) {
 			ret = implementsSourceOrSinkInterface(interfazz.getClazz(), className);
-			if (ret) return interfazz.getClazz();
+			if (ret)
+				return interfazz.getClazz();
 		}
 
 		return extendsSourceOrSinkInterface(sourcesSinksOrSanitizers, className);
@@ -101,7 +106,8 @@ public class SourcesSinksOrSanitizers {
 
 				ret = cClass.subtypeOf(ecClass);
 
-				if (ret) return interfazz.getClazz();
+				if (ret)
+					return interfazz.getClazz();
 			} catch (NotFoundException ignored) {
 				// ignore
 			}
@@ -111,21 +117,26 @@ public class SourcesSinksOrSanitizers {
 
 	private static boolean isSourceSinkOrSanitizer(List<SourceSinkOrSanitizers> sourcesOrSinks, String className) {
 		for (SourceSinkOrSanitizers source : sourcesOrSinks) {
-			if (className.equals(source.getClazz())) return true;
+			if (className.equals(source.getClazz()))
+				return true;
 		}
 
 		return false;
 	}
 
-	private static CtClass transform(CtClass cClass, SourcesSinksOrSanitizers sourcesSinksOrSanitizersIn, String className, String alteredAsClassName) {
+	private static CtClass transform(CtClass cClass, SourcesSinksOrSanitizers sourcesSinksOrSanitizersIn,
+			String className, String alteredAsClassName) {
 		ClassPool cp = ClassPool.getDefault();
 
 		try {
 			print("########################################");
 			print("");
-			print("Transforming " + (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SOURCES ? "Source: " : "" + "Sink: ") + className + (className.equals(alteredAsClassName) ? "" : " as " + alteredAsClassName));
+			print("Transforming "
+					+ (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SOURCES ? "Source: " : "" + "Sink: ")
+					+ className + (className.equals(alteredAsClassName) ? "" : " as " + alteredAsClassName));
 
-			if (cClass == null) cClass = cp.getOrNull(className);
+			if (cClass == null)
+				cClass = cp.getOrNull(className);
 			if (cClass == null) {
 				print("\tClass not loaded");
 				print("");
@@ -136,12 +147,12 @@ public class SourcesSinksOrSanitizers {
 			print("Methods: ");
 			cClass.defrost();
 
-			List<SourceSinkOrSanitizers> sourceSinkOrSanitizers = (cp.get(alteredAsClassName).isInterface() ? sourcesSinksOrSanitizersIn.getInterfaces() : sourcesSinksOrSanitizersIn.getClasses());
+			List<SourceSinkOrSanitizers> sourceSinkOrSanitizers = (cp.get(alteredAsClassName).isInterface()
+					? sourcesSinksOrSanitizersIn.getInterfaces()
+					: sourcesSinksOrSanitizersIn.getClasses());
 
 			SourceSinkOrSanitizers source = sourceSinkOrSanitizers.stream()
-					.filter(
-							src -> src.getClazz().equals(alteredAsClassName)
-					).findFirst().get();
+					.filter(src -> src.getClazz().equals(alteredAsClassName)).findFirst().get();
 
 			String[] methods = source.getMethods();
 
@@ -162,9 +173,7 @@ public class SourcesSinksOrSanitizers {
 
 				if (cMethods.length > 0) {
 					for (CtMethod cMethod : cMethods) {
-						if (isNotStatic(cMethod) &&
-								isNotNative(cMethod) &&
-								isNotAbstract(cMethod)) {
+						if (isNotStatic(cMethod) && isNotNative(cMethod) && isNotAbstract(cMethod)) {
 							CtClass returnType = cMethod.getReturnType();
 							if (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SOURCES) {
 								if (returnType.subtypeOf(ClassPool.getDefault().get(Taintable.class.getName()))) {
@@ -172,7 +181,8 @@ public class SourcesSinksOrSanitizers {
 									cp.importPackage(TaintTools.class.getName());
 									cMethod.insertAfter("{ TaintUtils.addTaintToMethod($0, $_); }");
 									print("\t\tSource Defined");
-								} else print("\t\t Untaintable return type: " + returnType.getName());
+								} else
+									print("\t\t Untaintable return type: " + returnType.getName());
 
 							} else if (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SINKS) {
 								cp.importPackage(TaintUtils.class.getName());
@@ -186,10 +196,13 @@ public class SourcesSinksOrSanitizers {
 								cMethod.insertAfter("{ TaintUtils.detaintMethodReturn($_); }");
 								print("\t\tSanitizer Defined");
 
-							} else print("\t\tError in Enum");
-						} else print("\t\tStatic or Native Method, can't taint");
+							} else
+								print("\t\tError in Enum");
+						} else
+							print("\t\tStatic or Native Method, can't taint");
 					}
-				} else print("\t\tDo not exist in class");
+				} else
+					print("\t\tDo not exist in class");
 			}
 
 			print("");
@@ -221,16 +234,19 @@ public class SourcesSinksOrSanitizers {
 
 	private static String isSuperSourceOrSink(SourcesSinksOrSanitizers sourcesSinksOrSanitizers, String className) {
 		String ret;
-		if (isSourceSinkOrSanitizerClass(sourcesSinksOrSanitizers, className)) return className;
-		else if ((ret = usesInterface(sourcesSinksOrSanitizers, className)) != null) return ret;
+		if (isSourceSinkOrSanitizerClass(sourcesSinksOrSanitizers, className))
+			return className;
+		else if ((ret = usesInterface(sourcesSinksOrSanitizers, className)) != null)
+			return ret;
 		else if ((ret = extendsSourceOrSinkClass(sourcesSinksOrSanitizers, className)) != null)
 			return ret;
-		else return null;
+		else
+			return null;
 	}
 
 	private static void print(String content) {
 		boolean debug = false;
-		if (debug) System.out.println(content);
+		if (debug)
+			System.out.println(content);
 	}
 }
-
