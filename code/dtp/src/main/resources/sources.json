@@ -161,7 +161,7 @@
       "descriptor": ""
     },
     {
-      "clazz": "javax.xml.xpath.XPath",
+      "clazz": "javax.xml.xpath.xPath.XPath",
       "methods": [
         "evaluate"
       ],
