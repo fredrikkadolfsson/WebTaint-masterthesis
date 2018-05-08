@@ -63,7 +63,7 @@ public class SourcesSinksOrSanitizers {
 	}
 
 	private static void print(String content) {
-		boolean debug = true;
+		boolean debug = false;
 		if (debug)
 			System.out.println(content);
 	}
