@@ -11,11 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -28,7 +24,7 @@ import static se.adolfsson.dtp.utils.SourcesSinksOrSanitizers.*;
  * they are loaded the first time).
  */
 public class TaintFieldAdder {
-	HashMap<String, CtClass> propagatingDataTypes = new HashMap<>();
+	private HashMap<String, CtClass> propagatingDataTypes = new HashMap<>();
 
 	public static void main(String[] args) {
 		System.out.println();
@@ -56,27 +52,7 @@ public class TaintFieldAdder {
 
 			String JREPath = System.getProperty("java.home").concat("/lib/rt.jar");
 			addSourcesSinksAndSanitizorsRT(cp, JREPath);
-
-			/*
-			walkJars(cp, "/opt/tomcat/apache-tomcat-8.5.30/bin");
-			walkJars(cp, "/opt/tomcat/apache-tomcat-8.5.30/lib");
-			walkJars(cp, "/home/fredrik/Documents/Omegapoint/Benchmarking/Test Suites/securibench-micro-master/lib");
-			*/
 		} catch (IOException | CannotCompileException | NotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void walkJars(ClassPool cp, String path) {
-		try (Stream<Path> paths = Files.walk(Paths.get(path))) {
-			paths
-					.filter(Files::isRegularFile)
-					.forEach(s -> {
-						if (s.toString().endsWith(".jar")) {
-							addSourcesSinksAndSanitizorsRT(cp, s.toString());
-						}
-					});
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -101,7 +77,6 @@ public class TaintFieldAdder {
 					if ((tmp = sinksOrSanitizers.isSourceSinkOrSanitizer(getSanitizers(), className, ret)) != null)
 						ret = tmp;
 					if (ret != null) writeBytes(className, ret.toBytecode());
-					//else writeClass(cp, className);
 				}
 			}
 		} catch (IOException | CannotCompileException | NotFoundException e) {
@@ -130,14 +105,10 @@ public class TaintFieldAdder {
 	private void addTaintMethods(CtClass cClass) throws CannotCompileException {
 		cClass.addMethod(CtMethod.make("public void setTaint(boolean value, String className){ this.tainted = value; if(className != null) this.taintSource = className; }", cClass));
 		cClass.addMethod(CtMethod.make("public boolean isTainted(){ return this.tainted; }", cClass));
-
 		cClass.addMethod(CtMethod.make("public String getTaintSource(){ return this.taintSource; }", cClass));
 	}
 
 	private void propagateTaintInMethods(CtClass cClass) throws NotFoundException, CannotCompileException {
-		CtConstructor[] cConstructors = cClass.getDeclaredConstructors();
-		
-
 		CtMethod[] cMethods = cClass.getDeclaredMethods();
 		for (CtMethod cMethod : cMethods) {
 			if (isNotStatic(cMethod) &&
@@ -150,11 +121,11 @@ public class TaintFieldAdder {
 
 				CtClass returnType = cMethod.getReturnType();
 				if (returnType.subtypeOf(ClassPool.getDefault().get(Taintable.class.getName()))) {
-					cMethod.insertAfter("{ $_.setTaint(TaintUtils.propagateParameterTaint($0, $args), \"PropagateMethodTaint RET!!!!\"); }");
+					cMethod.insertAfter("{ Object ret = TaintUtils.propagateParameterTaintObject($0, $args); if(ret != null) $_.setTaint(TaintUtils.isTainted(ret), TaintUtils.getTaintSource(ret)); }");
 				}
 
 				if (cMethod.getParameterTypes().length > 0) {
-					cMethod.insertBefore("{ $0.setTaint(TaintUtils.propagateParameterTaint($0, $args), \"PropagateMethodTaint THIS!!!!\"); }");
+					cMethod.insertBefore("{ Object ret = TaintUtils.propagateParameterTaintObject($0, $args); if(ret != null) $0.setTaint(TaintUtils.isTainted(ret), TaintUtils.getTaintSource(ret)); }");
 				}
 			}
 		}

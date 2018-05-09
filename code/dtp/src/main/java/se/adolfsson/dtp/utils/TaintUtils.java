@@ -6,17 +6,31 @@ import static se.adolfsson.dtp.utils.api.TaintTools.*;
 
 public class TaintUtils {
 	public static boolean propagateParameterTaint(Object s, Object[] args) {
-		boolean tainted = ((Taintable) s).isTainted();
-		if (tainted) return true;
+		Object ret = propagateParameterTaintObject(s, args);
+
+		if (ret != null) ((Taintable) ret).isTainted();
+
+		return false;
+	}
+
+	public static boolean isTainted(Object s) {
+		return ((Taintable) s).isTainted();
+	}
+
+	public static String getTaintSource(Object s) {
+		return ((Taintable) s).getTaintSource();
+	}
+
+	public static Object propagateParameterTaintObject(Object s, Object[] args) {
+		if (((Taintable) s).isTainted()) return s;
 
 		for (Object arg : args) {
 			if (arg instanceof Taintable) {
-				tainted = tainted || ((Taintable) arg).isTainted();
+				if (((Taintable) arg).isTainted()) return arg;
 			}
-			if (tainted) break;
 		}
 
-		return tainted;
+		return null;
 	}
 
 	public static void addTaintToMethod(Object s, Object ret, String className) {
