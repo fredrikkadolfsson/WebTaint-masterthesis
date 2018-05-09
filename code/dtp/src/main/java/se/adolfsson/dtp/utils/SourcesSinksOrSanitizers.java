@@ -165,7 +165,7 @@ public class SourcesSinksOrSanitizers {
 								if (returnType.subtypeOf(cp.get(Taintable.class.getName()))) {
 									cp.importPackage(TaintUtils.class.getName());
 									cp.importPackage(TaintTools.class.getName());
-									cMethod.insertAfter("{ TaintUtils.addTaintToMethod($0, $_); }");
+									cMethod.insertAfter("{ TaintUtils.addTaintToMethod($0, $_, \"" + className + "\"); }");
 									print("\t\tSource Defined");
 								} else
 									print("\t\t Untaintable return type: " + returnType.getName());
@@ -173,7 +173,7 @@ public class SourcesSinksOrSanitizers {
 							} else if (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SINKS) {
 								cp.importPackage(TaintUtils.class.getName());
 								cp.importPackage(TaintTools.class.getName());
-								cMethod.insertBefore("{ TaintUtils.assertNonTaint($0, $args, \"" + cMethod.getSignature() + "\"); }");
+								cMethod.insertBefore("{ TaintUtils.assertNonTaint($0, $args, \"" + className + "\"); }");
 								print("\t\tSink Defined");
 
 							} else if (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SANITIZERS) {

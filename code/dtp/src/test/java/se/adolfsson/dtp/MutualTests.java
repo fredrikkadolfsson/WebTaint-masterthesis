@@ -32,7 +32,8 @@ public class MutualTests {
 		System.out.println("##### MutualTests - " + fObject.getClass().getName());
 
 		assertTaintAndLog(fObject, false);
-		TaintTools.taint(fObject);
+		TaintTools.taint(fObject, "Test Source");
+		TaintTools.taint(fObject, "Test Source");
 		assertTaintAndLog(fObject, true);
 		TaintTools.detaint(fObject);
 		assertTaintAndLog(fObject, false);
@@ -44,7 +45,7 @@ public class MutualTests {
 	public void TaintPropagation() {
 		System.out.println("##### MutualTests1 - " + fObject.getClass().getName());
 
-		TaintTools.taint(fObject);
+		TaintTools.taint(fObject, "Test Source");
 		assertTaintAndLog(fObject, true);
 		Object objectCopy = fObject;
 		assertTaintAndLog(objectCopy, true);

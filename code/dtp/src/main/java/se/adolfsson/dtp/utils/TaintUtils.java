@@ -7,6 +7,7 @@ import static se.adolfsson.dtp.utils.api.TaintTools.*;
 public class TaintUtils {
 	public static boolean propagateParameterTaint(Object s, Object[] args) {
 		boolean tainted = ((Taintable) s).isTainted();
+		if (tainted) return true;
 
 		for (Object arg : args) {
 			if (arg instanceof Taintable) {
@@ -18,14 +19,14 @@ public class TaintUtils {
 		return tainted;
 	}
 
-	public static void addTaintToMethod(Object s, Object ret) {
-		taint(s);
-		if (ret != null) taint(ret);
+	public static void addTaintToMethod(Object s, Object ret, String className) {
+		taint(s, className);
+		if (ret != null) taint(ret, className);
 	}
 
-	public static void assertNonTaint(Object s, Object[] args, String signature) {
-		checkTaint(s, signature);
-		for (Object arg : args) checkTaint(arg, signature);
+	public static void assertNonTaint(Object s, Object[] args, String className) {
+		checkTaint(s, className);
+		for (Object arg : args) checkTaint(arg, className);
 	}
 
 	public static void detaintMethodReturn(Object ret) {

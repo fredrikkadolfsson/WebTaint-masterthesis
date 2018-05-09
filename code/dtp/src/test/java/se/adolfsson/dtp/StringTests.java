@@ -13,7 +13,7 @@ public class StringTests {
 		System.out.println("##### TAINT PROPAGATION CONCAT - " + String.class.getName());
 
 		String tainted = "Tainted String";
-		TaintTools.taint(tainted);
+		TaintTools.taint(tainted, "Test Source");
 		String notTainted = "Not Tainted String";
 
 		assertTaintAndLog(tainted, true);

@@ -123,32 +123,38 @@ public class TaintFieldAdder {
 	}
 
 	private void addTaintVar(CtClass cClass) throws CannotCompileException {
-		CtField taintField = new CtField(CtClass.booleanType, "tainted", cClass);
-		taintField.setModifiers(Modifier.PRIVATE);
-		cClass.addField(taintField, "TaintUtils.propagateParameterTaint($0, $args)"); // TODO:
+		cClass.addField(CtField.make("private boolean tainted;", cClass), "TaintUtils.propagateParameterTaint($0, $args)");
+		cClass.addField(CtField.make("private String taintSource;", cClass));
 	}
 
 	private void addTaintMethods(CtClass cClass) throws CannotCompileException {
-		cClass.addMethod(CtMethod.make("public void setTaint(boolean value){ this.tainted = value; }", cClass));
+		cClass.addMethod(CtMethod.make("public void setTaint(boolean value, String className){ this.tainted = value; if(className != null) this.taintSource = className; }", cClass));
 		cClass.addMethod(CtMethod.make("public boolean isTainted(){ return this.tainted; }", cClass));
+
+		cClass.addMethod(CtMethod.make("public String getTaintSource(){ return this.taintSource; }", cClass));
 	}
 
 	private void propagateTaintInMethods(CtClass cClass) throws NotFoundException, CannotCompileException {
+		CtConstructor[] cConstructors = cClass.getDeclaredConstructors();
+		
+
 		CtMethod[] cMethods = cClass.getDeclaredMethods();
 		for (CtMethod cMethod : cMethods) {
 			if (isNotStatic(cMethod) &&
 					isNotNative(cMethod) &&
 					isNotAbstract(cMethod) &&
 					!cMethod.getName().equals("setTaint") &&
-					!cMethod.getName().equals("isTainted")) {
+					!cMethod.getName().equals("isTainted") &&
+					!cMethod.getName().equals("setTaintSource") &&
+					!cMethod.getName().equals("getTaintSource")) {
 
 				CtClass returnType = cMethod.getReturnType();
 				if (returnType.subtypeOf(ClassPool.getDefault().get(Taintable.class.getName()))) {
-					cMethod.insertAfter("{ $_.setTaint(TaintUtils.propagateParameterTaint($0, $args)); }");
+					cMethod.insertAfter("{ $_.setTaint(TaintUtils.propagateParameterTaint($0, $args), \"PropagateMethodTaint RET!!!!\"); }");
 				}
 
 				if (cMethod.getParameterTypes().length > 0) {
-					cMethod.insertBefore("{ $0.setTaint(TaintUtils.propagateParameterTaint($0, $args)); }");
+					cMethod.insertBefore("{ $0.setTaint(TaintUtils.propagateParameterTaint($0, $args), \"PropagateMethodTaint THIS!!!!\"); }");
 				}
 			}
 		}

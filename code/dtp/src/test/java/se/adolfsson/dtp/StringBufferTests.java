@@ -13,7 +13,7 @@ public class StringBufferTests {
 		System.out.println("##### TAINT PROPAGATION APPEND - " + StringBuffer.class.getName());
 
 		StringBuffer tainted = new StringBuffer("StringBuffer");
-		TaintTools.taint(tainted);
+		TaintTools.taint(tainted, "Test Source");
 		StringBuffer notTainted = new StringBuffer("StringBuffer");
 
 		assertTaintAndLog(tainted, true);
