@@ -15,18 +15,19 @@ def main():
     dtpXboot = "-Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/masterthesis-fredrik/code/dtp/build/libs/dtp-rt-1.0-SNAPSHOT.jar"
     dtpAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/masterthesis-fredrik/code/dtp/build/libs/dtp-agent-1.0-SNAPSHOT.jar"
     dynamicTaintTracker = ["Dynamic Taint Tracker", 'java', dtpXboot, dtpAgent]
+    # -Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/masterthesis-fredrik/code/dtp/build/libs/dtp-rt-1.0-SNAPSHOT.jar -javaagent:/home/fredrik/Documents/Omegapoint/masterthesis-fredrik/code/dtp/build/libs/dtp-agent-1.0-SNAPSHOT.jar
 
     # Dynamic Security Taint Propagation DONT WORK!!!
-    stpXboot = "-Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/security_taint_propagation/security_taint_extension/target/tainted-rt-1.8.jar"
-    stpAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/security_taint_propagation/aspectjweaver-1.9.1.jar"
+    stpXboot = "-Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/Benchmarking/DynamicTaintTrackers/security_taint_propagation/security_taint_extension/target/tainted-rt-1.8.jar"
+    stpAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/Benchmarking/DynamicTaintTrackers/security_taint_propagation/aspectjweaver-1.9.1.jar"
     securityTaintPropagation = [
         "Dynamic Security Taint Propagation", 'java',   stpXboot, stpAgent]
     # -Xbootclasspath/p:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic\ Taint\ Trackers/security_taint_propagation/security_taint_extension/target/tainted-rt-1.8.jar -javaagent:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic\ Taint\ Trackers/security_taint_propagation/aspectjweaver-1.9.1.jar
 
     # Phosphor
-    phosJava = "/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/phosphor-master/Phosphor/target/jre-inst/bin/java"
-    phosXboot = "-Xbootclasspath/a:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/phosphor-master/Phosphor/target/Phosphor-0.0.4-SNAPSHOT.jar"
-    phosAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/Benchmarking/Dynamic Taint Trackers/phosphor-master/Phosphor/target/Phosphor-0.0.4-SNAPSHOT.jar"
+    phosJava = "/home/fredrik/Documents/Omegapoint/Benchmarking/DynamicTaintTrackers/phosphor-master/Phosphor/target/jre-inst/bin/java"
+    phosXboot = "-Xbootclasspath/a:/home/fredrik/Documents/Omegapoint/Benchmarking/DynamicTaintTrackers/phosphor-master/Phosphor/target/Phosphor-0.0.4-SNAPSHOT.jar"
+    phosAgent = "-javaagent:/home/fredrik/Documents/Omegapoint/Benchmarking/DynamicTaintTrackers/phosphor-master/Phosphor/target/Phosphor-0.0.4-SNAPSHOT.jar"
     phosphor = ["Phosphor", phosJava, phosXboot, phosAgent]
 
     # ##### Test Suits #####

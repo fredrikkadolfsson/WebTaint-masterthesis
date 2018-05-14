@@ -159,13 +159,16 @@ public class SourcesSinksOrSanitizers {
 
 				if (cMethods.length > 0) {
 					for (CtMethod cMethod : cMethods) {
-						if (isNotStatic(cMethod) && isNotNative(cMethod) && isNotAbstract(cMethod)) {
+						if (isNotNative(cMethod) && isNotAbstract(cMethod)) {
 							CtClass returnType = cMethod.getReturnType();
 							if (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SOURCES) {
 								if (returnType.subtypeOf(cp.get(Taintable.class.getName()))) {
 									cp.importPackage(TaintUtils.class.getName());
 									cp.importPackage(TaintTools.class.getName());
-									cMethod.insertAfter("{ TaintUtils.addTaintToMethod($0, $_, \"" + className + "\"); }");
+
+									if (isNotStatic(cMethod))
+										cMethod.insertAfter("{ TaintUtils.addTaintToMethod($0, $_, \"" + className + "\"); }");
+									else cMethod.insertAfter("{ TaintUtils.addTaintToMethod(null, $_, \"" + className + "\"); }");
 									print("\t\tSource Defined");
 								} else
 									print("\t\t Untaintable return type: " + returnType.getName());
@@ -173,7 +176,10 @@ public class SourcesSinksOrSanitizers {
 							} else if (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SINKS) {
 								cp.importPackage(TaintUtils.class.getName());
 								cp.importPackage(TaintTools.class.getName());
-								cMethod.insertBefore("{ TaintUtils.assertNonTaint($0, $args, \"" + className + "\"); }");
+
+								if (isNotStatic(cMethod))
+									cMethod.insertBefore("{ TaintUtils.assertNonTaint($0, $args, \"" + className + "\"); }");
+								else cMethod.insertBefore("{ TaintUtils.assertNonTaint(null, $args, \"" + className + "\"); }");
 								print("\t\tSink Defined");
 
 							} else if (sourcesSinksOrSanitizersIn.getSourcesSinksOrSanitizersEnum() == SANITIZERS) {
@@ -185,7 +191,7 @@ public class SourcesSinksOrSanitizers {
 							} else
 								print("\t\tError in Enum");
 						} else
-							print("\t\tStatic or Native Method, can't taint");
+							print("\t\tCan't taint native method");
 					}
 				} else
 					print("\t\tDo not exist in class");

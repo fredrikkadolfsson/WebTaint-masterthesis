@@ -34,12 +34,12 @@ public class TaintUtils {
 	}
 
 	public static void addTaintToMethod(Object s, Object ret, String className) {
-		taint(s, className);
+		if (s != null) taint(s, className);
 		if (ret != null) taint(ret, className);
 	}
 
 	public static void assertNonTaint(Object s, Object[] args, String className) {
-		checkTaint(s, className);
+		if (s != null) checkTaint(s, className);
 		for (Object arg : args) checkTaint(arg, className);
 	}
 

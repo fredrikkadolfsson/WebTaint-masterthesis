@@ -30,9 +30,7 @@ public class TaintTools {
 		if (isTainted(s)) {
 			((Taintable) s).setTaint(false, null);
 			System.out.println("Taint Exception Caught!!!!\r\n\tSource: " + ((Taintable) s).getTaintSource() + "\r\n\tSink: " + className);
-			//System.out.println("Tainted object entering Sink!: " + s.toString().substring(0, 10) + "(END)");
-			//Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).warning("Tainted object entering Sink!");
-			//throw new TaintException(s.toString(), signature);
+			throw new TaintException(s.toString(), className);
 		}
 	}
 }

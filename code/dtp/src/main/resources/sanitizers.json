@@ -61,6 +61,13 @@
         "replaceAll"
       ],
       "descriptor": ""
+    },
+    {
+      "clazz": "org.radeox.util.Encoder",
+      "methods": [
+        "escape"
+      ],
+      "descriptor": ""
     }
   ],
   "interfaces": []
