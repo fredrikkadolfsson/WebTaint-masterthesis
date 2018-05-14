@@ -91,5 +91,8 @@
     "detainting",
     "programmatically"
   ],
-  "cSpell.flagWords": ["trough", "ether"]
+  "cSpell.flagWords": ["trough", "ether"],
+  "[latex]": {
+    "editor.formatOnSave": false
+  }
 }
