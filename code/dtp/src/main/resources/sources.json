@@ -1,17 +1,6 @@
 {
   "classes": [
     {
-      "clazz": "javax.servlet.http.Cookie",
-      "methods": [
-        "getComment",
-        "getDomain",
-        "getPath",
-        "getName",
-        "getValue"
-      ],
-      "descriptor": ""
-    },
-    {
       "clazz": "javax.servlet.GenericServlet",
       "methods": [
         "getInitParameter",

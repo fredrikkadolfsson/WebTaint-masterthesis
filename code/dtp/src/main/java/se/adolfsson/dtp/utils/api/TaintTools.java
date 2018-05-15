@@ -29,8 +29,28 @@ public class TaintTools {
 	public static void checkTaint(Object s, String className) {
 		if (isTainted(s)) {
 			((Taintable) s).setTaint(false, null);
-			System.out.println("Taint Exception Caught!!!!\r\n\tSource: " + ((Taintable) s).getTaintSource() + "\r\n\tSink: " + className);
-			throw new TaintException(s.toString(), className);
+
+			/*
+			System.out.println("Taint Exception Caught!!!\r\n\tSource: " + ((Taintable) s).getTaintSource() + "\r\n\tSink: " + className);
+			System.out.println("\tStack Trace:");
+			StackTraceElement[] stack = new Exception().getStackTrace();
+			for (StackTraceElement line : stack) System.out.println("\t\t" + line.toString());
+			System.out.println();
+			*/
+
+			try {
+				Class type = s.getClass();
+				Field valueField;
+				valueField = type.getDeclaredField("value");
+				valueField.setAccessible(true);
+				valueField.set(s, "".toCharArray());
+
+			} catch (NoSuchFieldException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+
+
+			//throw new TaintException(s.toString(), className);
 		}
 	}
 }
