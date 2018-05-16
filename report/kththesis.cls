@@ -208,6 +208,7 @@
 \usepackage{parskip} % Paragraph: indent -> space
 \usepackage{nameref}
 \usepackage{color}
+\usepackage[colorinlistoftodos,prependcaption,textsize=10]{todonotes}
 
 \lstset{
   escapeinside={(*@}{@*)},

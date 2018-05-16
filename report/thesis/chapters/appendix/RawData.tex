@@ -1,0 +1,97 @@
+\chapter{Raw Data Tables}
+\todo[inline]{Todo: Update all tables with final result and introduce with short summary}
+
+\begin{table}[!h]
+  \centering
+  \caption{Time Overhead (ms)}
+  \label{TimeTable}
+  \resizebox{\columnwidth}{!}{
+    \begin{tabular}{rccc}
+      \multicolumn{1}{c}{} & \textbf{}      & \textbf{Exakt}                  & \textbf{Diff}                   \\
+      \multicolumn{1}{c}{} & \textbf{Clean} & \textbf{Dynamic Taint Tracking} & \textbf{Dynamic Taint Tracking} \\
+      \textbf{Avrora}      & 4820           & 9771                            & 4951                            \\
+      \textbf{Eclipse}     & 43770          & 61980                           & 18210                           \\
+      \textbf{Fop}         & 2468           & 11532                           & 9064                            \\
+      \textbf{H2}          & 16123          & 26793                           & 10670                           \\
+      \textbf{Jython}      & 18488          & 36438                           & 17950                           \\
+      \textbf{Luindex}     & 2672           & 6991                            & 4319                            \\
+      \textbf{Lusearch}    & 3691           & 7585                            & 3894                            \\
+      \textbf{Pmd}         & 4409           & 12936                           & 8527                            \\
+      \textbf{Sunflow}     & 6183           & 13049                           & 6866                            \\
+      \textbf{Tomcat}      & 9490           & ERROR                           & \#VALUE!                        \\
+      \textbf{Tradebeans}  & 23154          & 153267                          & 130113                          \\
+      \textbf{Tradesoap}   &                &                                 & 0                               \\
+      \textbf{Xalan}       &                &                                 & 0
+    \end{tabular}
+  }
+\end{table}
+
+
+\begin{table}[!h]
+  \centering
+  \caption{Memory Overhead (kilobytes)}
+  \label{MemoryTable}
+  \resizebox{\columnwidth}{!}{
+    \begin{tabular}{rccc}
+                          & \textbf{}      & \textbf{Exact}                  & \textbf{Diff}                   \\
+                          & \textbf{Clean} & \textbf{Dynamic Taint Tracking} & \textbf{Dynamic Taint Tracking} \\
+      \textbf{Avrora}     & 111252         & 396956                          & 285704                          \\
+      \textbf{Eclipse}    & 914364         & 945540                          & 31176                           \\
+      \textbf{Fop}        & 1017724        & 1017724                         & 0                               \\
+      \textbf{H2}         & 1017724        & 1017724                         & 0                               \\
+      \textbf{Jython}     & 1082372        & 1082372                         & 0                               \\
+      \textbf{Luindex}    & 1082372        & 1082372                         & 0                               \\
+      \textbf{Lusearch}   & 1082372        & 1082372                         & 0                               \\
+      \textbf{Pmd}        & 1082372        & 1082372                         & 0                               \\
+      \textbf{Sunflow}    & 6183           & 13049                           & 6866                            \\
+      \textbf{Tomcat}     & 9490           & ERROR                           & \#VALUE!                        \\
+      \textbf{Tradebeans} & 23154          & 153267                          & 130113                          \\
+      \textbf{Tradesoap}  & 40212          & 153849                          & 113637                          \\
+      \textbf{Xalan}      &                &                                 & 0 
+    \end{tabular}
+  }
+\end{table}
+
+
+\begin{table}[!h]
+  \centering
+  \caption{Stanford SecuriBench Micro}
+  \label{MicroTable}
+  \resizebox{\columnwidth}{!}{
+    \begin{tabular}{rcc}
+                                                                & \textbf{Clean} & \textbf{Dynamic Taint Tracking} \\
+      \textbf{SQL Injection (High (Medium))}                    & 20             & 0                               \\
+      \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 2              & 0                               \\
+      \textbf{Cross Site Scripting (Reflected) (High (Low))}    & 69             & 0                               \\
+      \textbf{Web Browser XSS Protection Not Enabled}           & 1              & 0                              
+    \end{tabular}
+  }
+\end{table}
+
+
+\begin{table}[!h]
+  \centering
+  \caption{Insecure}
+  \label{InsecureTable}
+  \resizebox{\columnwidth}{!}{
+    \begin{tabular}{rcc}
+                                                                & \textbf{Clean} & \textbf{Dynamic Taint Tracking} \\
+      \textbf{SQL Injection (High (Medium))}                    & 4              & 0                               \\
+      \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 2              & 0                              
+    \end{tabular}
+  }  
+\end{table}
+
+\begin{table}[!h]
+  \centering
+  \caption{SnipSnap}
+  \label{SnipSnapTable}
+  \resizebox{\columnwidth}{!}{
+    \begin{tabular}{rcc}
+                                                                & \textbf{Clean} & \textbf{Dynamic Taint Tracking} \\
+      \textbf{SQL Injection (High (Medium))}                    & 10             & 1                               \\
+      \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 149            & 16                              \\
+      \textbf{CRLF Injection Medium (Medium)}                   & 2              & 0                              
+    \end{tabular}
+  }  
+\end{table}
