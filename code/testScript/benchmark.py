@@ -3,7 +3,7 @@ import subprocess
 import time
 import resource
 
-runtTestsXTimes = 1
+runtTestsXTimes = 5
 
 
 def main():
@@ -33,21 +33,22 @@ def main():
     # ##### Test Suits #####
     # DeCapo
     daCapo = [
-        '-jar', "/home/fredrik/Documents/Omegapoint/Benchmarking/Test Suites/dacapo-9.12-MR1-bach.jar"]
-    daCapoPrograms = ["avrora"]
-    # daCapoPrograms = ["avrora", "eclipse", "fop",  "h2", "jython", "luindex",
-    #                  "lusearch", "pmd", "sunflow", "tomcat", "tradebeans", "tradesoap", "xalan"]
+        '-jar', "/home/fredrik/Documents/Omegapoint/Benchmarking/TestSuites/dacapo-9.12-MR1-bach.jar"]
+    # daCapoPrograms = ["avrora"]
+    daCapoPrograms = ["avrora", "eclipse", "fop",  "h2", "jython", "luindex",
+                      "lusearch", "pmd", "sunflow", "tomcat", "tradebeans", "tradesoap", "xalan"]
 
     print("##### ADDED OVERHEAD #####")
     for daCapoProgram in daCapoPrograms:
         print("\n\r\t# DaCapo " + daCapoProgram)
 
-        for trackingTools in [clean]:
-            # for trackingTools in [clean, dynamicTaintTracker, phosphor]:
+        # for trackingTools in [clean]:
+        for trackingTools in [clean, dynamicTaintTracker]:
             [text, *rest] = trackingTools
 
             daCapoExec = [text] + \
                 rest + daCapo + [daCapoProgram]
+            print(daCapoExec)
             measureTime(*daCapoExec)
 
     print("\n\rEnd Benchmarking Script")
@@ -71,17 +72,9 @@ def measureTime(text, *params):
 
         start_time = int(round(time.time() * 1000))
 
-        print(resource.getrusage(
-            resource.RUSAGE_CHILDREN).ru_maxrss, resource.getrusage(
-            resource.RUSAGE_SELF).ru_maxrss)
-
         p = subprocess.Popen(params, stdout=FNULL, stderr=subprocess.STDOUT)
         p.wait()
         time_diff = current_milli_time() - start_time
-
-        print(resource.getrusage(
-            resource.RUSAGE_CHILDREN).ru_maxrss, resource.getrusage(
-            resource.RUSAGE_SELF).ru_maxrss)
 
         retcode = p.returncode
 
