@@ -1,0 +1,260 @@
+# DaCapo avrora
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 3813025
+			Min: 3744824
+			Max: 3866363
+		Memory (kilobytes)
+			Average: 108445
+			Min: 99716
+			Max: 122236
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 9042154
+			Min: 8325428
+			Max: 9523650
+		Memory (kilobytes)
+			Average: 336260
+			Min: 240968
+			Max: 407668
+
+# DaCapo eclipse
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 38284019
+			Min: 35090309
+			Max: 40662754
+		Memory (kilobytes)
+			Average: 922929
+			Min: 916340
+			Max: 938032
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 53031768
+			Min: 49999425
+			Max: 55297291
+		Memory (kilobytes)
+			Average: 973240
+			Min: 954060
+			Max: 1024412
+
+# DaCapo fop
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 2100317
+			Min: 1976965
+			Max: 2264453
+		Memory (kilobytes)
+			Average: 167038
+			Min: 141788
+			Max: 207216
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 11050875
+			Min: 9449910
+			Max: 11701099
+		Memory (kilobytes)
+			Average: 631080
+			Min: 507636
+			Max: 810200
+
+# DaCapo h2
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 14879971
+			Min: 14285215
+			Max: 15269910
+		Memory (kilobytes)
+			Average: 842447
+			Min: 802652
+			Max: 865792
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 24409953
+			Min: 23402474
+			Max: 25453261
+		Memory (kilobytes)
+			Average: 979604
+			Min: 967580
+			Max: 1000056
+
+# DaCapo jython
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 10867700
+			Min: 10323676
+			Max: 11154908
+		Memory (kilobytes)
+			Average: 730460
+			Min: 620336
+			Max: 764108
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 26884920
+			Min: 26013407
+			Max: 29497966
+		Memory (kilobytes)
+			Average: 862572
+			Min: 846948
+			Max: 880192
+
+# DaCapo luindex
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 1753020
+			Min: 1662680
+			Max: 1838984
+		Memory (kilobytes)
+			Average: 102332
+			Min: 97736
+			Max: 105760
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 4860207
+			Min: 4402878
+			Max: 5456444
+		Memory (kilobytes)
+			Average: 285066
+			Min: 226780
+			Max: 316556
+
+# DaCapo lusearch
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 2902191
+			Min: 2691449
+			Max: 3184846
+		Memory (kilobytes)
+			Average: 276592
+			Min: 213280
+			Max: 333340
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 5957591
+			Min: 5529709
+			Max: 6498355
+		Memory (kilobytes)
+			Average: 464162
+			Min: 343036
+			Max: 621868
+
+# DaCapo pmd
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 3103044
+			Min: 2978561
+			Max: 3319209
+		Memory (kilobytes)
+			Average: 246932
+			Min: 232384
+			Max: 272068
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 10713312
+			Min: 10198144
+			Max: 11478354
+		Memory (kilobytes)
+			Average: 546636
+			Min: 442624
+			Max: 700996
+
+# DaCapo sunflow
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 5145955
+			Min: 4967500
+			Max: 5396681
+		Memory (kilobytes)
+			Average: 333194
+			Min: 311008
+			Max: 466532
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 11039976
+			Min: 10644328
+			Max: 11523814
+		Memory (kilobytes)
+			Average: 722237
+			Min: 640484
+			Max: 796664
+
+# DaCapo tomcat
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 7871662
+			Min: 7654701
+			Max: 8316705
+		Memory (kilobytes)
+			Average: 392682
+			Min: 315292
+			Max: 442928
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 21592218
+			Min: 19901562
+			Max: 22886977
+		Memory (kilobytes)
+			Average: 847140
+			Min: 690324
+			Max: 898144
+
+# DaCapo tradebeans
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 113344823
+			Min: 15936751
+			Max: 124316871
+		Memory (kilobytes)
+			Average: 371280
+			Min: 281796
+			Max: 688620
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 143159947
+			Min: 142096360
+			Max: 144361149
+		Memory (kilobytes)
+			Average: 926053
+			Min: 916492
+			Max: 938524
+
+# DaCapo tradesoap
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 124208601
+			Min: 124032117
+			Max: 124326210
+		Memory (kilobytes)
+			Average: 307335
+			Min: 278072
+			Max: 380244
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 142446607
+			Min: 141075967
+			Max: 144368091
+		Memory (kilobytes)
+			Average: 919946
+			Min: 896588
+			Max: 935964
+
+# DaCapo xalan
+	Clean
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 3742703
+			Min: 3493600
+			Max: 4132797
+		Memory (kilobytes)
+			Average: 235313
+			Min: 180188
+			Max: 362980
+	Dynamic Taint Tracking
+		Loading (1 / 10)		Loading (2 / 10)		Loading (3 / 10)		Loading (4 / 10)		Loading (5 / 10)		Loading (6 / 10)		Loading (7 / 10)		Loading (8 / 10)		Loading (9 / 10)		Loading (10 / 10)		Time (microseconds)
+			Average: 10366234
+			Min: 9518026
+			Max: 11132662
+		Memory (kilobytes)
+			Average: 650827
+			Min: 563332
+			Max: 670492
+

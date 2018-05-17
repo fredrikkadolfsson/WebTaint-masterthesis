@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
   int j, k, i, fd[2];
   int val = 0;
 
-  int runtTestsXTimes = 1;
+  int runtTestsXTimes = 10;
   const char *file = "java";
 
   // ##### Dynamic Taint Tracking Tools #####
