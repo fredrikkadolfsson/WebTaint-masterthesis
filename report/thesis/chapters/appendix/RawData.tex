@@ -1,4 +1,5 @@
-\chapter{Raw Data Tables}
+\chapter{Raw Data}
+\label{appendix:raw}
 \todo[inline]{Todo: Update all tables with final result and introduce with short summary}
 
 \begin{table}[!h]
@@ -6,22 +7,22 @@
   \caption{Time Overhead (ms)}
   \label{TimeTable}
   \resizebox{\columnwidth}{!}{
-    \begin{tabular}{rccc}
-      \multicolumn{1}{c}{} & \textbf{}      & \textbf{Exakt}                  & \textbf{Diff}                   \\
-      \multicolumn{1}{c}{} & \textbf{Clean} & \textbf{Dynamic Taint Tracking} & \textbf{Dynamic Taint Tracking} \\
-      \textbf{Avrora}      & 4820           & 9771                            & 4951                            \\
-      \textbf{Eclipse}     & 43770          & 61980                           & 18210                           \\
-      \textbf{Fop}         & 2468           & 11532                           & 9064                            \\
-      \textbf{H2}          & 16123          & 26793                           & 10670                           \\
-      \textbf{Jython}      & 18488          & 36438                           & 17950                           \\
-      \textbf{Luindex}     & 2672           & 6991                            & 4319                            \\
-      \textbf{Lusearch}    & 3691           & 7585                            & 3894                            \\
-      \textbf{Pmd}         & 4409           & 12936                           & 8527                            \\
-      \textbf{Sunflow}     & 6183           & 13049                           & 6866                            \\
-      \textbf{Tomcat}      & 9490           & ERROR                           & \#VALUE!                        \\
-      \textbf{Tradebeans}  & 23154          & 153267                          & 130113                          \\
-      \textbf{Tradesoap}   &                &                                 & 0                               \\
-      \textbf{Xalan}       &                &                                 & 0
+    \begin{tabular}{rcccccc}
+      \multicolumn{1}{c}{} & \multicolumn{3}{c}{\textbf{Clean}}                     & \multicolumn{3}{c}{\textbf{Dynamic Taint Tracking}}    \\
+      \multicolumn{1}{c}{} & \textbf{Average} & \textbf{Min} & \textbf{Max} & \textbf{Average} & \textbf{Min} & \textbf{Max} \\
+      \textbf{Avrora}      & 3813025          & 3744824          & 3866363          & 9042154          & 8325428          & 9523650          \\
+      \textbf{Eclipse}     & 38284019         & 35090309         & 40662754         & 53031768         & 49999425         & 55297291         \\
+      \textbf{Fop}         & 2100317          & 1976965          & 2264453          & 11050875         & 9449910          & 11701099         \\
+      \textbf{H2}          & 14879971         & 14285215         & 15269910         & 24409953         & 23402474         & 25453261         \\
+      \textbf{Jython}      & 10867700         & 10323676         & 11154908         & 26884920         & 26013407         & 29497966         \\
+      \textbf{Luindex}     & 1753020          & 1662680          & 1838984          & 4860207          & 4402878          & 5456444          \\
+      \textbf{Lusearch}    & 2902191          & 2691449          & 3184846          & 5957591          & 5529709          & 6498355          \\
+      \textbf{Pmd}         & 3103044          & 2978561          & 3319209          & 10713312         & 10198144         & 11478354         \\
+      \textbf{Sunflow}     & 5145955          & 4967500          & 5396681          & 11039976         & 10644328         & 11523814         \\
+      \textbf{Tomcat}      & 7871662          & 7654701          & 8316705          & 21592218         & 19901562         & 22886977         \\
+      \textbf{Tradebeans}  & 113344823        & 15936751         & 124316871        & 143159947        & 142096360        & 144361149        \\
+      \textbf{Tradesoap}   & 124208601        & 124032117        & 124326210        & 142446607        & 141075967        & 144368091        \\
+      \textbf{Xalan}       & 3742703          & 3493600          & 4132797          & 10366234         & 9518026          & 11132662        
     \end{tabular}
   }
 \end{table}
@@ -32,66 +33,22 @@
   \caption{Memory Overhead (kilobytes)}
   \label{MemoryTable}
   \resizebox{\columnwidth}{!}{
-    \begin{tabular}{rccc}
-                          & \textbf{}      & \textbf{Exact}                  & \textbf{Diff}                   \\
-                          & \textbf{Clean} & \textbf{Dynamic Taint Tracking} & \textbf{Dynamic Taint Tracking} \\
-      \textbf{Avrora}     & 111252         & 396956                          & 285704                          \\
-      \textbf{Eclipse}    & 914364         & 945540                          & 31176                           \\
-      \textbf{Fop}        & 1017724        & 1017724                         & 0                               \\
-      \textbf{H2}         & 1017724        & 1017724                         & 0                               \\
-      \textbf{Jython}     & 1082372        & 1082372                         & 0                               \\
-      \textbf{Luindex}    & 1082372        & 1082372                         & 0                               \\
-      \textbf{Lusearch}   & 1082372        & 1082372                         & 0                               \\
-      \textbf{Pmd}        & 1082372        & 1082372                         & 0                               \\
-      \textbf{Sunflow}    & 6183           & 13049                           & 6866                            \\
-      \textbf{Tomcat}     & 9490           & ERROR                           & \#VALUE!                        \\
-      \textbf{Tradebeans} & 23154          & 153267                          & 130113                          \\
-      \textbf{Tradesoap}  & 40212          & 153849                          & 113637                          \\
-      \textbf{Xalan}      &                &                                 & 0 
+    \begin{tabular}{rcccccc}
+      \multicolumn{1}{c}{} & \multicolumn{3}{c}{\textbf{Clean}}                     & \multicolumn{3}{c}{\textbf{Dynamic Taint Tracking}}    \\
+      \multicolumn{1}{c}{} & \textbf{Average} & \textbf{Min} & \textbf{Max} & \textbf{Average} & \textbf{Min} & \textbf{Max} \\
+      \textbf{Avrora}      & 108445           & 99716            & 122236           & 336260           & 240968           & 407668           \\
+      \textbf{Eclipse}     & 922929           & 916340           & 938032           & 973240           & 954060           & 1024412          \\
+      \textbf{Fop}         & 167038           & 141788           & 207216           & 631080           & 507636           & 810200           \\
+      \textbf{H2}          & 842447           & 802652           & 865792           & 979604           & 967580           & 1000056          \\
+      \textbf{Jython}      & 730460           & 620336           & 764108           & 862572           & 846948           & 880192           \\
+      \textbf{Luindex}     & 102332           & 97736            & 105760           & 285066           & 226780           & 316556           \\
+      \textbf{Lusearch}    & 276592           & 213280           & 333340           & 464162           & 343036           & 621868           \\
+      \textbf{Pmd}         & 246932           & 232384           & 272068           & 546636           & 442624           & 700996           \\
+      \textbf{Sunflow}     & 333194           & 311008           & 466532           & 722237           & 640484           & 796664           \\
+      \textbf{Tomcat}      & 392682           & 315292           & 442928           & 847140           & 690324           & 898144           \\
+      \textbf{Tradebeans}  & 371280           & 281796           & 688620           & 926053           & 916492           & 938524           \\
+      \textbf{Tradesoap}   & 307335           & 278072           & 380244           & 919946           & 896588           & 935964           \\
+      \textbf{Xalan}       & 235313           & 180188           & 362980           & 650827           & 563332           & 670492          
     \end{tabular}
   }
-\end{table}
-
-
-\begin{table}[!h]
-  \centering
-  \caption{Stanford SecuriBench Micro}
-  \label{MicroTable}
-  \resizebox{\columnwidth}{!}{
-    \begin{tabular}{rcc}
-                                                                & \textbf{Clean} & \textbf{Dynamic Taint Tracking} \\
-      \textbf{SQL Injection (High (Medium))}                    & 20             & 0                               \\
-      \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 2              & 0                               \\
-      \textbf{Cross Site Scripting (Reflected) (High (Low))}    & 69             & 0                               \\
-      \textbf{Web Browser XSS Protection Not Enabled}           & 1              & 0                              
-    \end{tabular}
-  }
-\end{table}
-
-
-\begin{table}[!h]
-  \centering
-  \caption{Insecure}
-  \label{InsecureTable}
-  \resizebox{\columnwidth}{!}{
-    \begin{tabular}{rcc}
-                                                                & \textbf{Clean} & \textbf{Dynamic Taint Tracking} \\
-      \textbf{SQL Injection (High (Medium))}                    & 4              & 0                               \\
-      \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 2              & 0                              
-    \end{tabular}
-  }  
-\end{table}
-
-\begin{table}[!h]
-  \centering
-  \caption{SnipSnap}
-  \label{SnipSnapTable}
-  \resizebox{\columnwidth}{!}{
-    \begin{tabular}{rcc}
-                                                                & \textbf{Clean} & \textbf{Dynamic Taint Tracking} \\
-      \textbf{SQL Injection (High (Medium))}                    & 10             & 1                               \\
-      \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 149            & 16                              \\
-      \textbf{CRLF Injection Medium (Medium)}                   & 2              & 0                              
-    \end{tabular}
-  }  
 \end{table}

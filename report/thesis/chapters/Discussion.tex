@@ -1,3 +1,11 @@
 \chapter{Discussion}
+\todo[inline]{Todo: Results show that memory overhead is large in some areas. this could be optimized and probably lowered. But this is not a good solution for memory sensitive domains.
+
+The largest added overhead commes from the instrummentation of application during rutime. Meaning that first time a class is imported will be slower but the second will be almost as fast as clean. This is proben by treadbeans and tradesoap. This could be solved by instrummenting the application beforehand.
+}
 
 \section{Domain Driven Security}
+\todo[inline]{Todo: DDS is proven in earlyer report to combat Injection and XSS. Results prove that number of attacks are lowered by DTT. If only validating in domain primitives in DDS will missing using dp be catastrofal. DTT will still notify missing validation. 
+
+To enforce usage of DDS could sanitation of datatypes only be conducted in constructors. This would force the user to only use domain primitives. 
+}
