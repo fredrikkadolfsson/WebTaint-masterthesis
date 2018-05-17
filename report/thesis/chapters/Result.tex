@@ -1,6 +1,7 @@
 \chapter{Result}
-Appendix \ref{appendix:raw} contains other results in raw data from the conducted evaluation.
+This chapter presents the results from the conducted evaluation. Appendix \ref{appendix:raw} contains raw data and metrics over data that may not been presented in this chapter.
 
+\todo[inline]{Todo: Write suppary of what to come in chapter. }
 
 \section{Performance Overhead}
 The results from benchmarking the application on DaCapo Benchmark Suit \parencite{dacapo} is seen in Figure \ref{fig:Time} and \ref{fig:Memory}. Both graphs are constructed to show the added overhead of running the applications with Dynamic Taint Tracking activated. The graphs are conducted based on the data in Table \ref{TimeTable} and \ref{MemoryTable}.
@@ -11,7 +12,7 @@ Figure \ref{fig:Time} displays the results of the average time overhead per appl
 
 From the Tables \ref{TimeTable} can we as well see that the variation between the minimum and maximum time will for all applications be 437.8\%.
 
-\begin{figure}[!h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{images/Time.png}
 	\caption{Average Added Time in Microseconds}
@@ -22,9 +23,9 @@ From the Tables \ref{TimeTable} can we as well see that the variation between th
 \subsection{Memory}
 Figure \ref{fig:Memory} displays the results of the average memory overhead per application. The results show that the application with the least average memory overhead was Eclipse where 5.5\% was added. The largest application however, was Fop with an additional of 277.8\%. The average overall overhead is 127.2\%.
 
-From the Table \ref{MemoryTable} can we as well see that the variation between the minimum and maximum memory will for all 3.05.3\%.
+From the Table \ref{MemoryTable} can we as well see that the variation between the minimum and maximum memory will for all 305.3\%.
 
-\begin{figure}[!h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{images/Memory.png}
 	\caption{Average Added Memory in Kilobytes}
@@ -34,17 +35,18 @@ From the Table \ref{MemoryTable} can we as well see that the variation between t
 
 
 \section{Applications}
-ADD TABLE CAPTION DESCRIPTIONS!!!!
+The results from running the implemented Dynamic Taint Tracker on a set of Java web applications can be seen in Tables \ref{table:MicroTable}, \ref{table:InsecureTable} and \ref{table:SnipSnapTable}. 
+
+In Table \ref{table:MicroTable} and \ref{table:InsecureTable} where Stanford SecuriBench Micro \parencite{securiBenchMicro} respectively Insecure \parencite{insecure} have been benchmarked can we see that by using the implemented Dynamic Taint Tracker have the applications security vulnerabilities been prevented with 100\%. 
 
 
-
-\begin{table}[!h]
+\begin{table}[H]
   \centering
-  \caption{Stanford SecuriBench Micro}
+  \caption{Security Vulnerabilities Found in Stanford SecuriBench Micro}
   \label{table:MicroTable}
   \resizebox{\columnwidth}{!}{
     \begin{tabular}{rcc}
-                                                                & \textbf{Clean} & \textbf{Dynamic Taint Tracking} \\
+                                                                & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
       \textbf{SQL Injection (High (Medium))}                    & 20             & 0                               \\
       \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 2              & 0                               \\
       \textbf{Cross Site Scripting (Reflected) (High (Low))}    & 69             & 0                               \\
@@ -54,26 +56,30 @@ ADD TABLE CAPTION DESCRIPTIONS!!!!
 \end{table}
 
 
-\begin{table}[!h]
+\begin{table}[H]
   \centering
-  \caption{Insecure}
+  \caption{Security Vulnerabilities Found in Insecure}
   \label{table:InsecureTable}
   \resizebox{\columnwidth}{!}{
     \begin{tabular}{rcc}
-                                                                & \textbf{Clean} & \textbf{Dynamic Taint Tracking} \\
+                                                                & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
       \textbf{SQL Injection (High (Medium))}                    & 4              & 0                               \\
       \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 2              & 0                              
     \end{tabular}
   }  
 \end{table}
 
-\begin{table}[!h]
+
+The SnipSnap \parencite{snipsnap} application have seen improvements of vulnerabilities where only 10.6\% of the security vulnerabilities are left after activating the Dynamic Taint Tracker.
+
+
+\begin{table}[H]
   \centering
-  \caption{SnipSnap}
+  \caption{Security Vulnerabilities Found in SnipSnap}
   \label{table:SnipSnapTable}
   \resizebox{\columnwidth}{!}{
     \begin{tabular}{rcc}
-                                                                & \textbf{Clean} & \textbf{Dynamic Taint Tracking} \\
+                                                                & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
       \textbf{SQL Injection (High (Medium))}                    & 10             & 1                               \\
       \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 149            & 16                              \\
       \textbf{CRLF Injection Medium (Medium)}                   & 2              & 0                              
