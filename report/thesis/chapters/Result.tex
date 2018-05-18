@@ -44,15 +44,12 @@ In Table \ref{table:MicroTable} and \ref{table:InsecureTable} where Stanford Sec
   \centering
   \caption{Security Vulnerabilities Found in Stanford SecuriBench Micro}
   \label{table:MicroTable}
-  \resizebox{\columnwidth}{!}{
     \begin{tabular}{rcc}
-                                                                & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
-      \textbf{SQL Injection (High (Medium))}                    & 20             & 0                               \\
-      \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 2              & 0                               \\
-      \textbf{Cross Site Scripting (Reflected) (High (Low))}    & 69             & 0                               \\
-      \textbf{Web Browser XSS Protection Not Enabled}           & 1              & 0                              
+      & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
+      \textbf{Cross Site Scripting (Reflected)} & 71            & 0  \\
+      \textbf{SQL Injection}                    & 20            & 0  \\
+      \textbf{Buffer Overflow}                  & 1             & 0  
     \end{tabular}
-  }
 \end{table}
 
 
@@ -60,13 +57,12 @@ In Table \ref{table:MicroTable} and \ref{table:InsecureTable} where Stanford Sec
   \centering
   \caption{Security Vulnerabilities Found in Insecure}
   \label{table:InsecureTable}
-  \resizebox{\columnwidth}{!}{
     \begin{tabular}{rcc}
-                                                                & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
-      \textbf{SQL Injection (High (Medium))}                    & 4              & 0                               \\
-      \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 2              & 0                              
+      & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
+      \textbf{Cross Site Scripting (Reflected)}      & 2             & 2  \\
+      \textbf{SQL Injection - Authentication Bypass} & 2             & 0  \\
+      \textbf{SQL Injection - Hypersonic SQL}        & 4             & 0  
     \end{tabular}
-  }  
 \end{table}
 
 
@@ -77,12 +73,24 @@ The SnipSnap \parencite{snipsnap} application have seen improvements of vulnerab
   \centering
   \caption{Security Vulnerabilities Found in SnipSnap}
   \label{table:SnipSnapTable}
-  \resizebox{\columnwidth}{!}{
-    \begin{tabular}{rcc}
-                                                                & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
-      \textbf{SQL Injection (High (Medium))}                    & 10             & 1                               \\
-      \textbf{Cross Site Scripting (Reflected) (High (Medium))} & 149            & 16                              \\
-      \textbf{CRLF Injection Medium (Medium)}                   & 2              & 0                              
-    \end{tabular}
-  }  
+  \begin{tabular}{rcc}
+    & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
+    \textbf{Cross Site Scripting (Reflected)}      & 172           & 39   \\
+    \textbf{CRLF Injection}                        & 3             & 0    \\
+    \textbf{SQL Injection}                         & 47            & 10   \\
+    \textbf{SQL Injection - Authentication Bypass} & 2             & 2       
+  \end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+  \centering
+  \caption{Security Vulnerabilities Found in Ticketbook}
+  \label{table:Ticketbook}
+  \begin{tabular}{ccc}
+    & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
+    \textbf{Cross Site Scripting (Persistent)} & 2             & 0 \\
+    \textbf{Cross Site Scripting (Reflected)}  & 12            & 4 \\
+    \textbf{SQL Injection}                     & 1             & 0
+  \end{tabular}
 \end{table}
