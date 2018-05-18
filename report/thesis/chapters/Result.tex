@@ -35,10 +35,7 @@ From the Table \ref{MemoryTable} can we as well see that the variation between t
 
 
 \section{Applications}
-The results from running the implemented Dynamic Taint Tracker on a set of Java web applications can be seen in Tables \ref{table:MicroTable}, \ref{table:InsecureTable} and \ref{table:SnipSnapTable}. 
-
-In Table \ref{table:MicroTable} and \ref{table:InsecureTable} where Stanford SecuriBench Micro \parencite{securiBenchMicro} respectively Insecure \parencite{insecure} have been benchmarked can we see that by using the implemented Dynamic Taint Tracker have the applications security vulnerabilities been prevented with 100\%. 
-
+Table \ref{table:MicroTable} shows the vulnerabilities from running Stanford SecuriBench Micro \parencite{securiBenchMicro} with and without Dynamic Taint Tracker. In the table can we see that an prevention rate of 100\% is reached with Dynamic Taint Tracker activated.
 
 \begin{table}[H]
   \centering
@@ -53,6 +50,8 @@ In Table \ref{table:MicroTable} and \ref{table:InsecureTable} where Stanford Sec
 \end{table}
 
 
+Table \ref{table:InsecureTable} shows the vulnerabilities from running Insecure \parencite{insecure} with and without Dynamic Taint Tracker. The prevention rate of using Dynamic Taint Tracker is overall 75\%. 
+
 \begin{table}[H]
   \centering
   \caption{Security Vulnerabilities Found in Insecure}
@@ -66,8 +65,7 @@ In Table \ref{table:MicroTable} and \ref{table:InsecureTable} where Stanford Sec
 \end{table}
 
 
-The SnipSnap \parencite{snipsnap} application have seen improvements of vulnerabilities where only 10.6\% of the security vulnerabilities are left after activating the Dynamic Taint Tracker.
-
+The results from evaluating the application SnipSnap \parencite{snipsnap} is seen in Table \ref{table:SnipSnapTable}. Here is the overall prevention rate 77.2\%.
 
 \begin{table}[H]
   \centering
@@ -82,6 +80,8 @@ The SnipSnap \parencite{snipsnap} application have seen improvements of vulnerab
   \end{tabular}
 \end{table}
 
+
+Table \ref{table:Ticketbook} shows the vulnerabilities from evaluating Ticketbook \parencite{ticketbook} with and without Dynamic Taint Tracking. The overall prevention rate is 73.3\%.
 
 \begin{table}[H]
   \centering
