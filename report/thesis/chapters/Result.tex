@@ -41,13 +41,13 @@ Table \ref{table:MicroTable} shows the vulnerabilities from evaluating Stanford 
 
 \begin{table}[!hbt]
   \centering
-  \caption{Security Vulnerabilities Found in Stanford SecuriBench Micro}
+  \caption{Security Vulnerabilities Detected by Dynamic Taint Tracker (DTT) in Stanford SecuriBench Micro}
   \label{table:MicroTable}
     \begin{tabular}{rcc}
-      & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
-      \textbf{Cross Site Scripting (Reflected)} & 71            & 0  \\
-      \textbf{SQL Injection}                    & 20            & 0  \\
-      \textbf{Buffer Overflow}                  & 1             & 0  
+      & \textbf{Vulnerabilities} & \textbf{Found by DTT} \\
+      \textbf{Cross Site Scripting (Reflected)} & 71            & 71  \\
+      \textbf{SQL Injection}                    & 20            & 20  \\
+      \textbf{Buffer Overflow}                  & 1             & 1  
     \end{tabular}
 \end{table}
 
@@ -55,13 +55,13 @@ Table \ref{table:InsecureTable} shows the vulnerabilities from running Insecure 
 
 \begin{table}[!hbt]
   \centering
-  \caption{Security Vulnerabilities Found in Insecure}
+  \caption{Security Vulnerabilities Detected by Dynamic Taint Tracker (DTT) in Insecure}
   \label{table:InsecureTable}
     \begin{tabular}{rcc}
-      & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
-      \textbf{Cross Site Scripting (Reflected)}      & 2             & 2  \\
-      \textbf{SQL Injection - Authentication Bypass} & 2             & 0  \\
-      \textbf{SQL Injection - Hypersonic SQL}        & 4             & 0  
+      & \textbf{Vulnerabilities} & \textbf{Found by DTT} \\
+      \textbf{Cross Site Scripting (Reflected)}      & 2             & 0  \\
+      \textbf{SQL Injection - Authentication Bypass} & 2             & 2  \\
+      \textbf{SQL Injection - Hypersonic SQL}        & 4             & 4  
     \end{tabular}
 \end{table}
 
@@ -69,14 +69,14 @@ The results from evaluating the application SnipSnap \parencite{snipsnap} is see
 
 \begin{table}[!hbt]
   \centering
-  \caption{Security Vulnerabilities Found in SnipSnap}
+  \caption{Security Vulnerabilities Detected by Dynamic Taint Tracker (DTT) in SnipSnap}
   \label{table:SnipSnapTable}
   \begin{tabular}{rcc}
-    & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
-    \textbf{Cross Site Scripting (Reflected)}      & 172           & 39   \\
-    \textbf{CRLF Injection}                        & 3             & 0    \\
-    \textbf{SQL Injection}                         & 47            & 10   \\
-    \textbf{SQL Injection - Authentication Bypass} & 2             & 2       
+    & \textbf{Vulnerabilities} & \textbf{Found by DTT} \\
+    \textbf{Cross Site Scripting (Reflected)}      & 172           & 133  \\
+    \textbf{CRLF Injection}                        & 3             & 3    \\
+    \textbf{SQL Injection}                         & 47            & 37   \\
+    \textbf{SQL Injection - Authentication Bypass} & 2             & 0       
   \end{tabular}
 \end{table}
 
@@ -84,12 +84,12 @@ Table \ref{table:Ticketbook} shows the vulnerabilities from evaluating Ticketboo
 
 \begin{table}[!hbt]
   \centering
-  \caption{Security Vulnerabilities Found in Ticketbook}
+  \caption{Security Vulnerabilities Detected by Dynamic Taint Tracker (DTT) in Ticketbook}
   \label{table:Ticketbook}
   \begin{tabular}{ccc}
-    & \textbf{None} & \textbf{Dynamic Taint Tracking} \\
-    \textbf{Cross Site Scripting (Persistent)} & 2             & 0 \\
-    \textbf{Cross Site Scripting (Reflected)}  & 12            & 4 \\
-    \textbf{SQL Injection}                     & 1             & 0
+    & \textbf{Vulnerabilities} & \textbf{Found by DTT} \\
+    \textbf{Cross Site Scripting (Persistent)} & 2             & 2 \\
+    \textbf{Cross Site Scripting (Reflected)}  & 12            & 8 \\
+    \textbf{SQL Injection}                     & 1             & 1
   \end{tabular}
 \end{table}
