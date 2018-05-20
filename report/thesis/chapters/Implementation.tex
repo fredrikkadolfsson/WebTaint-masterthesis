@@ -2,9 +2,11 @@
 This Chapter presents the fundamental parts in the process of implementing the Dynamic Taint Tracking tool. The chapter starts with a section describing the \textit{\nameref{Policies}} of the tool. This chapter is then followed by \textit{\nameref{SoftwareArchitecture}} and \textit{\nameref{NotableProblems}}.
 
 
+
 \section{Policies}
 \label{Policies}
 The development of the Dynamic Taint Tracking tool relies on tainting, detainting and propagation logic. However, to implement the logic of the application need the security policies first be defined. Security policies are principles or actions that that the application strives to fulfil \parencite{BayukJenniferL2012Cspg}. In the application developed in this thesis will these be based on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
+
 
 
 \subsection{Confidentiality}
@@ -16,7 +18,7 @@ The confidentiality policies entailed that data given to the user should only be
 \end{itemize}
 \hfill
 
-(??? Information from sinks should not go where. Any where els than defined exits. ???)
+This entails that no information from sinks shall pass through a source unless it has the permission to do so.
 
 
 \subsection{Integrity}
