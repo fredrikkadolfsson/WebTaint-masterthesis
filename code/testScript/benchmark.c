@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
   // ##### Test Suits #####
   // DeCapo
   const char *daCapo = "/home/fredrik/Documents/Omegapoint/Benchmarking/TestSuites/dacapo-9.12-MR1-bach.jar";
-  const char *daCapoPrograms[] = {"avrora", "eclipse", "fop",  "h2", "jython", "luindex", "lusearch", "pmd", "sunflow", "tomcat", "tradebeans", "tradesoap", "xalan"};
+  const char *daCapoPrograms[] = {"avrora", "batik", "eclipse", "fop",  "h2", "jython", "luindex", "lusearch", "pmd", "sunflow", "tomcat", "tradebeans", "tradesoap", "xalan"};
 
   for (j = 0; j < sizeof(daCapoPrograms) / sizeof(daCapoPrograms[0]); j++) {
     printf("# DaCapo %s\n", daCapoPrograms[j]);
