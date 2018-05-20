@@ -1,11 +1,10 @@
 \chapter{Evaluation}
-This section describes the conduction of the benchmarking and comparison of the implemented Dynamic Taint Tracker. The chapter starts with a description of the \textit{\nameref{TestEnvironment}} followed by a detailed description about the \textit{\nameref{Benchmarking}}
+This section describes the conduction of the benchmarkingof the implemented Dynamic Taint Tracker. The chapter starts with a description of the \textit{\nameref{TestEnvironment}} followed by a detailed description about the \textit{\nameref{Benchmarking}}
 
 \section{Test Environment}
 \label{TestEnvironment}
-The execution of the benchmarking is conducted on a Asus Zenbook UZ32LN with the following specification:
+The execution of the benchmarking is conducted on a Asus Zenbook UZ32LN. No other programs was running while benchmarking was in process. The specifications of the computer other important metrics ar the following:
 
-\hfill
 \begin{description}
 	\item [Processor:] 2 GHz i7-4510U
 	\item [Memory:] 8 GB 1600 MHz DDR3
@@ -13,13 +12,47 @@ The execution of the benchmarking is conducted on a Asus Zenbook UZ32LN with the
 	\item [Java:] OpenJDK 1.8.0\_162
 	\item [Java Virtual Machine:] OpenJDK 25.162-b12, 64-Bit, mixed mode
 \end{description}
-\hfill
 
-Execution if the applications are executed through the command line command "java". Executions of benchmarking tests where no Dynamic Taint Tracker is enabled is run without a flag. Executions of tests with Dynamic Taint Trackers are called with the two flags "javaagent" and "xbootclasspath/p" where the first will point towards the Agent project jar and the second points towards the Xboot project jar.
 
 
 \section{Benchmarking}
 \label{Benchmarking}
+Each benchmark is executed two times. One without and one with Dynamic Taint Tracking. The first execution is to acquire the number of security vulnerabilities in the application. The second is to acquire the number of vulnerabilities that the Dynamic Taint Tracker detects.
 
 
-batik not wokring in DaCapo
+
+\subsection{Time \& Memory Overhead}
+
+
+
+\subsection{Applications}
+To detect security vulnerabilities in the applications has OWASP Zed Attack Proxy \parencite{zap} known as ZAP ben used. ZAP is a open-source security scanner for webb applications which is widely used in the penetration testing industry.
+
+To only scan applications for vulnerabilities of interest is a new policy specified in the ZAP application. The policy is modified to only contain the Injection category where the tests in Table \ref{table:ZapTests} are used.
+
+\begin{table}[!hbt]
+  \centering
+  \caption{Security Vulnerabilities Detected by Dynamic Taint Tracker (DTT) in Ticketbook}
+	\label{table:ZapTests}
+	\begin{itemize}
+		\item Buffer Overflow
+		\item CRLF Injection
+		\item Cross Site Scripting (Persistent)
+		\item Cross Site Scripting (Persistent) - Prime
+		\item Cross Site Scripting (Persistent) - Spider
+		\item Cross Site Scripting (Reflected)
+		\item Format String Error
+		\item Parameter Tampering
+		\item Remote OS Command Injection
+		\item SQL Injection
+	\end{itemize}
+\end{table}
+
+Every scan starts with spidering the application to detects all possible entries to the system. If the application requires authentication to access parts of the webb application is this information added to the ZAP context and then is the spider executed again to find possible new entries. After these steps is the scanning of the application activated and the security vulnerabilities are stored in a report file. 
+
+
+
+\subsubsection{Stanford SecuriBench Micro}
+\subsubsection{Insecure}
+\subsubsection{SnipSnap}
+\subsubsection{Ticketbook}
