@@ -64,6 +64,11 @@ Below are rules defining when taint variables should propagate.
 
 
 
+\subsection{Sources, Sinks \& Sanitizers}
+Defining the source, sinks, and sanitizers is a large task in itself. There is no official documentation in Java specifying these and depending on the application, framework and library used might this vary a lot.  The sources, sinks and sanitizers used in this thesis is an aggregation from \textcite{sssCodeMaster} and \textcite{sssOWASP}. These web pages present sources, sinks, and sanitizers from their experience with developing web applications. 
+
+
+
 \section{Software Architecture}
 \label{SoftwareArchitecture}
 The implementation of the Dynamic Taint Tracking tool is divided into three subprojects. These three are Agent, Xboot, and Utils. 
