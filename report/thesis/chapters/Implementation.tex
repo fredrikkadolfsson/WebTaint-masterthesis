@@ -5,7 +5,7 @@ This Chapter presents the fundamental parts in the process of implementing the D
 
 \section{Policies}
 \label{Policies}
-The development of the Dynamic Taint Tracking tool relies on tainting, detainting and propagation logic. However, to implement the logic of the application need the security policies first be defined. Security policies are principles or actions that that the application strives to fulfil \parencite{BayukJenniferL2012Cspg}. In the application developed in this thesis will these be based on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
+The development of the Dynamic Taint Tracking tool relies on tainting, detainting and propagation logic. However, to implement the logic of the application need the security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. In the application developed in this thesis will these be based on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
 
 
 
@@ -14,7 +14,7 @@ The confidentiality policies entailed that data given to the user should only be
 
 \hfill
 \begin{itemize}
-	\item No information shall be released to users without permission.
+    \item No information shall be released to users without permission.
 \end{itemize}
 \hfill
 
@@ -26,77 +26,77 @@ Integrity entails that users may not modify data which they do not have permissi
 
 \hfill
 \begin{itemize}
-	\item No information shall be altered without permission.
+    \item No information shall be altered without permission.
 \end{itemize}
 \hfill
 
-This entails that no information from sources shall gain access of a sink without first being sanitized.
+This entails that no information from sources shall gain access to a sink without first being sanitized.
 
 
 \subsection{Taint Checking}
-The policies above will be enforced by forcing validation of data that is or have been in contact with data coming from a source before they enter a sink. By enforcing this rule should preventions of confidentiality and integrity volubilities be reduces severely. One core policy preventing this is as well that no unintended code shall be able to execute.
+The policies above will be enforced by forcing validation of data that are or have been in contact with data coming from a source before they enter a sink. By enforcing this rule should preventions of confidentiality and integrity volubilities be reduced severely. One core policy preventing this is as well that no unintended code shall be able to execute.
 
-The policies above can also be combine into tainting policies. These are presented below.
+The policies above can also be combined with tainting policies. These are presented below.
 
 \hfill
 \begin{itemize}
-	\item Data passing through sources going into the domain should be marked tainted.
-	\item No tainted data is allowed to pass through a sink.
-	\item Data can only be detainted through validation.
+    \item Data passing through sources going into the domain should be marked tainted.
+    \item No tainted data is allowed to pass through a sink.
+    \item Data can only be detainted through validation.
 \end{itemize}
 \hfill
 
 
 \subsubsection{Taint Propagation}
-To enable the tracking of taint in the system is a complete implementation of taint propagation needed. The ultimate goal would be to have support for propagation of taint for each class and data type. This is however a complex problem. Instrumentation of classes is decently straight forward but Instrumentation of Java primitives is a rather complex problem. However, the main behind the propagation is the same for all data types. 
+To enable the tracking of taint in the system is a complete implementation of taint propagation needed. The ultimate goal would be to have support for propagation of taint for each class and data type. This is, however, a complex problem. Instrumentation of classes is decently, but Instrumentation of Java primitives is a rather complex problem. However, the main behind the propagation is the same for all data types. 
 
 Below are rules defining when taint variables should propagate.
 
 \hfill
 \begin{itemize}
-	\item Data resulting in a clone, subset or combination.
-	\item Data disclosing information about tainted data.
+    \item Data resulting in a clone, subset or combination.
+    \item Data disclosing information about tainted data.
 \end{itemize}
 \hfill
 
 
 \section{Software Architecture}
 \label{SoftwareArchitecture}
-The implementation of the Dynamic Taint Tracking tool is divided into three subprojects. These three are Agent, Xboot and Utils. 
+The implementation of the Dynamic Taint Tracking tool is divided into three subprojects. These three are Agent, Xboot, and Utils. 
 
 \hfill
 \begin{description}
-	\item[Agent] Project that transforms classes loaded in runtime into source, sink or sanitizer.
-	\item[Xboot] Project that loops through all classes in rt.jar and transforms into source, sink or sanitizer.
-	\item[Utils] Utilities to transform classes into sources, sinks and sanitizers. 
+    \item[Agent] Project that transforms classes loaded at runtime into a source, sink or sanitizer.
+    \item[Xboot] Project that loops through all classes in rt.jar and transforms into a source, sink or sanitizer.
+    \item[Utils] Utilities to transform classes into sources, sinks, and sanitizers. 
 \end{description}
 \hfill
 
-The reasoning behind the division is because of the need of transforming classes both before runtime and during runtime. Agent is handling the transformation in runtime and Xboot transforms classes on command before runtime. The logic of transforming the classes is however the same in both project. Therefore, to remove duplications of code, is al logic of transforming classes extracted from Xboot and Agent and placed into the Utils project.
+The reasoning behind the division is because of the need of transforming classes both before runtime and during runtime. The Agent is handling the transformation in runtime and Xboot transforms classes on command before runtime. The logic of transforming the classes is, however, the same in both projects. Therefore, to remove duplications of code is al logic of transforming classes extracted from Xboot and Agent and placed into the Utils project.
 
 
 \subsection{Project Utils}
-The Utils project includes the core logic of marking methods and classes as sources, sinks and sanitizers. It works by taking an class as a argument that is to be checked if it qualifies for any of the three below criteria.
+The Utils project includes the core logic of marking methods and classes as sources, sinks, and sanitizers. It works by taking a class as an argument that is to be checked if it qualifies for any of the three below criteria.
 
 \hfill
 \begin{itemize}
-	\item Is same class as defined source, sink or sanitizer.
-	\item Implements interface of defined source, sink or sanitizer.
-	\item Extends defined source, sink or sanitizer class (recursive call. Checks all in list for each extended class). 
+    \item Is same class as the defined source, sink or sanitizer.
+    \item Implements interface of the defined source, sink or sanitizer.
+    \item Extends defined source, sink or sanitizer class (recursive call. Checks all in the list for each extended class). 
 \end{itemize}
 \hfill
 
-If a class fulfils any of the three criteria will the list of defined method correlating to either source, sinks or sanitizer be used and Instrumentation of the methods will be conducted.
+If a class fulfills any of the three criteria will the list of defined method correlating to either source, sinks or sanitizer be used, and Instrumentation of the methods will be conducted.
 
-The Instrumentation of the method works differently for the three different kinds. Where Instrumentation of sources will set the return parameter of the method as tainted. For sinks will a check where the taint flag is checked and if it is tainted is an error thrown. Instrumentation of sanitizers is works by detainting the return value of the method.
+The Instrumentation of the method works differently for the three different kinds. Where Instrumentation of sources will set the return parameter of the method as tainted. For sinks will a check where the taint flag is checked and if it is tainted is an error thrown. Instrumentation of sanitizers works by detainting the return value of the method.
 
 
 \section{Notable Problems}
 \label{NotableProblems}
-One of the first problems that was introduced during the development phase of the application is that some classes can't be instrumented during runtime. More precisely, the classes that the JVM relies on can't be instrumented in realtime. But these is a solution to this. The solution is to create a JAR file with statically modified versions of the classes. In this case is the String class one of these. This JAR file can then be loaded through the option Xbootclasspath/p that appends the JAR file to the front of the bootstrap path. Forcing the JVM to use our modified versions of classes \parencite{xboot}. Because of this limitation were the decision of instrumenting as many classes as possible statically. This is to keep the code consistent.
+One of the first problems that were introduced during the development phase of the application is that some classes can't be instrumented during runtime. More precisely, the classes that the JVM relies on can't be instrumented in real-time. But there is a solution to this. The solution is to create a JAR file with statically modified versions of the classes. In this case is the String class one of these. This JAR file can then be loaded through the option Xbootclasspath/p that appends the JAR file to the front of the bootstrap path. Forcing the JVM to use our modified versions of classes \parencite{xboot}. Because of this limitation was the decision of instrumenting as many classes as possible statically. This is to keep the code consistent.
 
 Another problem is that primitives can't be instrumented. This causes a problem since it opens the ability to miss propagation of tainted data if they ever pass through a byte- or char-array. The solution that can solve this is to create shadow variables that lie in the closest class or objective to the byte- or char-array. This shadow variable will contain the taint.
 
-Possible solution to instrument primitives is to transform all primitives into their corresponding class, so call Unboxing. This logic is used in a similar manner called Autoboxing. This is used to transform the primitive, which only holds a value, into its corresponding object which contains sets of functions. Un idea I had, to solve the problem with instrumenting primitives, is to Unbox all primitives in runtime and never use primitives. This would make it easy to instrument each of the primitives corresponding classes to propagate taint. However, this is probably not a optimal solutions. The reason to this is the added overhead it would add to the execution \parencite{BlochJoshua2008EJ}. 
+A possible solution to instrument primitives is to transform all primitives into their corresponding class, so call Unboxing. This logic is used in a similar manner called Autoboxing. This is used to transform the primitive, which only holds a value, into its corresponding object which contains sets of functions. Un idea I had, to solve the problem with instrumenting primitives, is to Unbox all primitives in runtime and never use primitives. This would make it easy to instrument each of the primitives corresponding classes to propagate taint. However, this is probably not an optimal solution. The reason to this is the added overhead it would add to the execution \parencite{BlochJoshua2008EJ}. 
 
-Another problem that emerged was that operations with primitives are direct bytecode translations. Two examples of these are usage of + (addition) and - (subtraction).
+Another problem that emerged was that operations with primitives are direct bytecode translations. Two examples of these are the usage of + (addition) and - (subtraction).

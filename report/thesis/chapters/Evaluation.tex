@@ -1,16 +1,16 @@
 \chapter{Evaluation}
-This section describes the conduction of the benchmarkingof the implemented Dynamic Taint Tracker. The chapter starts with a description of the \textit{\nameref{TestEnvironment}} followed by a detailed description about the \textit{\nameref{Benchmarking}}
+This section describes the conduction of the benchmarking of the implemented Dynamic Taint Tracker. The chapter starts with a description of the \textit{\nameref{TestEnvironment}} followed by a detailed description about the \textit{\nameref{Benchmarking}}
 
 \section{Test Environment}
 \label{TestEnvironment}
-The execution of the benchmarking is conducted on a Asus Zenbook UZ32LN. No other programs was running while benchmarking was in process. The specifications of the computer other important metrics ar the following:
+The execution of the benchmarking is conducted on an Asus Zenbook UZ32LN. No other programs were running while benchmarking was in process. The specifications of the computer other important metrics are the following:
 
 \begin{description}
-	\item [Processor:] 2 GHz i7-4510U
-	\item [Memory:] 8 GB 1600 MHz DDR3
-	\item [Operating system:] Ubuntu 17.10
-	\item [Java:] OpenJDK 1.8.0\_162
-	\item [Java Virtual Machine:] OpenJDK 25.162-b12, 64-Bit, mixed mode
+    \item [Processor:] 2 GHz i7-4510U
+    \item [Memory:] 8 GB 1600 MHz DDR3
+    \item [Operating system:] Ubuntu 17.10
+    \item [Java:] OpenJDK 1.8.0\_162
+    \item [Java Virtual Machine:] OpenJDK 25.162-b12, 64-Bit, mixed mode
 \end{description}
 
 
@@ -22,74 +22,74 @@ Each benchmark is executed two times. One without and one with Dynamic Taint Tra
 
 
 \subsection{Time \& Memory Overhead}
-To evaluate the time and memory overhead is The DaCapo Benchmark Suit \parencite{dacapo} used. DaCapo is a set of applications constructed specifically for Java benchmarking. This thesis uses the version DaCapo-9.12-bach which consists of fourteen real world applications. Table \ref{table:DaCapoTests} contains a description for each application. Summary is taken from \textcite{dacapoBench}.
+To evaluate the time and memory overhead is The DaCapo Benchmark Suit \parencite{dacapo} used. DaCapo is a set of applications constructed specifically for Java benchmarking. This thesis uses the version DaCapo-9.12-bach which consists of fourteen real-world applications. Table \ref{table:DaCapoTests} contains a description for each application. Summary is taken from \textcite{dacapoBench}.
 
 \begin{table}[!hbt]
   \centering
   \caption{Descriptions for each application in The DaCapo Benchmark Suit taken from \textcite{dacapoBench}}
-	\label{table:DaCapoTests}
-	\begin{description}
-		\item [Avrora] Aimulates a number of programs run on a grid of AVR microcontrollers.
-		\item [Batik] Produces a number of Scalable Vector Graphics (SVG) images based on the unit tests in Apache Batik.
-		\item [Eclipse] Executes some of the (non-gui) jdt performance tests for the Eclipse IDE.
-		\item [Fop] Takes an XSL-FO file, parses it and formats it, generating a PDF file.
-		\item [H2] Executes a JDBCbench-like in-memory benchmark, executing a number of transactions against a model of a banking application, replacing the hsqldb benchma.
-		\item [Jython] Inteprets a the pybench Python benchmark.
-		\item [Luindex] Uses lucene to indexes a set of documents; the works of Shakespeare and the King James Bible.
-		\item [Lusearch] Uses lucene to do a text search of keywords over a corpus of data comprising the works of Shakespeare and the King James Bible.
-		\item [Pmd] Analyzes a set of Java classes for a range of source code problems.
-		\item [Sunflow] Renders a set of images using ray tracing.
-		\item [Tomcat] Runs a set of queries against a Tomcat server retrieving and verifying the resulting webpages.
-		\item [Tradebeans] Runs the daytrader benchmark via a Jave Beans to a GERONIMO backend with an in memory h2 as the underlying database.
-		\item [Tradesoap] Runs the daytrader benchmark via a SOAP to a GERONIMO backend with in memory h2 as the underlying database.
-		\item [Xalan] Transforms XML documents into HTML.
-	\end{description}
+    \label{table:DaCapoTests}
+    \begin{description}
+        \item [Avrora] Simulates a number of programs run on a grid of AVR microcontrollers.
+        \item [Batik] Produces a number of Scalable Vector Graphics (SVG) images based on the unit tests in Apache Batik.
+        \item [Eclipse] Executes some of the (non-gui) jdt performance tests for the Eclipse IDE.
+        \item [Fop] Takes an XSL-FO file, parses it and formats it, generating a PDF file.
+        \item [H2] Executes a JDBCbench-like in-memory benchmark, executing a number of transactions against a model of a banking application, replacing the hsqldb benchmark.
+        \item [Jython] Interprets a the pybench Python benchmark.
+        \item [Luindex] Uses lucene to indexes a set of documents; the works of Shakespeare and the King James Bible.
+        \item [Lusearch] Uses lucene to do a text search of keywords over a corpus of data comprising the works of Shakespeare and the King James Bible.
+        \item [Pmd] Analyzes a set of Java classes for a range of source code problems.
+        \item [Sunflow] Renders a set of images using ray tracing.
+        \item [Tomcat] Runs a set of queries against a Tomcat server retrieving and verifying the resulting web pages.
+        \item [Tradebeans] Runs the daytrader benchmark via a Jave Beans to a GERONIMO backend with an in-memory h2 as the underlying database.
+        \item [Tradesoap] Runs the daytrader benchmark via a SOAP to a GERONIMO backend with in-memory h2 as the underlying database.
+        \item [Xalan] Transforms XML documents into HTML.
+    \end{description}
 \end{table}
 
 
-The measurement of time and memory is conducted through a C script which executes each application ten times both with and without Dynamic Taint Tracking. To isolate each iteration is a unique process spawned per each. This process will then execute said application in a child process which will be evaluated for time and memory. This information is then passed back to the main thread where all data is aggregated.  
+The measurement of time and memory is conducted through a C script which executes each application ten times both with and without Dynamic Taint Tracking. To isolate each iteration is a unique process spawned per each. This process will then run the said application in a child process which will be evaluated for time and memory. This information is then passed back to the main thread where all data is aggregated.  
 
 \subsection{Applications}
-To detect security vulnerabilities in the applications has OWASP Zed Attack Proxy \parencite{zap} known as ZAP ben used. ZAP is a open-source security scanner for webb applications which is widely used in the penetration testing industry.
+To detect security vulnerabilities in the applications has OWASP Zed Attack Proxy \parencite{zap} known as ZAP ben used. ZAP is an open-source security scanner for web applications which is widely used in the penetration testing industry.
 
-To only scan applications for vulnerabilities of interest is a new policy specified in the ZAP application. The policy is modified to only contain the Injection category where the tests in Table \ref{table:ZapTests} are used.
+To only scan applications for vulnerabilities of interest is a new policy specified in the ZAP application. The policy is modified only to contain the Injection category where the tests in Table \ref{table:ZapTests} are used.
 
 \begin{table}[!hbt]
   \centering
   \caption{Security Vulnerabilities Detected by Dynamic Taint Tracker (DTT) in Ticketbook}
-	\label{table:ZapTests}
-	\begin{itemize}
-		\item Buffer Overflow
-		\item CRLF Injection
-		\item Cross Site Scripting (Persistent)
-		\item Cross Site Scripting (Persistent) - Prime
-		\item Cross Site Scripting (Persistent) - Spider
-		\item Cross Site Scripting (Reflected)
-		\item Format String Error
-		\item Parameter Tampering
-		\item Remote OS Command Injection
-		\item SQL Injection
-	\end{itemize}
+    \label{table:ZapTests}
+    \begin{itemize}
+        \item Buffer Overflow
+        \item CRLF Injection
+        \item Cross Site Scripting (Persistent)
+        \item Cross Site Scripting (Persistent) - Prime
+        \item Cross Site Scripting (Persistent) - Spider
+        \item Cross Site Scripting (Reflected)
+        \item Format String Error
+        \item Parameter Tampering
+        \item Remote OS Command Injection
+        \item SQL Injection
+    \end{itemize}
 \end{table}
 
-Every scan starts with spidering the application to detects all possible entries to the system. If the application requires authentication to access parts of the webb application is this information added to the ZAP context and then is the spider executed again to find possible new entries. After these steps is the scanning of the application activated and the security vulnerabilities are stored in a report file. 
+Every scan starts with spidering the application to detects all possible entries to the system. If the application requires authentication to access parts of the web application is this information added to the ZAP context and then is the spider executed again to find possible new entries. After these steps are the scanning of the application activated and the security vulnerabilities are stored in a report file. 
 
-The benchmarking on applications was conducted on four webb applications. Each application is Java based and is deliberately implemented with security vulnerabilities such as SQL Injections andXSS. These four Java webb applications are presented in the sections below.
+The benchmarking on applications was conducted on four web applications. Each application is Java based and is deliberately implemented with security vulnerabilities such as SQL Injections and XSS. These four Java web applications are presented in the sections below.
 
 
 
 \subsubsection{Stanford SecuriBench Micro}
-Stanford SecuriBench Micro is a set of small test cases designed to evaluate security analysers. The test suit was created as part of the Griffin Security Project \parencite{griffin} at Stanford University and contains 96 test cases and 46407 lines of code. This thesis uses version 1.08 of the application \parencite{securiBenchMicro, microfaq}. 
+Stanford SecuriBench Micro is a set of small test cases designed to evaluate security analyzers. The test suit was created as part of the Griffin Security Project \parencite{griffin} at Stanford University and contains 96 test cases and 46407 lines of code. This thesis uses version 1.08 of the application \parencite{securiBenchMicro, microfaq}. 
 
 
 
 \subsubsection{InsecureWebApp}
-InsecureWebApp is a deliberately insecure web application developed by OWASP to show possible security vulnerabilities and what harm they can cause to an web application. The project consists of 2913 lines of code and version 1.0 is used \parencite{insecure}. 
+InsecureWebApp is a deliberately insecure web application developed by OWASP to show possible security vulnerabilities and what harm they can cause to a web application. The project consists of 2913 lines of code and version 1.0 is used \parencite{insecure}. 
 
 
 
 \subsubsection{SnipSnap}
-SnipSnap is a Java based web application developed to provide the neccecary infrastructure to create a collaborative encyclopaedia. The web page functionality is similar to Wikipedia \parencite{wikipedia} where users can sign up and contribute by writing posts. The application consists of 566173 lines of code and version 1.0-BETA-1 is used in this thesis \parencite{snipsnap}. 
+SnipSnap is a Java-based web application developed to provide the necessary infrastructure to create a collaborative encyclopedia. The web page functionality is similar to Wikipedia \parencite{wikipedia} where users can sign up and contribute by writing posts. The application consists of 566173 lines of code and version 1.0-BETA-1 is used in this thesis \parencite{snipsnap}. 
 
 
 

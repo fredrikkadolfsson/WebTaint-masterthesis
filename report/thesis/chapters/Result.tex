@@ -1,5 +1,5 @@
 \chapter{Result}
-This chapter presents the results from the conducted evaluation. Appendix \ref{appendix:raw} contains raw data and metrics over data that may not been presented in this chapter. The chapter start which presenting the results from the \textit{\nameref{Performance}} evaluations where the parameters time and memory is measured. Next and last section is \textit{\nameref{Applications}} where Java applications have been evaluated measuring security vulnerabilities with and without Dynamic Taint Propagation.
+This chapter presents the results of the conducted evaluation. Appendix \ref{appendix:raw} contains raw data and metrics over data that may not be shown in this chapter. The chapter start which presenting the results from the \textit{\nameref{Performance}} evaluations where the parameters time and memory is measured. Next and the last section is \textit{\nameref{Applications}} where Java applications have been evaluated measuring security vulnerabilities with and without Dynamic Taint Propagation.
 
 
 
@@ -10,34 +10,34 @@ The results from benchmarking the application on DaCapo Benchmark Suit \parencit
 
 
 \subsection{Time}
-Figure \ref{fig:Time} displays the results of the average time overhead per application. The results show that the application with the least average time overhead was Tradebeans where 13\% was added. The largest application however, was Fop with an overhead of 112\%. The average overall is 95.7\%.
+Figure \ref{fig:Time} displays the results of the average time overhead per application. The results show that the application with the least average time overhead was Tradebeans where 13\% was added. The largest application, however, was Fop with an overhead of 112\%. The average overall is 95.7\%.
 
 \begin{figure}[!hbt]
-	\centering
-	\includegraphics[width=\textwidth]{images/Time.png}
-	\caption{Average Added Time in Microseconds}
-	\label{fig:Time}
+    \centering
+    \includegraphics[width=\textwidth]{images/Time.png}
+    \caption{Average Added Time in Microseconds}
+    \label{fig:Time}
 \end{figure}
 
 
 
 \subsection{Memory}
-Figure \ref{fig:Memory} displays the results of the average memory overhead per application. The results show that the application with the least average memory overhead was Tradebeans where 5.5\% was added. The largest application however, was Batik with an overhead of 1740.1\%. The average overall is 407.9\%.
+Figure \ref{fig:Memory} displays the results of the average memory overhead per application. The results show that the application with the least average memory overhead was Tradebeans where 5.5\% was added. The largest application, however, was Batik with an overhead of 1740.1\%. The average overall is 407.9\%.
 
 \begin{figure}[!hbt]
-	\centering
-	\includegraphics[width=\textwidth]{images/Memory.png}
-	\caption{Average Added Memory in Kilobytes}
-	\label{fig:Memory}
+    \centering
+    \includegraphics[width=\textwidth]{images/Memory.png}
+    \caption{Average Added Memory in Kilobytes}
+    \label{fig:Memory}
 \end{figure}
 
 
 
 \section{Applications}
 \label{Applications}
-The presented results in this chapter are from evaluating Java applications for security vulnerabilities with and without Dynamic Taint Tracking. The results from each application is listed in its own table where vulnerability type and number of vulnerabilities is listed. In the presentation of the result in text are vulnerabilities of the same type aggregated.
+The presented results in this chapter are from evaluating Java applications for security vulnerabilities with and without Dynamic Taint Tracking. The results from each application are listed in its table where vulnerability type and the number of vulnerabilities are listed. In the presentation of the result in the text are vulnerabilities of the same type aggregated.
 
-Table \ref{table:MicroTable} shows the vulnerabilities from evaluating Stanford SecuriBench Micro \parencite{securiBenchMicro}. In the table can we see that the most frequent vulnerability is reflected XSS where 71 vulnerabilities are present. Second most common is SQL Injection with 20 and the least common with 1 vulnerability is Buffer Overflow. By enabling Dynamic Taint Tracking on the Stanford SecuriBench Micro \parencite{securiBenchMicro} application results in a 100\% prevention rate.
+Table \ref{table:MicroTable} shows the vulnerabilities from evaluating Stanford SecuriBench Micro \parencite{securiBenchMicro}. In the table can we see that the most common vulnerability is reflected XSS where 71 vulnerabilities are present. Second most common is SQL Injection with 20 and the least common with one vulnerability is Buffer Overflow. By enabling Dynamic Taint Tracking on the Stanford SecuriBench Micro \parencite{securiBenchMicro} application results in a 100\% prevention rate.
 
 \begin{table}[!hbt]
   \centering
@@ -51,7 +51,7 @@ Table \ref{table:MicroTable} shows the vulnerabilities from evaluating Stanford 
     \end{tabular}
 \end{table}
 
-Table \ref{table:InsecureTable} shows the vulnerabilities from running InsecureWebApp \parencite{insecure} with and without Dynamic Taint Tracker. Of the two types of vulnerabilities is SQL Injection the first with six vulnerabilities abd reflected XSS with two. Enabling Dynamic Taint Tracking on InsecureWebApp \parencite{insecure} results in 100\% prevention rate on SQL Injection attacks and 0\% for XSS. The overall prevention rate is 75\%. 
+Table \ref{table:InsecureTable} shows the vulnerabilities from running InsecureWebApp \parencite{insecure} with and without Dynamic Taint Tracker. Of the two types of vulnerabilities is SQL Injection the first with six vulnerabilities and reflected XSS with two. Enabling Dynamic Taint Tracking on InsecureWebApp \parencite{insecure} results in 100\% prevention rate on SQL Injection attacks and 0\% for XSS. The overall prevention rate is 75\%. 
 
 \begin{table}[!hbt]
   \centering
@@ -65,7 +65,7 @@ Table \ref{table:InsecureTable} shows the vulnerabilities from running InsecureW
     \end{tabular}
 \end{table}
 
-The results from evaluating the application SnipSnap \parencite{snipsnap} is seen in Table \ref{table:SnipSnapTable}. In this table can we see that the most common vulnerability is reflected XSS with 172 occurrences. Second Largest is SQL Injection with 49 occurrences followed by CRLF Injection with two. Enabling Dynamic Taint Tracking yields in a overall prevention rate of 77.2\%. All CRLF Injection are prevented. XSS is prevented to 77.3\% and SQL Injection with 75.5\%.
+The results from evaluating the application SnipSnap \parencite{snipsnap} is seen in Table \ref{table:SnipSnapTable}. In this table can we see that the most common vulnerability is reflected XSS with 172 occurrences. Second Largest is SQL Injection with 49 occurrences followed by CRLF Injection with two. Enabling Dynamic Taint Tracking yields an overall prevention rate of 77.2\%. All CRLF Injection is prevented. XSS is prevented to 77.3\% and SQL Injection with 75.5\%.
 
 \begin{table}[!hbt]
   \centering
