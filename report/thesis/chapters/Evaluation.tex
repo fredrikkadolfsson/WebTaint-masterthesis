@@ -74,24 +74,24 @@ To only scan applications for vulnerabilities of interest is a new policy specif
 
 Every scan starts with spidering the application to detects all possible entries to the system. If the application requires authentication to access parts of the webb application is this information added to the ZAP context and then is the spider executed again to find possible new entries. After these steps is the scanning of the application activated and the security vulnerabilities are stored in a report file. 
 
-The benchmarking on applications was conducted on four webb applications. Each application is Java based and is consciously implemented with security vulnerabilities such as SQL Injections and/or XSS. 
+The benchmarking on applications was conducted on four webb applications. Each application is Java based and is deliberately implemented with security vulnerabilities such as SQL Injections andXSS. These four Java webb applications are presented in the sections below.
 
 
 
 \subsubsection{Stanford SecuriBench Micro}
-\todo[inline]{Todo:}
+Stanford SecuriBench Micro is a set of small test cases designed to evaluate security analysers. The test suit was created as part of the Griffin Security Project \parencite{griffin} at Stanford University and contains 96 test cases and 46407 lines of code. This thesis uses version 1.08 of the application \parencite{securiBenchMicro, microfaq}. 
 
 
 
-\subsubsection{Insecure}
-\todo[inline]{Todo:}
+\subsubsection{InsecureWebApp}
+InsecureWebApp is a deliberately insecure web application developed by OWASP to show possible security vulnerabilities and what harm they can cause to an web application. The project consists of 2913 lines of code and version 1.0 is used \parencite{insecure}. 
 
 
 
 \subsubsection{SnipSnap}
-\todo[inline]{Todo:}
+SnipSnap is a Java based web application developed to provide the neccecary infrastructure to create a collaborative encyclopaedia. The web page functionality is similar to Wikipedia \parencite{wikipedia} where users can sign up and contribute by writing posts. The application consists of 566173 lines of code and version 1.0-BETA-1 is used in this thesis \parencite{snipsnap}. 
 
 
 
 \subsubsection{Ticketbook}
-\todo[inline]{Todo:}
+Ticketbook is deliberately insecure web application developed by Contrast Security to show the power of one of their security tools. The application consist of 13849 lines of code and version 0.9.1-SNAPSHOT is used \parencite{ticketbook, contrast}
