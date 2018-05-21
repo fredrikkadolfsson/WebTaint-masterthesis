@@ -153,12 +153,12 @@ executeQuery("SELECT * FROM Users WHERE userId = " + userId);
 
 The above described Dynamic Taint Tracking tool focuses on preventing malicious code from entering the application. There are security policies restricting input from sources to pass through sinks without first being sanitized through validation. The same application could, however, be used to enforce policies restricting sensitive data from sinks to move through sources without being sanitized not to contain sensitive data.
 
-This thesis will implement and evaluate a Dynamic Taint Tracking tool to prevent confidentiality and integrity vulnerabilities in web applications. The thesis will also assess the security benefits of Domain Driven Security, a programming paradigm which has been proposed to combat confidentiality and integrity vulnerabilities. Concretely, we will benchmark our Dynamic Taint Tracking tool against injection, cross-site scripting, and information disclosure vulnerabilities.
+This thesis will implement and evaluate a Dynamic Taint Tracking tool to prevent confidentiality and integrity vulnerabilities in web applications. The thesis will also assess the security benefits of Domain-Driven Security, a programming paradigm which has been proposed to combat confidentiality and integrity vulnerabilities. Concretely, we will benchmark our Dynamic Taint Tracking tool against injection, cross-site scripting, and information disclosure vulnerabilities.
 
 
-\section{Domain Driven Security}
+\section{Domain-Driven Security}
 \label{DomainDrivenSecurity}
-There exist a plethora of tools which aim to help in the process of developing complex domain models, but Domain Driven Design is not one of them \parencite{Bankes, 10.1007/978-3-319-24309-2_33}. Domain Driven Design is more of a thought process and methodology to follow every step of the process \parencite{EvansEric2004Dd:t}. In \emph{Domain-driven design reference: definitions and patterns summaries} do \textcite{evans_2015} describe Domain Driven Design through three core ideas:
+There exist a plethora of tools which aim to help in the process of developing complex domain models, but Domain-Driven Design is not one of them \parencite{Bankes, 10.1007/978-3-319-24309-2_33}. Domain-Driven Design is more of a thought process and methodology to follow every step of the process \parencite{EvansEric2004Dd:t}. In \emph{Domain-driven design reference: definitions and patterns summaries} do \textcite{evans_2015} describe Domain-Driven Design through three core ideas:
 
 \begin{itemize}
     \item Focus on the core domain.
@@ -172,7 +172,7 @@ The second idea is to explore and develop every model in collaboration between d
 
 \textcite{evans_2015} do as well argue about the weight of clearly defining the bounded contexts for each defined model, and this needs to be done in the ubiquitous language created for the specific product. The need of this exists because of the otherwise high risk of misunderstandings and erroneous assumptions in the collaborations between the different models \parencite{millett_2015}.
 
-\textcite{Wilander2009, Johnsson2009} created 2009 a blog post each in a synchronous manner where they together introduce the concept of Domain Driven Security to the public. They describe Domain-Driven Security as the intersection between Domain Driven Design and application security. Domain Driven Design is about developing complex domain models, and one of the most basic rules of application security is always to validate input data. Domain-Driven Security in another hand, is about the importance of creating and maintaining domain models who are reflecting the product correctly and that they are validated so they can't be populated with erroneous data \parencite{Wilander2009, Johnsson2009, Arnor2016, Stendahl2016}.
+\textcite{Wilander2009, Johnsson2009} created 2009 a blog post each in a synchronous manner where they together introduce the concept of Domain-Driven Security to the public. They describe Domain-Driven Security as the intersection between Domain-Driven Design and application security. Domain-Driven Design is about developing complex domain models, and one of the most basic rules of application security is always to validate input data. Domain-Driven Security in another hand, is about the importance of creating and maintaining domain models who are reflecting the product correctly and that they are validated so they can't be populated with erroneous data \parencite{Wilander2009, Johnsson2009, Arnor2016, Stendahl2016}.
 
 
 \section{Java}

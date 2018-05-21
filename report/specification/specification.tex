@@ -6,7 +6,7 @@
 	\addbibresource{../references.bib} % The file containing our references, in BibTeX format
 	
 	
-	\title{Dynamic Taint Tracking for Domain Driven Security \\
+	\title{Dynamic Taint Tracking for Domain-Driven Security \\
 					\large Specification and Time Schedule}
 	\author{Fredrik Adolfsson - freado@kth.se}
 	\email{freado@kth.se}
@@ -68,11 +68,11 @@
 	
 	The above described Dynamic Taint Tracking tool focuses on preventing malicious code to enter the application. There are security policies restricting input from sources to pass through sinks without first being sanitized through validation. The same application could however be used to enforce policies restricting sensitive data from sinks to pass through sources without being sanitized to not contain sensitive data. 
 	
-	This thesis will implement and evaluate a Dynamic Taint Tracking tool to prevent confidentiality and integrity vulnerabilities in web applications. The thesis will also evaluate the security benefits of Domain Driven Security, a programming paradigm which has been proposed to combat confidentiality and integrity vulnerabilities. Concretely, we will benchmark our Dynamic Taint Tracking tool against injection, cross-site scripting and information disclosure vulnerabilities.
+	This thesis will implement and evaluate a Dynamic Taint Tracking tool to prevent confidentiality and integrity vulnerabilities in web applications. The thesis will also evaluate the security benefits of Domain-Driven Security, a programming paradigm which has been proposed to combat confidentiality and integrity vulnerabilities. Concretely, we will benchmark our Dynamic Taint Tracking tool against injection, cross-site scripting and information disclosure vulnerabilities.
 	
 	
 	\section{Related Work}
-	\textcite{Stendahl2016} wrote a thesis in 2016 where he evaluated if a Domain Driven Security can prevent Injection Attacks and Cross-Site Scripting. He concluded that there is a security gain towards Injection Attacks and Cross-Site Scripting by following the Domain Driven Security methodology. The gained security comes from proper validation of variables before propagating the data into the value objects.
+	\textcite{Stendahl2016} wrote a thesis in 2016 where he evaluated if a Domain-Driven Security can prevent Injection Attacks and Cross-Site Scripting. He concluded that there is a security gain towards Injection Attacks and Cross-Site Scripting by following the Domain-Driven Security methodology. The gained security comes from proper validation of variables before propagating the data into the value objects.
 	
 	\textcite{Haldar} have written a report about Dynamic Taint Tracking in Java where they try to solve the problem of not properly validating user input. They managed to construct a tool that is independent from the web applications source code and the results from using the tool is a gain in security. \textcite{Haldar} ran their benchmarks on OWASP’s project WebGoat \parencite{webgoat} but acknowledged in their report that benchmarks of real-world web applications need to be tested.
 	
@@ -81,22 +81,22 @@
 	
 	\section{Goal \& Objective}
 	% The principal’s interest. The background of the specific assignment to be conducted. What is the desired outcome (from the principal’s side and from the perspective of the degree project)
-	The goal of this thesis is to implement and benchmark a Dynamic Taint Tracking tool which aims to enforce the security gains of Domain Driven Security. The Dynamic Taint Tracking tools objective is to prevent unwanted information disclosure by prevention of Injection and Cross-Site Scripting attacks in runtime. Possible malicious code shall be prevented from executing and logged.
+	The goal of this thesis is to implement and benchmark a Dynamic Taint Tracking tool which aims to enforce the security gains of Domain-Driven Security. The Dynamic Taint Tracking tools objective is to prevent unwanted information disclosure by prevention of Injection and Cross-Site Scripting attacks in runtime. Possible malicious code shall be prevented from executing and logged.
 	
-	The principal, Omegapoint, is interested in everything that might validate, invalidate, evolve or bring a further value to the programming paradigm Domain Driven Security. The reason for this is because the concept of Domain Driven Security was born and is in development by Omegapoint consultants. Omegapoint also like to see a prototype of a Dynamic Taint Tracking tool which can block attacks in runtime.
+	The principal, Omegapoint, is interested in everything that might validate, invalidate, evolve or bring a further value to the programming paradigm Domain-Driven Security. The reason for this is because the concept of Domain-Driven Security was born and is in development by Omegapoint consultants. Omegapoint also like to see a prototype of a Dynamic Taint Tracking tool which can block attacks in runtime.
 	
 	
 	
 	\chapter{Research Question \& Method} \label{ResearchQuestionMethod}
 	% The QUESTION that will be examined. Formulated as an explicit and evaluable question.
 	\begin{chapquote}{}
-		How can an implementation of a Dynamic Taint Tracking tool enforce the security gains of Domain Driven Security.
+		How can an implementation of a Dynamic Taint Tracking tool enforce the security gains of Domain-Driven Security.
 	\end{chapquote}
 	
 	\noindent
 	% (e.g. what does the assignment entail and what are the challenges involved?)
 	% Preliminary description of, for example, algorithms that will be tested, data that will be used.
-	The assignment would be to benchmark and evaluate the implementation of a Dynamic Taint Tracking tool and discuss if it helps to enforce the security gains of Domain Driven Security. The process of this thesis would be to conduct, in order:
+	The assignment would be to benchmark and evaluate the implementation of a Dynamic Taint Tracking tool and discuss if it helps to enforce the security gains of Domain-Driven Security. The process of this thesis would be to conduct, in order:
 	
 	\begin{description}  
 		\item [Literature Study]
@@ -133,7 +133,7 @@
 	
 	\chapter{Evaluation \& News Value}
 	% How is it determined if the objective of the degree project has been fulfilled and if the question has been adequately answered? Preliminary report on the evaluation method, measures and data.
-	The thesis is considered to reach its objective if a Dynamic Taint Tracking tool have been developed and is in working state where integrity and confidentiality policies are enforced. The tool must have been benchmarked with comparisons to current state of art applications where the parameters performance overhead, prevention rate and false positive rate are the values for the reasoning. There should also be an evaluation containing well thought comments and observations about the benchmarking results and how the results might or might not enforce the programming paradigm Domain Driven Security.
+	The thesis is considered to reach its objective if a Dynamic Taint Tracking tool have been developed and is in working state where integrity and confidentiality policies are enforced. The tool must have been benchmarked with comparisons to current state of art applications where the parameters performance overhead, prevention rate and false positive rate are the values for the reasoning. There should also be an evaluation containing well thought comments and observations about the benchmarking results and how the results might or might not enforce the programming paradigm Domain-Driven Security.
 	
 	The evaluation is conducted using Stanford SecuriBench \parencite{securiBench} and Stanford SecuriBench Micro \parencite{securiBenchMicro} as benchmarkings. Both are sets of applications where the number of security vulnerabilities is known. The difference between the two is that Stanford SecuriBench Micro contains smaller test cases while Stanford SecuriBench consists of faked “real-life” applications.
 
@@ -157,12 +157,12 @@
 			\item Injection Attacks
 			\item Cross-Site Scripting
 			\item Dynamic Taint Tracking
-			\item Domain Driven Security
+			\item Domain-Driven Security
 			\item Javassist
 		\end{itemize}
 	
 	\noindent
-	Research into JVM modifications must also be included since it is needed for the implementation of the Dynamic Taint Tracking tool. The information will be obtained by researching for relevant books, reports and other possible material. Two of the founders of the concept of Domain Driven Security work at Omegapoint and are accessible for questions. Conduction interviews with the founders might be of interest.
+	Research into JVM modifications must also be included since it is needed for the implementation of the Dynamic Taint Tracking tool. The information will be obtained by researching for relevant books, reports and other possible material. Two of the founders of the concept of Domain-Driven Security work at Omegapoint and are accessible for questions. Conduction interviews with the founders might be of interest.
 	
 	
 	
