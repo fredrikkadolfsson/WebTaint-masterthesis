@@ -3,7 +3,7 @@ This section describes the conduction of the benchmarking of the implemented Dyn
 
 \section{Test Environment}
 \label{TestEnvironment}
-The execution of the benchmarking is conducted on an Asus Zenbook UZ32LN. No other programs were running while benchmarking was in process. The specifications of the computer other important metrics are the following:
+The execution of the benchmarking is conducted on an Asus Zenbook UZ32LN. No other programs were running while benchmarking was in process. The specifications of the computer and other important metrics are the following:
 
 \begin{description}
     \item [Processor:] 2 GHz i7-4510U
@@ -17,11 +17,12 @@ The execution of the benchmarking is conducted on an Asus Zenbook UZ32LN. No oth
 
 \section{Benchmarking}
 \label{Benchmarking}
+\todo[inline]{Todo: Baseline och inte vulnerabilities }
 Each benchmark is executed two times. One without and one with Dynamic Taint Tracking. The first execution is to acquire the number of security vulnerabilities in the application. The second is to acquire the number of vulnerabilities that the Dynamic Taint Tracker detects.
 
 
 
-\subsection{Time \& Memory Overhead}
+\subsection{Performance Overhead}
 To evaluate the time and memory overhead is The DaCapo Benchmark Suit \parencite{dacapo} used. DaCapo is a set of applications constructed specifically for Java benchmarking. This thesis uses the version DaCapo-9.12-bach which consists of fourteen real-world applications. Table \ref{table:DaCapoTests} contains a description for each application. Summary is taken from \textcite{dacapoBench}.
 
 \begin{table}[!hbt]
@@ -47,7 +48,7 @@ To evaluate the time and memory overhead is The DaCapo Benchmark Suit \parencite
 \end{table}
 
 
-The measurement of time and memory is conducted through a C script which executes each application ten times both with and without Dynamic Taint Tracking. To isolate each iteration is a unique process spawned per each. This process will then run the said application in a child process which will be evaluated for time and memory. This information is then passed back to the main thread where all data is aggregated.  
+The measurement of time and memory is conducted through a C script which executes each application ten times both with and without Dynamic Taint Tracking. To isolate each iteration is a unique process spawned per test case execution. This process will then run the application in a child process which will be evaluated for time and memory. This information is then passed back to the main thread where all data is aggregated.  
 
 \subsection{Applications}
 To detect security vulnerabilities in the applications has OWASP Zed Attack Proxy \parencite{zap} known as ZAP ben used. ZAP is an open-source security scanner for web applications which is widely used in the penetration testing industry.
@@ -72,9 +73,9 @@ To only scan applications for vulnerabilities of interest is a new policy specif
     \end{itemize}
 \end{table}
 
-Every scan starts with spidering the application to detects all possible entries to the system. If the application requires authentication to access parts of the web application is this information added to the ZAP context and then is the spider executed again to find possible new entries. After these steps are the scanning of the application activated and the security vulnerabilities are stored in a report file. 
+Every scan starts with spidering the application to detects all possible entries to the system. If the application requires authentication to access parts of the web application is this information added to the ZAP context and then is the spider executed again to find all possible new entries. After these steps are the scanning of the application activated and the security vulnerabilities are stored in a report file. 
 
-The benchmarking on applications was conducted on four web applications. Each application is Java based and is deliberately implemented with security vulnerabilities such as SQL Injections and XSS. These four Java web applications are presented in the sections below.
+The benchmarking was conducted on four web applications. Each application is Java-based and is deliberately implemented with security vulnerabilities such as SQL Injections and Cross-Site Scripting. These four Java web applications are presented in the sections below.
 
 
 
