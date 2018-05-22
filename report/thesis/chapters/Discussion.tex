@@ -1,10 +1,15 @@
 \chapter{Discussion}
 This chapter contains the discussions about the implemented Dynamic Taint Tracker and how well it performs. The chapter starts with a general presentation about the implementation. This follows by a section comparing it with \textit{\nameref{security}}. This is then followed by \textit{\nameref{sss}} discussions. Lastly is there two sections about \textit{\nameref{propagation}} and \textit{\nameref{methev}}.
 
-\todo[inline]{Todo: Results show that memory overhead is large in some areas. this could be optimized and probably lowered. But this is not a good solution for memory sensitive domains. Present why Phosphor is not applicable in this thesis.
+From the overhead results can we see that using the Dynamic Taint Tracker adds a performance overhead. This overhead comes from instrumenting the classes and from the added operations for propagating taint. The most significant impact on this, for time overhead, comes from the instrumentation which is seen in both Figure \ref{fig:Time}. The instrumentation is only done once which makes applications with longer runtime less impacted by the added time overhead. This is seen by comparing the execution time of Avrora and Batika, 137.2\% respectively 432.2\%, with Tradebeans and Tradesoap, 26.3\% respectively 14.7\%.
 
-The largest added overhead commes from the instrummentation of application during rutime. Meaning that first time a class is imported will be slower but the second will be almost as fast as None. This is proben by treadbeans and tradesoap. This could be solved by instrummenting the application beforehand.
-}
+Memory overhead tells a different story. The two most extended executions here have about the same memory overhead as the average which is 142.7\%. For the memory overhead to be the same ratio for all applications is understandable since the added memory overhead comes from the JAR file containing the instrumented JRE that is appended to the bootstrap classpath and from adding size to every String, StringBuilder and StringBuffer.
+
+Both time and memory overhead could more than probably be optimized by reworking the implemented code to be more effective. This was however not conducted in this thesis because of time issues.
+
+Acceptance of performance overhead is never a good idea if nothing good comes out of it. However, an average prevention rate of 81\% is something that could make overhead acceptable to the system. By further optimizing the underlying logic and enhancing support for more data types would make the gain compared to the cost make it even more worth it.
+
+
 
 \section{Domain-Driven Security}
 \label{security}
