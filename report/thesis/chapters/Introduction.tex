@@ -8,7 +8,7 @@ There are several potential attacks can cause harm to a web application. The att
 
 To minimize the risk of accidentally introducing security flaws into the application has a variety of tools and methodologies created. One of these is Dynamic Taint Tracking which marks input from the user as tainted through a taint variable attached to the variable representing the input. This taint variable follows the input throughout the application and propagates onto the other variables it encounters. It is possible to detaint the input, and this is after the input is validated. The assertion of non-tainted values occurs in sinks where tainted variables are prevented from executing \parencite{Pan2015, Venkataramani2008}. 
 
-One of the methodologies coined is the programming paradigm Domain-Driven Security. Domain-Driven Security aims to secure applications by focusing on the core domain models and making sure that validation of the value objects is correct \parencite{Wilander2009, Johnsson2009}.
+One of the methodologies coined is the programming paradigm Domain-Driven Security. Domain-Driven Security aims to secure applications by focusing on the core domain models and making sure that validation of the value primitives are correct \parencite{Wilander2009, Johnsson2009}.
 
 The following sections of the chapter aims to specify the why and how behind the conduction of the thesis. It starts with a section of \textit{\nameref{Definitions}} followed by \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections is then followed by a \textit{\nameref{Delimitations}} section. Lastly, is there a section about the \textit{\nameref{Methodology}} behind the thesis.
 
