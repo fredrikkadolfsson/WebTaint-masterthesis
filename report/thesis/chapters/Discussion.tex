@@ -13,10 +13,9 @@ Acceptance of performance overhead is never a good idea if nothing good comes ou
 
 \section{Domain-Driven Security}
 \label{security}
-\todo[inline]{Todo: DDS is proven in earlyer report to combat Injection and Cross-Site Scripting. Results prove that number of attacks are lowered by DTT. If only validating in domain primitives in DDS will missing using dp be catastrofal. DTT will still notify missing validation. 
+As said prior, Domain-Driven security has been proven to mitigate Injection and Cross-Site Scripting attacks. By looking at the result of this thesis, can we also see that Dynamic Taint Tracking mitigates the same security vulnerabilities. Dynamic Taint Tracking is, however, compared to Domain-Driven, only an application that enforces validation of variables that have been in contact with untrusted sources. How they are validated does not matter as long as the method used is defined as a sanitizer by the Dynamic Taint Tracker. Domain-Driven Security, however, utilizes value primitives to secure validation and sanitation. They are a single point of validation which lowers the complexity of redefining or expanding the logic of the application. Dynamic Taint Propagation could be altered to enforce validations inside the value primitives constructors. It could work by altering all sanitizers to the only detaint when called from inside a value primitives constructor. It would force the user to use value primitives.
 
-To enforce usage of DDS could sanitation of data types only be conducted in constructors. This would force the user to only use domain primitives. 
-}
+
 
 \section{Sources, Sinks, and Sanitizers}
 \label{sss}
