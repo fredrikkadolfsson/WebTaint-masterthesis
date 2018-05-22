@@ -100,7 +100,7 @@ The Utils project includes the core logic of marking methods and classes as sour
 
 If a class fulfills any of the three criteria will the list of defined method correlating to either source, sinks or sanitizer be used, and instrumentation of the methods will be conducted.
 
-The instrumentation of the method works differently depending on if it is a source, sink or sanitizer. Where instrumentation of sources will set the return parameter of the method as tainted. Instrumentation of sanitizers works by detainting the return value of the method. For sinks will an assertion check the value of the taint, if it is tainted is an error thrown.
+The instrumentation of the method works differently depending on if it is a source, sink or sanitizer. Where instrumentation of sources will set the return parameter of the method as tainted. Instrumentation of sanitizers works by detainting the return value of the method. For sinks will an assertion call check that none of the parameters are tainted. If anyone of them is, then a taint exception occurs, and remedial action should conduct. This action should be, depending on options, a logging event, throwing an error or modifying the tainted value into a safe predefined value. During the conducted benchmarking is the option of a predefined value, where the value is an empty string, and logging the event used.
 
 
 

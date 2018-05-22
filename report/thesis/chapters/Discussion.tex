@@ -1,5 +1,5 @@
 \chapter{Discussion}
-\todo[inline]{Todo: Results show that memory overhead is large in some areas. this could be optimized and probably lowered. But this is not a good solution for memory sensitive domains.
+\todo[inline]{Todo: Results show that memory overhead is large in some areas. this could be optimized and probably lowered. But this is not a good solution for memory sensitive domains. Present why Phosphor is not applicable in this thesis.
 
 The largest added overhead commes from the instrummentation of application during rutime. Meaning that first time a class is imported will be slower but the second will be almost as fast as None. This is proben by treadbeans and tradesoap. This could be solved by instrummenting the application beforehand.
 }
@@ -11,14 +11,18 @@ To enforce usage of DDS could sanitation of data types only be conducted in cons
 }
 
 \section{Sources, Sinks and Sanitizers}
-\todo[inline]{Todo: Discuss the complexity with declaring SSS. How Should this be solved? Subscribe to list depending on used libraries. Define preset values that is used instead of taint. 
-}
+One part of the thesis that felt like a minor part before the actual conduction was defining sources, sinks, and sanitizers. This work could be a thesis in itself. The solution to this was to aggregate what could find others defining as sources, sinks, and sanitizers. It is however not an optimal solution. For a taint tracker to become widely used, do I believe that every service provider for Java applications and libraries should define the sources, sinks, and sanitizers in their implementation. The users could then subscribe on lists defining sources, sinks, and sanitizers depending on the application the tracker will analyze.
+
+The question of what to do when a taint exception gets caught is an interesting question. I believe that this depends a lot depending on the "mode" that the owner wants the application to execute in. For the lightest mode is logging sufficient. Telling what kind of taint exception occurred enables the application to get corrected at a later time. At a higher mode should an exception be thrown or predefined values used. This prevents the possible malicious execution to execute. The remedial action could even be to sanitize the data with predefined sanitation functions. 
+
+
 
 \section{Propagation}
-\todo[inline]{Todo: Optimal to do all datatypes. Like Phosphor. But most important to enable for char and bytearrays.
-}
+Due to time issue were only the classes String, StringBuilder and StringBuffer implemented to supports taint propagation. These are the most important classes for taint tracking when securing web applications since all inputs are once in the form of a String. However, there is a risk of losing the tracking of taint since some libraries use char och byte arrays to for string operations.
+
+However, the results prove that for web applications do these classes cause a significant difference and taint tracking for them is still better than for none. Nevertheless, the optimal solution would be with complete integration of all Java data types. Just like Phosphor, but with the ability to sanitize variables.
+
 
 
 \section{Methodology of Evaluation}
-\todo[inline]{Todo: Compare to similar applications. Phosphor dose not support detainting. Meaning not applicable as Dynamic Taint Tracker for applications in production where the goal is to halt the execution of taint exceptions.
-}
+The objective of the thesis was from the beginning to implement the Dynamic Taint Tracker and benchmark it in comparison to Dynamic Security Taint Propagation and Phosphor. This was sadly not possible since the first was not possible to build from the source files and Phosphor do not support sanitation of variables. Making the use case for Phosphor not applicable in comparison to the implemented taint tracker. 
