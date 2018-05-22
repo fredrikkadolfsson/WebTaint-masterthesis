@@ -83,6 +83,8 @@ The implementation of the Dynamic Taint Tracking tool is divided into three subp
 
 The reasoning behind the division is because of the need of transforming classes both before runtime and during runtime. The Agent is handling the transformation in runtime and Xboot transforms classes on command before runtime. The logic of transforming the classes is, however, the same in both projects. Therefore, to remove duplications of code is al logic of transforming classes extracted from Xboot and Agent and placed into the Utils project.
 
+The implemented Dynamic Taint Tracking tool supports propagation of taint for the classes: String, StringBuilder and StringBuffer. The goal was to implement propagation for all classes. This, however, took more time than expected.
+
 
 
 \subsection{The Utils Project}
@@ -98,17 +100,14 @@ The Utils project includes the core logic of marking methods and classes as sour
 
 If a class fulfills any of the three criteria will the list of defined method correlating to either source, sinks or sanitizer be used, and instrumentation of the methods will be conducted.
 
-The instrumentation of the method works differently depending on if it is a source, sink or sanitizer. Where instrumentation of sources will set the return parameter of the method as tainted. instrumentation of sanitizers works by detainting the return value of the method. For sinks will an assertion check the value of the taint, if it is tainted is an error thrown.
+The instrumentation of the method works differently depending on if it is a source, sink or sanitizer. Where instrumentation of sources will set the return parameter of the method as tainted. Instrumentation of sanitizers works by detainting the return value of the method. For sinks will an assertion check the value of the taint, if it is tainted is an error thrown.
 
 
 
 \section{Notable Problems}
 \label{NotableProblems}
-\todo[inline]{Todo: Läs igenom och förbättra }
-One of the first problems that were introduced during the development of the application is that some classes cannot be instrumented during runtime. More precisely, the classes that the Java Virtual Machine relies on can't be instrumented in real-time. However, there is a solution to this. The solution is to create a JAR file with statically modified versions of the classes. In this case is the String class one of these. This JAR file can then be loaded through the option Xbootclasspath/p that appends the JAR file to the front of the bootstrap path. Making the Java Virtual Machine use our modified versions of the Java Runtime Environment classes \parencite{xboot} before the original once. Because of this limitation was the decision of instrumenting as many classes as possible statically. The reason for this is to keep the code consistent.
+One of the first problems that were introduced during the development of the application was that some classes could not be instrumented during runtime. More precisely, the classes that the Java Virtual Machine relies on can't be instrumented at runtime. However, there is a solution to this. The solution is to pre-instrument the Java Runtime Environment and create a JAR file with statically modified versions of the classes. The created JAR file is then loaded through the option \textit{Xbootclasspath/p} that appends the JAR file to the front of the bootstrap classpath. Making the Java Virtual Machine use our modified versions of the Java Runtime Environment \parencite{xboot} before the original version. Because of this limitation was the decision of instrumenting all classes in the JRE statically beforehand made.
 
-Another problem is that instrumentation of primitives is not possible. This causes a problem since it opens the ability to miss propagation of tainted data if they ever pass through a byte- or char-array. The solution that can solve this is to create shadow variables that lie in the closest class or objective to the byte- or char-array. This shadow variable will contain the taint.
+Another problem is that instrumentation of primitives and arrays not possible. This causes a problem since it opens the ability to miss propagation of tainted data if they ever pass through a byte- or char array. The solution that can solve this is to create shadow as \textcite{BellJ.2014PIdd} did while creating Phosphor \parencite{phosphor}. 
 
-A possible solution to instrument primitives is to transform all primitives into their corresponding class, so call Unboxing. This logic used in a similar manner called Autoboxing. This is used to transform the primitive, which only holds a value, into its corresponding object which contains sets of functions. Un idea I had, to solve the problem with instrumenting primitives, is to Unbox all primitives in runtime and never use primitives. This would make it easy to instrument each of the primitives corresponding classes to propagate taint. However, this is probably not an optimal solution. The reason to this is the added overhead it would add to the execution \parencite{BlochJoshua2008EJ}. 
-
-Another problem that emerged was that operations with primitives are direct bytecode translations. Two examples of these are the usage of + (addition) and - (subtraction).
+Another problem that emerged was that operations with primitives are direct bytecode translations. Two examples of these are the usage of + (addition) and - (subtraction). Adding operations to these through Javassist's source level API is therefore not possible. To solve this are operations on bytecode level needed and Javassist, bytecode level API, is suitable for this. \parencite{Javassist} 
