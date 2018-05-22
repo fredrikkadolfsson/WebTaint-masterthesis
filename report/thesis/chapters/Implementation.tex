@@ -51,7 +51,7 @@ The policies above can also be combined with tainting policies. These are presen
 
 
 \subsection{Taint Propagation}
-To enable the tracking of taint in the system is a complete implementation of taint propagation needed. The ultimate goal would be to have support for propagation of taint for each class and data type. This is, however, a complex problem. Instrumentation of classes is decently, but Instrumentation of primitives and arrays is a rather complex problem. However, the principal behind the propagation is the same for all data types. 
+To enable the tracking of taint in the system is a complete implementation of taint propagation needed. The ultimate goal would be to have support for propagation of taint for each class and data type. This is, however, a complex problem. Instrumentation of classes is decently, but instrumentation of primitives and arrays is a rather complex problem. However, the principal behind the propagation is the same for all data types. 
 
 Below are rules defining when taint variables should propagate.
 
@@ -96,9 +96,9 @@ The Utils project includes the core logic of marking methods and classes as sour
 \end{itemize}
 \hfill
 
-If a class fulfills any of the three criteria will the list of defined method correlating to either source, sinks or sanitizer be used, and Instrumentation of the methods will be conducted.
+If a class fulfills any of the three criteria will the list of defined method correlating to either source, sinks or sanitizer be used, and instrumentation of the methods will be conducted.
 
-The Instrumentation of the method works differently depending on if it is a source, sink or sanitizer. Where Instrumentation of sources will set the return parameter of the method as tainted. Instrumentation of sanitizers works by detainting the return value of the method. For sinks will an assertion check the value of the taint, if it is tainted is an error thrown.
+The instrumentation of the method works differently depending on if it is a source, sink or sanitizer. Where instrumentation of sources will set the return parameter of the method as tainted. instrumentation of sanitizers works by detainting the return value of the method. For sinks will an assertion check the value of the taint, if it is tainted is an error thrown.
 
 
 

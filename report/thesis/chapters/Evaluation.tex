@@ -1,6 +1,8 @@
 \chapter{Evaluation}
 This section describes the conduction of the benchmarking of the implemented Dynamic Taint Tracker. The chapter starts with a description of the \textit{\nameref{TestEnvironment}} followed by a detailed description about the \textit{\nameref{Benchmarking}}
 
+
+
 \section{Test Environment}
 \label{TestEnvironment}
 The execution of the benchmarking is conducted on an Asus Zenbook UZ32LN. No other programs were running while benchmarking was in process. The specifications of the computer and other important metrics are the following:
@@ -17,8 +19,7 @@ The execution of the benchmarking is conducted on an Asus Zenbook UZ32LN. No oth
 
 \section{Benchmarking}
 \label{Benchmarking}
-\todo[inline]{Todo: Baseline och inte vulnerabilities }
-Each benchmark is executed two times. One without and one with Dynamic Taint Tracking. The first execution is to acquire the number of security vulnerabilities in the application. The second is to acquire the number of vulnerabilities that the Dynamic Taint Tracker detects.
+Each execution of benchmarks is executed two times. One without and one with Dynamic Taint Tracking. The first is to acquire the baseline of the application. The second is to acquire how Dynamic Taint Tracker affects the execution of the application.
 
 
 
@@ -47,8 +48,9 @@ To evaluate the time and memory overhead is The DaCapo Benchmark Suit \parencite
     \end{description}
 \end{table}
 
-
 The measurement of time and memory is conducted through a C script which executes each application ten times both with and without Dynamic Taint Tracking. To isolate each iteration is a unique process spawned per test case execution. This process will then run the application in a child process which will be evaluated for time and memory. This information is then passed back to the main thread where all data is aggregated.  
+
+
 
 \subsection{Applications}
 To detect security vulnerabilities in the applications has OWASP Zed Attack Proxy \parencite{zap} known as ZAP ben used. ZAP is an open-source security scanner for web applications which is widely used in the penetration testing industry.

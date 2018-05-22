@@ -21,6 +21,7 @@ It can be seen in figure \ref{fig:webApplication-Haldar} that the tiers only com
 The scope of the thesis lies in tier two. The programming language for tier two might vary a lot, but one common and the chosen language for this thesis is Java.
 
 
+
 \subsection{Structured Query Language}
 Communication between tier two and tier three is done through a standardized language called Structured Query Language, mostly known as SQL. SQL is created to manipulate and access databases programmatically. The clear majority of today's database uses SQL. The language works by building queries specifying the required information or task. The query will be evaluated and handled up upon by the SQL engine \parencite{DarieCristian2003TPGt}.
 
@@ -111,7 +112,7 @@ Cross-Site Scripting has been a vulnerability since the beginning of the interne
 
 The introduction of the Same-Origin Policy did not stop the attackers from performing Cross-Site Scripting attacks. The next wave of attacks was mostly towards chat rooms where it was possible to inject malicious scripts into the input of the message. Which would then later be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy \parencite{FogieSeth2007Xacs}.
 
-It is possible to divide Cross-Site Scripting into three different subcategories. These three are reflected, stored and DOM-based Cross-Site Scripting.
+Dividing Cross-Site Scripting into three different subcategories is possible. These three are reflected, stored and DOM-based Cross-Site Scripting.
 
 
 
@@ -126,7 +127,7 @@ Stored Cross-Site Scripting is when malicious scripts get stored in the targeted
 
 
 \subsubsection{DOM-based Cross-Site Scripting}
-DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting, but it does not necessarily have to be reflected from the application server. DOM-based Cross-Site Scripting modifies the DOM tree and trough that exploit the user \parencite{Secure_Web}.
+DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting, but it does not necessarily have to be reflected from the application server. DOM-based Cross-Site Scripting modifies the DOM tree and through that exploit the user \parencite{Secure_Web}.
 
 
 
@@ -206,15 +207,16 @@ There exists a plethora of implementation of the Java Virtual Machine, but the o
     \label{fig:JVM}
 \end{figure}
 
-Figure \ref{fig:JVM} illustrates the architecture of the Java Virtual Machine. The compiled Java code that the developer creates is loaded through the ClassLoader and added into the Java Virtual Machine Memory. \parencite{venners_1999}.
-\todo[inline]{Todo: Utveckla}
+Figure \ref{fig:JVM} illustrates the architecture of the Java Virtual Machine. The ClassLoader loads the compiled Java code and adds it into the Java Virtual Machine Memory. The logic behind Java instrumentation lies in the ClassLoader. The ClassLoader will trigger the implemented Java Agent and allow for instrumentation of each Java file before being loaded into the Java Virtual Machine \parencite{venners_1999, instru}.
 
 
 
 \subsection{Instrumentation}
-Java Instrumentation is a way to modify the execution of an application on the Java Virtual Machine without knowing nor the need of modifying the application code itself. Good use cases for Java Instrumentation is, for example, monitoring agents and event loggers. Instrumentation is a Java package that provides services for modifying the bytecode of the program execution. Instrumentation works by implementing an Agent that will have the possibility to modify any class loaded by the application before it is used for the first time \parencite{Java_Instrument}.
-\todo[inline]{Todo: Cant instrument JRE in runtime}
+Java instrumentation is a way to modify the execution of an application on the Java Virtual Machine without knowing nor the need of modifying the application code itself. Good use cases for Java instrumentation is, for example, monitoring agents and event loggers. Instrumentation is official Java package that provides services for modifying the bytecode of the program execution. Instrumentation works by implementing an Agent that will have the possibility to transform any class loaded by the application before being used for the first time. Transformations of class files are on bytecode level, but there exist libraries that can help in this task. One of these libraries and the one used in this thesis is Javassist \parencite{Java_Instrument, Javassist}.
+
+There are restrictions to instrumenting classes during runtime. Classes needed for the Java Virtual Machine need transformation prior to executing the Java application. This is because these classes are loaded before the instrumentation agent. These classes are the content of the Java Runtime Environment, known as JRE.
+
 
 
 \subsection{Javassist}
-There exist several libraries that can help the developer in the task of creating an Instrumentation Agent. The help comes in libraries of high-level functions that later translates into bytecode that the Java Virtual Machine will understand. The library used in this thesis is Javassist. Javassist stands for Java programming Assistant and is a bytecode engineering toolkit. Javassist provides two levels of API where the one used in this thesis provides the functionality of editing class files on source level which require no understanding of Java bytecode \parencite{Javassist}.
+There exist several libraries that can help the developer in the task of creating an instrumentation Agent. The help comes in libraries of high-level functions that later translates into bytecode that the Java Virtual Machine will understand. The library used in this thesis is Javassist. Javassist stands for Java programming Assistant and is a bytecode engineering toolkit. Javassist provides two levels of API where the one used in this thesis provides the functionality of editing class files on source level which require no understanding of Java bytecode \parencite{Javassist}.
