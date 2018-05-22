@@ -1,7 +1,7 @@
 \chapter{Background}
 % Studenten visar kännedom om teoretisk bakgrund och tidigare utfört arbete (betydande litteratur nämns och relevant material används).
 % Bakgrunden är sammanhängande och relevant.
-This Chapter will present background knowledge needed to comprehend the conduction of the thesis. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed by a section discussion common \textit{\nameref{SecurityVulnerabilities}} to web applications. After those follows two sections describing \textit{\nameref{DynamicTaintTracking}} and \textit{\nameref{DomainDrivenSecurity}}. The last section is about \textit{\nameref{JavaInstrumentation}}.
+This Chapter will present background knowledge needed to comprehend the conduction of the thesis. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed by a section discussion common \textit{\nameref{SecurityVulnerabilities}} to web applications. After those follows two sections describing \textit{\nameref{DynamicTaintTracking}}, \textit{\nameref{DomainDrivenDesign}}, and \textit{\nameref{DomainDrivenSecurity}}. The last section is about \textit{\nameref{JavaInstrumentation}}.
 
 
 
@@ -168,10 +168,9 @@ The above described Dynamic Taint Tracking tool focuses on preventing malicious 
 
 
 
-\section{Domain-Driven Security}
-\label{DomainDrivenSecurity}
-\todo[inline]{Todo: Kolla hela }
-There exist a plethora of tools which aim to help in the process of developing complex domain models, but Domain-Driven Design is not one of them \parencite{Bankes, 10.1007/978-3-319-24309-2_33}. Domain-Driven Design is more of a thought process and methodology to follow every step of the process \parencite{EvansEric2004Dd:t}. In \emph{Domain-driven design reference: definitions and patterns summaries} do \textcite{evans_2015} describe Domain-Driven Design through three core ideas:
+\section{Domain-Driven Design}
+\label{DomainDrivenDesign}
+Domain-Driven Design is a thought process and methodology to follow in every step of the process \parencite{EvansEric2004Dd:t}. In \emph{Domain-driven design reference: definitions and patterns summaries} do \textcite{evans_2015} describe Domain-Driven Design through three core ideas:
 
 \begin{itemize}
     \item Focus on the core domain.
@@ -179,13 +178,21 @@ There exist a plethora of tools which aim to help in the process of developing c
     \item Speak a ubiquitous language within an explicitly bounded context.
 \end{itemize}
 
-The core domain is the part of the product that is most important and often is the main selling point compared to other similar products \parencite{millett_2015}. A discussion and even possible a document describing the core domain is something that will help the development of the product. The idea is to keep everybody on the same track heading in the same direction \parencite{EvansEric2004Dd:t}.
+The core domain is the part of the product that is most important and often is the main selling point compared to other similar products \parencite{millett_2015}. A discussion and even possible a document describing the core domain is something that will help the development of the product. The idea is to keep everybody on the same track and heading in the same direction \parencite{EvansEric2004Dd:t}.
 
 The second idea is to explore and develop every model in collaboration between domain practitioners, who are experts in the given domain, and software developers. This ensures that essential knowledge needed to create the product successfully is communicated back and forth between the two parties \parencite{millett_2015}. The third idea is necessary to enable and streamline the second. By using a ubiquitous language, will miscommunication between domain and software practitioners be minimized and the collaboration between the two parties can instead focus on the essential parts which are to develop the product \parencite{evans_2015}.
 
 \textcite{evans_2015} do as well argue about the weight of clearly defining the bounded contexts for each defined model, and this needs to be done in the ubiquitous language created for the specific product. The need of this exists because of the otherwise high risk of misunderstandings and erroneous assumptions in the collaborations between the different models \parencite{millett_2015}.
 
-\textcite{Wilander2009, Johnsson2009} created 2009 a blog post each in a synchronous manner where they together introduce the concept of Domain-Driven Security to the public. They describe Domain-Driven Security as the intersection between Domain-Driven Design and application security. Domain-Driven Design is about developing complex domain models, and one of the most basic rules of application security is always to validate input data. Domain-Driven Security in another hand is about the importance of creating and maintaining domain models who are reflecting the product correctly and that they are validated so they cannot be populated with erroneous data \parencite{Wilander2009, Johnsson2009, Arnor2016, Stendahl2016}.
+
+
+\section{Domain-Driven Security}
+\label{DomainDrivenSecurity}
+\textcite{Wilander2009, Johnsson2009} created 2009 a blog post each in a synchronous manner where they together introduce the concept of Domain-Driven Security to the public. They describe Domain-Driven Security as the intersection between Domain-Driven Design and application security. Domain-Driven Security focuses on the importance of creating and maintaining domain models which reflect the product correctly. It is also essential that validations conduct correctly in the constructors of value objects, therefore preventing propagation of erroneous data \parencite{Wilander2009, Johnsson2009, Arnor2016, Stendahl2016}.
+
+
+
+\todo[inline]{Todo: Utveckla }
 
 
 
