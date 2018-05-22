@@ -10,7 +10,7 @@ To minimize the risk of accidentally introducing security flaws into the applica
 
 One of the methodologies coined is the programming paradigm Domain-Driven Security. Domain-Driven Security aims to secure applications by focusing on the core domain models and making sure that validation of the value objects is correct \parencite{Wilander2009, Johnsson2009}.
 
-The following sections of the chapter aims to specify the why and how behind the conduction of the thesis. It starts with a section of \textit{\nameref{Definitions}} followed by \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections is then followed by \textit{\nameref{RelatedWork}} in the field and a \textit{\nameref{Delimitations}} section. Lastly, is there a section about the \textit{\nameref{Methodology}} behind the thesis.
+The following sections of the chapter aims to specify the why and how behind the conduction of the thesis. It starts with a section of \textit{\nameref{Definitions}} followed by \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections is then followed by a \textit{\nameref{Delimitations}} section. Lastly, is there a section about the \textit{\nameref{Methodology}} behind the thesis.
 
 
 \section{Definitions}
@@ -78,14 +78,6 @@ Unwanted information disclosure is a growing problem. Work towards protecting us
 This thesis will implement and evaluate a Dynamic Taint Tracking tool to prevent confidentiality and integrity vulnerabilities in Java-based web applications. The thesis will also evaluate the security benefits of Domain-Driven Security, a programming paradigm which has been proposed to combat confidentiality and integrity vulnerabilities. Concretely, we will benchmark our Dynamic Taint Tracking tool against injection, cross-site scripting, and information disclosure vulnerabilities.
 
 
-\section{Related Work}
-\label{RelatedWork}
-\textcite{Stendahl2016} wrote a thesis in 2016 where he evaluated if Domain-Driven Security can prevent Injection Attacks and Cross-Site Scripting. He reasoned that there is a security gain towards Injection Attacks and Cross-Site Scripting by following the Domain-Driven Security methodology. The gained security comes from proper validation of variables before propagating the data into the domain objects.
-
-\textcite{Haldar} has written a report about Dynamic Taint Tracking in Java where they try to solve the problem of not correctly validating user input. They managed to construct a tool that is independent of the web applications source code and the results from using the tool is gain in security. \textcite{Haldar} ran their benchmarks on OWASP’s project WebGoat \parencite{webgoat} but acknowledged in their report that benchmarks of real-world web applications need conducting.
-
-It exists two Dynamic Taint Tracking tools, Phosphor \parencite{phosphor} and Security Taint Propagation \parencite{securityTaint}. Both are open source projects and developed for Java applications. Phosphor does however not support sanitizers, and Security Taint Propagation cant build from its source code.
-\todo[inline]{Todo: Skriv om Phosphor}
 
 \section{Delimitations}
 \label{Delimitations}
