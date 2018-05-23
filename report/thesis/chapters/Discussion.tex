@@ -7,7 +7,7 @@ Memory overhead tells a different story. The two most extended executions here h
 
 Both time and memory overhead could more than probably be optimized by reworking the implemented code to be more effective. This was however not conducted in this thesis because of time issues.
 
-Acceptance of performance overhead is never a good idea if nothing good comes out of it. However, an average prevention rate of 81\% is something that could make overhead acceptable to the system. By further optimizing the underlying logic and enhancing support for more data types would make the gain compared to the cost make it even more worth it.
+Acceptance of performance overhead is never a good idea if nothing good comes out of it. Though, an average prevention rate of 81\% is something that could make overhead acceptable to the system. By further optimizing the underlying logic and enhancing support for more data types would make the gain compared to the cost make it even more worth it. However, this could even after optimizations not be a possible use case for time and memory sensitive domains. It might even be possible to destroy the user experience of a web application if the added time for events to happen takes a long time.
 
 
 
@@ -22,6 +22,8 @@ As said prior, Domain-Driven security has been proven to mitigate Injection and 
 One part of the thesis that felt like a minor part before the actual conduction was defining sources, sinks, and sanitizers. This work could be a thesis in itself. The solution to this was to aggregate what could find others defining as sources, sinks, and sanitizers. It is however not an optimal solution. For a taint tracker to become widely used, do I believe that every service provider for Java applications and libraries should define the sources, sinks, and sanitizers in their implementation. The users could then subscribe on lists defining sources, sinks, and sanitizers depending on the application the tracker will analyze.
 
 The question of what to do when a taint exception gets caught is an interesting question. I believe that this depends a lot depending on the "mode" that the owner wants the application to execute in. For the lightest mode is logging sufficient. Telling what kind of taint exception occurred enables the application to get corrected at a later time. At a higher mode should an exception be thrown or predefined values used. This prevents the possible malicious execution to execute. The remedial action could even be to sanitize the data with predefined sanitation functions. 
+
+Another thing of interest would be to introduce multiple taint types. It could be used to ensure that data from sources sanitizes with the correct sanitizer depending on the source type. Since data from one type of source might not be harmful to all types of sinks and all types of sanitizers might not be possible to sanitize the data for all sinks correctly.
 
 
 
