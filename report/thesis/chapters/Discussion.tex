@@ -3,7 +3,7 @@ This chapter contains the discussions about the implemented Dynamic Taint Tracke
 
 From the overhead results can we see that using the Dynamic Taint Tracker adds a performance overhead. This overhead comes from instrumenting the classes and from the added operations for propagating taint. The most significant impact on this, for time overhead, comes from the instrumentation which is seen in both Figure \ref{fig:Time}. The instrumentation is only done once which makes applications with longer runtime less impacted by the added time overhead. This is seen by comparing the execution time of Avrora and Batika, 137.2\% respectively 432.2\%, with Tradebeans and Tradesoap, 26.3\% respectively 14.7\%.
 
-Memory overhead tells a different story. The two most extended executions here have about the same memory overhead as the average which is 142.7\%. For the memory overhead to be the same ratio for all applications is understandable since the added memory overhead comes from the JAR file containing the instrumented JRE that is appended to the bootstrap classpath and from adding size to every String, StringBuilder and StringBuffer.
+Memory overhead tells a different story. The two most extended executions here have about the same memory overhead as the average which is 142.7\%. For the memory overhead to be the same ratio for all applications is understandable since the added memory overhead comes from the jar file containing the instrumented rt.jar that is appended to the bootstrap classpath and from adding size to every String, StringBuilder and StringBuffer.
 
 Both time and memory overhead could more than probably be optimized by reworking the implemented code to be more effective. This was however not conducted in this thesis because of time issues.
 

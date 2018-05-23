@@ -217,7 +217,7 @@ Figure \ref{fig:JVM} illustrates the architecture of the Java Virtual Machine. T
 \subsection{Instrumentation}
 Java instrumentation is a way to modify the execution of an application on the Java Virtual Machine without knowing nor the need of modifying the application code itself. Good use cases for Java instrumentation is, for example, monitoring agents and event loggers. Instrumentation is official Java package that provides services for modifying the bytecode of the program execution. Instrumentation works by implementing an Agent that will have the possibility to transform any class loaded by the application before being used for the first time. Transformations of class files are on bytecode level, but there exist libraries that can help in this task. One of these libraries and the one used in this thesis is Javassist \parencite{Java_Instrument, Javassist}.
 
-There are restrictions to instrumenting classes during runtime. Classes needed for the Java Virtual Machine need transformation prior to executing the Java application. This is because these classes are loaded before the instrumentation agent. These classes are the content of the Java Runtime Environment, known as JRE.
+There are restrictions to instrumenting classes during runtime. Classes needed for the Java Virtual Machine need transformation prior to executing the Java application. This is because these classes are loaded before the instrumentation agent. These classes are the content of the base Java Runtime Environment in the rt.jar.
 
 
 
