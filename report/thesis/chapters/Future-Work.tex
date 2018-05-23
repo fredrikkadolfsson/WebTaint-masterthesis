@@ -1,5 +1,8 @@
 \chapter{Future Work}
-\todo[inline]{Todo: Optimize code (Memory and Time), Extend data types supporting propagation, Idealy implement support for multiple list subscription (source, sink, sanitizer lists), Implement support for larger set of taintflags (sanitizers can detaint for sertain type of sinks, or all)
+There is a lot that needs doing before Dynamic Taint Tracking can take its place as an action to secure web applications. The most important is to conduct a comprehensive work about sources, sinks, and sanitizers. Implementation of specifying different taint labels, where sanitizers might only detaint some of them, would be of interest as well.
 
-DDS not fully established and still under "construction". Meaning that further evaluations comparing executions of applications fully developed with the methodology DDS.
-}
+Work towards optimization of the applications needs conduction as well. Bot towards minimizing the added time and memory overhead.
+
+To enhance the coverage of the tool should expansions of data types supporting propagation of taint carry out. The two most important data types are char and byte arrays. 
+
+Even though we see benefits from the conducted experiments is there always need for further benchmarking. Trial runs where the Dynamic Taint Tracking runs for a longer time would be of interest. The interest lies in getting an insight on how it could be used to patch the taint exceptions based on logging information about taint exceptions caught. How would this affect the development of the web application? Would developer stop focusing on sanitation and verification because the Dynamic Taint Tracking will tell them what to fix?
