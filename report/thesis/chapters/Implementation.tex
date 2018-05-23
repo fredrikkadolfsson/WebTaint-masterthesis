@@ -83,7 +83,7 @@ The implementation of the Dynamic Taint Tracking tool is divided into three subp
 
 The reasoning behind the division is because of the need of transforming classes both before runtime and during runtime. The Agent is handling the transformation in runtime and Xboot transforms classes on command before runtime. The logic of transforming the classes is, however, the same in both projects. Therefore, to remove duplications of code is al logic of transforming classes extracted from Xboot and Agent and placed into the Utils project.
 
-The implemented Dynamic Taint Tracking tool supports propagation of taint for the classes: String, StringBuilder and StringBuffer. The goal was to implement propagation for all classes. This, however, took more time than expected.
+The implemented Dynamic Taint Tracking tool supports propagation of taint for the classes: String, StringBuilder and StringBuffer. The goal was to implement propagation for all classes. However, this took more time than expected.
 
 
 
@@ -106,7 +106,7 @@ The instrumentation of the method works differently depending on if it is a sour
 
 \section{Notable Problems}
 \label{NotableProblems}
-One of the first problems that were introduced during the development of the application was that some classes could not be instrumented during runtime. More precisely, the classes that the Java Virtual Machine relies on can't be instrumented at runtime. However, there is a solution to this. The solution is to pre-instrument the base Java Runtime Environment and create a new instrumented rt.jar file with statically modified versions of the classes. The created jar file is then loaded through the option \textit{Xbootclasspath/p} that appends the file to the front of the bootstrap classpath. Making the Java Virtual Machine use our modified versions of the base Java Runtime Environment \parencite{xboot} before the original version.
+One of the first problems that were introduced during the development of the application was that some classes could not be instrumented during runtime. More precisely, the classes that the Java Virtual Machine relies on can't be instrumented at runtime. However, there is a solution to this. The solution is to pre-instrument the base Java Runtime Environment and create a new instrumented rt.jar file with statically modified versions of the classes. The created jar file loads through the option \textit{Xbootclasspath/p} that appends the file to the front of the bootstrap classpath. Making the Java Virtual Machine use our modified versions of the base Java Runtime Environment \parencite{xboot} before the original version.
 
 Another problem is that instrumentation of primitives and arrays not possible. This causes a problem since it opens the ability to miss propagation of tainted data if they ever pass through a byte- or char array. The solution that can solve this is to create shadow as \textcite{BellJ.2014PIdd} did while creating Phosphor \parencite{phosphor}. 
 

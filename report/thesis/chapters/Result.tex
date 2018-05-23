@@ -1,5 +1,5 @@
 \chapter{Result}
-This chapter presents the results of the conducted evaluation. Appendix \ref{appendix:raw} contains raw data and metrics over data that may not be shown in this chapter. The chapter start with presenting the results from the \textit{\nameref{Performance}} evaluations where the parameters time and memory is measured. Next and the last section is \textit{\nameref{Applications}} where Java applications have been evaluated measuring security vulnerabilities with and without Dynamic Taint Propagation.
+This chapter presents the results of the conducted evaluation. Appendix \ref{appendix:raw} contains raw data and metrics over data that may not be shown in this chapter. The chapter starts with presenting the results from the \textit{\nameref{Performance}} evaluations where the parameters time and memory is measured. Next and the last section is \textit{\nameref{Applications}} where Java applications have been evaluated measuring security vulnerabilities with and without Dynamic Taint Propagation.
 
 
 
@@ -65,7 +65,7 @@ Table \ref{table:InsecureTable} shows the vulnerabilities from running InsecureW
     \end{tabular}
 \end{table}
 
-The results from evaluating the application SnipSnap \parencite{snipsnap} is seen in Table \ref{table:SnipSnapTable}. In this table can we see that the most common vulnerability is reflected Cross-Site Scripting with 172 occurrences. Second Largest is SQL Injection with 49 occurrences followed by CRLF Injection with two. Enabling Dynamic Taint Tracking yields an overall prevention rate of 77.2\%. All CRLF Injection is prevented. Cross-Site Scripting is prevented to 77.3\% and SQL Injection with 75.5\%.
+The results from evaluating the application SnipSnap \parencite{snipsnap} is seen in Table \ref{table:SnipSnapTable}. In this table can we see that the most common vulnerability is reflected Cross-Site Scripting with 172 occurrences. Second Largest is SQL Injection with 49 occurrences followed by CRLF Injection with two. Enabling Dynamic Taint Tracking yields an overall prevention rate of 77.2\%. All CRLF Injection is prevented. Cross-Site Scripting prevented with 77.3\% and SQL Injection with 75.5\%.
 
 \begin{table}[!hbt]
   \centering
