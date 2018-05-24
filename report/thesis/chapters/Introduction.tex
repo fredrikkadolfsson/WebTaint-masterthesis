@@ -2,9 +2,9 @@
 \label{Introduction}
 The creation of the World Wide Web (web) has caused a significant impact on today's society \parencite{www}. The internet is a source of information, and it connects the world through a single platform. Many businesses have decided to take advantage of the web platform to share information and communicate with customers. However, this does not come without drawbacks. The information sharing is a weakness in the same manner as it is a strength. The web application is not only accessible to the targeted user groups but anyone with access to the web. This entails that malicious users who wish to abuse and cause harm to other users have the accessibility to do so possibly.
 
-There are several potential attacks can cause harm to a web application. The attack most frequently conducted today will probably not be the same as the most performed in the future. The Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge about how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP has produced reports about the top 10 security risks for a web application, and the latest published in 2017. In this report was Injection Attacks number one and Cross-Site Scripting number seven \parencite{OWASP2017, OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}.
+There are several potential attacks which can cause harm to a web application. The attack most frequently conducted today will probably not be the same as the most performed in the future. The Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge about how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP has produced reports about the top 10 security risks for a web application, and the latest published in 2017. In this report was Injection Attacks number one and Cross-Site Scripting number seven \parencite{OWASP2017, OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}.
 
-To minimize the risk of accidentally introducing security flaws into the application has a variety of tools and methodologies created. One of these is Dynamic Taint Tracking which marks input from the user as tainted through a taint variable attached to the variable representing the input. This taint variable follows the input throughout the application and propagates onto the other variables it encounters. It is possible to detaint the input, and this is after the input is validated. The assertion of non-tainted values occurs in sinks where tainted variables are prevented from executing \parencite{Pan2015, Venkataramani2008}. 
+To minimize the risk of accidentally introducing security flaws into applications has a variety of tools and methodologies arose. One of these is Dynamic Taint Tracking which marks input from the user as tainted through a taint flag attached to the variable representing the input. This taint flag follows the input throughout the application and propagates onto the other variables it encounters. It is possible to detaint the input, and this is after the input is validated. The assertion of non-tainted values occurs in sinks where tainted variables are prevented from executing \parencite{Pan2015, Venkataramani2008}. 
 
 One of the methodologies coined is the programming paradigm Domain-Driven Security. Domain-Driven Security aims to secure applications by focusing on the core domain models and making sure that validation of the value primitives is correct \parencite{Wilander2009, Johnsson2009}.
 
@@ -76,18 +76,18 @@ Unwanted information disclosure is a growing problem. Work towards protecting us
 
 \section{Aim}
 \label{Aim}
-This thesis will implement and evaluate a Dynamic Taint Tracking tool to prevent confidentiality and integrity vulnerabilities in Java-based web applications. The thesis will also evaluate the security benefits of Domain-Driven Security, a programming paradigm which has been proposed to combat confidentiality and integrity vulnerabilities. Concretely, we will benchmark our Dynamic Taint Tracking tool against injection, cross-site scripting, and information disclosure vulnerabilities.
+This thesis will implement and evaluate a Dynamic Taint Tracking tool to prevent confidentiality and integrity vulnerabilities in Java-based web applications. The thesis will also evaluate the security benefits of the implemented Dynamic Taint Tracker compared to Domain-Driven Security, a programming paradigm which has been proven to combat confidentiality and integrity vulnerabilities. Concretely, we will benchmark our Dynamic Taint Tracking tool against injection and cross-site scripting vulnerabilities.
 
 
 
 \section{Delimitations}
 \label{Delimitations}
-The focus of the thesis lies in web applications security vulnerabilities. However, other application areas might be vulnerable to the same kind of vulnerabilities.  This thesis will not discuss or present information regarding those areas.
+The focus of the thesis lies in security vulnerabilities of web applications. However, other application areas might be vulnerable to the same kind of vulnerabilities.  This thesis will not discuss or present information regarding those areas.
 
-Delimitations for the application is that it will only consist of a Dynamic Taint Tracker and not, in any form, a static version. Development of the tool is in and for Java application with the help of the bytecode instrumentation library Javassist.
+The delimitations of the application are that it will only consist of a Dynamic Taint Tracker and not, in any form, a static version. Development of the tool is in and for Java application with the help of the bytecode instrumentation library Javassist. The focus lies upon enabling taint tracking for Strings, and other data types are enabled if time allows for it.
 
 
 
 \section{Methodology}
 \label{Methodology}
-The methodology of this thesis is a combination of qualitative and quantitative research. The qualitative research represents the literature study where information about web application security, Dynamic Taint Tracking and Domain-Driven Security is gathered, presented and discussed. The quantitative research is the evaluation of the implemented Dynamic Taint Tracking tool. The benchmarks will evaluate performance overhead and security gain from preventing possible attacks.
+The methodology of this thesis is a combination of qualitative and quantitative research. The literature study represents the qualitative research where information about web application security, Dynamic Taint Tracking and Domain-Driven Security is gathered, presented and discussed. The quantitative research is the evaluation of the implemented Dynamic Taint Tracker. The benchmarks will evaluate performance overhead and security gain from preventing possible attacks.

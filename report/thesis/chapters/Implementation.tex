@@ -1,11 +1,11 @@
 \chapter{Implementation}
-This Chapter presents the fundamental parts in the process of implementing the Dynamic Taint Tracking tool. The chapter starts with a section describing the \textit{\nameref{Policies}} of the tool. This section is then followed by \textit{\nameref{SoftwareArchitecture}} and \textit{\nameref{NotableProblems}}.
+This Chapter presents the fundamental parts in the process of implementing the Dynamic Taint Tracking tool. The chapter starts with a section describing the \textit{\nameref{Policies}} of the tool. This section is then followed by \textit{\nameref{SoftwareArchitecture}}.
 
 
 
 \section{Policies}
 \label{Policies}
-The development of the Dynamic Taint Tracking tool relies on tainting, detainting, propagation logic and asserting negative taint. However, to implement the logic of the application need the security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. In the application developed in this thesis will these be based on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
+The development of the Dynamic Taint Tracking tool relies on tainting, detainting, tracking logic and asserting negative taint. However, to implement the logic of the application need the security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. In the application developed in this thesis will these be based on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
 
 
 
@@ -51,7 +51,7 @@ The policies above can also be combined with tainting policies. These are presen
 
 
 \subsection{Taint Propagation}
-To enable the tracking of taint in the system is a complete implementation of taint propagation needed. The ultimate goal would be to have support for propagation of taint for each class and data type. This is, however, a complex problem. Instrumentation of classes is decently, but instrumentation of primitives and arrays is a rather complex problem. However, the principal behind the propagation is the same for all data types. 
+To enable the tracking of taint in the system is a complete implementation of taint tracking needed. The ultimate goal would be to have support for tracking of taint for each class and data type. This is, however, a complex problem. Instrumentation of classes is decently, but instrumentation of primitives and arrays is a rather complex problem. However, the principal behind the tracking is the same for all data types. 
 
 Below are rules defining when taint variables should propagate.
 
@@ -69,7 +69,7 @@ Defining the source, sinks, and sanitizers is a large task in itself. There is n
 
 
 
-\section{Software Architecture}
+\section{Software Implementation}
 \label{SoftwareArchitecture}
 The implementation of the Dynamic Taint Tracking tool is divided into three subprojects. These three are Agent, Xboot, and Utils. 
 
@@ -83,7 +83,7 @@ The implementation of the Dynamic Taint Tracking tool is divided into three subp
 
 The reasoning behind the division is because of the need of transforming classes both before runtime and during runtime. The Agent is handling the transformation in runtime and Xboot transforms classes on command before runtime. The logic of transforming the classes is, however, the same in both projects. Therefore, to remove duplications of code is al logic of transforming classes extracted from Xboot and Agent and placed into the Utils project.
 
-The implemented Dynamic Taint Tracking tool supports propagation of taint for the classes: String, StringBuilder and StringBuffer. The goal was to implement propagation for all classes. However, this took more time than expected.
+The implemented Dynamic Taint Tracking tool supports tracking of taint for the classes: String, StringBuilder and StringBuffer. The goal was to implement tracking for all classes. However, this took more time than expected.
 
 
 
@@ -104,10 +104,10 @@ The instrumentation of the method works differently depending on if it is a sour
 
 
 
-\section{Notable Problems}
+\subsection{Notable Problems}
 \label{NotableProblems}
 One of the first problems that were introduced during the development of the application was that some classes could not be instrumented during runtime. More precisely, the classes that the Java Virtual Machine relies on can't be instrumented at runtime. However, there is a solution to this. The solution is to pre-instrument the base Java Runtime Environment and create a new instrumented rt.jar file with statically modified versions of the classes. The created jar file loads through the option \textit{Xbootclasspath/p} that appends the file to the front of the bootstrap classpath. Making the Java Virtual Machine use our modified versions of the base Java Runtime Environment \parencite{xboot} before the original version.
 
-Another problem is that instrumentation of primitives and arrays not possible. This causes a problem since it opens the ability to miss propagation of tainted data if they ever pass through a byte- or char array. The solution that can solve this is to create shadow as \textcite{BellJ.2014PIdd} did while creating Phosphor \parencite{phosphor}. 
+Another problem is that instrumentation of primitives and arrays not possible. This causes a problem since it opens the ability to miss tracking of tainted data if they ever pass through a byte- or char array. The solution that can solve this is to create shadow as \textcite{BellJ.2014PIdd} did while creating Phosphor \parencite{phosphor}. 
 
 Another problem that emerged was that operations with primitives are direct bytecode translations. Two examples of these are the usage of + (addition) and - (subtraction). Adding operations to these through Javassist's source level API is therefore not possible. To solve this are operations on bytecode level needed and Javassist, bytecode level API, is suitable for this. \parencite{Javassist} 
