@@ -1,20 +1,20 @@
 \chapter{Background}
-This Chapter will present background knowledge needed to comprehend the conduction of the thesis. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed by a section discussion common \textit{\nameref{SecurityVulnerabilities}} to web applications. After those follows two sections describing \textit{\nameref{DynamicTaintTracking}}, \textit{\nameref{DomainDrivenDesign}}, and \textit{\nameref{DomainDrivenSecurity}}. The last section is about \textit{\nameref{JavaInstrumentation}}.
+This Chapter will present background knowledge needed to comprehend the thesis. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed by a section discussing common \textit{\nameref{SecurityVulnerabilities}} to web applications. After those follows two sections describing \textit{\nameref{DynamicTaintTracking}}, \textit{\nameref{DomainDrivenDesign}}, and \textit{\nameref{DomainDrivenSecurity}}. The last section is about the programing language \textit{\nameref{JavaInstrumentation}}.
 
 
 
 \section{Web Application}
 \label{WebApplication}
-To make applications available for a broad set of people and make them accessible from now days almost everywhere do businesses deploy their applications on the web. The deployment of an application can vary a lot, but the most common structure for a web application is based on a three-tier architecture. The first tier is the presentation tier which is the visual components rendered by the browser. The second is the logic tire which is the brain of the application. The last and third tier is the storage, where the second tier can store data as needed \parencite{JustinClarke-Salt2009SIAa}. An illustration of the three-tier architecture can be seen in figure \ref{fig:webApplication-Haldar}.
+To make applications available for a broad set of people and make them accessible from now days almost everywhere do businesses deploy their applications on the web. The deployment of an application can vary a lot, but the most common structure for a web application is based on a three-tier architecture. The first tier is the presentation tier which is the visual components rendered by the browser. The second is the logic tire which is the brain of the application. The last and third tier is the storage, where the second tier can store data as needed \parencite{JustinClarke-Salt2009SIAa}.
+
+Figure \ref{fig:webApplication-Haldar} illustrates the three-tier architecture. It can be seen in the figure that tiers only communicate with the tire closest to themselves. This causes the second tier to become a safeguard for tier three where the valuable and possibly sensitive information is stored. The storage tier contains all the essential information the application needs to provide its intended service. Such information might, for example, be name, email, personal number and credit card information \parencite{JustinClarke-Salt2009SIAa}.
 
 \begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{images/webApplication-Haldar.png}
-    \caption{The three-tier web application architecture \cite{Haldar}.}
-    \label{fig:webApplication-Haldar}
+  \centering
+  \includegraphics[width=\textwidth]{images/webApplication-Haldar.png}
+  \caption{The three-tier web application architecture \cite{Haldar}.}
+  \label{fig:webApplication-Haldar}
 \end{figure}
-
-It can be seen in figure \ref{fig:webApplication-Haldar} that the tiers only communicate with the tire closest to themselves. This causes the second tier to become a safeguard for tier three where the valuable and possibly sensitive information is stored. The storage tier contains all the essential information the application needs to provide its intended service. Such information might, for example, by name, email, personal number and credit card information \parencite{JustinClarke-Salt2009SIAa}.
 
 The scope of the thesis lies in tier two. The programming language for tier two might vary a lot, but one common and the chosen language for this thesis is Java.
 
@@ -27,11 +27,11 @@ Communication between tier two and tier three is done through a standardized lan
 
 \section{Security Vulnerabilities}
 \label{SecurityVulnerabilities}
-The organization Open Web Applications Security Project, mostly known for its shortening OWASP, is an online community which aims to provide knowledge how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP has produced reports about the top 10 security risks for a web application, and the latest was published in 2017. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. This thesis will look at security risk number one and seven which is Injection Attacks and Cross-site Scripting \parencite{OWASP2017}.
+The organization Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP has produced reports about the top 10 security risks for a web application, and the latest was published in 2017. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. This thesis will look at security risk number one and seven from the latest report. These two vulnerabilities are Injection and Cross-site Scripting attacks \parencite{OWASP2017}.
 
 
 
-\subsection{Injection Attacks}
+\subsection{Injection Attack}
 The most common security risk is Injection Attacks \parencite{OWASP2017}. Injection Attack is an attack where the attacker's input changes the intent of the execution. The typical results of Injection Attacks are file destruction, lack of accountability, denial of access and data loss \parencite{Secure_Web}.
 
 Injection Attacks can be divided into two different subgroups. These two subgroups are SQL Injection and Blind SQL Injection \parencite{Secure_Web}.
@@ -51,7 +51,7 @@ userId = (*@\textit{userInput}@*)
 \end{lstlisting}
 \hfill
 
-The query will work as intended if the user input, notated with \textit{userInput}, is a valid Integer (since Integer is what we have decided that user id is in the application). But what happens if the user input is \textit{10 or 1 = 1}? This user input would result in the query seen in listing \ref{lst:SQL_Injection}.
+The query will work as intended if the user input, labeled as \textit{userInput}, is a valid Integer (since Integer is what we have decided that user id is in the application). But what happens if the user input is \textit{10 or 1 = 1}? This input would result in the query seen in listing \ref{lst:SQL_Injection}.
 
 \hfill
 \begin{lstlisting}[
@@ -62,7 +62,7 @@ SELECT * FROM Users WHERE userId = 10 or 1 = 1
 \end{lstlisting}
 \hfill
 
-This query results in an execution that always evaluates to true. The result of this will be that the query returns the whole table of users. This problem can be prevented in a couple of different ways. The first is through validation of the input. By verifying the user input as seen in listing \ref{lst:SQL_Injection_Verified} can we protect the query from being accessible to SQL Injection.
+This query results in an execution that always evaluates to true. The result of this will be that the query returns the whole table of users. This problem can be prevented in a couple of different ways. The first is through validation of input. By verifying user input as seen in listing \ref{lst:SQL_Injection_Verified} can we protect the query from being vulnerable to SQL Injection.
 
 \hfill
 \begin{lstlisting}[
@@ -101,21 +101,21 @@ SELECT * FROM Users WHERE userId = 1 WAITFOR DELAY '0:0:5'
 \end{lstlisting}
 \hfill
 
-The second variant of Blind SQL Injection, which is by analyzing the error messages, and depending on what they return to build an image of the wanted answer. This is mostly done by testing the different combination of true and false questions \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
+The second variant of Blind SQL Injection is through analyzing error messages and depending on what they return, build an image of the targeted data. This is mostly done through testing different combinations of true and false queries \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
 
 
 
-\subsection{Cross-site Scripting}
-Cross-Site Scripting has been a vulnerability since the beginning of the internet. One of the first Cross-Site Scripting attacks was created just after the release of JavaScript. The attack was conducted through loading a malicious web application into a frame on the site that the attacker wants to gain information from. The attacker could then through JavaScript access any content that is visible or typed into the web application. To prevent this form of attack where the standard of Same-Origin Policy introduced. Same-Origin Policy restricts JavaScript to only access content from its own origin \parencite{FogieSeth2007Xacs, w3csop}.
+\subsection{Cross-Site Scripting}
+Cross-Site Scripting has been a vulnerability since the beginning of the internet. One of the first Cross-Site Scripting attacks was created just after the release of JavaScript. The attack was conducted through loading a malicious web application into a frame on the site that the attacker wants to gain access to. The attacker could then through JavaScript access any content that is visible or typed into the web application. To prevent this form of attack where the standard of Same-Origin Policy introduced. Same-Origin Policy restricts JavaScript to only access content from its own origin \parencite{FogieSeth2007Xacs, w3csop}.
 
-The introduction of the Same-Origin Policy did not stop the attackers from performing Cross-Site Scripting attacks. The next wave of attacks was mostly towards chat rooms where it was possible to inject malicious scripts into the input of the message. Which would then later be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy \parencite{FogieSeth2007Xacs}.
+The introduction of the Same-Origin Policy, however, did not stop the attackers. The next wave of attacks was mostly towards chat rooms where it was possible to inject malicious Cross-Site Scripts into the input of the message. Which would then later be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy \parencite{FogieSeth2007Xacs}.
 
-Dividing Cross-Site Scripting into three different subcategories is possible. These three are reflected, stored and DOM-based Cross-Site Scripting.
+Dividing Cross-Site Scripting into three different subcategories is possible. These three are reflected, stored, and DOM-based Cross-Site Scripting.
 
 
 
 \subsubsection{Reflected Cross-Site Scripting}
-Reflected Cross-Site Scripting, mostly conducted through a malicious link that an unknowing user clicks. The malicious link will exploit a vulnerable input on the targeted web application and through the input reflect back content to the user \parencite{Secure_Web}.
+Reflected Cross-Site Scripting, mostly conducted through a malicious link that an unknowing user accesses. The malicious link will exploit a vulnerable input on the targeted web application and through the input reflect back malicious content to the user \parencite{Secure_Web}.
 
 
 
@@ -125,12 +125,12 @@ Stored Cross-Site Scripting is when malicious scripts get stored in the targeted
 
 
 \subsubsection{DOM-based Cross-Site Scripting}
-DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting, but it does not necessarily have to be reflected from the application server. DOM-based Cross-Site Scripting modifies the DOM tree and through that exploit the user \parencite{Secure_Web}.
+DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting, but it does not necessarily have to be reflected from the application server. DOM-based Cross-Site Scripting modifies the DOM tree and through that exploits the user \parencite{Secure_Web}.
 
 
 
 \subsection{CIA Triad}
-Discussions about application security often rely on the CIA Triad which represents the three primary concepts in information security. These three are confidentiality, integrity, and availability. Confidentiality is rules that specify the access restrictions to the application. Integrity specifies that application data should be accurate and not altered. Availability is about the ability to access the application and application data \parencite{2014C1-W}. This thesis focuses on confidentiality and integrity vulnerabilities and how we can prevent them.
+Discussions about application security often rely on the CIA Triad which represents the three primary concepts in information security. These three are confidentiality, integrity, and availability and is seen in \ref{fig:CIATriad}. Confidentiality is rules that specify the access restrictions to the application. Integrity specifies that application data should be accurate and unaltered. Availability is about the ability to access the application and application data \parencite{2014C1-W}. This thesis focuses on confidentiality and integrity vulnerabilities and how we can prevent them.
 
 \begin{figure}
     \centering
@@ -139,7 +139,7 @@ Discussions about application security often rely on the CIA Triad which represe
     \label{fig:CIATriad}
 \end{figure}
 
-Injection Attacks and Cross-site Scripting could be attacks both towards the confidentiality and integrity of systems. They are attacks towards confidentiality when the attacker intends to gain restricted information such as user data. Integrity attacks are conducted when for example Injection Attacks are used to redirect users to malicious websites.
+Injection and Cross-site Scripting Attacks can be both towards the confidentiality and integrity of systems. They are attacks towards confidentiality when the attacker intends to gain restricted information such as user data. Integrity attacks are conducted when for example Injection Attacks are used to redirect users to malicious websites.
 
 
 
