@@ -1,11 +1,11 @@
 \chapter{Implementation}
-This Chapter presents the fundamental parts in the process of implementing the Dynamic Taint Tracking tool. The chapter starts with a section describing the \textit{\nameref{Policies}} of the tool. This section is then followed by \textit{\nameref{SoftwareArchitecture}}.
+This Chapter presents the fundamental parts in the process of implementing the Dynamic Taint Tracker. The chapter starts with a section describing the \textit{\nameref{Policies}} of the tool. This section is then followed by \textit{\nameref{SoftwareArchitecture}}.
 
 
 
 \section{Policies}
 \label{Policies}
-The development of the Dynamic Taint Tracking tool relies on tainting, detainting, tracking logic and asserting negative taint. However, to implement the logic of the application need the security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. In the application developed in this thesis will these be based on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
+The development of the Dynamic Taint Tracker relies on tainting, detainting, tracking logic and asserting negative taint. However, to implement the logic of the application need the security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. In the application developed in this thesis will these be based on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
 
 
 
@@ -71,7 +71,7 @@ Defining the source, sinks, and sanitizers is a large task in itself. There is n
 
 \section{Software Implementation}
 \label{SoftwareArchitecture}
-The implementation of the Dynamic Taint Tracking tool is divided into three subprojects. These three are Agent, Xboot, and Utils. 
+The implementation of the Dynamic Taint Tracker is divided into three subprojects. These three are Agent, Xboot, and Utils. 
 
 \hfill
 \begin{description}
@@ -83,7 +83,7 @@ The implementation of the Dynamic Taint Tracking tool is divided into three subp
 
 The reasoning behind the division is because of the need of transforming classes both before runtime and during runtime. The Agent is handling the transformation in runtime and Xboot transforms classes on command before runtime. The logic of transforming the classes is, however, the same in both projects. Therefore, to remove duplications of code is al logic of transforming classes extracted from Xboot and Agent and placed into the Utils project.
 
-The implemented Dynamic Taint Tracking tool supports tracking of taint for the classes: String, StringBuilder and StringBuffer. The goal was to implement tracking for all classes. However, this took more time than expected.
+The implemented Dynamic Taint Tracker supports tracking of taint for the classes: String, StringBuilder and StringBuffer. The goal was to implement tracking for all classes. However, this took more time than expected.
 
 
 
@@ -100,7 +100,9 @@ The Utils project includes the core logic of marking methods and classes as sour
 
 If a class fulfills any of the three criteria will the list of defined method correlating to either source, sinks or sanitizer be used, and instrumentation of the methods will be conducted.
 
-The instrumentation of the method works differently depending on if it is a source, sink or sanitizer. Where instrumentation of sources will set the return parameter of the method as tainted. Instrumentation of sanitizers works by detainting the return value of the method. For sinks will an assertion call check that none of the parameters are tainted. If anyone of them is, then a taint exception occurs, and remedial action should conduct. This action should be, depending on options, a logging event, throwing an error or modifying the tainted value into a safe predefined value. During the conducted benchmarking is the option of a predefined value, where the value is an empty string, and logging the event used.
+The instrumentation of the method works differently depending on if it is a source, sink or sanitizer. Where instrumentation of sources will set the return parameter of the method as tainted. Instrumentation of sanitizers works by detainting the return value of the method. For sinks will an assertion call check that none of the parameters are tainted. If anyone of them is, then a taint exception occurs, and the remedial action of changing the value to a predefined value, where the value is an empty string, and logging the event used.
+
+should conduct. This action should be, depending on options, a logging event, throwing an error or modifying the tainted value into a safe predefined value. During the conducted benchmarking is the option of a predefined value, where the value is an empty string, and logging the event used.
 
 
 
