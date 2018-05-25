@@ -26,7 +26,7 @@ Each execution of benchmarks executes two times. One without and one with Dynami
 \subsection{Performance Overhead}
 To evaluate the time and memory overhead is The DaCapo Benchmark Suit \parencite{dacapo} used. DaCapo is a set of applications constructed specifically for Java benchmarking. This thesis uses the version DaCapo-9.12-bach which consists of fourteen real-world applications. Table \ref{table:DaCapoTests} contains a description for each application. Summary is taken from \textcite{dacapoBench}.
 
-\begin{table}[!hbt]
+\begin{table}[H]
   \centering
   \caption{Descriptions for each application in The DaCapo Benchmark Suit taken from \textcite{dacapoBench}}
     \label{table:DaCapoTests}
@@ -57,7 +57,7 @@ To detect security vulnerabilities in the applications has OWASP Zed Attack Prox
 
 To only scan applications for vulnerabilities of interest is a new policy specified in the ZAP application. The policy is modified only to contain the Injection category where the tests in Table \ref{table:ZapTests} are used.
 
-\begin{table}[!hbt]
+\begin{table}[H]
   \centering
   \caption{Security Vulnerabilities Detected by Dynamic Taint Tracker (DTT) in Ticketbook}
     \label{table:ZapTests}

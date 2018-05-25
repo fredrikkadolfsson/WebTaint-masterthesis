@@ -1,20 +1,19 @@
 \chapter{Implementation}
-This Chapter presents the fundamental parts in the process of implementing the Dynamic Taint Tracker. The chapter starts with a section describing the \textit{\nameref{Policies}} of the tool. This section is then followed by \textit{\nameref{SoftwareArchitecture}}.
+This Chapter presents the fundamental parts of the implementation process of the Dynamic Taint Tracker. The chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. This section is then followed by \textit{\nameref{SoftwareArchitecture}}.
 
 
 
 \section{Policies}
 \label{Policies}
-The development of the Dynamic Taint Tracker relies on tainting, detainting, tracking logic and asserting negative taint. However, to implement the logic of the application need the security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. In the application developed in this thesis will these be based on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
+The development of the Dynamic Taint Tracker relies on the tasks described in Table \ref{table:taintTracking}. These are tainting, detainting, propagating taint, and assert non-tainted. However, to implement the logic need security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. The taint tracker developed in this thesis will base on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
 
 
 
 \subsection{Confidentiality}
-The confidentiality policies entailed that data given to the user should only be data that the user have the right to access. This gives us the policy below.
+The confidentiality policy defines that data given to the user should only be data that the user have the right to access. The goal is to ensure prevention of malicious usage of applications where attackers aim to steal application data. This gives us the policy:
 
-\hfill
 \begin{itemize}
-    \item No information shall be released to users without permission.
+    \item No information shall be released to users without the user having the correct permission for the information.
 \end{itemize}
 \hfill
 
@@ -23,28 +22,26 @@ This entails that no information from sinks shall pass through a source unless i
 
 
 \subsection{Integrity}
-Integrity entails that users may not modify data which they do not have permission to alter. This gives us the policy below.
+The integrity policy defines that users may not modify data which they do not have permission to alter. This goal is to ensure prevention of malicious usage of the application where attackers aim to destroy application data. This gives us the policy:
 
-\hfill
 \begin{itemize}
-    \item No information shall be altered without permission.
+    \item No information shall be altered without the users having permission to do so for the information.
 \end{itemize}
 \hfill
 
-This entails that no information from sources shall gain access to a sink without first being sanitized.
+This entails that no information from sources shall pass through a sink without first being sanitized.
 
 
 
 \subsection{Taint Checking}
-The policies above will be enforced by forcing validation of data that are or have been in contact with data coming from a source before they enter a sink. By enforcing this rule should preventions of confidentiality and integrity volubilities be reduced severely.
+The policies above are enforced through validation of user input from sources and any data it has come in contact with. By enforcing these should preventions of confidentiality and integrity volubilities be reduced severely.
 
-The policies above can also be combined with tainting policies. These are presented below.
+The policies above can be translated into taint policies. These are:
 
-\hfill
 \begin{itemize}
-    \item Data passing through sources going into the domain should be marked tainted.
-    \item No tainted data is allowed to pass through a sink.
-    \item Data can only be detainted through validation.
+    \item Data passing through sources, going into the domain, shall always be marked tainted.
+    \item Tainted data is never allowed to pass through sinks.
+    \item Predefined sanitizers are the only method calls allowed to detaint data.
 \end{itemize}
 \hfill
 
@@ -55,7 +52,6 @@ To enable the tracking of taint in the system is a complete implementation of ta
 
 Below are rules defining when taint variables should propagate.
 
-\hfill
 \begin{itemize}
     \item Data resulting in a copy, subset or combination.
     \item Data disclosing information about tainted data.
@@ -73,7 +69,6 @@ Defining the source, sinks, and sanitizers is a large task in itself. There is n
 \label{SoftwareArchitecture}
 The implementation of the Dynamic Taint Tracker is divided into three subprojects. These three are Agent, Xboot, and Utils. 
 
-\hfill
 \begin{description}
     \item[Agent] Project that transforms classes loaded at runtime into sources, sinks or sanitizers.
     \item[Xboot] Project that loops through all classes in rt.jar and transforms into sources, sinks or sanitizers.
@@ -90,7 +85,6 @@ The implemented Dynamic Taint Tracker supports tracking of taint for the classes
 \subsection{The Utils Project}
 The Utils project includes the core logic of marking methods and classes as sources, sinks, and sanitizers. It works by taking a class as an argument that is to be checked if it qualifies for any of the three below criteria.
 
-\hfill
 \begin{itemize}
     \item Is same class as the defined source, sink or sanitizer.
     \item Implements interface of the defined source, sink or sanitizer.
