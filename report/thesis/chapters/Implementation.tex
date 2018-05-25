@@ -12,6 +12,7 @@ The development of the Dynamic Taint Tracker relies on the tasks described in Ta
 \subsection{Confidentiality}
 The confidentiality policy defines that data given to the user should only be data that the user have the right to access. The goal is to ensure prevention of malicious usage of applications where attackers aim to steal application data. This gives us the policy:
 
+\hfill
 \begin{itemize}
     \item No information shall be released to users without the user having the correct permission for the information.
 \end{itemize}
@@ -24,6 +25,7 @@ This entails that no information from sinks shall pass through a source unless i
 \subsection{Integrity}
 The integrity policy defines that users may not modify data which they do not have permission to alter. This goal is to ensure prevention of malicious usage of the application where attackers aim to destroy application data. This gives us the policy:
 
+\hfill
 \begin{itemize}
     \item No information shall be altered without the users having permission to do so for the information.
 \end{itemize}
@@ -38,6 +40,7 @@ The policies above are enforced through validation of user input from sources an
 
 The policies above can be translated into taint policies. These are:
 
+\hfill
 \begin{itemize}
     \item Data passing through sources, going into the domain, shall always be marked tainted.
     \item Tainted data is never allowed to pass through sinks.
@@ -48,13 +51,14 @@ The policies above can be translated into taint policies. These are:
 
 
 \subsection{Taint Tracking}
-To enable the tracking of taint in the system is a complete implementation of taint tracking needed. The ultimate goal would be to have support for tracking of taint for each class and data type. This is, however, a complex problem. Instrumentation of classes is decently, but instrumentation of primitives and arrays is a rather complex problem. However, the principal behind the tracking is the same for all data types. 
+To enable tracking of taint is an implementation of taint propagation needed. The goal is to support all data type. This is, however, a complex problem. Instrumentation of classes is decently, but instrumentation of primitives and arrays are a rather complex problem. However, the principal behind the tracking is the same for all data types. 
 
-Below are rules defining when taint variables should propagate.
+Below are rules defining when taint variables should propagate:
 
+\hfill
 \begin{itemize}
-    \item Data resulting in a copy, subset or combination.
-    \item Data disclosing information about tainted data.
+    \item Data resulting in a copy, subset or combination of tainted data shall be tainted.
+    \item Data disclosing information about tainted data shall be tainted.
 \end{itemize}
 \hfill
 
@@ -69,6 +73,7 @@ Defining the source, sinks, and sanitizers is a large task in itself. There is n
 \label{SoftwareArchitecture}
 The implementation of the Dynamic Taint Tracker is divided into three subprojects. These three are Agent, Xboot, and Utils. 
 
+\hfill
 \begin{description}
     \item[Agent] Project that transforms classes loaded at runtime into sources, sinks or sanitizers.
     \item[Xboot] Project that loops through all classes in rt.jar and transforms into sources, sinks or sanitizers.
@@ -85,6 +90,7 @@ The implemented Dynamic Taint Tracker supports tracking of taint for the classes
 \subsection{The Utils Project}
 The Utils project includes the core logic of marking methods and classes as sources, sinks, and sanitizers. It works by taking a class as an argument that is to be checked if it qualifies for any of the three below criteria.
 
+\hfill
 \begin{itemize}
     \item Is same class as the defined source, sink or sanitizer.
     \item Implements interface of the defined source, sink or sanitizer.
