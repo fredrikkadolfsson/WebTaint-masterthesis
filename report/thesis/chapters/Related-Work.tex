@@ -7,14 +7,14 @@ This chapter presents the related work in the field. The first section is about 
 
 \section{Dynamic Taint Trackers}
 \label{RW:DynamicTaintTracking}
-\textcite{Haldar} has written a report about Dynamic Taint Tracking for Java where they tried to solve the problem of not correctly validating user input. They managed to construct a tool that is independent of the web applications source code and the results from using the tool is gain in security. \textcite{Haldar} ran their benchmarks on OWASP’s project WebGoat \parencite{webgoat} but acknowledged in their report that benchmarks of real-world web applications need conducting. Their application implemented taint tracking for String by adding a taint flag and altered the methods to propagate the taint into the String class file.
+\textcite{Haldar} has written a report about dynamic taint tracking for Java where they tried to solve the problem of not correctly validating user input. They managed to construct a tool that is independent of the web applications source code and the results from using the tool is gain in security. \textcite{Haldar} ran their benchmarks on OWASP’s project WebGoat \parencite{webgoat} but acknowledged in their report that benchmarks of real-world web applications need conducting. Their application implemented taint tracking for String by adding a taint flag and altered the methods to propagate the taint into the String class file.
 
 \textcite{Haldar} implementation cant be found but there exists two other Dynamic Taint Trackers, Phosphor \parencite{phosphor} and Dynamic Security Taint Propagation \parencite{securityTaint}. Both are open source projects and developed for Java applications. Phosphor does however not support sanitizers, and Dynamic Security Taint Propagation cant build from its source code.
 
 
 
 \subsection{Phosphor}
-The construction of Phosphor \parencite{phosphor} is done with the help of the Java bytecode manipulation library ASM \parencite{asm}. Phosphor, based on the research conducted in the thesis, is the current state of art application in Dynamic Taint Tracking. The application solved tracking of taint for primitives and arrays by introducing shadow variables. A shadow variable is a variable holding the taint value for a un-instrumentable object. The shadow variable is instrumented into the application and placed next to each primitive and array. Each method in the application is also instrumented to pass shadow variables together with the un-instrumentable object \parencite{BellJ.2014PIdd}.
+The construction of Phosphor \parencite{phosphor} is done with the help of the Java bytecode manipulation library ASM \parencite{asm}. Phosphor, based on the research conducted in the thesis, is the current state of art application in dynamic taint tracking. The application solved tracking of taint for primitives and arrays by introducing shadow variables. A shadow variable is a variable holding the taint value for a un-instrumentable object. The shadow variable is instrumented into the application and placed next to each primitive and array. Each method in the application is also instrumented to pass shadow variables together with the un-instrumentable object \parencite{BellJ.2014PIdd}.
 
 
 

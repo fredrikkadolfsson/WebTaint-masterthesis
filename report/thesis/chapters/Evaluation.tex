@@ -21,7 +21,7 @@ The execution of the benchmarking is conducted on an Asus Zenbook UZ32LN. No oth
 
 \section{Benchmarking}
 \label{Benchmarking}
-Each execution of benchmarks executes two times. One without and one with Dynamic Taint Tracking. The first is to acquire the baseline of the application. The second is to acquire how Dynamic Taint Tracker affects the execution of the application.
+Each execution of benchmarks executes two times. One without and one with dynamic taint tracking. The first is to acquire the baseline of the application. The second is to acquire how Dynamic Taint Tracker affects the execution of the application.
 
 
 
@@ -99,4 +99,4 @@ To evaluate the time and memory overhead is The DaCapo Benchmark Suit \parencite
     \end{description}
 \end{table}
 
-The measurement of time and memory is conducted through a C script which executes each application ten times both with and without Dynamic Taint Tracking. To isolate each iteration is a unique process spawned per test case execution. This process will then run the application in a child process which will be evaluated for time and memory. This information is then passed back to the main thread where all data is aggregated.  
+The measurement of time and memory is conducted through a C script which executes each application ten times both with and without dynamic taint tracking. To isolate each iteration is a unique process spawned per test case execution. This process will then run the application in a child process which will be evaluated for time and memory. This information is then passed back to the main thread where all data is aggregated.  
