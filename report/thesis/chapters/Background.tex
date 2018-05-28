@@ -1,4 +1,6 @@
 \chapter{Background}
+\todo[inline]{Todo: Förklara fördelarna med dynamisk gärmfört med static!!!! }
+
 This Chapter will present background knowledge needed to comprehend the thesis. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed by a section discussing common \textit{\nameref{SecurityVulnerabilities}} to web applications. After those follows two sections describing \textit{\nameref{DynamicTaintTracking}}, \textit{\nameref{DomainDrivenDesign}}, and \textit{\nameref{DomainDrivenSecurity}}. The last section is about the programing language \textit{\nameref{JavaInstrumentation}}.
 
 
@@ -28,6 +30,20 @@ Communication between tier two and tier three is done through a standardized lan
 \section{Security Vulnerabilities}
 \label{SecurityVulnerabilities}
 The organization Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP has produced reports about the top 10 security risks for a web application, and the latest was published in 2017. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. This thesis will look at security risk number one and seven from the latest report. These two vulnerabilities are Injection and Cross-site Scripting attacks \parencite{OWASP2017}.
+
+
+
+\subsection{CIA Triad}
+Discussions about application security often rely on the CIA Triad which represents the three primary concepts in information security. These three are confidentiality, integrity, and availability and is seen in \ref{fig:CIATriad}. Confidentiality is rules that specify the access restrictions to the application. Integrity specifies that application data should be accurate and unaltered. Availability is about the ability to access the application and application data \parencite{2014C1-W}. This thesis focuses on confidentiality and integrity vulnerabilities and how we can prevent them.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=6cm]{images/CIATriad.jpg}
+    \caption{CIA Triad}
+    \label{fig:CIATriad}
+\end{figure}
+
+Injection and Cross-site Scripting Attacks can be both towards the confidentiality and integrity of systems. They are attacks towards confidentiality when the attacker intends to gain restricted information such as user data. Integrity attacks are conducted when for example Injection Attacks are used to redirect users to malicious websites.
 
 
 
@@ -129,20 +145,6 @@ DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting
 
 
 
-\subsection{CIA Triad}
-Discussions about application security often rely on the CIA Triad which represents the three primary concepts in information security. These three are confidentiality, integrity, and availability and is seen in \ref{fig:CIATriad}. Confidentiality is rules that specify the access restrictions to the application. Integrity specifies that application data should be accurate and unaltered. Availability is about the ability to access the application and application data \parencite{2014C1-W}. This thesis focuses on confidentiality and integrity vulnerabilities and how we can prevent them.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[height=6cm]{images/CIATriad.jpg}
-    \caption{CIA Triad}
-    \label{fig:CIATriad}
-\end{figure}
-
-Injection and Cross-site Scripting Attacks can be both towards the confidentiality and integrity of systems. They are attacks towards confidentiality when the attacker intends to gain restricted information such as user data. Integrity attacks are conducted when for example Injection Attacks are used to redirect users to malicious websites.
-
-
-
 \section{Dynamic Taint Tracking}
 \label{DynamicTaintTracking}
 Taint tracking, also known as taint analysis, taint checking and taint propagation, is a tool to analyze the flow of information in a domain \parencite{Pan2015}. The goal of taint tracking is to prevent possible attacks such as Injection and Cross-Site Scripting by enforcing the usage of sanitizers on input data. Taint tracking is possible to execute in two different forms: static and dynamic. The static is an evaluation tool which is done statically before runtime. Dynamic is a tool that is executed at runtime. Taint trackers operate by tracking data and actively blocking any that are trying to enter sinks without first been detainted through sanitation. Perl and Ruby are two programming languages which have adapted to use taint checking \parencite{perl, ruby}. There are some tools which enable taint checking for other platforms. TaintDroid \parencite{Ma2010} for the Android platform is one of them. This thesis will handle Dynamic Taint Tracking and how it can increase the security of Java-based web applications.
@@ -175,30 +177,6 @@ executeQuery("SELECT * FROM Users WHERE userId = " + userId);
 \hfill
 
 The above described Dynamic Taint Tracking tool focuses on preventing malicious code from entering and causing harm to the application. These represent security policies restricting input from sources to pass through sinks without first being sanitized through validation. The same application could be used to enforce policies restricting sensitive data to leave the system. It is done by marking access points to sensitive data as sources and unallowed exits of the system as sinks.
-
-
-
-\section{Domain-Driven Design}
-\label{DomainDrivenDesign}
-Domain-Driven Design is a thought process and methodology to follow in every step of the proejct \parencite{EvansEric2004Dd:t}. In \emph{Domain-driven design reference: definitions and patterns summaries} do \textcite{evans_2015} describe Domain-Driven Design through three core ideas:
-
-\begin{itemize}
-    \item Focus on the core domain.
-    \item Explore models in a creative collaboration of domain practitioners and software practitioners.
-    \item Speak a ubiquitous language within an explicitly bounded context.
-\end{itemize}
-
-The core domain is the part of the product that is most important and often is the main selling point compared to other similar products \parencite{millett_2015}. A discussion and even possible a document describing the core domain is something that will help the development of the product. The idea is to keep everybody on the same track and head in the same direction \parencite{EvansEric2004Dd:t}.
-
-The second idea is to explore and develop every model in collaboration between all domain practitioners, who are experts in the given domain, and software developers. This ensures that essential knowledge needed to create the product successfully is communicated back and forth between the two parties \parencite{millett_2015}. The third idea is necessary to enable and streamline the second. By using a ubiquitous language, will miscommunication between domain and software practitioners be minimized and the collaboration between the two parties can instead focus on the essential parts which are to develop the product \parencite{evans_2015}.
-
-\textcite{evans_2015} do as well argue about the weight of clearly defining the bounded contexts for each defined model, and this needs to be done in the ubiquitous language created for the specific product. The need of this exists because of the otherwise high risk of misunderstandings and erroneous assumptions in the collaborations between the different models \parencite{millett_2015}.
-
-
-
-\section{Domain-Driven Security}
-\label{DomainDrivenSecurity}
-\textcite{Wilander2009, Johnsson2009} created 2009 a blog post each, in a synchronous manner, where they introduce the concept of Domain-Driven Security to the public. They describe Domain-Driven Security as the intersection between Domain-Driven Design and application security. Domain-Driven Security focuses on the importance of input validation and developing and maintaining domain models which reflect the product correctly. To enforce validations is domain primitives introduced. Doing so minimizes the risk of accidentally propagating erroneous data. Domain primitives are a minor modification of Domain-Driven Designs value objects. Where the key concepts are that they are immutable and only allowed to exist if they are valid in the domain \parencite{Wilander2009, Johnsson2009, Arnor2016, Stendahl2016}.
 
 
 

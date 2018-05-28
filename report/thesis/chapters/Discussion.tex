@@ -1,4 +1,7 @@
 \chapter{Discussion}
+\todo[inline]{Todo: Kan användas som endast ett dev verktyg vilket gör att pålagt overhead inte spelar någon roll. }
+
+
 This chapter contains the discussions about the implemented Dynamic Taint Tracker and how well it performs. The chapter starts with a general presentation about the implementation. This follows by a section comparing it with \textit{\nameref{security}}. This is then followed by \textit{\nameref{sss}} discussions. Lastly is there two sections about \textit{\nameref{propagation}} and \textit{\nameref{methev}}.
 
 From the results can we see that using the Dynamic Taint Tracker adds a performance overhead. This overhead comes from instrumenting the classes and from the added operations for tracking taint. The most significant impact on this, for time overhead, comes from the instrumentation which is seen in both Figure \ref{fig:Time}. The instrumentation is only done once which makes applications with longer runtime less impacted by the added time overhead. This is seen by comparing the execution time of Avrora and Batika, 137.2\% respectively 432.2\%, with Tradebeans and Tradesoap, 26.3\% respectively 14.7\%.
@@ -8,12 +11,6 @@ Memory overhead tells a different story. The two most extended executions here h
 Both time and memory overhead could more than probably be optimized by reworking the implemented code to be more effective. This was however not conducted in this thesis because of time issues.
 
 Acceptance of performance overhead is never a good idea if nothing good comes out of it. Though, an average prevention rate of 81\% is something that could make overhead acceptable to the system. By further optimizing the underlying logic and enhancing support for more data types would make the gain compared to the cost make it even more worth it. However, this could even after optimizations not be a possible use case for time and memory sensitive domains. It might even be possible to destroy the user experience of a web application if the added time for events to happen takes a long time.
-
-
-
-\section{Domain-Driven Security}
-\label{security}
-As said prior, Domain-Driven security has been proven to mitigate Injection and Cross-Site Scripting attacks. By looking at the result of this thesis, can we also see that Dynamic Taint Tracking mitigates the same security vulnerabilities. Dynamic Taint Tracking is, however, compared to Domain-Driven, only an application that enforces validation of variables that have been in contact with untrusted sources. How they are validated does not matter as long as the method used is defined as a sanitizer by the Dynamic Taint Tracker. Domain-Driven Security, however, utilizes domain primitives to secure validation and sanitation. They are a single point of validation which lowers the complexity of redefining or expanding the logic of the application. Dynamic Taint Propagation could be altered to enforce validations inside the domain primitives constructors. It could work by altering all sanitizers to the only detaint when called from inside a domain primitives constructor. It would force the user to use domain primitives.
 
 
 

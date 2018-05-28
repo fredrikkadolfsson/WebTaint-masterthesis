@@ -3,36 +3,6 @@ This chapter presents the results of the conducted evaluation. Appendix \ref{app
 
 
 
-\section{Performance Overhead}
-\label{Performance}
-The results from benchmarking the application on DaCapo Benchmark Suit \parencite{dacapo} is seen in Figure \ref{fig:Time} and \ref{fig:Memory}. Both graphs are constructed to show the added overhead of running the applications with Dynamic Taint Tracking activated. The graphs are constructed based on the data in Table \ref{TimeTable} and \ref{MemoryTable}.
-
-
-
-\subsection{Time}
-Figure \ref{fig:Time} displays the results of the average time overhead per application. The results show that the application with the least average time overhead was Tradesoap where 14.7\% was added. The largest application, however, was Batik with an overhead of 432.2\%. The average overall is 162.9\%.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{images/Time.png}
-    \caption{Average Added Time in Microseconds}
-    \label{fig:Time}
-\end{figure}
-
-
-
-\subsection{Memory}
-Figure \ref{fig:Memory} displays the results of the average memory overhead per application. The results show that the application with the least average memory overhead was Eclipse where 5.5\% was added. The largest application, however, was Batik with an overhead of 344.6\%. The average overall is 142.7\%.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{images/Memory.png}
-    \caption{Average Added Memory in Kilobytes}
-    \label{fig:Memory}
-\end{figure}
-
-
-
 \section{Applications}
 \label{Applications}
 The presented results in this section are from evaluating Java applications for security vulnerabilities with and without Dynamic Taint Tracking. The results from each application are listed in its table where vulnerability type and the number of vulnerabilities are listed. In the presentation of the result in the text are vulnerabilities of the same type aggregated. By aggregating all four average prevention rates do we get that the overall prevention rate for the applications is 81\%.
@@ -93,3 +63,33 @@ Table \ref{table:Ticketbook} shows the vulnerabilities from evaluating Ticketboo
     \textbf{SQL Injection}                     & 1             & 1
   \end{tabular}
 \end{table}
+
+
+
+\section{Performance Overhead}
+\label{Performance}
+The results from benchmarking the application on DaCapo Benchmark Suit \parencite{dacapo} is seen in Figure \ref{fig:Time} and \ref{fig:Memory}. Both graphs are constructed to show the added overhead of running the applications with Dynamic Taint Tracking activated. The graphs are constructed based on the data in Table \ref{TimeTable} and \ref{MemoryTable}.
+
+
+
+\subsection{Time}
+Figure \ref{fig:Time} displays the results of the average time overhead per application. The results show that the application with the least average time overhead was Tradesoap where 14.7\% was added. The largest application, however, was Batik with an overhead of 432.2\%. The average overall is 162.9\%.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/Time.png}
+    \caption{Average Added Time in Microseconds}
+    \label{fig:Time}
+\end{figure}
+
+
+
+\subsection{Memory}
+Figure \ref{fig:Memory} displays the results of the average memory overhead per application. The results show that the application with the least average memory overhead was Eclipse where 5.5\% was added. The largest application, however, was Batik with an overhead of 344.6\%. The average overall is 142.7\%.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/Memory.png}
+    \caption{Average Added Memory in Kilobytes}
+    \label{fig:Memory}
+\end{figure}
