@@ -1,81 +1,26 @@
 \chapter{Introduction}
 \label{Introduction}
-\todo[inline]{Todo: Föra TT: Domain hantera både untrusted och trusted data. Finns olika lösningar för att lösa information flow control. Requirements!?!? Sustainabilities?}
+\todo[inline]{Todo: Requirements!?!? Sustainabilities?}
 
-The creation of the World Wide Web has caused a significant impact on today's society \parencite{www}. The internet is a source of information, and it connects the world through a single platform. Many businesses have decided to take advantage of this to share information, communicate with customers, and create new business opportunities. Software as a Service is one of these where companies provide applications over the internet. \parencite{AllenB.2012SAaS, xaas, NewcombeLee2012SaSa} However, this does not come without drawbacks. The web application is not only accessible to the targeted user groups but anyone with access to the web. This entails that malicious users who wish to abuse and cause harm to other users have the accessibility to do so possibly. 
+The creation of the World Wide Web has caused a significant impact on today's society \parencite{www}. The internet is a source of information, and it connects the world through a single platform. Many businesses have taken advantage of this to share information, communicate with customers, and create new business opportunities. Software as a Service is one of these opportunities where companies provide software over the internet. \parencite{AllenB.2012SAaS, xaas, NewcombeLee2012SaSa} However, this advancement in technology does not come without its drawbacks. The web applications are not only accessible to the targeted user groups but anyone with access to the web. This entails that malicious users who wish to abuse and cause harm to other users have the accessibility to do so possibly. 
 
-Since the beginning of the internet has there been a plethora of incidents causing vulnerabilities resulting in everything from money loss to disclosure or even destruction of information. One of these is the infamous Heartbleed Bug, affecting one-third of all websites, where the OpenSSL cryptographic library contained a bug causing protected information to be readable by anybody on the web \parencite{Heartbleed}. Another is the Stagefright vulnerability making it possible through a malicious MMS to gain full control over an Android Smartphone \parencite{2015ASvt}. To help application owners to prevent these kinds of vulnerabilities was the community Open Web Applications Security Project formed with the goal of providing knowledge about how to secure web applications \parencite{OpenWebApplicationSecurityProject}. The community has produced reports about the top 10 security risks for web applications, and the latest published in 2017. In this report was Injection Attacks number one and Cross-Site Scripting number seven \parencite{OWASP2017, OpenWebApplicationSecurityProject, CrossMichael2007Dgtw}.
+There have been a plethora of incidents causing vulnerabilities resulting in everything from money loss, disclosure or destruction of information. One of these is the infamous Heartbleed Bug affecting all users of the OpenSSL cryptographic library. The cryptographic library contained a bug causing protected information to be readable by anybody on the web \parencite{Heartbleed}. Another vulnerability is the Stagefright affecting all at the time Android users. The vulnerability made it possible through a malicious MMS to gain full control over the Smartphone \parencite{2015ASvt}. 
 
-Web applications have the complex problem of working with both trusted and untrusted data. The trusted data comes from the application itself which mostly is the database. Untrusted data is any data that the user the ability to alter. The consequences of trusting untrusted data can be catastrophic and to minimize the risk of this introducing security flaws into applications has a variety of tools and methodologies arose. One of these is dynamic taint tracking which marks input from the user as tainted through a taint flag attached to the variable representing the input. This taint flag follows the input throughout the application and propagates onto the other variables it encounters. It is possible to detaint the input, and this is after the input is validated. The assertion of non-tainted values occurs in sinks where tainted variables are prevented from executing \parencite{Pan2015, Venkataramani2008}. 
+All applications with accessibility from the web have the problem of managing both trusted and untrusted data. The trusted data comes from the application itself an is mostly the database. Untrusted data is any data that users can alter. The consequences of trusting untrusted data can be catastrophic and to minimize the risk of accidentally or unknowingly introducing security flaws into applications has a variety of tools and methodologies arose. One of these is taint tracking which attempts to secure an application through information flow control. Taint tracking works by analyzing and finding paths user input can take through a system into the sensitive code areas. Cases, where this is possible, will be flagged to let the developers know where further implementation in the form of sanitation is needed \parencite{Pan2015, Venkataramani2008}. The question is how useful implementation of a taint tracker is for web applications. Can a dynamic taint tracker, analysing information flow at runtime, be used as a security solution for production services?
 
-The following sections of the chapter aim to specify the why and how behind the thesis. It starts with a section of \textit{\nameref{Definitions}} followed by \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections are then followed by a \textit{\nameref{Delimitations}} and \textit{\nameref{Methodology}} sections.
-
-
-
-\section{Definitions}
-\label{Definitions}
-\todo[inline]{Todo: Ta bort. Mata in i texten (methodology)! }
-
-\begin{definition}{Application}
-    is a computer process constructed to solve one or more tasks for users.
-    \\
-\end{definition}
-
-\begin{definition}{Web Application}
-    is an application deployed with accessibility from the web.
-    \\
-\end{definition}
-
-\begin{definition}{Taint}
-    marking data with a flag indicating the possibility to be harmful to the application.
-    \\
-\end{definition}
-
-\begin{definition}{Detaint}
-    denotes the process of removing the taint flag from a value and therefore marking the value as safe to the application.
-    \\
-\end{definition}
-
-\begin{definition}{Source}
-    denotes an entry point to the system where the input is possibly malicious.
-    \\
-\end{definition}
-
-\begin{definition}{Sink}
-    denotes entry point to sensitive code areas.
-    \\
-\end{definition}
-
-\begin{definition}{Sanitizer}
-    denotes method that validates and sanitizes data to be safe to the system.
-    \\
-\end{definition}
-
-\begin{definition}{Domain}
-    % Information sida 67 Secure by Design    
-    is explained in Secure by Design \parencite{sbd2018} as part of the real world where something happens.
-    \\
-\end{definition}
-
-\begin{definition}{Domain Model}
-    % Information sida 67 Secure by Design    
-    is a fraction of the domain where each model has a specific meaning.
-    \\
-\end{definition}
+\todo[inline]{Todo: Uppdatera till senaste}
+The following sections of the chapter aim to specify the why and how behind the thesis. It starts with a section of \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections are then followed by a \textit{\nameref{Delimitations}} and \textit{\nameref{Methodology}} sections.
 
 
 
 \section{Problem}
 \label{Problem}
-\todo[inline]{Todo: Exempel på vad som ska lösas }
-
-
 \begin{chapquote}{}
-    How can the implementation of a Dynamic Taint Tracker enforce the security gains of Domain-Driven Security?
+    How can dynamic taint tracking secure Java-based web applications? What kind of disadvantages will this entail?
 \end{chapquote}
 
 \noindent
-Unwanted information disclosure is a growing problem. Work towards protecting user data is needed, and Domain-Driven Security has been proven to secure applications from Injection and Cross-Site Scripting attacks. Is it possible to achieve the security gains of Domain-Driven Security through applying dynamic taint tracking to web applications? What would the potential drawbacks and advantages be?
+Unwanted information disclosures is a growing problem and work toward protecting user data is needed. Two of the most common vulnerabilities in this area, according to the Open Web Application Security Project, is Injection attacks and Cross-site Scripting caused by unproperly sanitized user inputs \parencite{OWASP2017}. Is it possible to protect web applications by implementing a dynamic taint tracker to run and analyze the code at runtime? Till what extent will this protect the application and what disadvantages will this entail?
 
 
 
