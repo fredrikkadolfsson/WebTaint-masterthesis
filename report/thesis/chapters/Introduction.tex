@@ -36,9 +36,11 @@ The contribution of the thesis is continued research in the field of solutions t
 
 \section{Delimitations}
 \label{Delimitations}
-The focus of the thesis lies in security vulnerabilities of web applications. However, other application areas might be vulnerable to the same kind of vulnerabilities.  This thesis will not discuss or present information regarding those areas.
+The focus of the thesis lies in security vulnerabilities of web applications. However, other application areas might be vulnerable to the same kind of vulnerabilities. This thesis will not discuss or present information regarding those areas.
 
 The delimitations of the application are that it will only consist of a dynamic taint tracker and not, in any form, a static version. Development of the tool is in and for Java applications with the help of the bytecode instrumentation library Javassist. The focus lies upon enabling taint tracking for Strings, and other data types are enabled if time allows for it.
+
+The evaluation of the implemented dynamic taint tracker is only conducted to evaluate the prevention of integrity vulnerabilities even though the application itself can combat confidentiality vulnerabilities. This is due to time limitations.
 
 
 

@@ -3,9 +3,11 @@
 \usepackage{biblatex}
 
 
+
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \addbibresource{../references.bib} % The file containing our references, in BibTeX format
+
 
 
 \title{WebTaint: Dynamic Taint Tracking for Java-based Web Applications \color{red}(DRAFT)}
@@ -19,16 +21,17 @@
 \date{\today}
 
 
+
 \begin{document}
 % Frontmatter includes the titlepage, abstracts and table-of-contents
 \frontmatter
 \titlepage
 
 
-\todo[inline]{Todo: Fix "FIX ME!!!" reference for unpublished book Secure by Design (bör inte längre behövas). Ta bort Domain-Driven Security. Skriv att TT hjälper mot både confidentiallity och integrity. Men testerna fokuserar på integrity!!! Requirements!?!? Sustainabilities? }
 
 \input{chapters/Abstract}
 \tableofcontents
+
 
 
 % Mainmatter is where the actual contents of the thesis goes
@@ -44,9 +47,14 @@
 \input{chapters/Conclusion}
 
 
-\printbibliography[heading=bibintoc] % Print the bibliography (and make it appear in the table of contents)
-\appendix
 
+\printbibliography[heading=bibintoc] % Print the bibliography (and make it appear in the table of contents)
+
+
+
+\appendix
 \input{chapters/appendix/RawData}
+
+
 
 \end{document}

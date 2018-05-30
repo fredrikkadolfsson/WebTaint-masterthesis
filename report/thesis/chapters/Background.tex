@@ -1,25 +1,23 @@
 \chapter{Background}
-\todo[inline]{Todo: Förklara fördelarna med dynamisk gärmfört med static!!!! }
-
-\todo[inline]{Todo: Uppdatera till senaste}
-This Chapter will present background knowledge needed to comprehend the thesis. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed by a section discussing common \textit{\nameref{SecurityVulnerabilities}} to web applications. After those follows two sections describing \textit{\nameref{DynamicTaintTracking}}, \textit{\nameref{DomainDrivenDesign}}, and \textit{\nameref{DomainDrivenSecurity}}. The last section is about the programing language \textit{\nameref{JavaInstrumentation}}.
+\todo[inline]{Todo: Uppdatera till senaste (SISTA SOM GÖRS)}
+This Chapter will present background knowledge needed to comprehend the thesis. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed by a section discussing common \textit{\nameref{SecurityVulnerabilities}} to web applications. After those follows two sections describing \textit{\nameref{DynamicTaintTracking}}. The last section is about the programing language \textit{\nameref{JavaInstrumentation}}.
 
 
 
 \section{Web Application}
 \label{WebApplication}
-To make applications available for a broad set of people and make them accessible from now days almost everywhere do businesses deploy their applications on the web. The deployment of an application can vary a lot, but the most common structure for a web application is based on a three-tier architecture. The first tier is the presentation tier which is the visual components rendered by the browser. The second is the logic tire which is the brain of the application. The last and third tier is the storage, where the second tier can store data as needed \parencite{JustinClarke-Salt2009SIAa}.
+To make applications available for a broad set of people and make them accessible from now days almost everywhere do businesses deploy their applications on the web. The deployment of an application can vary a lot, but the most common structure for a web application is based on a three-tier architecture illustrated in Figure \ref{fig:webApplication-Haldar}. The first tier is the presentation tier which is the visual components rendered by the browser. The second is the logic tire which is the brain of the application. The last and third tier is the storage, where the second tier can store data as needed \parencite{JustinClarke-Salt2009SIAa}.
 
-Figure \ref{fig:webApplication-Haldar} illustrates the three-tier architecture. It can be seen in the figure that tiers only communicate with the tire closest to themselves. This causes the second tier to become a safeguard for tier three where the valuable and possibly sensitive information is stored. The storage tier contains all the essential information the application needs to provide its intended service. Such information might, for example, be name, email, personal number and credit card information \parencite{JustinClarke-Salt2009SIAa}.
-
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{images/webApplication-Haldar.png}
   \caption{The three-tier web application architecture \cite{Haldar}.}
   \label{fig:webApplication-Haldar}
 \end{figure}
 
-The scope of the thesis lies in tier two. The programming language for tier two might vary a lot, but one common and the chosen language for this thesis is Java.
+From Figure \ref{fig:webApplication-Haldar} can it be seen that tiers only communicate with the tire closest to themselves. This causes the second tier to become a safeguard for tier three where the valuable and possibly sensitive information is stored. This essential information is mostly needed for the application to provide its intended service. Such information might, for example, be name, email, personal number and credit card information \parencite{JustinClarke-Salt2009SIAa}.
+
+The scope of the thesis lies in tier two where bought trusted and untrusted data is processed, and validations are needed to ensure secure applications. The programming language for tier two might vary a lot, but one common and the chosen language for this thesis is Java.
 
 
 
@@ -28,14 +26,9 @@ Communication between tier two and tier three is done through a standardized lan
 
 
 
-\section{Security Vulnerabilities}
-\label{SecurityVulnerabilities}
-The organization Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP has produced reports about the top 10 security risks for a web application, and the latest was published in 2017. The report contains information about the ten most common application security risks that for the current year. Information such as how the security risk is exploited and possible prevention method is also presented. This thesis will look at security risk number one and seven from the latest report. These two vulnerabilities are Injection and Cross-site Scripting attacks \parencite{OWASP2017}.
-
-
-
-\subsection{CIA Triad}
-Discussions about application security often rely on the CIA Triad which represents the three primary concepts in information security. These three are confidentiality, integrity, and availability and is seen in \ref{fig:CIATriad}. Confidentiality is rules that specify the access restrictions to the application. Integrity specifies that application data should be accurate and unaltered. Availability is about the ability to access the application and application data \parencite{2014C1-W}. This thesis focuses on confidentiality and integrity vulnerabilities and how we can prevent them.
+\section{CIA Triad}
+\label{cia}
+Discussions about application security rely on the CIA Triad which represents the three primary concepts in information security. These three are confidentiality, integrity, and availability and is seen in \ref{fig:CIATriad}. Confidentiality is rules that specify the access restrictions to the application. Integrity specifies that application data should be accurate and unaltered. Availability is about the ability to access the application and application data \parencite{2014C1-W}.
 
 \begin{figure}[H]
     \centering
@@ -44,7 +37,11 @@ Discussions about application security often rely on the CIA Triad which represe
     \label{fig:CIATriad}
 \end{figure}
 
-Injection and Cross-site Scripting Attacks can be both towards the confidentiality and integrity of systems. They are attacks towards confidentiality when the attacker intends to gain restricted information such as user data. Integrity attacks are conducted when for example Injection Attacks are used to redirect users to malicious websites.
+
+
+\section{Security Vulnerabilities}
+\label{SecurityVulnerabilities}
+The organization Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP has produced reports about the top 10 security risks for web applications, and the latest was published in 2017. The report contains information about the ten most common security risks for the current year. Information such as how the security risk is exploited and possible prevention methods are also presented. This thesis will look at security risk number one and seven from the latest report. These vulnerabilities are two vulnerabilities towards integrity and are Injection attacks and Cross-site Scripting \parencite{OWASP2017}.
 
 
 
@@ -146,9 +143,11 @@ DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting
 
 
 
-\section{Dynamic Taint Tracking}
+\section{Taint Tracking}
 \label{DynamicTaintTracking}
-Taint tracking, also known as taint analysis, taint checking and taint propagation, is a tool to analyze the flow of information in a domain \parencite{Pan2015}. The goal of taint tracking is to prevent possible attacks such as Injection and Cross-Site Scripting by enforcing the usage of sanitizers on input data. Taint tracking is possible to execute in two different forms: static and dynamic. The static is an evaluation tool which is done statically before runtime. Dynamic is a tool that is executed at runtime. Taint trackers operate by tracking data and actively blocking any that are trying to enter sinks without first been detainted through sanitation. Perl and Ruby are two programming languages which have adapted to use taint checking \parencite{perl, ruby}. There are some tools which enable taint checking for other platforms. TaintDroid \parencite{Ma2010} for the Android platform is one of them. This thesis will handle dynamic taint tracking and how it can increase the security of Java-based web applications.
+Taint tracking, also known as taint analysis, taint checking and taint propagation, is a tool to analyze the flow of information in a domain \parencite{Pan2015}. The goal of taint tracking is to prevent possible attacks such as Injection and Cross-Site Scripting by enforcing the usage of sanitizers on input data. Taint tracking is possible to execute in two different forms: static and dynamic. The static is an evaluation tool which is done statically before runtime. Dynamic is a tool that is executed at runtime. There are pros and cons for both versions. The pros for static is the usability in the integrated development environment, and the pros for dynamic is a higher propagating taint accuracy. 
+
+Taint trackers operate by tracking data and actively blocking any that are trying to enter sinks without first been detainted through sanitation. Perl and Ruby are two programming languages which have adapted to use taint checking \parencite{perl, ruby}. There are some tools which enable taint checking for other platforms. TaintDroid \parencite{Ma2010} for the Android platform is one of them. This thesis will handle dynamic taint tracking and how it can increase the security of Java-based web applications.
 
 Taint tracking contains four main tasks which are described in Table \ref{table:taintTracking}. The first is marking all data from sources as tainted. This is done through a taint flag attached to the input variables. This taint flag follows the input, which is the second task, throughout the application and propagates onto any other data it encounters. The third task, is the possibility to detaint data, but this is only done after the data have been sanitized through predefined sanitizers. Fourth and last task is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink vary depending on the application, however, remedial actions should be conducted. These activities should be, depending on application owners choice, logging events, throwing errors, or modifying the tainted values into safe predefined values. 
 
