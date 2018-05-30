@@ -18,13 +18,13 @@ The following sections of the chapter aim to specify the why and how behind the 
 \end{chapquote}
 
 \noindent
-Unwanted information disclosures is a growing problem and work toward protecting user data is needed. Two of the most common vulnerabilities in this area, according to the Open Web Application Security Project, is Injection attacks and Cross-site Scripting caused by unproperly sanitized user inputs \parencite{OWASP2017}. Is it possible to protect web applications by implementing a dynamic taint tracker to run and analyze the code at runtime? Till what extent will this protect the application and what disadvantages will this entail? Is the solution capable of being bundled into production services?
+Unwanted information disclosures is a growing problem and work toward protecting user data is needed. Two of the most common vulnerabilities in this area, according to the Open Web Application Security Project, is Injection attacks and Cross-Site Scripting caused by unproperly sanitized user inputs \parencite{OWASP2017}. Is it possible to protect web applications by implementing a dynamic taint tracker to run and analyze the code at runtime? Till what extent will this protect the application and what disadvantages will this entail? Is the solution capable of being bundled into production services?
 
 
 
 \section{Aim}
 \label{Aim}
-This thesis aims to implement and evaluate a dynamic taint tracker to combat confidentiality and integrity vulnerabilities in Java-based web applications. The taint tracker aims to allow tracking of taint for all datatypes as well as constructing a robust design for the logic to mark sources, sinks, and sanitizers. Concretely, we will implement and benchmark a dynamic taint tracker against Injection and Cross-site Scripting vulnerabilities. 
+This thesis aims to implement and evaluate a dynamic taint tracker to combat confidentiality and integrity vulnerabilities in Java-based web applications. The taint tracker aims to allow tracking of taint for all datatypes as well as constructing a robust design for the logic to mark sources, sinks, and sanitizers. Concretely, we will implement and benchmark a dynamic taint tracker against Injection and Cross-Site Scripting vulnerabilities. 
 
 
 
@@ -46,7 +46,7 @@ The evaluation of the implemented dynamic taint tracker is only conducted to eva
 
 \section{Methodology}
 \label{Methodology}
-To answer the problem statement in section \ref{Problem} is a combination of qualitative and quantitative research used. The literature study represents the qualitative research where information about web application security, Injection attacks, Cross-site Scripting, and dynamic taint tracking gathered, presented and discussed. The quantitative research is the evaluation of the implemented dynamic taint tracker and benchmarks evaluating performance overhead and security gain.
+To answer the problem statement in section \ref{Problem} is a combination of qualitative and quantitative research used. The literature study represents the qualitative research where information about web application security, Injection attacks, Cross-Site Scripting, and dynamic taint tracking gathered, presented and discussed. The quantitative research is the evaluation of the implemented dynamic taint tracker and benchmarks evaluating performance overhead and security gain.
 
 
 
