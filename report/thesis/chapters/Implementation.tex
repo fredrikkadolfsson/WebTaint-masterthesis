@@ -1,13 +1,13 @@
 \chapter{Implementation}
 \todo[inline]{Todo: Skapa en bild som illustrerar achitecturen på applicationen. Förklara propageringslokien ordentligt. }
 
-This Chapter presents the fundamental parts of the implementation process of the Dynamic Taint Tracker. The chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. This section is then followed by \textit{\nameref{SoftwareArchitecture}}.
+This Chapter presents the fundamental parts of the implementation process of the dynamic taint tracker. The chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. This section is then followed by \textit{\nameref{SoftwareArchitecture}}.
 
 
 
 \section{Policies}
 \label{Policies}
-The development of the Dynamic Taint Tracker relies on the tasks described in Table \ref{table:taintTracking}. These are tainting, detainting, propagating taint, and assert non-tainted. However, to implement the logic need security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. The taint tracker developed in this thesis will base on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
+The development of the dynamic taint tracker relies on the tasks described in Table \ref{table:taintTracking}. These are tainting, detainting, propagating taint, and assert non-tainted. However, to implement the logic need security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. The taint tracker developed in this thesis will base on two different aspects. These are \textit{confidentiality} and \textit{integrity}.
 
 
 
@@ -73,7 +73,7 @@ Defining the source, sinks, and sanitizers is a large task in itself. There is n
 
 \section{Software Implementation}
 \label{SoftwareArchitecture}
-The implementation of the Dynamic Taint Tracker is divided into three subprojects. These three are Agent, Xboot, and Utils. 
+The implementation of the dynamic taint tracker is divided into three subprojects. These three are Agent, Xboot, and Utils. 
 
 \hfill
 \begin{description}
@@ -85,7 +85,7 @@ The implementation of the Dynamic Taint Tracker is divided into three subproject
 
 The reasoning behind the division is because of the need of transforming classes both before runtime and during runtime. The Agent is handling the transformation in runtime and Xboot transforms classes on command before runtime. The logic of transforming the classes is, however, the same in both projects. Therefore, to remove duplications of code is al logic of transforming classes extracted from Xboot and Agent and placed into the Utils project.
 
-The implemented Dynamic Taint Tracker supports tracking of taint for the classes: String, StringBuilder and StringBuffer. The goal was to implement tracking for all classes. However, this took more time than expected.
+The implemented dynamic taint tracker supports tracking of taint for the classes: String, StringBuilder and StringBuffer. The goal was to implement tracking for all classes. However, this took more time than expected.
 
 
 

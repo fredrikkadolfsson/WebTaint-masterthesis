@@ -1,14 +1,12 @@
 \chapter{Introduction}
 \label{Introduction}
-\todo[inline]{Todo: Requirements!?!? Sustainabilities?}
-
 The creation of the World Wide Web has caused a significant impact on today's society \parencite{www}. The internet is a source of information, and it connects the world through a single platform. Many businesses have taken advantage of this to share information, communicate with customers, and create new business opportunities. Software as a Service is one of these opportunities where companies provide software over the internet. \parencite{AllenB.2012SAaS, xaas, NewcombeLee2012SaSa} However, this advancement in technology does not come without its drawbacks. The web applications are not only accessible to the targeted user groups but anyone with access to the web. This entails that malicious users who wish to abuse and cause harm to other users have the accessibility to do so possibly. 
 
 There have been a plethora of incidents causing vulnerabilities resulting in everything from money loss, disclosure or destruction of information. One of these is the infamous Heartbleed Bug affecting all users of the OpenSSL cryptographic library. The cryptographic library contained a bug causing protected information to be readable by anybody on the web \parencite{Heartbleed}. Another vulnerability is the Stagefright affecting all at the time Android users. The vulnerability made it possible through a malicious MMS to gain full control over the Smartphone \parencite{2015ASvt}. 
 
-All applications with accessibility from the web have the problem of managing both trusted and untrusted data. The trusted data comes from the application itself an is mostly the database. Untrusted data is any data that users can alter. The consequences of trusting untrusted data can be catastrophic and to minimize the risk of accidentally or unknowingly introducing security flaws into applications has a variety of tools and methodologies arose. One of these is taint tracking which attempts to secure an application through information flow control. Taint tracking works by analyzing and finding paths user input can take through a system into the sensitive code areas. Cases, where this is possible, will be flagged to let the developers know where further implementation in the form of sanitation is needed \parencite{Pan2015, Venkataramani2008}. The question is how useful implementation of a taint tracker is for web applications. Can a dynamic taint tracker, analysing information flow at runtime, be used as a security solution for production services?
+All applications with accessibility from the web have the problem of managing both trusted and untrusted data. The trusted data comes from the application itself an is mostly the database. Untrusted data is any data that users can alter. The consequences of trusting untrusted data can be catastrophic and to minimize the risk of accidentally or unknowingly introducing security flaws into applications has a variety of tools and methodologies arose. One of these is taint tracking which attempts to secure an application through information flow control. Taint tracking works by analyzing and finding paths user input can take through a system into the sensitive code areas. Cases, where this is possible, will be flagged to let the developers know where further implementation in the form of sanitation is needed \parencite{Pan2015, Venkataramani2008}. The question is how useful taint tracker is for web applications. Can a dynamic taint tracker, analyzing information flow at runtime, be used as a security solution for production services?
 
-\todo[inline]{Todo: Uppdatera till senaste}
+\todo[inline]{Todo: Uppdatera till senaste (SISTA SOM GÖRS)}
 The following sections of the chapter aim to specify the why and how behind the thesis. It starts with a section of \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections are then followed by a \textit{\nameref{Delimitations}} and \textit{\nameref{Methodology}} sections.
 
 
@@ -20,13 +18,19 @@ The following sections of the chapter aim to specify the why and how behind the 
 \end{chapquote}
 
 \noindent
-Unwanted information disclosures is a growing problem and work toward protecting user data is needed. Two of the most common vulnerabilities in this area, according to the Open Web Application Security Project, is Injection attacks and Cross-site Scripting caused by unproperly sanitized user inputs \parencite{OWASP2017}. Is it possible to protect web applications by implementing a dynamic taint tracker to run and analyze the code at runtime? Till what extent will this protect the application and what disadvantages will this entail?
+Unwanted information disclosures is a growing problem and work toward protecting user data is needed. Two of the most common vulnerabilities in this area, according to the Open Web Application Security Project, is Injection attacks and Cross-site Scripting caused by unproperly sanitized user inputs \parencite{OWASP2017}. Is it possible to protect web applications by implementing a dynamic taint tracker to run and analyze the code at runtime? Till what extent will this protect the application and what disadvantages will this entail? Is the solution capable of being bundled into production services?
 
 
 
 \section{Aim}
 \label{Aim}
-This thesis will implement and evaluate a Dynamic Taint Tracker to prevent confidentiality and integrity vulnerabilities in Java-based web applications. The thesis will also evaluate the security benefits of the implemented Dynamic Taint Tracker compared to Domain-Driven Security, a programming paradigm which has been proven to combat confidentiality and integrity vulnerabilities. Concretely, we will benchmark our Dynamic Taint Tracker against injection and cross-site scripting vulnerabilities.
+This thesis aims to implement and evaluate a dynamic taint tracker to combat confidentiality and integrity vulnerabilities in Java-based web applications. The taint tracker aims to allow tracking of taint for all datatypes as well as constructing a robust design for the logic to mark sources, sinks, and sanitizers. Concretely, we will implement and benchmark a dynamic taint tracker against Injection and Cross-site Scripting vulnerabilities. 
+
+
+
+\section{Contribution}
+\label{Contribution}
+The contribution of the thesis is continued research in the field of solutions to combat information disclosure vulnerabilities. This is done through implementing and evaluating a dynamic taint tracking solution that runs independently between the Java Virtual Machine and the web application. 
 
 
 
@@ -34,24 +38,26 @@ This thesis will implement and evaluate a Dynamic Taint Tracker to prevent confi
 \label{Delimitations}
 The focus of the thesis lies in security vulnerabilities of web applications. However, other application areas might be vulnerable to the same kind of vulnerabilities.  This thesis will not discuss or present information regarding those areas.
 
-The delimitations of the application are that it will only consist of a Dynamic Taint Tracker and not, in any form, a static version. Development of the tool is in and for Java application with the help of the bytecode instrumentation library Javassist. The focus lies upon enabling taint tracking for Strings, and other data types are enabled if time allows for it.
+The delimitations of the application are that it will only consist of a dynamic taint tracker and not, in any form, a static version. Development of the tool is in and for Java applications with the help of the bytecode instrumentation library Javassist. The focus lies upon enabling taint tracking for Strings, and other data types are enabled if time allows for it.
 
 
 
 \section{Methodology}
 \label{Methodology}
-\todo[inline]{Todo: Exempel }
-
-The methodology of this thesis is a combination of qualitative and quantitative research. The literature study represents the qualitative research where information about web application security, dynamic taint tracking and Domain-Driven Security is gathered, presented and discussed. The quantitative research is the evaluation of the implemented Dynamic Taint Tracker. The benchmarks will evaluate performance overhead and security gain from preventing possible attacks.
+To answer the problem statement in section \ref{Problem} is a combination of qualitative and quantitative research used. The literature study represents the qualitative research where information about web application security, Injection attacks, Cross-site Scripting, and dynamic taint tracking gathered, presented and discussed. The quantitative research is the evaluation of the implemented dynamic taint tracker and benchmarks evaluating performance overhead and security gain.
 
 
 
-\section{Contribution}
-\label{Contribution}
-\todo[inline]{Todo:  }
-
-
-
-\section{Structure}
+\section{Ethics \& Sustainability}
 \label{Structure}
-\todo[inline]{Todo: }
+The ethical and sustainability aspects of the thesis have for the majority positive impact where all users of the application will achieve a gain in some form, except for users with malicious intent. The goal is to combat existing security vulnerabilities in today's web applications which would help both the end users and the companies who are providing the services. The end users gain would be to secure their information and reduce the risk of becoming victims of information disclosure. The companies would gain by providing a more secure product, which in turn would lower the risk of scandals that could hurt their brand. 
+
+Usage of the implemented dynamic taint tracker could result in more robust and secure applications thanks to the ability to find possible security vulnerabilities faster. The taint tracker would as well help the developer in the daily work by validating the soundness of the implemented code. This would ease some of the work for the developer.
+
+The only ethical aspect which could be problematic is the fact that the taint tracker gains possible access to all data used by the system. This means that much work into the taint tracker needs to be done to ensure that no malicious use of the taint tracker results in harmful system executions.
+
+
+
+\section{Outline}
+\label{Structure}
+\todo[inline]{Todo: Uppdatera till senaste (SISTA SOM GÖRS)}
