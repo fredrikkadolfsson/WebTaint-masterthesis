@@ -1,6 +1,7 @@
 \chapter{Related Work}
 \todo[inline]{Todo: Bredare information. Ta med static och dynamic samt android. }
 
+\todo[inline]{Todo: Uppdatera till senaste (SISTA SOM GÖRS)}
 This chapter presents the related work in the field. The first section is about \textit{\nameref{RW:DynamicTaintTracking}} which then follows by a section about \textit{\nameref{RW:DomainDrivenSecurity}}.
 
 
@@ -20,9 +21,3 @@ The construction of Phosphor \parencite{phosphor} is done with the help of the J
 
 \subsection{Dynamic Security Taint Propagation}
 Dynamic Security Taint Propagation \parencite{securityTaint} is constructed with the help of the Java library AspectJ which enables aspect-oriented programming in Java \parencite{aspectj}. Dynamic Security Taint Propagation only propagates taint for the String, StringBuffer, and StringBuilder classes. The tracking works by creating aspect-oriented events that trigger the tracking of taint, tainting sources, and assertions that ensure that tainted values do not pass through sinks.
-
-
-
-\section{Domain-Driven Security}
-\label{RW:DomainDrivenSecurity}
-Both \textcite{Stendahl2016} and \textcite{Arnor2016} wrote reports published in 2016 about Domain-Driven Security. Both concluded that Domain-Driven Security help to prevent security vulnerabilities into an application. \textcite{Stendahl2016} thesis evaluated if Domain-Driven Security can prevent Injection Attacks and Cross-Site Scripting. He reasoned that there is a security gain towards the attacks by following the Domain-Driven Security methodology. The gained security comes from proper validation of variables when using domain primitives for the propagation of data. \textcite{Arnor2016} followed similar reasoning where he discussed the mitigation of DDoS attacks by using Domain-Driven Security.
