@@ -210,6 +210,7 @@
 \usepackage{color}
 \usepackage{float}
 \usepackage[colorinlistoftodos,prependcaption,textsize=10]{todonotes}
+\usepackage[hidelinks]{hyperref}
 
 \lstset{
   escapeinside={(*@}{@*)},
