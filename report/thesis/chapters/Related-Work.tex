@@ -1,24 +1,13 @@
 \chapter{Related Work}
 \label{RW}
-\todo[inline]{Todo: Bredare information. Ta med static och dynamic samt android. }
+This chapter presents the related work in the field. It aims to handle the areas of dynamic and static taint tracking for Java as well as other related platforms.
 
-\todo[inline]{Todo: Uppdatera till senaste (SISTA SOM GÖRS)}
-This chapter presents the related work in the field. The first section is about \textit{\nameref{RW:DynamicTaintTracking}} which then follows by a section about \textit{\nameref{RW:DomainDrivenSecurity}}.
+\textcite{Haldar} has written a report about dynamic taint tracking for Java applications where they tried to solve the problem of not correctly validating user input. They managed to construct a tool that is independent of the web applications source code and the results from using the tool is gain in security. \textcite{Haldar} ran their benchmarks on OWASP’s project WebGoat \parencite{webgoat} but acknowledged in their report that benchmarks of real-world web applications need conducting. Their application implemented taint tracking for String by adding a taint flag and altered the methods to propagate the taint into the String class file. \textcite{Haldar} implementation cant be found.
 
+Another implementation of a dynamic taint tracker for Java applications, of a tool believed to be the current state of the art, is Phosphor \parencite{phosphor} created by \textcite{BellJ.2014PIdd}. Phosphor developed with the help of the Java bytecode manipulation library ASM \parencite{asm}. The application solved tracking of taint for primitives and arrays by introducing shadow variables. A shadow variable is a variable holding the taint value for a un-instrumentable object. The shadow variable is instrumented into the application and placed next to each primitive and array. Each method in the application is also instrumented to pass shadow variables together with the un-instrumentable object. Phosphor does however not support detainting of sanitized variables which makes it mostly used for specifying specific data flows to analyze \parencite{BellJ.2014PIdd}. 
 
+A third implementation of a dynamic taint tracker for Java applications is Dynamic Security Taint Propagation \parencite{securityTaint} constructed with the help of the Java library AspectJ which enables aspect-oriented programming in Java \parencite{aspectj}. Dynamic Security Taint Propagation only propagates taint for the String, StringBuffer, and StringBuilder classes. The tracking works by creating aspect-oriented events that trigger the tracking of taint, tainting sources, and assertions that ensure that tainted values do not pass through sinks.
 
-\section{Dynamic Taint Trackers}
-\label{RW:DynamicTaintTracking}
-\textcite{Haldar} has written a report about dynamic taint tracking for Java where they tried to solve the problem of not correctly validating user input. They managed to construct a tool that is independent of the web applications source code and the results from using the tool is gain in security. \textcite{Haldar} ran their benchmarks on OWASP’s project WebGoat \parencite{webgoat} but acknowledged in their report that benchmarks of real-world web applications need conducting. Their application implemented taint tracking for String by adding a taint flag and altered the methods to propagate the taint into the String class file.
+Except for dynamic taint trackers for Java applications does it as well exist dynamic taint trackers for other platforms. One of these is TaintDroid which is constructed for Android smartphones and aims to prevent information theft \parencite{EnckWilliam2014Taif}. TaintDroid uses what they call shadow memory for their implementation approach which they claim to reduce the memory overhead by the application. \textcite{HsiaoS.W.2014PRse} has as well conducted further work on top of TaintDroid where a security scheme called PasDroid created. PasDroid enabled the users to gain full control over the management of possible information leaks.
 
-\textcite{Haldar} implementation cant be found but there exists two other dynamic taint trackers, Phosphor \parencite{phosphor} and Dynamic Security Taint Propagation \parencite{securityTaint}. Both are open source projects and developed for Java applications. Phosphor does however not support sanitizers, and Dynamic Security Taint Propagation cant build from its source code.
-
-
-
-\subsection{Phosphor}
-The construction of Phosphor \parencite{phosphor} is done with the help of the Java bytecode manipulation library ASM \parencite{asm}. Phosphor, based on the research conducted in the thesis, is the current state of art application in dynamic taint tracking. The application solved tracking of taint for primitives and arrays by introducing shadow variables. A shadow variable is a variable holding the taint value for a un-instrumentable object. The shadow variable is instrumented into the application and placed next to each primitive and array. Each method in the application is also instrumented to pass shadow variables together with the un-instrumentable object \parencite{BellJ.2014PIdd}.
-
-
-
-\subsection{Dynamic Security Taint Propagation}
-Dynamic Security Taint Propagation \parencite{securityTaint} is constructed with the help of the Java library AspectJ which enables aspect-oriented programming in Java \parencite{aspectj}. Dynamic Security Taint Propagation only propagates taint for the String, StringBuffer, and StringBuilder classes. The tracking works by creating aspect-oriented events that trigger the tracking of taint, tainting sources, and assertions that ensure that tainted values do not pass through sinks.
+There do aswell exist static taint trackers where FlowDroid is one of these. \textcite{ArztS.2014FPcf} created FlowDroid which computes data flows for Java and Android applications. Another application for Java and HTML applications is HybridFlow \parencite{HybridFlow} and another application is Python Taint \parencite{PythonTaint} which statically analyses Python-based web applications.
