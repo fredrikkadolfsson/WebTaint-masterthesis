@@ -6,8 +6,9 @@ There have been a plethora of incidents causing vulnerabilities resulting in eve
 
 All applications with accessibility from the web have the problem of managing both trusted and untrusted data. The trusted data comes from the application itself an is mostly the database. Untrusted data is any data that users can alter. The consequences of trusting untrusted data can be catastrophic and to minimize the risk of accidentally or unknowingly introducing security flaws into applications has a variety of tools and methodologies arose. One of these is taint tracking which attempts to secure an application through information flow control. Taint tracking works by analyzing and finding paths user input can take through a system into the sensitive code areas. Cases, where this is possible, will be flagged to let the developers know where further implementation in the form of sanitation is needed \parencite{Pan2015, Venkataramani2008}. The question is how useful taint tracker is for web applications. Can a dynamic taint tracker, analyzing information flow at runtime, be used as a security solution for production services?
 
-\todo[inline]{Todo: Uppdatera till senaste (SISTA SOM GÖRS)}
-The following sections of the chapter aim to specify the why and how behind the thesis. It starts with a section of \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections are then followed by a \textit{\nameref{Delimitations}} and \textit{\nameref{Methodology}} sections.
+
+
+The following sections of the chapter aim to specify the why and how behind the thesis. It starts with a section of \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections are then followed by a \textit{\nameref{Contribution}}, \textit{\nameref{Delimitations}} and \textit{\nameref{Methodology}} sections. Lasty, are there the sections \textit{\nameref{Ethics}} followed by \textit{\nameref{Outline}}.
 
 
 
@@ -40,7 +41,7 @@ The focus of the thesis lies in security vulnerabilities of web applications. Ho
 
 The delimitations of the application are that it will only consist of a dynamic taint tracker and not, in any form, a static version. Development of the tool is in and for Java applications with the help of the bytecode instrumentation library Javassist. The focus lies upon enabling taint tracking for Strings, and other data types are enabled if time allows for it.
 
-The evaluation of the implemented dynamic taint tracker is only conducted to evaluate the prevention of integrity vulnerabilities even though the application itself can combat confidentiality vulnerabilities. This is due to time limitations.
+The evaluation of the implemented dynamic taint tracker is only conducted to evaluate the prevention of integrity vulnerabilities even though the application itself can combat confidentiality vulnerabilities. It is due to time limitations.
 
 
 
@@ -51,7 +52,7 @@ To answer the problem statement in section \ref{Problem} is a combination of qua
 
 
 \section{Ethics \& Sustainability}
-\label{Structure}
+\label{Ethics}
 The ethical and sustainability aspects of the thesis have for the majority positive impact where all users of the application will achieve a gain in some form, except for users with malicious intent. The goal is to combat existing security vulnerabilities in today's web applications which would help both the end users and the companies who are providing the services. The end users gain would be to secure their information and reduce the risk of becoming victims of information disclosure. The companies would gain by providing a more secure product, which in turn would lower the risk of scandals that could hurt their brand. 
 
 Usage of the implemented dynamic taint tracker could result in more robust and secure applications thanks to the ability to find possible security vulnerabilities faster. The taint tracker would as well help the developer in the daily work by validating the soundness of the implemented code. This would ease some of the work for the developer.
@@ -61,5 +62,5 @@ The only ethical aspect which could be problematic is the fact that the taint tr
 
 
 \section{Outline}
-\label{Structure}
-\todo[inline]{Todo: Uppdatera till senaste (SISTA SOM GÖRS)}
+\label{Outline}
+The dispossition of this paper starts with a chapter about the \textit{\nameref{Background}} presenting knowledge needed to understand the rest of the thesis. This is then followed by a chapter about \textit{\nameref{RW}} where prior work in the are is presented. Next chapter is about the \textit{\nameref{Implementation}} of WebTaint. This is then followed by the \textit{\nameref{Evaluation}} chapter where the conducted evaluation is described. Next comes the chapter presenting the \textit{\nameref{Result}} from the conducted evaluation. Lastly commes the chapters \textit{\nameref{Discussion}}, \textit{\nameref{FutureWork}} and \textit{\nameref{Conclusion}}.
