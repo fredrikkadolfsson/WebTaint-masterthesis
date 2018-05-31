@@ -1,16 +1,19 @@
 \begin{abstract}
-	\todo[inline]{Todo: Uppdatera till senaste (SISTA SOM GÖRS)}
-	The internet is a source of information, and it connects the world through a single platform. Many businesses have decided to take advantage of the web platform to share information and communicate with customers. However, this does not come without drawbacks. There are several potential attacks can cause harm to a web application. The attack most frequently conducted today will probably not be the same as the most performed in the future. 2017 was Injection Attacks and Cross-Site Scripting among the ten most frequently conducted attacks.
+	The internet is a source of information, and it connects the world through a single platform. Many businesses have decided to take advantage of the web platform to share information and communicate with customers. However, this does not come without drawbacks. There are several potential attacks causing harm to web applications. The attack most frequently conducted today will probably not be the same as the most performed in the future.
 
-	This thesis implements and evaluates a dynamic taint tracker to prevent confidentiality and integrity vulnerabilities in Java-based web applications. Does dynamic taint tracking enforce the same security gains as Domain-Driven Security?
+	The thesis implements and evaluates a dynamic taint tracker, called WebTaint, to prevent confidentiality and integrity vulnerabilities in Java-based web applications. The research questions are to what extent that dynamic taint tracking can combat confidentiality and integrity vulnerabilities? What drawbacks are there or is it capable enough of bundling into production services? 
 
-	The results show that dynamic taint tracking helps to combat Injection and Cross-Site Scripting attacks just as Domain-Driven Security. However, there are drawbacks in the form of additional time and memory overhead. Which in this case is quite significant.
+	The results show that WebTaint helps to combat Injection and Cross-Site Scripting attacks. However, there are drawbacks in the form of additional time and memory overhead. Which in this case is quite significant. The implemented solution is therefore not suitable for time och memory sensitive domains.
 \end{abstract}
 
 
 
 \begin{otherlanguage}{swedish}
 	\begin{abstract}
-		\todo[inline]{Todo: Uppdatera till senaste (SISTA SOM GÖRS)}
+		Internet är en informations källa, och förbinder världen genom en enad plattform. Många företag har utnyttja webbplattformen för att dela med sig av information och kommunicera med kunderna. Detta kommer dock inte utan nackdelar. Det finns flera potentiella attacker som kan påverka webapplikationer.  
+
+		Avhandlingen implementerar och utvärderar en dynamisk taint tracker, kallad WebTaint, för att förhindra sekretess och integritets sårbarheter i Java-baserade webbapplikationer. Forskningsfrågorna är i vilken utsträckning det dynamiska spårspårningen kan bekämpa sekretess och integritets sårbarheter? Vilka nackdelar finns det eller är implementationen tillräckligt för att levereras tillsammans med produktionstjänster? 
+		
+		Resultaten visar att WebTaint hjälper till att bekämpa Injektions- och Cross-Site Scripting-attacker. Det finns dock nackdelar i form av extra tid och minnes åtgång. Vilken i detta fall är ganska signifikant. Den implementerade lösningen är därför inte lämplig för tid och minnekänsliga domäner.      
 	\end{abstract}
 \end{otherlanguage}
