@@ -1,18 +1,18 @@
 \chapter{Implementation}
 \label{Implementation}
-\textit{This chapter presents the fundamental parts of the implementation process of WebTaint. The chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. This section is then followed how how \textit{\nameref{souresSS}} was specified and the implemented \textit{\nameref{SoftwareArchitecture}}.}
+\textit{This chapter presents the fundamental parts of the implementation process of WebTaint. The chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. This section is then followed by how \textit{\nameref{souresSS}} was specified and lastly comes the \textit{\nameref{SoftwareArchitecture}} architecture.}
 
 
 
 \section{Policies}
 \label{Policies}
-The development of the dynamic taint tracker relies on the tasks described in Table \ref{table:taintTracking}. These are tainting, detainting, propagating taint, and assertion of non-tainted data. However, to implement the functionality behind the taint tracker needs security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. The taint tracker developed in this thesis will base on two different aspects. These are \textit{integrity} and \textit{confidentiality}.
+The development of WebTaint relies on the tasks described in Table \ref{table:taintTracking} in chapter \ref{Background}. These are tainting, detainting, propagating taint, and assertion of non-tainted data. However, to implement the functionality behind the taint tracker needs security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. The taint tracker developed in this thesis will base on two different aspects. These are \textit{integrity} and \textit{confidentiality}.
 
 
 
 \subsection{Integrity}
 \label{Integrity}
-The integrity policy defines that users may not modify data which they do not have permission to alter. This goal is to ensure prevention of malicious usage of the application where attackers aim to inject malicious executions that can, for example, lead to information disclosure or destruction of application data. To ensure this is the following policy defined:
+The integrity policy defines that users may not modify data which they do not have permission to alter. The goal is to ensure prevention of malicious usage of the application where attackers aim to inject malicious executions that can, for example, lead to information disclosure or destruction of application data. To ensure this is the following policy defined:
 
 \hfill
 \begin{itemize}
