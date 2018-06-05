@@ -1,66 +1,72 @@
 \chapter{Introduction}
 \label{Introduction}
-The creation of the World Wide Web has caused a significant impact on today's society \parencite{www}. The internet is a source of information, and it connects the world through a single platform. Many businesses have taken advantage of this to share information, communicate with customers, and create new business opportunities. Software as a Service is one of these opportunities where companies provide software over the internet. \parencite{AllenB.2012SAaS, xaas, NewcombeLee2012SaSa} However, this advancement in technology does not come without its drawbacks. The web applications are not only accessible to the targeted user groups but anyone with access to the web. This entails that malicious users who wish to abuse and cause harm to other users have the accessibility to do so possibly. 
+The creation of the World Wide Web has caused a significant impact on today's society \parencite{www}. The internet has become an important source of information and it connects the world through a single platform. Many businesses have taken advantage of this to share information, communicate with customers, and create new business opportunities. However, this advancement in technology does not come without drawbacks. The web applications are not only accessible to the user groups but also to anyone with access to the web. This enables malicious users to abuse and cause harm to other users of web applications. 
 
-There have been a plethora of incidents causing vulnerabilities resulting in everything from money loss, disclosure or destruction of information. One of these is the infamous Heartbleed Bug affecting all users of the OpenSSL cryptographic library. The cryptographic library contained a bug causing protected information to be readable by anybody on the web \parencite{Heartbleed}. Another vulnerability is the Stagefright affecting all at the time Android users. The vulnerability made it possible through a malicious MMS to gain full control over the Smartphone \parencite{2015ASvt}. 
+There have been a plethora of incidents causing vulnerabilities resulting in everything from money loss, disclosure or destruction of information. One of these incidents is the infamous Heartbleed Bug affecting all users of the OpenSSL cryptographic library. The cryptographic library contained a bug causing protected information to be readable by anybody on the web \parencite{Heartbleed}. Another vulnerability is Stagefright which affected Android users. The vulnerability made it possible through a malicious MMS to gain full control over Smartphones \parencite{2015ASvt}. 
 
-All applications with accessibility from the web have the problem of managing both trusted and untrusted data. The trusted data comes from the application itself and is mostly the database. Untrusted data is any data that users can alter. The consequences of trusting untrusted data can be catastrophic and to minimize the risk of accidentally or unknowingly introducing security flaws into applications has a variety of tools and methodologies arose. One of these is taint tracking which attempts to secure an application through information flow control. Taint tracking works by analyzing and finding paths user input can take through a system into the sensitive code areas. Cases, where this is possible, will be flagged to let the developers know where further implementation in the form of sanitation is needed \parencite{Pan2015, Venkataramani2008}. The question is how useful taint tracker is for web applications. Can a dynamic taint tracker, analyzing information flow at runtime, be used as a security solution for production services?
-
-\textit{The following sections of the chapter aim to specify the why and how behind the thesis. It starts with a section of \textit{\nameref{Problem}} description and explanation of the thesis \textit{\nameref{Aim}}. These sections are then followed by \textit{\nameref{Contribution}}, \textit{\nameref{Delimitations}} and \textit{\nameref{Methodology}} sections. Lastly, are there the section \textit{\nameref{Ethics}} followed by \textit{\nameref{Outline}}.}
+All applications with accessibility from the web share the problem of managing both trusted and untrusted data. The trusted data comes from the application itself and is, for example, the database. Untrusted data is data modifiable by users through for example an input form. Untrusted data needs to be sanitized before use. The consequences of mistakenly trusting untrusted data can be catastrophic. A variety of tools have been created to minimize the risk of accidentally introducing security flaws into applications. One of these tools is taint tracking, which attempts to secure an application through information flow control. Taint tracking works by tracking untrusted data through the application into sensitive code areas which for example is database queries. Cases where untrusted data can enter sensitive code areas will be flagged to let the developers know where further development in the form of sanitation is needed to secure the application \parencite{Pan2015, Venkataramani2008}. This opens for the questions how useful taint tracker is for web applications and can a dynamic taint tracker be used as a security solution for production services.
 
 
 
 \section{Problem}
 \label{Problem}
 \begin{chapquote}{}
-    How can dynamic taint tracking secure Java-based web applications? What kind of disadvantages will this entail?
+    How can taint tracking secure Java-based web applications? What kind of advantages and disadvantages will this entail?
 \end{chapquote}
 
 \noindent
-Unwanted information disclosures is a growing problem and work toward protecting user data is needed. Two of the most common vulnerabilities in this area, according to the Open Web Application Security Project, is Injection attacks and Cross-Site Scripting caused by unproperly sanitized user inputs \parencite{OWASP2017}. Is it possible to protect web applications by implementing a dynamic taint tracker to run and analyze the code at runtime? Till what extent will this protect the application and what disadvantages will this entail? Is the solution capable of being bundled into production services?
+Code injection is a growing problem and work toward protecting user data is needed. Two of the most common vulnerabilities in the area, according to the Open Web Application Security Project, are Injection attacks and Cross-Site Scripting caused by unsanitized user inputs \parencite{OWASP2017}. The way to fight the problem with unsanitized user input has many solutions where taint tracking is one. Is it possible to protect web applications by implementing a dynamic taint tracker to run and analyze the code at runtime? To what extent will the taint tracker protect the application? What advantages and disadvantages will it entail? Is the solution capable of being integrated into production services?
 
 
 
 \section{Aim}
 \label{Aim}
-This thesis aims to implement and evaluate a dynamic taint tracker, called WebTaint, to combat integrity and confidentiality vulnerabilities in Java-based web applications. WebTaint aims to allow tracking of taint for all datatypes as well as being constructed on a robust design for the logic to mark sources, sinks, and sanitizers. Concretely, we will implement and benchmark a dynamic taint tracker against SQL Injection and Cross-Site Scripting vulnerabilities. 
+This thesis aims to implement and evaluate a dynamic taint tracker, called WebTaint, to combat integrity and confidentiality vulnerabilities in Java-based web applications. 
+
+WebTaint aims to allow tracking of taint for Strings including data types used during String operations. These data types are String, StringBuilder, StringBuffer, CharArray and ByteArray. WebTaint will be evaluated through case studies and micro-benchmarks to measure the detection rate of vulnerabilities and introduced performance overhead. Concretely, we will implement and benchmark a dynamic taint tracker against SQL Injection and Cross-Site Scripting vulnerabilities. 
 
 
 
 \section{Contribution}
 \label{Contribution}
-The contribution of the thesis is continued research in the field of solutions to combat information disclosure vulnerabilities. This is done through implementing and evaluating a dynamic taint tracking solution that runs independently between the Java Virtual Machine and the web application. 
+The contribution of the thesis is continued research in the code injection field. This is done through:
+
+\begin{itemize}  
+    \item Implementing WebTaint. A dynamic taint tracker for Java-based web applications.
+    \item Evaluating WebTaint. Vulnerability detection rate and performance overhead.
+    \item Discussing and drawing conclusions regarding usage of dynamic taint tracking for Java-based web applications.
+\end{itemize}
 
 
 
-\section{Delimitations}
+\section{Limitations}
 \label{Delimitations}
-The focus of the thesis lies in security vulnerabilities of web applications. However, other application areas might be vulnerable to the same kind of vulnerabilities. This thesis will not discuss or present information regarding those areas. 
+The focus of the thesis lies in security vulnerabilities of web applications. However, other application areas might be subjects to the same kind of vulnerabilities. This thesis will not discuss or present information regarding those areas. 
 
-Injection attacks, which is the number one vulnerability on OWASPs top ten published 2017 \parencite{OWASP2017}, is a broad vulnerability. However, this thesis focuses on Injection attacks towards SQL. However, detection and prevention of other types of Injection attacks are the same as for SQL Injections.
+Injection attacks, which is the number one vulnerability on OWASPs top ten vulnerabilities for the year 2017 \parencite{OWASP2017}, is a broad vulnerability. This thesis focuses on Injection attacks towards SQL and Cross-Site Scripting. However, detection and prevention of other types of Injection attacks are similar to SQL Injection.
 
-The delimitations of the application are that it will only consist of a dynamic taint tracker and not, in any form, a static version. Development of the tool is in and for Java applications with the help of the bytecode instrumentation library Javassist. The focus lies upon enabling taint tracking for Strings, and other data types are enabled if time allows for it.
-
-The evaluation of WebTaint is only conducted on the prevention of integrity vulnerabilities even though the application itself can combat confidentiality vulnerabilities. It is due to time limitations.
+We developed WebTaint for Java-based web applications with the help of the bytecode library Javassist. WebTaint is a dynamic taint tracker constructed to combat integrity and confidentiality vulnerabilities. The evaluation of WebTaint is only conducted on performance overhead and prevention of integrity vulnerabilities even though the tool can combat confidentiality vulnerabilities and. This is due to time limitations.
 
 
 
 \section{Methodology}
 \label{Methodology}
-To answer the problem statement in section \ref{Problem} is a combination of qualitative and quantitative research used. The literature study represents the qualitative research where information about web application security, SQL Injection attacks, Cross-Site Scripting, and dynamic taint tracking gathered, presented and discussed. The quantitative research is the evaluation of the implemented dynamic taint tracker and benchmarks evaluating performance overhead and security gain.
+To answer the problem statement in section \ref{Problem}, we use a combination of qualitative and quantitative methods. The literature study represents the qualitative research where information about web application security, SQL Injection, Cross-Site Scripting, dynamic taint tracking, and related work is gathered, presented and discussed. This information is needed to comprehend how the taint tracker needs to operate to detect possible malicious user data successfully. The information is gathered from reports and books found through the search portal KTH Primo \parencite{primo}.
+
+The quantitative research consists of the implementation and evaluation of WebTaint where benchmarks for performance overhead and security assurance will be performed. Performance overhead is conducted with the DaCapo \parencite{dacapo} benchmark suite consisting of fourteen applications representing common application executions. Security assurance is evaluated through use cases where four applications are tested.
 
 
 
 \section{Ethics \& Sustainability}
 \label{Ethics}
-The ethical and sustainability aspects of the thesis have for the majority positive impact where all users of the application will achieve a gain in some form, except for users with malicious intent. The goal is to combat existing security vulnerabilities in today's web applications which would help both the end users and the companies who are providing the services. The end users gain would be to secure their information and reduce the risk of becoming victims of information disclosure. The companies would gain by providing a more secure product, which in turn would lower the risk of scandals that could hurt their brand. 
+The ethical and sustainability aspects of the thesis have for the majority positive impact. All users of the tool will achieve a gain in some form, except for users with malicious intent. The goal is to combat existing security vulnerabilities in already existing web applications which would help companies to provide more secure services. The end users gain would be secured information and reduce the risk of becoming victims of code injection attacks. The companies would gain by providing more secure products, which in turn would lower the risk of scandals that could hurt their brand. 
 
 Usage of the implemented dynamic taint tracker could result in more robust and secure applications thanks to the ability to find possible security vulnerabilities faster. The taint tracker would as well help the developer in the daily work by validating the soundness of the implemented code. This would ease some of the work for the developer.
 
-The only ethical aspect which could be problematic is the fact that the taint tracker gains possible access to all data processed by the system. This means that much work into the taint tracker needs to be done to ensure that no malicious use of the taint tracker results in harmful system executions.
+The only unethical aspect of WebTaint is the fact that the taint tracker gains access to all data processed by the application. Proper implementation of the taint tracker is therefore needed to ensure that it is not possible to abuse.
 
 
 
 \section{Outline}
 \label{Outline}
-The dispossition of this paper starts with a chapter about the \textit{\nameref{Background}} presenting knowledge needed to understand the rest of the thesis. This is then followed by a chapter about \textit{\nameref{RW}} where prior work in the are is presented. Next chapter is about the \textit{\nameref{Implementation}} of WebTaint. This is then followed by the \textit{\nameref{Evaluation}} chapter where the conducted evaluation is described. Next comes the chapter presenting the \textit{\nameref{Result}} from the conducted evaluation. Lastly commes the chapters \textit{\nameref{Discussion}}, \textit{\nameref{FutureWork}} and \textit{\nameref{Conclusion}}.
+The thesis outline starts with a chapter about \textit{\nameref{Background}} presenting the subject. This follows by \textit{\nameref{RW}} containing previous research and developed taint trackers. This follows by \textit{\nameref{Implementation}} and \textit{\nameref{Evaluation}} of WebTaint. Next comes \textit{\nameref{Result}} presenting case study and performance overhead results. Lastly comes the \textit{\nameref{Discussion}}, \textit{\nameref{FutureWork}} and \textit{\nameref{Conclusion}} chapters.
