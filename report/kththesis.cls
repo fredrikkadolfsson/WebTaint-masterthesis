@@ -211,6 +211,7 @@
 \usepackage{float}
 \usepackage[colorinlistoftodos,prependcaption,textsize=10]{todonotes}
 \usepackage[hidelinks]{hyperref}
+\usepackage{rotating}
 
 \lstset{
   escapeinside={(*@}{@*)},

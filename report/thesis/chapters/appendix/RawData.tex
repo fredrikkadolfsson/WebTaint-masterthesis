@@ -1,54 +1,51 @@
 \chapter{Raw Data}
 \label{appendix:raw}
-This appendix consist of tables containing raw data which possibly not included in the thesis. These are Table \ref{TimeTable} and \ref{MemoryTable} and contains average, min and max values from executing overhead performance benchmarks.
+Appendix \ref{appendix:raw} consist of two tables containing raw data possibly not included in the thesis. The Tables \ref{TimeTable} and \ref{MemoryTable} contains average, min and max values from conducting the micro-benchmarks evaluation.
 
-\begin{table}[H]
+\begin{sidewaystable}
   \centering
-  \caption{Time Overhead (ms)}
+  \caption{Time measurements (ms) from executing The DaCapo Benchmark Suite, with and without WebTaint, ten times.}
   \label{TimeTable}
-  \resizebox{\columnwidth}{!}{
-    \begin{tabular}{rcccccc}
-            & \textbf{Average} & \textbf{Min} & \textbf{Max} & \textbf{Average} & \textbf{Min} & \textbf{Max} \\
-      \textbf{Avrora}     & 3813025          & 3744824      & 3866363      & 9042154          & 8325428      & 9523650      \\
-      \textbf{Batik}      & 2643695          & 2351608      & 3837237      & 14068644         & 12514609     & 17751412     \\
-      \textbf{Eclipse}    & 38284019         & 35090309     & 40662754     & 53031768         & 49999425     & 55297291     \\
-      \textbf{Fop}        & 2100317          & 1976965      & 2264453      & 11050875         & 9449910      & 11701099     \\
-      \textbf{H2}         & 14879971         & 14285215     & 15269910     & 24409953         & 23402474     & 25453261     \\
-      \textbf{Jython}     & 10867700         & 10323676     & 11154908     & 26884920         & 26013407     & 29497966     \\
-      \textbf{Luindex}    & 1753020          & 1662680      & 1838984      & 4860207          & 4402878      & 5456444      \\
-      \textbf{Lusearch}   & 2902191          & 2691449      & 3184846      & 5957591          & 5529709      & 6498355      \\
-      \textbf{Pmd}        & 3103044          & 2978561      & 3319209      & 10713312         & 10198144     & 11478354     \\
-      \textbf{Sunflow}    & 5145955          & 4967500      & 5396681      & 11039976         & 10644328     & 11523814     \\
-      \textbf{Tomcat}     & 7871662          & 7654701      & 8316705      & 21592218         & 19901562     & 22886977     \\
-      \textbf{Tradebeans} & 113344823        & 15936751     & 124316871    & 143159947        & 142096360    & 144361149    \\
-      \textbf{Tradesoap}  & 124208601        & 124032117    & 124326210    & 142446607        & 141075967    & 144368091    \\
-      \textbf{Xalan}      & 3742703          & 3493600      & 4132797      & 10366234         & 9518026      & 11132662    
-    \end{tabular}
-  }
-\end{table}
+  \begin{tabular}{rrcccccc}
+    & & \textbf{No Taint Tracker} & & & \textbf{WebTaint} & \\
+    & \textbf{Average} & \textbf{Min} & \textbf{Max} & \textbf{Average} & \textbf{Min} & \textbf{Max} \\
+    \textbf{Avrora}     & 3813025          & 3744824      & 3866363      & 9042154          & 8325428      & 9523650      \\
+    \textbf{Batik}      & 2643695          & 2351608      & 3837237      & 14068644         & 12514609     & 17751412     \\
+    \textbf{Eclipse}    & 38284019         & 35090309     & 40662754     & 53031768         & 49999425     & 55297291     \\
+    \textbf{Fop}        & 2100317          & 1976965      & 2264453      & 11050875         & 9449910      & 11701099     \\
+    \textbf{H2}         & 14879971         & 14285215     & 15269910     & 24409953         & 23402474     & 25453261     \\
+    \textbf{Jython}     & 10867700         & 10323676     & 11154908     & 26884920         & 26013407     & 29497966     \\
+    \textbf{Luindex}    & 1753020          & 1662680      & 1838984      & 4860207          & 4402878      & 5456444      \\
+    \textbf{Lusearch}   & 2902191          & 2691449      & 3184846      & 5957591          & 5529709      & 6498355      \\
+    \textbf{Pmd}        & 3103044          & 2978561      & 3319209      & 10713312         & 10198144     & 11478354     \\
+    \textbf{Sunflow}    & 5145955          & 4967500      & 5396681      & 11039976         & 10644328     & 11523814     \\
+    \textbf{Tomcat}     & 7871662          & 7654701      & 8316705      & 21592218         & 19901562     & 22886977     \\
+    \textbf{Tradebeans} & 113344823        & 15936751     & 124316871    & 143159947        & 142096360    & 144361149    \\
+    \textbf{Tradesoap}  & 124208601        & 124032117    & 124326210    & 142446607        & 141075967    & 144368091    \\
+    \textbf{Xalan}      & 3742703          & 3493600      & 4132797      & 10366234         & 9518026      & 11132662    
+  \end{tabular}
+\end{sidewaystable}
 
-
-\begin{table}[H]
+\begin{sidewaystable}
   \centering
-  \caption{Memory Overhead (kilobytes)}
+  \caption{Memory measurements (kilobytes) from executing The DaCapo Benchmark Suite, with and without WebTaint, ten times.}
   \label{MemoryTable}
-  \resizebox{\columnwidth}{!}{
-    \begin{tabular}{rcccccc}
-            & \textbf{Average} & \textbf{Min} & \textbf{Max} & \textbf{Average} & \textbf{Min} & \textbf{Max} \\
-      \textbf{Avrora}     & 108445           & 99716        & 122236       & 336260           & 240968       & 407668       \\
-      \textbf{Batik}      & 178804           & 173812       & 185520       & 794894           & 659808       & 863608       \\
-      \textbf{Eclipse}    & 922929           & 916340       & 938032       & 973240           & 954060       & 1024412      \\
-      \textbf{Fop}        & 167038           & 141788       & 207216       & 631080           & 507636       & 810200       \\
-      \textbf{H2}         & 842447           & 802652       & 865792       & 979604           & 967580       & 1000056      \\
-      \textbf{Jython}     & 730460           & 620336       & 764108       & 862572           & 846948       & 880192       \\
-      \textbf{Luindex}    & 102332           & 97736        & 105760       & 285066           & 226780       & 316556       \\
-      \textbf{Lusearch}   & 276592           & 213280       & 333340       & 464162           & 343036       & 621868       \\
-      \textbf{Pmd}        & 246932           & 232384       & 272068       & 546636           & 442624       & 700996       \\
-      \textbf{Sunflow}    & 333194           & 311008       & 466532       & 722237           & 640484       & 796664       \\
-      \textbf{Tomcat}     & 392682           & 315292       & 442928       & 847140           & 690324       & 898144       \\
-      \textbf{Tradebeans} & 371280           & 281796       & 688620       & 926053           & 916492       & 938524       \\
-      \textbf{Tradesoap}  & 307335           & 278072       & 380244       & 919946           & 896588       & 935964       \\
-      \textbf{Xalan}      & 235313           & 180188       & 362980       & 650827           & 563332       & 670492      
-    \end{tabular}
-  }
-\end{table}
+  \begin{tabular}{rrcccccc}
+    & & \textbf{No Taint Tracker} & & & \textbf{WebTaint} & \\
+    & \textbf{Average} & \textbf{Min} & \textbf{Max} & \textbf{Average} & \textbf{Min} & \textbf{Max} \\
+    \textbf{Avrora}     & 108445           & 99716        & 122236       & 336260           & 240968       & 407668       \\
+    \textbf{Batik}      & 178804           & 173812       & 185520       & 794894           & 659808       & 863608       \\
+    \textbf{Eclipse}    & 922929           & 916340       & 938032       & 973240           & 954060       & 1024412      \\
+    \textbf{Fop}        & 167038           & 141788       & 207216       & 631080           & 507636       & 810200       \\
+    \textbf{H2}         & 842447           & 802652       & 865792       & 979604           & 967580       & 1000056      \\
+    \textbf{Jython}     & 730460           & 620336       & 764108       & 862572           & 846948       & 880192       \\
+    \textbf{Luindex}    & 102332           & 97736        & 105760       & 285066           & 226780       & 316556       \\
+    \textbf{Lusearch}   & 276592           & 213280       & 333340       & 464162           & 343036       & 621868       \\
+    \textbf{Pmd}        & 246932           & 232384       & 272068       & 546636           & 442624       & 700996       \\
+    \textbf{Sunflow}    & 333194           & 311008       & 466532       & 722237           & 640484       & 796664       \\
+    \textbf{Tomcat}     & 392682           & 315292       & 442928       & 847140           & 690324       & 898144       \\
+    \textbf{Tradebeans} & 371280           & 281796       & 688620       & 926053           & 916492       & 938524       \\
+    \textbf{Tradesoap}  & 307335           & 278072       & 380244       & 919946           & 896588       & 935964       \\
+    \textbf{Xalan}      & 235313           & 180188       & 362980       & 650827           & 563332       & 670492      
+  \end{tabular}
+\end{sidewaystable}
