@@ -212,6 +212,7 @@
 \usepackage[colorinlistoftodos,prependcaption,textsize=10]{todonotes}
 \usepackage[hidelinks]{hyperref}
 \usepackage{rotating}
+\renewcommand{\lstlistlistingname}{List of Listings}
 
 \lstset{
   escapeinside={(*@}{@*)},

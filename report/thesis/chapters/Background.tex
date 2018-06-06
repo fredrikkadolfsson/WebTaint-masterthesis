@@ -1,39 +1,39 @@
 \chapter{Background}
 \label{Background}
-\textit{This chapter presents background knowledge needed to comprehend the thesis. The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed a presentation of the \textit{\nameref{cia}} commonly used when discussing security. This is then followed by a section about  web applications \textit{\nameref{SecurityVulnerabilities}}. Followed by two sections describing \textit{\nameref{DynamicTaintTracking}} and the programming language \textit{\nameref{JavaInstrumentation}}.}
+\textit{The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed a presentation of the \textit{\nameref{cia}} commonly used when discussing security. It is followed by a section about web applications \textit{\nameref{SecurityVulnerabilities}}. Followed by two sections describing \textit{\nameref{DynamicTaintTracking}} and the programming language \textit{\nameref{JavaInstrumentation}}.}
 
 
 
 \section{Web Application}
 \label{WebApplication}
-To make applications available for a broad set of people and make them accessible from now days almost everywhere do businesses deploy their applications on the web. The deployment of an application can vary a lot, but the most common structure for a web application is based on a three-tier architecture illustrated in Figure \ref{fig:webApplication-Haldar}. The first tier is the presentation tier which is the visual components rendered by the browser. The second is the logic tier which is the brain of the application. The last and third tier is the storage tier, where the second tier can store data as needed \parencite{JustinClarke-Salt2009SIAa}.
-
+To make applications available and accessible from now days almost everywhere do companies deploy their applications on the web. The deployment of an application can vary a lot, but the most common structure for a web application is based on a three-tier architecture as illustrated in Figure \ref{fig:webApplication-Haldar}. The first tier is the presentation tier which contains the visual components rendered by the browser. Logic tier is the second and contains the applications business logic. The third tier is the storage, where the business logic stores data as needed \parencite{JustinClarke-Salt2009SIAa}.
+ 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{images/webApplication-Haldar.png}
-  \caption{The three-tier web application architecture \cite{Haldar}.}
+  \caption{An illustration of the three-tier architecture commonly used by web applications \cite{Haldar}.}
   \label{fig:webApplication-Haldar}
 \end{figure}
 
-From Figure \ref{fig:webApplication-Haldar} can it be seen that tiers only communicate with the tier closest to themselves. This causes the second tier to become a safeguard for tier three where the valuable and possibly sensitive information is stored. This essential information is mostly needed for the application to provide its intended service. Such information might, for example, be name, email, personal security numbers and credit card information \parencite{JustinClarke-Salt2009SIAa}.
+From Figure \ref{fig:webApplication-Haldar} it can be seen that tiers only communicate with the tiers closest to themselves. This causes the logic tier to become a safeguard for the storage tier where valuable and possibly sensitive information is stored. The sensitive information might, for example, be users name, email, personal security numbers and credit card information \parencite{JustinClarke-Salt2009SIAa}.
 
-The scope of the thesis lies in tier two where both trusted and untrusted data is processed, and validations are needed to ensure secure applications. The programming language for tier two might vary a lot, but one common and the chosen language for this thesis is Java.
+The scope of the thesis lies in the logic tier where both trusted and untrusted data is processed, and validations are needed to ensure secure applications. The programming language for the logic tier can vary a lot, but one common and the chosen language for this thesis is Java.
 
 
 
 \subsection{Structured Query Language}
-Communication between tier two and tier three is done through a standardized language called Structured Query Language, mostly known as SQL. SQL is created to manipulate and access databases programmatically. The clear majority of today's database uses SQL. The language works by building queries specifying the required information or task. The query will be evaluated and handled up upon by the SQL engine \parencite{DarieCristian2003TPGt}.
+Communication between the logic and storage tier is done through a standardized language called Structured Query Language, mostly known as SQL. SQL is created to manipulate and access databases programmatically. The majority of today's database uses SQL. The language works by building queries specifying the required information or task. The query is then evaluated and handled up upon by the SQL engine \parencite{DarieCristian2003TPGt}.
 
 
 
 \section{CIA Triad}
 \label{cia}
-Discussions about software security rely on the CIA Triad which represents the three primary concepts in software security. These three are confidentiality, integrity, and availability and is seen in \ref{fig:CIATriad}. Confidentiality is rules that specify the access restrictions to the application. Integrity specifies that application data should be accurate and unaltered. Availability is about the ability to access the application and application data \parencite{2014C1-W}.
+Discussions regarding information security often rely on the CIA Triad. CIA stands for confidentiality, integrity, and availability as displayed in Figure \ref{fig:CIATriad}. Confidentiality ensures data usage by only authorized individuals. Integrity specifies that application data should be accurate and unaltered. Availability is the ability to access the application and application data \parencite{2014C1-W}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[height=6cm]{images/CIATriad.jpg}
-    \caption{CIA Triad}
+    \caption{An illustration of the CIA Triad, model used when discussing information security.}
     \label{fig:CIATriad}
 \end{figure}
 
@@ -41,7 +41,7 @@ Discussions about software security rely on the CIA Triad which represents the t
 
 \section{Security Vulnerabilities}
 \label{SecurityVulnerabilities}
-The organization Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP has produced reports about the top ten security risks for web applications, and the latest was published in 2017. The report contains information about the ten most common security risks for the current year. Information such as how the security risk is exploited and possible prevention methods are also presented. This thesis will look at security risk number one and seven from the latest report. These vulnerabilities are towards, and they are Injection attacks and Cross-Site Scripting \parencite{OWASP2017}.
+The organization Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge on how to secure web applications \parencite{OpenWebApplicationSecurityProject}. OWASP has produced reports about the top ten security risks for web applications, and the latest was published in 2017. The report contains information about the ten most common security risks for the given year. Information such as how the security risk is exploited and possible prevention methods are also presented. This thesis will look at security risk number one and seven from the latest report. These two security risks are vulnerabilities of information disclosure and code injection. The two vulnerabilities are Injection attack and Cross-Site Scripting \parencite{OWASP2017}.
 
 
 
@@ -53,35 +53,35 @@ Injection Attacks exists towards a broad set of different areas but the area dis
 
 
 \subsubsection{SQL Injection}
-SQL Injection is when a SQL query is tampered with which results in gaining content or executing a command on the database which was not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays a SQL Query which is open to SQL Injections. This is because the variable UserId is never validated before it is propagated into the query \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
+SQL Injection occurs when an SQL query is tampered with which results in gaining content or executing a command on the database which was not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays an SQL query which is open to SQL Injections. This is because the variable UserId is never validated before it is propagated into the query \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
 
 \hfill
 \begin{lstlisting}[
   language=SQL,
-  caption=Code Acceptable to SQL Injection,
+  caption=Pseudo code acceptable to SQL Injection through malicious usage of \textit{userInput}.,
   label={lst:acceptable_to_SQL_Injection}]
 userId = (*@\textit{userInput}@*)
 "SELECT * FROM Users WHERE userId = " + userId
 \end{lstlisting}
 \hfill
 
-The query will work as intended if the user input, labeled as \textit{userInput}, is a valid Integer (since Integer is what we have decided that user id is in the application). But what happens if the user input is \textit{10 or 1 = 1}? This input would result in the query seen in Listing \ref{lst:SQL_Injection}.
+The query work as intended if the user input, labeled as \textit{userInput}, is a valid Integer (since Integer is what we have decided that user id is in the application). An example of malicious usage of user input is \textit{10 or 1 = 1}. This input would result in the query seen in Listing \ref{lst:SQL_Injection}.
 
 \hfill
 \begin{lstlisting}[
   language=SQL,
-  caption=SQL Injection,
+  caption=An example of SQL Injection where the whole Users table is returned,
   label={lst:SQL_Injection}]
 SELECT * FROM Users WHERE userId = 10 or 1 = 1
 \end{lstlisting}
 \hfill
 
-This query results in an execution that always evaluates to true. The result of this will be that the query returns the whole table of users. This problem can be prevented in a couple of different ways. The first is through validation of input. By verifying user input as seen in Listing \ref{lst:SQL_Injection_Verified} can we protect the query from being vulnerable to SQL Injection.
+This query results in an execution that always evaluates to true. As a result the query returns the whole table of users. This problem can be prevented in different ways. The first is through validation of input. By verifying user input as in Listing \ref{lst:SQL_Injection_Verified} can we protect the query from being vulnerable to the SQL Injection.
 
 \hfill
 \begin{lstlisting}[
   language=SQL,
-  caption=Preventing SQL Injection through Verification,
+  caption=An example of SQL Injection prevention through variable sanitiazion.,
   label={lst:SQL_Injection_Verified}]
 userId = (*@\textit{userInput}@*)
 isInteger(userId)
@@ -89,12 +89,12 @@ isInteger(userId)
 \end{lstlisting}
 \hfill
 
-A second common alternative is to use SQL Parameters which handles the verification for the user. This leaves the verification and validation of input up to the SQL engine. An example written with SQL Parameters can be seen in Listing \ref{lst:SQL_Injection_Parameters}.
+A second common alternative is to use SQL Parameters which handle the verification for the user. This leaves the verification and validation of input up to the SQL engine. An example written with SQL Parameters can be seen in Listing \ref{lst:SQL_Injection_Parameters}.
 
 \hfill
 \begin{lstlisting}[
   language=SQL,
-  caption=Preventing SQL Injection through SQL Parameters,
+  caption=An example of SQL Injection prevention through SQL Parameters.,
   label={lst:SQL_Injection_Parameters}]
 userId = (*@\textit{userInput}@*)
 sqlQuery = "SELECT * FROM Users WHERE userId = @0"
@@ -104,32 +104,32 @@ db.Execute(sqlQuery, userId)
 
 
 \subsubsection{Blind SQL Injection}
-Blind SQL Injection is very similar to SQL Injection. The only difference is that that attacker does not receive the requested information in clear text from the database. The information is instead received by monitoring variables such as how long time the response took or what kind of error messages it returns. An example of the first is a SQL query that tells the SQL engine to sleep depending on a condition. An example of this can be seen in Listing \ref{lst:Blind_SQL_Injection_Time} \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
+Blind SQL Injection is very similar to SQL Injection. The only difference is that the attacker does not receive the requested information in clear text from the database. The information is instead received by monitoring variables such as how long time the response takes or what kind of error messages it returns. An example of the first is an SQL query that tells the SQL engine to sleep depending on a condition. An example of this can be seen in Listing \ref{lst:Blind_SQL_Injection_Time} \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
 
 \hfill
 \begin{lstlisting}[
   language=SQL,
-  caption=Time Based Blind SQL Injection,
+  caption=An example of Blind SQL Injection where query response is delayed five seconds if a user with id one is in the Users table.,
   label={lst:Blind_SQL_Injection_Time}]
 SELECT * FROM Users WHERE userId = 1 WAITFOR DELAY '0:0:5'
 \end{lstlisting}
 \hfill
 
-The second variant of Blind SQL Injection is through analyzing error messages and depending on what they return, build an image of the targeted data. This is mostly done through testing different combinations of true and false queries \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
+The second variant of a Blind SQL Injection is through analyzing error messages and, depending on what they return, build an image of the targeted data. This is mostly done through testing different combinations of true and false queries \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
 
 
 
 \subsection{Cross-Site Scripting}
-Cross-Site Scripting has been a vulnerability since the beginning of the internet. One of the first Cross-Site Scripting attacks was created just after the release of JavaScript. The attack was conducted through loading a malicious web application into a frame on the site that the attacker wants to gain access to. The attacker could then through JavaScript access any content that is visible or typed into the web application. To prevent this form of attack where the standard of Same-Origin Policy introduced. Same-Origin Policy restricts JavaScript to only access content from its origin \parencite{FogieSeth2007Xacs, w3csop}.
+Cross-Site Scripting has been a vulnerability since the introduction of JavaScript in websites. One of the first Cross-Site Scripting attacks was created just after the release of JavaScript. The attack was conducted through loading a malicious web application into a frame on the site that the attacker wants to gain access to. The attacker could then through JavaScript access any content that is visible or typed into the web application. Same-Origin Policy was introduced to prevent this form of attack. The policy restricts JavaScript to only access content from its origin \parencite{FogieSeth2007Xacs, w3csop}.
 
-The introduction of the Same-Origin Policy, however, did not stop the attackers. The next wave of attacks was mostly towards chat rooms where it was possible to inject malicious Cross-Site Scripts into the input of the message. Which would then later be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy \parencite{FogieSeth2007Xacs}.
+The introduction of the Same-Origin Policy, however, did not stop the attackers. The next wave of attacks was mostly towards chat rooms where it was possible to inject malicious Cross-Site Scripts into the input of the message. Which would then be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy \parencite{FogieSeth2007Xacs}.
 
-Dividing Cross-Site Scripting into three different subcategories is possible. These three are reflected, stored, and DOM-based Cross-Site Scripting.
+There are three different types of Cross-Site Scripting. These three are reflected, stored, and DOM-based Cross-Site Scripting.
 
 
 
 \subsubsection{Reflected Cross-Site Scripting}
-Reflected Cross-Site Scripting, mostly conducted through a malicious link that an unknowing user accesses. The malicious link will exploit a vulnerable input on the targeted web application and through the input reflect back malicious content to the user \parencite{Secure_Web}.
+Reflected Cross-Site Scripting, mostly conducted through a malicious link that an user accesses. The malicious link will exploit a vulnerable input on the targeted web application and through the input reflect back malicious content to the user \parencite{Secure_Web}.
 
 
 
@@ -139,7 +139,7 @@ Stored Cross-Site Scripting is when malicious scripts get stored in the targeted
 
 
 \subsubsection{DOM-based Cross-Site Scripting}
-DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting, but it does not necessarily have to be reflected from the application server. DOM-based Cross-Site Scripting modifies the DOM tree and through that exploits the user \parencite{Secure_Web}.
+DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting, but it does not necessarily have to be reflected from the application server. DOM-based Cross-Site Scripting modifies the DOM tree and through that it exploits the user \parencite{Secure_Web}.
 
 
 
