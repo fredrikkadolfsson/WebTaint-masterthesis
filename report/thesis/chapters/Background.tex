@@ -145,35 +145,37 @@ DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting
 
 \section{Taint Tracking}
 \label{DynamicTaintTracking}
-Taint tracking, also known as taint analysis, taint checking and taint propagation, is a tool to analyze the flow of information in a domain \parencite{Pan2015}. The goal of taint tracking is to prevent possible attacks such as Injection and Cross-Site Scripting by enforcing the usage of sanitizers on input data. Taint tracking is possible to execute in two different forms: static and dynamic. The static is an evaluation tool which is done statically before runtime. Dynamic is an application that executes at runtime. There are pros and cons for both versions. The pros for static is the usability in the integrated development environment, and the pros for dynamic is a higher accuracy of taint propagation. 
+Taint tracking, also known as taint analysis, is a tool to analyze the flow of information in an application \parencite{Pan2015}. The goal of taint tracking is to prevent possible attacks such as Injection and Cross-Site Scripting by enforcing the usage of sanitizers on input data. Taint tracking can be implemented in two different forms: static and dynamic. The static is an evaluation tool which is done statically before runtime. Dynamic is an application that executes at runtime. There are advantages and disadvantages for both versions. The advantages for static is the usability in the integrated development environment, and the advantages for dynamic is a higher accuracy of taint propagation. 
 
-Taint trackers operate by tracking data and acting upon any that are trying to enter sinks without first been detainted through sanitation. Perl and Ruby are two programming languages which have adapted to use taint checking \parencite{perl, ruby}. There are some tools which enable taint checking for other platforms. TaintDroid \parencite{Ma2010} for the Android platform is one of them. This thesis will handle dynamic taint tracking and how it can increase the security of Java-based web applications.
+Taint trackers operate by tracking untrusted data and acting upon any that are trying to enter sinks without first being sanitised. Perl and Ruby are two programming languages which have adapted to use taint checking \parencite{perl, ruby}. There are some tools which enable taint checking for other platforms. TaintDroid \parencite{Ma2010} for the Android platform is one of them. This thesis will discussion dynamic taint tracking and how it can improve the security of Java-based web applications.
 
-Taint tracking contains four main tasks which are described in Table \ref{table:taintTracking}. The first is marking all data from sources as tainted. This is done through a taint flag attached to the input variables. This taint flag follows the input, which is the second task, throughout the application and propagates onto any other data it encounters. The third task is the possibility of detainting data, but this is only done after the data have been sanitized through predefined sanitizers. The fourth and last task is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink vary depending on the application, however, remedial actions should be conducted. These actions should be, depending on the application owners choice, logging events, throwing errors, or modifying the tainted values into safe predefined values. 
+Taint tracking contains four main steps which are described in Table \ref{table:taintTracking}. The first step is marking all data from untrusted sources as tainted. This is done through a taint flag attached to the input variables. This taint flag follows the input, which is the second step, throughout the application and propagates onto any other data it encounters. The third step is the possibility of detainting data, but this is only done after the data have been sanitized through predefined sanitizers. The fourth and last step is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink varies depending on the application, however, remedial actions should be conducted. These actions should be, depending on the application owners choice, logging the events, throwing an error, or modifying the tainted values into safe predefined values. 
 
 \begin{table}[H]
   \centering
-  \caption{Core logic behind taint tracking}
+  \caption{The four core tasks behind taint tracking.}
   \label{table:taintTracking}
-  \begin{description}
-    \item [Tainting] Marking all data from sources as tainted.
-    \item [Propagat Taint] Propagating taint to all data coming in contact with tainted data.
-    \item [Detainting] Marking all data from sanitizers as non-tainted.
-    \item [Assert Non-tainted] Assert that data passing through sinks are non-tainted. 
-  \end{description}
+  \begin{tabular}{rp{8.5cm}}
+    \textbf{Tainting}           & Marking all data from sources as tainted.                          \\
+    \textbf{Propagat Taint}     & Propagating taint to all data coming in contact with tainted data. \\
+    \textbf{Detainting}         & Marking all data from sanitizers as non-tainted.                   \\
+    \textbf{Assert Non-tainted} & Assert that data passing through sinks are non-tainted.           
+  \end{tabular}
 \end{table}
 
-An example of taint tracking can be seen in Listing \ref{lst:taint_propagation}. In this example \textit{getAttribute} is a source, \textit{executeQuery} a sink and \textit{validate} a sanitizer. On row one, the input from the source is flagged tainted, and the taint propagates onto \textit{userId}. The sanitizer on row two validates \textit{userId} and removes the tainted flag. Lastly, the sink on row three executes the query since the argument is not tainted. If a user sends in a malicious userId containing "101 OR 1 = 1" the validator would sanitize the String and safely execute the sink command. However, removing line two would result in tainted data entering the sink. This would without a dynamic taint tracker result in giving the malicious user the entire list of Users. With a dynamic taint tracker, however, the result is the sink halting the execution, therefore, preventing unwanted information disclosure.
+An example of taint tracking can be seen in Listing \ref{lst:taint_propagation}. In this example \textit{getAttribute} is a source, \textit{executeQuery} is a sink and \textit{validate} is a sanitizer. On line 1, the input from the source is flagged as tainted, and the taint propagates onto \textit{userId}. The sanitizer on line 2 validates \textit{userId} and removes the tainted flag. Lastly, the sink on line 3 executes the query since the argument is not tainted. If a user sends in a malicious userId containing "101 OR 1 = 1" the validator would sanitize the String and safely execute the sink command. However, removing line two would result in tainted data entering the sink. Without a dynamic taint tracker this would result in giving the malicious user the entire list of Users. With a dynamic taint tracker, however, the result is the sink halting the execution, therefore, preventing unwanted information disclosure.
 
 \hfill
+\begin{minipage}[H]{\linewidth}
 \begin{lstlisting}[
-  caption=Taint Tracking,
+  caption=A code example of accurately handling user input before accessing sensitive code area.,
   numbers=left,
   label={lst:taint_propagation}]
 userId = getAttribute("userId");
 validate(userId)
 executeQuery("SELECT * FROM Users WHERE userId = " + userId);
 \end{lstlisting}
+\end{minipage}
 \hfill
 
 
@@ -192,7 +194,7 @@ There exists a plethora of implementation of the Java Virtual Machine, but the o
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/JvmSpec7.png}
-    \caption{Java Virtual Machine Architecture}
+    \caption{An illustration of the Java Virtual Machine Architecture \parencite{jvm}. }
     \label{fig:JVM}
 \end{figure}
 
