@@ -89,7 +89,7 @@ The reasoning behind the division is because of the need of transforming classes
 
 Transformation of the String, StringBuilder, and StringBuffer classes, to support tracking of taint, is done in the Xboot project. It is done by iterating through each class and transforming them to: contain a variable to hold the taint flag, and propagate the taint in each method and constructor. The propagation of taint happened when either the taint flag of the class or any of the arguments marked tainted.
 
-The architecture of WebTaint is seen in Figure \ref{fig:WebTaint}. The Java Virtual Machine is un-instrumented and loads WebTaint through the ClassLoader at startup. WebTaint gets access to every class file loaded and instruments the web applications and all needed libraries.
+The architecture of WebTaint is seen in Figure \ref{fig:WebTaint}. The Java Virtual Machine is un-instrumented and loads WebTaint through the Class Loader at startup. WebTaint gets access to every class file loaded and instruments the web applications and all needed libraries.
 
 \begin{figure}[H]
     \centering

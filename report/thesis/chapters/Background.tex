@@ -1,12 +1,12 @@
 \chapter{Background}
 \label{Background}
-\textit{The chapter starts with a general description about \textit{\nameref{WebApplication}} structure and is followed a presentation of the \textit{\nameref{cia}} commonly used when discussing security. It is followed by a section about web applications \textit{\nameref{SecurityVulnerabilities}}. Followed by two sections describing \textit{\nameref{DynamicTaintTracking}} and the programming language \textit{\nameref{JavaInstrumentation}}.}
+\textit{The chapter starts with a general description about \textit{\nameref{WebApplication}} structure. It is followed by a presentation of the \textit{\nameref{cia}} commonly used when discussing information security. It is followed by a section about web applications \textit{\nameref{SecurityVulnerabilities}}. Followed by two sections describing \textit{\nameref{DynamicTaintTracking}} and the programming language \textit{\nameref{JavaInstrumentation}}.}
 
 
 
 \section{Web Application}
 \label{WebApplication}
-To make applications available and accessible from now days almost everywhere do companies deploy their applications on the web. The deployment of an application can vary a lot, but the most common structure for a web application is based on a three-tier architecture as illustrated in Figure \ref{fig:webApplication-Haldar}. The first tier is the presentation tier which contains the visual components rendered by the browser. Logic tier is the second and contains the applications business logic. The third tier is the storage, where the business logic stores data as needed \parencite{JustinClarke-Salt2009SIAa}.
+To make applications available and accessible from now days almost everywhere do companies deploy their applications on the web. The deployment of an application can vary a lot, but the most common structure for a web application is based on a three-tier architecture as illustrated in Figure \ref{fig:webApplication-Haldar}. The first tier is the presentation tier which contains the visual components rendered by the browser. Logic tier is the second and contains the applications business logic. The third tier is the storage tier, where the business logic stores data as needed \parencite{JustinClarke-Salt2009SIAa}.
  
 \begin{figure}[H]
   \centering
@@ -120,9 +120,9 @@ The second variant of a Blind SQL Injection is through analyzing error messages 
 
 
 \subsection{Cross-Site Scripting}
-Cross-Site Scripting has been a vulnerability since the introduction of JavaScript in websites. One of the first Cross-Site Scripting attacks was created just after the release of JavaScript. The attack was conducted through loading a malicious web application into a frame on the site that the attacker wants to gain access to. The attacker could then through JavaScript access any content that is visible or typed into the web application. Same-Origin Policy was introduced to prevent this form of attack. The policy restricts JavaScript to only access content from its origin \parencite{FogieSeth2007Xacs, w3csop}.
+Cross-Site Scripting has been a vulnerability since the introduction of JavaScript in websites. One of the first Cross-Site Scripting attacks was carried out just after the release. The attack was conducted through loading a malicious web application into a frame on the site that the attacker wants to gain access to. The attacker could then through JavaScript access any content visible or typed into the web application. Same-Origin Policy was introduced to prevent this form of attacks. The policy restricts JavaScript to only access content from its origin \parencite{FogieSeth2007Xacs, w3csop}.
 
-The introduction of the Same-Origin Policy, however, did not stop the attackers. The next wave of attacks was mostly towards chat rooms where it was possible to inject malicious Cross-Site Scripts into the input of the message. Which would then be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy \parencite{FogieSeth2007Xacs}.
+The introduction of the Same-Origin Policy, however, did not stop the attackers. The next wave of attacks was mostly towards chat rooms where it was possible to inject malicious Cross-Site Scripts into the message input form. Which would then be reflected by the server itself, when displaying the message for other users, and thereby bypassing the Same-Origin Policy \parencite{FogieSeth2007Xacs}.
 
 There are three different types of Cross-Site Scripting. These three are reflected, stored, and DOM-based Cross-Site Scripting.
 
@@ -145,11 +145,11 @@ DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting
 
 \section{Taint Tracking}
 \label{DynamicTaintTracking}
-Taint tracking, also known as taint analysis, is a tool to analyze the flow of information in an application \parencite{Pan2015}. The goal of taint tracking is to prevent possible attacks such as Injection and Cross-Site Scripting by enforcing the usage of sanitizers on input data. Taint tracking can be implemented in two different forms: static and dynamic. The static is an evaluation tool which is done statically before runtime. Dynamic is an application that executes at runtime. There are advantages and disadvantages for both versions. The advantages for static is the usability in the integrated development environment, and the advantages for dynamic is a higher accuracy of taint propagation. 
+Taint tracking, also known as taint analysis, is a tool to analyze the flow of information in an application \parencite{Pan2015}. The goal of taint tracking is to prevent possible attacks such as Injection and Cross-Site Scripting by enforcing the usage of sanitizers on input data. Taint tracking can be implemented in two different forms: static and dynamic. Static taint tracking is an evaluation tool possible to be included in the integrated development environment where it notifies the developer of possible security vulnerabilities. Dynamic taint tracking is a tool used simultaneously as the application execution. Dynamic tracking analyses for vulnerabilities at runtime and achieve higher accuracy compared to static tracking. The advantage for static is the ability to execute before runtime, but its disadvantage is the lower accuracy in tracking of taint.
 
 Taint trackers operate by tracking untrusted data and acting upon any that are trying to enter sinks without first being sanitised. Perl and Ruby are two programming languages which have adapted to use taint checking \parencite{perl, ruby}. There are some tools which enable taint checking for other platforms. TaintDroid \parencite{Ma2010} for the Android platform is one of them. This thesis will discussion dynamic taint tracking and how it can improve the security of Java-based web applications.
 
-Taint tracking contains four main steps which are described in Table \ref{table:taintTracking}. The first step is marking all data from untrusted sources as tainted. This is done through a taint flag attached to the input variables. This taint flag follows the input, which is the second step, throughout the application and propagates onto any other data it encounters. The third step is the possibility of detainting data, but this is only done after the data have been sanitized through predefined sanitizers. The fourth and last step is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink varies depending on the application, however, remedial actions should be conducted. These actions should be, depending on the application owners choice, logging the events, throwing an error, or modifying the tainted values into safe predefined values. 
+Taint tracking contains four main steps which are described in Table \ref{table:taintTracking}. The first step is marking all data from untrusted sources as tainted. This is done through a taint flag attached to the input variables. Step two is tracking tait where tainted data propagates onto all data it comes in contact with. The third step is the possibility of detainting data, but this is only done after the data have been sanitized through predefined sanitizers. The fourth and last step is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink varies depending on the application, however, remedial actions should be conducted. These actions should be, depending on the application owners choice, logging the events, throwing an error, or modifying the tainted values into safe predefined values. 
 
 \begin{table}[H]
   \centering
@@ -182,32 +182,33 @@ executeQuery("SELECT * FROM Users WHERE userId = " + userId);
 
 \section{Java}
 \label{JavaInstrumentation}
-Java has been around since the early 90's. The founder's objective was to develop a new improved programming language that simplified the task for the developer but still had a familiar C/C++ syntax. \parencite{OracleVoice}. Today is Java one of the most common programming languages \parencite{octoverse}.
+Java has been around since the early 90's. The founder's objective was to develop a new improved programming language that simplified the task for the developers but still had a familiar C/C++ syntax. \parencite{OracleVoice}. Today is Java one of the most common programming languages \parencite{octoverse}.
 
-Java is a statically typed language which means that no variable can be used before being declared. These variables can be of two different types: primitives and reference to objects. Among the primitives does Java have support for eight. These are byte, short, int, long, float, double, boolean and char \parencite{primjav}.
+Java is a statically typed language which means that no variable can be used before being declared. The variables can be of two different types: primitives and references to objects. Among the primitive types does Java have support for eight. These are byte, short, int, long, float, double, boolean and char \parencite{primjav}.
 
 
 
 \subsection{Java Virtual Machine}
-There exists a plethora of implementation of the Java Virtual Machine, but the official that Oracle develop is HotSpot \parencite{hotSpot}. One of the core ideas with Java during its development was "Write once, run anywhere." The slogan was created by Sun Microsystems which at the time were the company behind Java and the Java Virtual Machine. \parencite{Craig_2006}. The idea behind the Java Virtual Machine was to enable one language to execute the same on all platforms and then modify the Java Virtual Machine to be able to run on as many platforms as possible. The Java Virtual Machine is a virtual machine with its own components of heap storage, stack, program counter, method area, and runtime constant pool.
+There exists a plethora of implementations of the Java Virtual Machine, but the official developed by Oracle is HotSpot \parencite{hotSpot}. One of the core ideas with Java during its development was "Write once, run anywhere." The slogan was created by Sun Microsystems which at the time were the company developing Java and the Java Virtual Machine. \parencite{Craig_2006}. The idea behind the Java Virtual Machine was to enable one language to be platform independent and then modify the Java Virtual Machine to run on as many platforms as possible. The Java Virtual Machine is a virtual machine with its own components of heap storage, stack, program counter, method area, and runtime constant pool.
+
+Figure \ref{fig:JVM} illustrates the architecture of the Java Virtual Machine. The Class Loader loads the compiled Java code and adds it into the Java Virtual Machine Memory. The Execution Engine reads the loaded bytecode from the Java Virtual Machine Memory and executes the application instructions. The Java Virtual Machine have built in support for Java Agents which is a tool running between the Java Virtual Machine and the executed Java application. An Agent is loaded and given access to the application by the Class Loader. The Class Loader will trigger the implemented Java Agent and allow for instrumentation of each class file loaded by the Class Loader before being loaded into the Java Virtual Machine \parencite{venners_1999, instru}.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{images/JvmSpec7.png}
-    \caption{An illustration of the Java Virtual Machine Architecture \parencite{jvm}. }
-    \label{fig:JVM}
+  \centering
+  \includegraphics[width=\textwidth]{images/JvmSpec7.png}
+  \caption{An illustration of the Java Virtual Machine Architecture \parencite{jvm}. }
+  \label{fig:JVM}
 \end{figure}
-
-Figure \ref{fig:JVM} illustrates the architecture of the Java Virtual Machine. The ClassLoader loads the compiled Java code and adds it into the Java Virtual Machine Memory. The logic behind Java instrumentation lies in the ClassLoader. The ClassLoader will trigger the implemented Java Agent and allow for instrumentation of each class file before being loaded into the Java Virtual Machine \parencite{venners_1999, instru}.
-
 
 
 \subsection{Instrumentation}
-Java instrumentation is a way to modify the execution of an application without knowing nor the need of modifying the application code itself. Good use cases for Java instrumentation is, for example, monitoring agents, event loggers, and taint trackers. Instrumentation is an official Java package that provides services needed to modify the bytecode of program executions. It is conducted through implementing an Agent that will have the possibility to transform every class loaded by the ClassLoader before being used for the first time. Transformation of class files are on bytecode level, but there exist libraries that can help in this task. One of these libraries and the one used in this thesis is Javassist \parencite{Java_Instrument, Javassist}.
+Java instrumentation is a way to modify the execution of an application without knowing or modifying the application code itself. Good use cases for Java instrumentation are, for example, monitoring agents, event loggers, and taint trackers. Instrumentation is an official Java package that provides services needed to modify the bytecode of program instructions. It is conducted through implementing an Agent that makes it possible to transform every class loaded by the Class Loader before being used for the first time. However, there is a library of classes which cannot be instrumented by an Agent. This library is the rt.jar containing the Base Java Runtime Environment which is needed to start up the Java Virtual Machine including the Class Loader. Instrumentation of the Base Java Runtime Environment need to be done before running the Java application.
 
-There are some restrictions to instrument classes during runtime. Classes needed for the Java Virtual Machine need transformation before executing the Java application. This is because those classes load before and are needed by the instrumentation agent. These classes are the content of the base Java Runtime Environment in the rt.jar.
+The Java Agent operates on bytecode which is time consuming work for the developer. To ease the task of instrumentation is the bytecode instrumentation library Javassist used \parencite{Java_Instrument, Javassist}.
 
 
 
 \subsection{Javassist}
-There exist several libraries that can help the developer in the task of creating an instrumentation Agent. The help comes in libraries of high-level functions that later translates into bytecode that the Java Virtual Machine understands. The library used in this thesis is Javassist. Javassist stands for Java programming Assistant and is a bytecode engineering toolkit. Javassist provides two levels of API where the one used in this thesis provides the functionality of editing class files on source level which require no understanding of Java bytecode \parencite{Javassist}.
+There exist several libraries that can help the developer in the task of creating a Java Agent. The help comes in libraries of methods to manipulate Java bytecode. The library used in this thesis is Javassist. Javassist stands for Java programming Assistant and provides two levels of API. The two are on source respectively bytecode level. We used the source level API which is providing functionality of manipulating Java bytecode with little bytecode knowledge \parencite{Javassist}.
+
+The Javassist source level API provides classes representing instances of classes, methods and fields. These API classes contains methods to use when computing if the given class, method or field should be instrumented. The classes representing methods do also contain the methods \textit{insertBefore}, \textit{insertAfter​} or \textit{insertAt}. The three methods allows to insert Java code to the beginning, the end or at a specific position of the method.
