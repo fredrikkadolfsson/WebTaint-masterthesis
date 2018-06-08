@@ -1,95 +1,143 @@
 \chapter{Implementation}
 \label{Implementation}
-\textit{This chapter presents the fundamental parts of the implementation process of WebTaint. The chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. This section is then followed by how \textit{\nameref{souresSS}} was specified and lastly comes the \textit{\nameref{SoftwareArchitecture}} architecture.}
+\textit{The chapter presents the implementation process of WebTaint. The chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. This section is then followed by how \textit{\nameref{souresSS}} was specified and lastly comes the \textit{\nameref{SoftwareArchitecture}} architecture.}
 
 
 
 \section{Policies}
 \label{Policies}
-The development of WebTaint relies on the four tasks described in Table \ref{table:taintTracking} in chapter \ref{Background}. These tasks are tainting, detainting, propagating taint, and assertion of non-tainted data. However, to implement the functionality behind the taint tracker needs security policies first to be defined. Security policies are principles and actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. The taint tracker developed in this thesis will base on two different aspects. These are \textit{integrity} and \textit{confidentiality}.
+To implement the functionality behind the taint tracker security policies first needs to be defined. Security policies are principles and actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. The taint tracker developed in this thesis aims to fulfill two different kinds of policies. These are \textit{integrity} and \textit{confidentiality}.
 
 
 
 \subsection{Integrity}
 \label{Integrity}
-The integrity policy defines that users may not modify data which they do not have permission to alter. The goal is to ensure prevention of malicious usage of the application where attackers aim to inject malicious executions that can, for example, lead to information disclosure or destruction of application data. To ensure this is the following policy defined:
+The integrity policy defines that users may not modify data which they do not have permission to alter. The goal is to ensure prevention of malicious usage of the application where attackers aim to inject malicious code that can, for example, lead to information disclosure or destruction of user data. To ensure this, we define the following policy:
 
 \hfill
 \begin{itemize}
-    \item No information or execution of code shall be altered without the users having permission to do so for the given information or execution.
+    \item No data or execution shall be altered by users without the user having the correct permission for the given data or execution.
 \end{itemize}
 \hfill
 
-This entails that no information from sources shall pass through a sink without first being sanitized.
+This entails that no information from untrusted sources shall pass through a trusted sink without first being sanitized.
 
 
 
 \subsection{Confidentiality}
 \label{Confidentiality}
-The confidentiality policy defines that data given to the user should only be data that the user have the right to access. The goal is to ensure prevention of malicious usage of applications where attackers aim to steal application data. This gives us the policy:
+The confidentiality policy defines that data given to the user should only be data that the user have the right to access. The goal is to ensure prevention of malicious usage of applications where attackers aim to steal application data. To ensure this, we define the following policy:
 
 \hfill
 \begin{itemize}
-    \item No information shall be released to users without the user having the correct permission for the given information.
+    \item No data shall be released to users without the user having the correct permission for the given data.
 \end{itemize}
 \hfill
 
-This entails that no information from sources shall pass through a sink unless it has the permission to do so.
+This entails that no information from confidential sources shall pass through a public sink unless it has the permission to do so.
 
-\textit{While monitoring confidentiality vulnerabilities are the sources and sinks roles reversed. Meaning that the information to protect is marked as sources and sinks are the systems exit points. The sanitizers are used to specify non-malicious sinks.}
-
-
-
-\subsection{Taint Checking}
-The integrity policy is enforced by making sure validations, of user input and any data it has come into contact with, are conducted. By enforcing these should preventions of integrity volubilities be reduced severely. The confidentiality policy above is enforced by validating that data from specified sources do not pass through any sink except for those specified as sanitizer as well.
-
-The policies above can be translated into taint policies. These are:
-
-\hfill
-\begin{itemize}
-    \item Data passing through sources, going into the domain, shall always be marked tainted.
-    \item Tainted data is never allowed to pass through sinks.
-    \item Predefined sanitizers are the only method calls allowed to detaint data.
-\end{itemize}
-\hfill
+\textit{While monitoring for confidentiality vulnerabilities are the sources, and sinks roles reversed compared to integrity flow analysis. The information to protect is marked as sources and sinks are the systems exit points. The sanitizers are used to specify non-malicious sinks.}
 
 
 
-\subsection{Taint Propagation}
-Taint propagation policies, however, are not the only policies needed to implement WebTaint. WebTaint need policies specifying how the taint propagation should operate. Below are rules defining when taint should propagate:
+\subsection{WebTaint}
+From the two Sections above we get the integrity and confidentiality policies WebTaint aims to fulfill. The two policies can also be translated into WebTaints internal policies. The internal policies can be divided into the four tasks described in Table \ref{table:taintTracking} in Chapter \ref{Background}. These tasks are tainting, detainting, taint propagation, and assertion of non-tainted data.
 
-\hfill
-\begin{itemize}
-    \item Data resulting in a copy, subset or combination of tainted data shall flag as tainted.
-    \item Data disclosing information about tainted data shall flag as tainted.
-\end{itemize}
-\hfill
+
+
+\subsubsection{Tainting}
+Table \ref{table:taintingpolicy} presents the tainting policies of WebTaint.
+
+\begin{table}[H]
+    \centering
+    \caption{WebTaint's tainting policies.}
+    \label{table:taintingpolicy}
+    \begin{tabular}{rp{8.5cm}}
+        \textbf{Integrity} & Data from untrusted sources shall always be marked tainted. \\
+        \textbf{Confidentiality} & Data from private sources shall always be marked tainted. \\         
+    \end{tabular}
+\end{table}
+
+
+
+\subsubsection{Detainting}
+Table \ref{table:detaintingpolicy} presents the detainting policy of WebTaint.
+
+\begin{table}[H]
+    \centering
+    \caption{WebTaint's detainting policy.}
+    \label{table:detaintingpolicy}
+    \begin{tabular}{rp{8.5cm}}
+        \textbf{\begin{tabular}[c]{@{}r@{}}Integrity \&\\ Confidentiality\end{tabular}} & \begin{tabular}[c]{@{}l@{}}Data from sanitizers shall be marked as\\ detainted.\end{tabular} \\   
+    \end{tabular}
+\end{table}
+
+
+
+\subsubsection{Taint Propagation}
+Table \ref{table:propagationpolicy} presents the taint propagation policy of WebTaint.
+
+\begin{table}[H]
+    \centering
+    \caption{WebTaint's assertion of non-taint policy.}
+    \label{table:propagationpolicy}
+    \begin{tabular}{rp{8.5cm}}
+        \textbf{\begin{tabular}[c]{@{}r@{}}Integrity \&\\ Confidentiality\end{tabular}} & \begin{tabular}[c]{@{}l@{}}Data resulting from tainted data shall be\\ marked tainted.\end{tabular} \\   
+    \end{tabular}
+\end{table}
+
+
+
+\subsubsection{Assertion of Non-taint}
+Table \ref{table:assertionpolicy} presents the assertion of non-tainted data policies of WebTaint.
+
+\begin{table}[H]
+    \centering
+    \caption{WebTaint's assertion of non-taint policies.}
+    \label{table:assertionpolicy}
+    \begin{tabular}{rp{8.5cm}}
+        \textbf{Integrity} & No untrusted data may pass through a trusted sink. \\
+        \textbf{Confidentiality} & No private data may pass through a public sink. \\
+    \end{tabular}
+\end{table}
 
 
 
 \section{Sources, Sinks \& Sanitizers}
 \label{souresSS}
-Defining the source, sinks, and sanitizers is a large task in itself. There is no official documentation in Java specifying these and depending on the application, framework and library used might this vary a lot.  The sources, sinks and sanitizers used in this thesis is an aggregation from \textcite{sssCodeMaster} and \textcite{sssOWASP}. These web pages present sources, sinks, and sanitizers from their experience with developing web applications. 
+Defining the sources, sinks, and sanitizers is a large task in itself. There is no official documentation in Java specifying these for web applications. Depending on the application, framework and library used the sources, sinks, and sanitizers might vary a lot. The sources, sinks and sanitizers used in this thesis is an aggregation from \textcite{sssCodeMaster} and \textcite{sssOWASP}. The authors of the web pages present what they believe to be sources, sinks, and sanitizers from their experience of web application security. 
+
+Methods to instrument are stored in three JSON files. One per each source, sink, and sanitizer. The aggregated sources, sinks and sanitizers named in the paragraph above is divided into the corresponding file, and the class and method names are saved.
 
 
 
 \section{WebTaint}
 \label{SoftwareArchitecture}
-The implementation of WebTaint is divided into three subprojects. These three are Agent, Xboot, and Utils. 
+The implementation of WebTaint is divided into three subprojects. These three projects are called Agent, Xboot, and Utils. A short description of the three is seen in Table \ref{table:subprojects}.
+
+\begin{table}[H]
+    \centering
+    \caption{Description of the three subprojects in WebTaint.}
+    \label{table:subprojects}
+    \begin{tabular}{rp{10cm}}
+        \textbf{Agent} & Running at runtime and triggering the transformation of sources, sinks, and sanitizers. \\
+        \textbf{Xboot} & Running prior to runtime and transforming sources, sinks, sanitizers, String, StringBuilder, and StringBuffer in the Base Java Runtime Environment. \\
+        \textbf{Utils} & Utilities to transform classes into sources, sinks, and sanitizers. \\
+    \end{tabular}
+\end{table}
+
+The reasoning behind dividing WebTaint into three subprojects was because of the need of transforming classes both before and during runtime as presented in Section \ref{Instrumentation}. The Agent handles the transformation in runtime and Xboot transforms the classes in the Base Java Runtime Environment. The logic of class transformation is the same in both projects and therefore centralized in the Utils subproject.
+
+Transformation of the String, StringBuilder, and StringBuffer classes is done in the Xboot project. This is done by transforming the classes to: 
 
 \hfill
-\begin{description}
-    \item[Agent] Running at runtime and triggers the transformation of sources, sinks, and sanitizers.
-    \item[Xboot] Running prior runtime and transforms sources, sinks, sanitizers, String, StringBuilder, and StringBuffer in the base Runtime Environment.
-    \item[Utils] Utilities to transform classes into sources, sinks, and sanitizers. 
-\end{description}
+\begin{itemize}
+    \item Contain a boolean to hold the taint flag.
+    \item Propagate taint in each method and constructor (taint propagation policy \ref{table:propagationpolicy}).
+\end{itemize}
 \hfill
 
-The reasoning behind the division is because of the need of transforming classes both before runtime and during runtime. The Agent is handling the transformation in runtime and Xboot transforms classes on command before runtime. The logic of transforming the classes is, however, the same in both projects and centralized in the Utils project.
-
-Transformation of the String, StringBuilder, and StringBuffer classes, to support tracking of taint, is done in the Xboot project. It is done by iterating through each class and transforming them to: contain a variable to hold the taint flag, and propagate the taint in each method and constructor. The propagation of taint happened when either the taint flag of the class or any of the arguments marked tainted.
-
-The architecture of WebTaint is seen in Figure \ref{fig:WebTaint}. The Java Virtual Machine is un-instrumented and loads WebTaint through the Class Loader at startup. WebTaint gets access to every class file loaded and instruments the web applications and all needed libraries.
+A high order architecture of WebTaint instrumenting a web application is seen in Figure \ref{fig:WebTaint}. The Java Virtual Machine is un-instrumented, and so is WebTaint. The web application and all its depending libraries, however, are instrumented.
 
 \begin{figure}[H]
     \centering
@@ -101,26 +149,40 @@ The architecture of WebTaint is seen in Figure \ref{fig:WebTaint}. The Java Virt
 
 
 \subsection{The Utils Project}
-The Utils project includes the core logic of marking methods as sources, sinks, and sanitizers. The major part of the implementation is the same for sources, sinks, and sanitizers and the only difference is how they get instrumented if a source, sink or sanitizer is found. The logic behind finding the classes to instrument works by taking all class and matching them with the three criteria below.
+The Utils project includes the core logic of marking methods as sources, sinks, and sanitizers. The major part of the implementation is the same for the three different types, and the only difference is how they get instrumented if one is found. The logic behind finding the classes to instrument work by taking all classes and matching them with the three criteria in Table \ref{table:criterias}.
 
-\hfill
-\begin{itemize}
-    \item Is same class as a defined source, sink or sanitizer.
-    \item Implements interface of a defined source, sink or sanitizer.
-    \item Extends a defined source, sink or sanitizer class (recursive).
-\end{itemize}
-\hfill
+\begin{table}[H]
+    \centering
+    \caption{Description of the three criteria of finding sources, sinks and sanitizers to instrument.}
+    \label{table:criterias}
+    \begin{tabular}{rp{8cm}}
+        \textbf{Is Class} & The class is listed as a source, sink or sanitizer. \\
+        \textbf{Implements Interface} & The class implements interface of a listed source, sink or sanitizer. \\
+        \textbf{Extends Class} & The class extends a class which [Is Class], [Implements Interface] or [Extends Class]. \\
+    \end{tabular}
+\end{table}
 
-The last item is a recursive call where each extends class is analyzed if it qualifies for any of the three criteria. If a class fulfills, any of the three criteria, are the class instrumented.
+Classes found to be a source, sinks or sanitizer is instrumented by iterating through the class methods and comparing them with the methods defined in the JSON file corresponding to the matched source, sink or sanitizer. These matched methods will be instrumented depending on the type. What instrumentation is done per type is seen in Table \ref{table:instru}. 
 
-The instrumentation of the class works by iterating through each class method and instrumenting them depending on the matching type. Instrumentation of sources will set the return parameter of the method as tainted. Instrumentation of sanitizers works by detainting the return value of the method. For sinks will an assertion call check that none of the method arguments are tainted. If anyone of them is, then a taint exception occurs, and remedial actions conducted. This action should be, depending on options, a logging event, throwing an error or modifying the tainted value into a safe predefined value. During the conducted benchmarking is the option of a predefined value, where the value is an empty string, and logging the event used.
+\begin{table}[H]
+    \centering
+    \caption{Description of what logic is instrumented into the application depending on if the class method is a source, sink or sanitiser.}
+    \label{table:instru}
+    \begin{tabular}{rp{9.5cm}}
+        \textbf{Source} & Tainting the current and return object (tainting policies \ref{table:taintingpolicy}). \\
+        \textbf{Sink} & Asserting the current object and method arguments to be non-tainted (detainting policy \ref{table:assertionpolicy}) \\
+        \textbf{Sanitizer} & Deainting the current and return object (detainting policy \ref{table:detaintingpolicy}). \\
+    \end{tabular}
+\end{table}
+
+The instrumentation of sinks includes a remedial action to conduct if the assertion of non-tainted objects and arguments fail. This action could be, a logging event, throwing a TaintException or modifying the tainted value into a safe predefined value. During the evaluations, the option of using a predefined value, where the value is an empty string, and logging the event is used.
 
 
 
-\subsection{Notable Problems}
+\subsection{Limitations}
 \label{NotableProblems}
-One of the first problems that were introduced during the development of the application was that some classes could not be instrumented during runtime. More precisely, the classes that the Java Virtual Machine relies on can't be instrumented at runtime. However, there is a solution to this. The solution is to pre-instrument the base Java Runtime Environment and create a new instrumented rt.jar file with statically modified versions of the classes. The created jar file loads through the option \textit{Xbootclasspath/p} that appends the classes to the front of the bootstrap classpath. Making the Java Virtual Machine use our modified versions of the base Java Runtime Environment \parencite{xboot} before the original version.
+One of the first problems that were introduced during the development of the application was that some classes could not be instrumented during runtime. More precisely, the classes that the Java Virtual Machine relies on can't be instrumented at runtime. However, there is a solution to this. The solution is to pre-instrument the Base Java Runtime Environment and create a new instrumented rt.jar file with statically modified versions of the classes. The created jar file loads through the option \textit{Xbootclasspath/p} \parencite{xboot} that appends the classes in the front of the bootstrap classpath. This causes the Java Virtual Machine to utilize the instrumented rt.jar before the original version.
 
-Another problem is that instrumentation of primitives and arrays not possible. It causes a problem since it opens the ability to miss tracking of tainted data if String operations are done with byte- or char arrays. The solution that can solve this is to create shadow as \textcite{BellJ.2014PIdd} did while creating Phosphor \parencite{phosphor}. However, other possible solutions such as creating a centralized memory bank just as \textcite{EnckWilliam2014Taif} did when implementing TaintDroid. They, however, called this shadow memory.
+Another problem is that instrumentation of primitives and arrays is not possible. The implementation of WebTaint aims to support propagation of taint for Strings. However, the problem om not being able to instrument primitives and arrays creates the possibility of possibly losing the taint propagation when string operations are done with the help of byte- or char arrays. The solution to this is to create shadow variables as \textcite{BellJ.2014PIdd} did while developing Phosphor \parencite{phosphor}. However, other possible solutions such as creating a centralized memory bank just as \textcite{EnckWilliam2014Taif} did when implementing TaintDroid is also possible.
 
-Another problem that emerged was that operations with primitives are direct bytecode translations. Two examples of these are the usage of + (addition) and - (subtraction). Adding operations to these through Javassist's source level API is therefore not possible. To solve this are operations on bytecode level needed. \parencite{Javassist}.
+Another problem that emerged was that operations with primitives are direct bytecode translations. Two examples of these are the usage of + (addition) and - (subtraction). Adding operations to these through Javassist's source level API is therefore not possible. To solve these operations on bytecode level are needed. \parencite{Javassist}.

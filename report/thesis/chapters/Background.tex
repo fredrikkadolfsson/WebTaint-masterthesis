@@ -149,7 +149,7 @@ Taint tracking, also known as taint analysis, is a tool to analyze the flow of i
 
 Taint trackers operate by tracking untrusted data and acting upon any that are trying to enter sinks without first being sanitized. Perl and Ruby are two programming languages which have adapted to use taint checking \parencite{perl, ruby}. There are some tools which enable taint checking for other platforms. TaintDroid \parencite{Ma2010} for the Android platform is one of them. This thesis will discuss dynamic taint tracking and how it can improve the security of Java-based web applications.
 
-Taint tracking contains four main steps which are described in Table \ref{table:taintTracking}. The first step is marking all data from untrusted sources as tainted. This is done through a taint flag attached to the input variables. Step two is tracking taint where tainted data propagates its tainted flag onto all data it comes in contact with. The third step is the possibility of detainting data, but this is only done after the data have been sanitized through predefined sanitizers. The fourth and last step is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink varies depending on the application. However, remedial actions should be conducted. These actions should be, depending on the application owners choice, logging the events, throwing an error, or modifying the tainted values into safe predefined values. 
+Taint tracking contains four main steps which are described in Table \ref{table:taintTracking}. The first step is marking all data from untrusted sources as tainted. This is done through a taint flag attached to the input variables. Step two is the possibility of detainting data, but this is only done after the data have been sanitized through predefined sanitizers. The third step is tracking taint where tainted data propagates its tainted flag onto all data it comes in contact with. The fourth and last step is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink varies depending on the application. However, remedial actions should be conducted. These actions should be, depending on the application owners choice, logging the events, throwing an error, or modifying the tainted values into safe predefined values. 
 
 \begin{table}[H]
   \centering
@@ -157,9 +157,9 @@ Taint tracking contains four main steps which are described in Table \ref{table:
   \label{table:taintTracking}
   \begin{tabular}{rp{8.5cm}}
     \textbf{Tainting}           & Marking all data from sources as tainted.                          \\
-    \textbf{Propagat Taint}     & Propagating taint to all data coming in contact with tainted data. \\
     \textbf{Detainting}         & Marking all data from sanitizers as non-tainted.                   \\
-    \textbf{Assert Non-tainted} & Assert that data passing through sinks are non-tainted.           
+    \textbf{Taint Propagation}     & Propagating taint to all data coming in contact with tainted data. \\
+    \textbf{Assert Non-taint} & Assert that data passing through sinks are non-tainted.           
   \end{tabular}
 \end{table}
 
@@ -202,6 +202,7 @@ Figure \ref{fig:JVM} illustrates the architecture of the Java Virtual Machine. T
 
 
 \subsection{Instrumentation}
+\label{Instrumentation}
 Java instrumentation is a way to modify the execution of an application without knowing or modifying the application code itself. Good use cases for Java instrumentation are, for example, monitoring agents, event loggers, and taint trackers. Instrumentation is an official Java package that provides services needed to modify the bytecode of program instructions. It is conducted through implementing an Agent that makes it possible to transform every class loaded by the Class Loader before being used for the first time. However, there is a library of classes which cannot be instrumented by an Agent. This library is the rt.jar containing the Base Java Runtime Environment which is needed to start up the Java Virtual Machine including the Class Loader. Instrumentation of the Base Java Runtime Environment needs to be done before running the Java application.
 
 The Java Agent operates on bytecode which is time-consuming work for the developer. To ease the task of instrumentation is the bytecode instrumentation library Javassist used \parencite{Java_Instrument, Javassist}.
