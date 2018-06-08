@@ -6,7 +6,7 @@
 
 \section{Policies}
 \label{Policies}
-The development of WebTaint relies on the tasks described in Table \ref{table:taintTracking} in chapter \ref{Background}. These are tainting, detainting, propagating taint, and assertion of non-tainted data. However, to implement the functionality behind the taint tracker needs security policies first be defined. Security policies are principles or actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. The taint tracker developed in this thesis will base on two different aspects. These are \textit{integrity} and \textit{confidentiality}.
+The development of WebTaint relies on the four tasks described in Table \ref{table:taintTracking} in chapter \ref{Background}. These tasks are tainting, detainting, propagating taint, and assertion of non-tainted data. However, to implement the functionality behind the taint tracker needs security policies first to be defined. Security policies are principles and actions that the application strives to fulfill \parencite{BayukJenniferL2012Cspg}. The taint tracker developed in this thesis will base on two different aspects. These are \textit{integrity} and \textit{confidentiality}.
 
 
 
@@ -55,8 +55,8 @@ The policies above can be translated into taint policies. These are:
 
 
 
-\subsection{Taint Tracking}
-Taint checking policies, however, are not the only policies needed to implement WebTaint. WebTaint need policies specifying how the taint tracking should operate. Below are rules defining when taint should propagate:
+\subsection{Taint Propagation}
+Taint propagation policies, however, are not the only policies needed to implement WebTaint. WebTaint need policies specifying how the taint propagation should operate. Below are rules defining when taint should propagate:
 
 \hfill
 \begin{itemize}

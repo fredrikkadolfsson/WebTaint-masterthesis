@@ -12,9 +12,9 @@ Memory overhead tells a different story. The two most extended executions, toget
 
 
 
-\section{Taint Tracking}
+\section{Taint Propagation}
 \label{propagation}
-Due to time issue were only the classes String, StringBuilder and StringBuffer implemented to supports taint tracking. These are the most important classes for taint tracking when securing web applications since all inputs are once in the form of Strings. However, there is a risk of losing the tracking of taint since some libraries use char and byte arrays for String operations.
+Due to time issue were only the classes String, StringBuilder and StringBuffer implemented to supports taint propagation. These are the most important classes for taint propagation when securing web applications since all inputs are once in the form of Strings. However, there is a risk of losing the tracking of taint since some libraries use char and byte arrays for String operations.
 
 Results prove that the implemented classes do cause a significant difference. Nevertheless, the optimal solution would be with complete integration for all data types in Java. Just like Phosphor, but with the ability to sanitize variables.
 
@@ -26,7 +26,7 @@ One part of the thesis, believed in the beginning to be a minor task, was defini
 
 The optimal solution would be extensive research where lists for each library, framework, and deployment utility used by Java-based web applications was compiled. These lists could then be used depending on what functionality the implemented web application is using. Best case would be that every developer of Java libraries, frameworks, and deployment utilities compiled lists for their implementations.
 
-Another thing of interest would be to introduce multiple taint types. It would be used to implement a more advanced taint tracking where data from a specific type of sources are sanitized with the correct type of sanitizer. This would remove the positivity of mistakenly using incorrect sanitizers and ensure better protection of WebTaint.
+Another thing of interest would be to introduce multiple taint types. It would be used to implement a more advanced taint propagation where data from a specific type of sources are sanitized with the correct type of sanitizer. This would remove the positivity of mistakenly using incorrect sanitizers and ensure better protection of WebTaint.
 
 
 
