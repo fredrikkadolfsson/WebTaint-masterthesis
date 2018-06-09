@@ -16,7 +16,7 @@ The integrity policy defines that users may not modify data which they do not ha
 
 \hfill
 \begin{itemize}
-    \item No data or execution shall be altered by users without the user having the correct permission for the given data or execution.
+    \item Users shall alter no data or execution without having the correct permission for the given data or execution.
 \end{itemize}
 \hfill
 
@@ -30,7 +30,7 @@ The confidentiality policy defines that data given to the user should only be da
 
 \hfill
 \begin{itemize}
-    \item No data shall be released to users without the user having the correct permission for the given data.
+    \item Users shall not gain access to data without having the correct permission for the given data.
 \end{itemize}
 \hfill
 
@@ -137,12 +137,12 @@ Transformation of the String, StringBuilder, and StringBuffer classes is done in
 \end{itemize}
 \hfill
 
-A high order architecture of WebTaint instrumenting a web application is seen in Figure \ref{fig:WebTaint}. The Java Virtual Machine is un-instrumented, and so is WebTaint. The web application and all its depending libraries, however, are instrumented.
+A high-level architecture of WebTaint instrumenting a web application is seen in Figure \ref{fig:WebTaint}. The Java Virtual Machine is un-instrumented, and so is WebTaint. The web application and all its depending libraries, however, are instrumented.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{images/WebTaintArchitecture.png}
-    \caption{High order architecture of WebTaint running on the JVM.}
+    \caption{High-level architecture of WebTaint running on the JVM.}
     \label{fig:WebTaint}
 \end{figure}
 

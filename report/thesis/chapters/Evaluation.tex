@@ -20,72 +20,59 @@ The benchmarks are conducted on an Asus Zenbook UZ32LN. No other programs were r
 
 \section{Benchmarking}
 \label{Benchmarking}
-The benchmarks conducted are on applications, where we will look at security gain, and on a performance benchmarking suit where time and memory overhead was examined. To evaluate the security gain and performance overhead is every benchmark executed twice. The first time is without WebTaint activated and the second with WebTaint activated. The reason behind this is first to acquire the baseline values which then can be used to compare with the WebTaint values. The difference between these is the security gain and performance overhead.
+To evaluate the usefulness of WebTaint are benchmarking of two kinds conducted. The first is case studies on web applications where the increase in security by using WebTaint is measured. The second kind of benchmarks is a set of micro-benchmarks where the introduced overhead is measured.
+
+Every evaluation for both increase in security and introduced overhead is conducted twice. The first time is without WebTaint and the second is with WebTaint. The reason for this is to acquire the baseline values and the values when using WebTaint. The difference between these is of interest because they will tell the security increase and introduced overhead.
 
 
 
-\subsection{Applications}
-To detect security vulnerabilities in the applications has OWASP Zed Attack Proxy \parencite{zap} known as ZAP ben used. ZAP is an open-source security scanner for web applications which is widely used in the penetration testing industry. Usage of ZAP is seen in Figure \ref{fig:ZAP}. ZAP accesses the web application over HTTP(S) communication and tries to find vulnerabilities in the applications wherever user input is possible.
+\subsection{Web Applications}
+WebTaint does not detect vulnerabilities in applications by itself and needs external actions to trigger executions. These executions can WebTaint then analyze for vulnerabilities. To trigger executions in the applications, we used OWASP Zed Attack Proxy \parencite{zap}, known as ZAP. ZAP is an open-source testing tool used to scan web applications for security vulnerabilities and is widely used in the penetration testing industry. A high-level illustration of usage of ZAP can be seen in Figure \ref{fig:ZAP}. 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/ZAPArchitecture.png}
-    \caption{High order architecture of ZAP analysing WebTaint enabled web application.}
+    \caption{High-level architecture of ZAP analysing WebTaint enabled web application.}
     \label{fig:ZAP}
 \end{figure}
 
-Extensive ZAP scans are very time-consuming, and to the only scan, the applications for vulnerabilities of interest is a new policy specified in ZAP. The policy is modified only to contain the Injection category where the tests in Table \ref{table:ZapTests} are used.
+ZAP accesses the web application over the HTTP protocol and searches for possible vulnerabilities in the applications. An advantage of utilizing a penetration testing tool for evaluation of WebTaint is that vulnerabilities detected by WebTaint are assured to be vulnerabilities if ZAP detects them as well. However, WebTaint has the possibility of detecting a more extensive set of vulnerabilities since it analyzes applications internally compared to ZAP which analyzes externally.
 
-\begin{table}[H]
-  \centering
-  \caption{Security vulnerabilities detected by WebTaint in Ticketbook}
-    \label{table:ZapTests}
-    \begin{itemize}
-        \item Buffer Overflow
-        \item CRLF Injection
-        \item Cross-Site Scripting (Persistent)
-        \item Cross-Site Scripting (Persistent) - Prime
-        \item Cross-Site Scripting (Persistent) - Spider
-        \item Cross-Site Scripting (Reflected)
-        \item Format String Error
-        \item Parameter Tampering
-        \item Remote OS Command Injection
-        \item SQL Injection
-    \end{itemize}
-\end{table}
-
-Every scan of an application starts with spidering to detects all possible entries to the system. If the application requires authentication to access parts of the application is the needed credentials added to the ZAP context, and then execute the spider the application once again. After these steps are the scanning of the application started and possible vulnerabilities found are stored in log files.
-
-The benchmarking of applications are a very time-consuming task and therefore only conducted on four applications. Each application is Java-based, and all of them are containing security vulnerabilities including one or more of SQL Injection attacks or Cross-Site Scripting. These four Java web applications are presented in the sections below.
+The evaluations of applications are a time-consuming task and therefore only conducted on a smaller set of applications. Each application is a Java-based web application vulnerable to SQL Injections and Cross-Site Scripting attacks. The web applications are presented in the sections below.
 
 
 
 \subsubsection{Stanford SecuriBench Micro}
-Stanford SecuriBench Micro is a set of small test cases designed to evaluate security analyzers. The test suit deliberately insecure and was created as part of the Griffin Security Project \parencite{griffin} at Stanford University and contains 96 test cases and 46407 lines of code. This thesis uses version 1.08 of the application and contains the vulnerabilities SQL Injection, Cross-Site Scripting, HTTP Splitting, Path Traversal and more \parencite{securiBenchMicro, microfaq}. 
+Stanford SecuriBench Micro is a set of small test cases designed to evaluate security analyzers. The test suit is deliberately insecure and was created as part of the Griffin Security Project \parencite{griffin} at Stanford University. The application and contains 96 test cases and is written in 46407 lines of code. The tests are accessible through input fields on the application. This thesis uses version 1.08 of the application, and it is known to contain the vulnerabilities SQL Injection, Cross-Site Scripting, HTTP Splitting, Path Traversal and more \parencite{securiBenchMicro, microfaq}. 
 
 
 
 \subsubsection{InsecureWebApp}
-InsecureWebApp is a deliberately insecure web application developed by OWASP to show possible security vulnerabilities and what harm they can cause to a web application. The project consists of 2913 lines of code and version 1.0 is used and contains the vulnerabilities Parameter Tampering, Broken Authentication, SQL Injection, HTML Injection and more \parencite{insecure}. 
+InsecureWebApp is a deliberately insecure web application developed by OWASP to show security vulnerabilities and possible harm caused by them. The web application is built for a fictional company called American Service Corporation. Some of the functionalities the application provides are registering, log in, product browsing and placing money into the company account. The vulnerabilities are accessible through the applications input fields and HTTP parameters, and some of them are Parameter Tampering, Broken Authentication, SQL Injection, HTML Injection, Cross-Site Scripting. The project consists of 2913 lines of code and version 1.0 is used in this thesis \parencite{insecure}. 
 
 
 
 \subsubsection{Ticketbook}
-Ticketbook is deliberately insecure web application developed by Contrast Security to show the power of one of their security tools. The application consist of 13849 lines of code and version 0.9.1-SNAPSHOT is used and contains the vulnerabilities Cross-Site Scripting, Command Injection, Parameter Tampering, XML External Entity and more \parencite{ticketbook, contrast}
+Ticketbook is deliberately insecure web application developed by Contrast Security to show the power of one of their security tools. The application consists of a set of pages illustrating different security vulnerabilities accessible through input fields and HTTP parameters. Some of these vulnerabilities are Cross-Site Scripting, Command Injection, SQL Injection, Parameter Tampering, XML External Entity. The application consist of 13849 lines of code and version 0.9.1-SNAPSHOT is used in this thesis \parencite{ticketbook, contrast}.
 
 
 
 \subsubsection{SnipSnap}
-SnipSnap is a Java-based web application developed to provide the necessary infrastructure to create a collaborative encyclopedia. The web page functionality is similar to Wikipedia \parencite{wikipedia} where users can sign up and contribute by writing posts. The application consists of 566173 lines of code and version 1.0-BETA-1 is used in this thesis \parencite{snipsnap}. The application is not deliberately insecure, and the policies which it aims to fulfill is the same as specified in Section \ref{Integrity} and \ref{Confidentiality}. Which is to prevent unauthorized information access, and execution of code as well as preventing information disclosure.
+SnipSnap is developed to provide the necessary infrastructure to create a collaborative encyclopedia. The web page functionality is similar to Wikipedia \parencite{wikipedia} where users can sign up and contribute by writing posts. The vulnerabilities in the application are accessible through the different input fields the application utilizes to provide functionalities such as registering and log in. SnipSnap consists of 566173 lines of code and version 1.0-BETA-1 is used in this thesis \parencite{snipsnap}. The application is not constructed to be deliberately insecure and is intended for use in production.
+
+
+
+\subsubsection{Web Application Policies}
+The web applications presented in the previous chapters all strive to provide services fulfilling the same policies as described in Section \ref{Integrity} and \ref{Confidentiality}. This emphasizes the fact that all input fields, HTTP parameters, and other possible user modifiable data are sanitized before being used in the web applications. Possible harmful scenarios of using unsanitized user input are for example database actions and reflecting information to the user.
 
 
 
 \subsection{Micro Benchmarks}
-To evaluate the time and memory overhead is The DaCapo Benchmark Suit \parencite{dacapo} used. DaCapo is a set of applications constructed specifically for Java benchmarking. This thesis uses version DaCapo-9.12-bach which consists of fourteen real-world applications. Table \ref{table:DaCapoTests} contains a description for each application. Summary is taken from DaCapos website \parencite{dacapoBench}.
+The introduced overhead is measured by the added time and memory overhead. To evaluate these two is the DaCapo Benchmark Suit \parencite{dacapo} used. DaCapo is a set of applications constructed specifically for benchmarking of Java applications. This thesis uses version DaCapo-9.12-bach which consists of fourteen real-world applications. Table \ref{table:DaCapoTests} contains a description for each application. Summary is taken from DaCapos website \parencite{dacapoBench}.
 
 \begin{table}[H]
   \centering
-  \caption{Descriptions for each application in The DaCapo Benchmark Suit taken from \textcite{dacapoBench}}
+  \caption{Descriptions for each application in The DaCapo Benchmark Suit \parencite{dacapoBench}}
     \label{table:DaCapoTests}
     \begin{description}
         \item [Avrora] Simulates a number of programs run on a grid of AVR microcontrollers.
@@ -105,4 +92,4 @@ To evaluate the time and memory overhead is The DaCapo Benchmark Suit \parencite
     \end{description}
 \end{table}
 
-The measurement of time and memory is conducted through a C script constructed to execute each application DaCapo application ten times, both with and without WebTaint activated. To isolate each iteration is a unique process spawned per test execution. This process runs the benchmarked application in a child process and monitors the time and memory of the execution. The information is then sent back to the main thread where all data is processed and aggregated.  
+The measurement of introduced time and memory is conducted through a C script constructed to execute each application in the DaCapo Benchmark Suit ten times, both with and without WebTaint. Each measurement is executed in an isolated process one at a time to allowing for accurate memory and time measurements.

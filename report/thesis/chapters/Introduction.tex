@@ -23,7 +23,7 @@ Code injection is a growing problem and work toward protecting user data is need
 \label{Aim}
 This thesis aims to implement and evaluate a dynamic taint tracker, named WebTaint, to combat integrity and confidentiality vulnerabilities in Java-based web applications. 
 
-WebTaint aims to allow tracking of taint for Strings including data types used for String operations. These data types are String, StringBuilder, StringBuffer, CharArray and ByteArray. WebTaint will be evaluated through case studies and micro-benchmarks to measure the detection rate of vulnerabilities and introduced performance overhead. Concretely, we will implement and benchmark a dynamic taint tracker against SQL Injection and Cross-Site Scripting vulnerabilities. 
+WebTaint aims to allow tracking of taint for Strings including data types used for String operations. These data types are String, StringBuilder, StringBuffer, CharArray and ByteArray. WebTaint will be evaluated through case studies and micro-benchmarks to measure the detection rate of vulnerabilities and introduced overhead. Concretely, we will implement and benchmark a dynamic taint tracker against SQL Injection and Cross-Site Scripting vulnerabilities. 
 
 
 
@@ -33,7 +33,7 @@ The contribution of the thesis is continued research in the code injection and i
 
 \begin{itemize}  
     \item Implementing WebTaint. A dynamic taint tracker for Java-based web applications.
-    \item Evaluating WebTaint for vulnerability detection rate and performance overhead.
+    \item Evaluating WebTaint for vulnerability detection rate and introduced overhead.
     \item Discussing and drawing conclusions regarding usage of dynamic taint tracking for Java-based web applications.
 \end{itemize}
 
@@ -45,7 +45,7 @@ The focus of the thesis lies in security vulnerabilities of web applications. Ho
 
 Injection attacks, which is the number one vulnerability on OWASP's top ten vulnerabilities for the year 2017 \parencite{OWASP2017}, is a broad vulnerability. This thesis focuses on Injection attacks towards SQL and Cross-Site Scripting. However, detection and prevention of other types of Injection attacks are similar to SQL Injection.
 
-We developed WebTaint for Java-based web applications with the help of the bytecode library Javassist. WebTaint is a dynamic taint tracker constructed to combat integrity and confidentiality vulnerabilities. The evaluation of WebTaint is only conducted on performance overhead and detection of integrity vulnerabilities. This is due to time limitations.
+We developed WebTaint for Java-based web applications with the help of the bytecode library Javassist. WebTaint is a dynamic taint tracker constructed to combat integrity and confidentiality vulnerabilities. The evaluation of WebTaint is only conducted on introduced overhead and detection of integrity vulnerabilities. This is due to time limitations.
 
 
 
@@ -53,7 +53,7 @@ We developed WebTaint for Java-based web applications with the help of the bytec
 \label{Methodology}
 To answer the problem statement in section \ref{Problem}, we use a combination of qualitative and quantitative methods. The literature study represents the qualitative research where information about web application security, SQL Injection, Cross-Site Scripting, dynamic taint tracking, and related work is gathered, presented and discussed. This information is needed to comprehend how the taint tracker needs to operate to detect possible malicious user data successfully. The information is gathered from reports and books found through the search portal KTH Primo \parencite{primo}.
 
-The quantitative research consists of the implementation and evaluation of WebTaint where benchmarks for performance overhead and security assurance will be performed. Performance overhead is conducted with with DaCapo \parencite{dacapo} benchmark suite consisting of fourteen applications representing common application executions. Security assurance is evaluated through use cases where four applications are tested.
+The quantitative research consists of the implementation and evaluation of WebTaint where benchmarks for introduced overhead and security assurance will be performed. Introduced overhead is conducted with with DaCapo \parencite{dacapo} benchmark suite consisting of fourteen applications representing common application executions. Security assurance is evaluated through use cases where four applications are tested.
 
 
 
@@ -69,4 +69,4 @@ The only unethical aspect of WebTaint is the fact that the taint tracker gains a
 
 \section{Outline}
 \label{Outline}
-The thesis outline starts with the \textit{\nameref{Background}} presenting information regarding the subject. This follows by \textit{\nameref{RW}} containing previous research and developed taint trackers. This follows by \textit{\nameref{Implementation}} and \textit{\nameref{Evaluation}} of WebTaint. Next comes \textit{\nameref{Result}} presenting the case study and performance overhead results. Lastly comes the \textit{\nameref{Discussion}}, \textit{\nameref{FutureWork}} and \textit{\nameref{Conclusion}} chapters.
+The thesis outline starts with the \textit{\nameref{Background}} presenting information regarding the subject. This follows by \textit{\nameref{RW}} containing previous research and developed taint trackers. This follows by \textit{\nameref{Implementation}} and \textit{\nameref{Evaluation}} of WebTaint. Next comes \textit{\nameref{Result}} presenting the case study and introduced overhead results. Lastly comes the \textit{\nameref{Discussion}}, \textit{\nameref{FutureWork}} and \textit{\nameref{Conclusion}} chapters.
