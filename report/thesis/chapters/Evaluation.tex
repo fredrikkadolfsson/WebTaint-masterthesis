@@ -43,7 +43,7 @@ The evaluations of applications are a time-consuming task and therefore only con
 
 
 \subsubsection{Stanford SecuriBench Micro}
-Stanford SecuriBench Micro is a set of small test cases designed to evaluate security analyzers. The test suit is deliberately insecure and was created as part of the Griffin Security Project \parencite{griffin} at Stanford University. The application and contains 96 test cases and is written in 46407 lines of code. The tests are accessible through input fields on the application. This thesis uses version 1.08 of the application, and it is known to contain the vulnerabilities SQL Injection, Cross-Site Scripting, HTTP Splitting, Path Traversal and more \parencite{securiBenchMicro, microfaq}. 
+Stanford SecuriBench Micro is a set of small test cases designed to evaluate security analyzers. The test suit is deliberately insecure and was created as part of the Griffin Security Project \parencite{griffin} at Stanford University. The application contains 96 test cases and is written in 46407 lines of code. The tests are accessible through input fields on the application. This thesis uses version 1.08 of the application, and it is known to contain the vulnerabilities SQL Injection, Cross-Site Scripting, HTTP Splitting, Path Traversal and more \parencite{securiBenchMicro, microfaq}. 
 
 
 
@@ -53,7 +53,7 @@ InsecureWebApp is a deliberately insecure web application developed by OWASP to 
 
 
 \subsubsection{Ticketbook}
-Ticketbook is deliberately insecure web application developed by Contrast Security to show the power of one of their security tools. The application consists of a set of pages illustrating different security vulnerabilities accessible through input fields and HTTP parameters. Some of these vulnerabilities are Cross-Site Scripting, Command Injection, SQL Injection, Parameter Tampering, XML External Entity. The application consist of 13849 lines of code and version 0.9.1-SNAPSHOT is used in this thesis \parencite{ticketbook, contrast}.
+Ticketbook is a deliberately insecure web application developed by Contrast Security to show the power of one of their security tools. The application consists of a set of pages illustrating different security vulnerabilities accessible through input fields and HTTP parameters. Some of these vulnerabilities are Cross-Site Scripting, Command Injection, SQL Injection, Parameter Tampering, XML External Entity. The application consist of 13849 lines of code and version 0.9.1-SNAPSHOT is used in this thesis \parencite{ticketbook, contrast}.
 
 
 
@@ -63,7 +63,7 @@ SnipSnap is developed to provide the necessary infrastructure to create a collab
 
 
 \subsubsection{Web Application Policies}
-The web applications presented in the previous chapters all strive to provide services fulfilling the same policies as described in Section \ref{Integrity} and \ref{Confidentiality}. This emphasizes the fact that all input fields, HTTP parameters, and other possible user modifiable data are sanitized before being used in the web applications. Possible harmful scenarios of using unsanitized user input are for example database actions and reflecting information to the user.
+The web applications presented in the previous section all strive to provide services fulfilling the same policies as described in Section \ref{Integrity} and \ref{Confidentiality}. This emphasizes the fact that all input fields, HTTP parameters, and other possible user modifiable data are sanitized before being used in the web applications. Possible harmful scenarios of using unsanitized user input are for example database actions and reflecting information to the user.
 
 
 
@@ -72,7 +72,7 @@ The introduced overhead is measured by the added time and memory overhead. To ev
 
 \begin{table}[H]
   \centering
-  \caption{Descriptions for each application in The DaCapo Benchmark Suit \parencite{dacapoBench}}
+  \caption{Descriptions for each application in the DaCapo Benchmark Suit \parencite{dacapoBench}}
     \label{table:DaCapoTests}
     \begin{description}
         \item [Avrora] Simulates a number of programs run on a grid of AVR microcontrollers.
@@ -92,4 +92,4 @@ The introduced overhead is measured by the added time and memory overhead. To ev
     \end{description}
 \end{table}
 
-The measurement of introduced time and memory is conducted through a C script constructed to execute each application in the DaCapo Benchmark Suit ten times, both with and without WebTaint. Each measurement is executed in an isolated process one at a time to allowing for accurate memory and time measurements.
+The measurement of introduced time and memory is conducted through a C script constructed to execute each application in the DaCapo Benchmark Suit ten times, both with and without WebTaint. Each measurement is executed in an isolated process one at a time to allow for accurate memory and time measurements.

@@ -28,7 +28,7 @@ Communication between the logic and storage tier is done through a standardized 
 
 \section{CIA Triad}
 \label{cia}
-Discussions regarding information security often rely on the CIA Triad. The CIA refers to confidentiality, integrity, and availability as displayed in Figure \ref{fig:CIATriad}. Confidentiality ensures that authorized individuals only use data. Integrity specifies that application data should be accurate and unaltered. While availability is the ability to access the application and application data \parencite{2014C1-W}.
+Discussions regarding information security often rely on the CIA Triad. The CIA refers to confidentiality, integrity, and availability as displayed in Figure \ref{fig:CIATriad}. Confidentiality ensures that data is only accessed by authorized individuals. Integrity specifies that application data should be accurate and unaltered. While availability is the ability to access the application and application data \parencite{2014C1-W}.
 
 \begin{figure}[H]
     \centering
@@ -41,14 +41,14 @@ Discussions regarding information security often rely on the CIA Triad. The CIA 
 
 \section{Security Vulnerabilities}
 \label{SecurityVulnerabilities}
-The organization Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge on how to secure web applications \parencite{OpenWebApplicationSecurityProject}. The OWASP has produced reports about the top ten security risks for web applications, and the latest was published in 2017. The report contains information about the ten most common security risks for the given year. Information about such as how the security risk is exploited but also about possible prevention methods are presented. This thesis will focus on security risk number one and number seven from the mentioned report. These two security risks deal with vulnerabilities regarding information disclosure and code injection. The two vulnerabilities are Injection attack and Cross-Site Scripting \parencite{OWASP2017}.
+The organization Open Web Applications Security Project, known as OWASP, is an online community which aims to provide knowledge on how to secure web applications \parencite{OpenWebApplicationSecurityProject}. The OWASP has produced reports about the top ten security risks for web applications, and the latest was published in 2017. The report contains information about the ten most common security risks for the given year. Information such as how the security risk is exploited and the possible prevention methods are presented. This thesis will focus on security risk number one and seven from the mentioned report. These two security risks deal with vulnerabilities regarding information disclosure and code injection. The two vulnerabilities are Injection attack and Cross-Site Scripting \parencite{OWASP2017}.
 
 
 
 \subsection{SQL Injection Attacks}
 The most common security risk is Injection Attacks \parencite{OWASP2017}. An Injection Attack is an attack where the attacker's input changes the intent of the execution. The typical results of Injection Attacks are file destruction, lack of accountability, denial of access and data loss \parencite{Secure_Web}.
 
-The Injection Attacks are executed towards a broad set of different areas, but the area discussed and analyzed in this thesis are SQL Injections. The SQL Injections can be divided into two different subgroups. These two subgroups are SQL Injection and Blind SQL Injection \parencite{Secure_Web}.
+Injection attacks are executed towards a broad set of different areas, but the area discussed and analyzed in this thesis are SQL Injections. The SQL Injections can be divided into two different subgroups. These two subgroups are SQL Injection and Blind SQL Injection \parencite{Secure_Web}.
 
 
 
@@ -76,7 +76,7 @@ SELECT * FROM Users WHERE userId = 10 or 1 = 1
 \end{lstlisting}
 \hfill
 
-This query results in an execution that always evaluates to true and therefore returns the whole table of users. This problem can be prevented in different ways. The first possibility is through validation of input, by verifying user input as in Listing \ref{lst:SQL_Injection_Verified} it is possible to protect the query from being vulnerable to a SQL Injection.
+This query results in an execution that always evaluates to true and therefore returns the whole table of users. This problem can be prevented in a couple of different ways. The first possibility is through validation of input, by verifying user input as in Listing \ref{lst:SQL_Injection_Verified} it is possible to protect the query from being vulnerable to a SQL Injection.
 
 \hfill
 \begin{lstlisting}[
@@ -89,7 +89,7 @@ isInteger(userId)
 \end{lstlisting}
 \hfill
 
-A second common alternative is to resolve the attack is to use the SQL Parameters which handle the verification for the user. This leaves the verification and validation of input up to the SQL engine. An example written with SQL Parameters can be seen in Listing \ref{lst:SQL_Injection_Parameters}.
+A second common alternative is to resolve the attack is to use SQL Parameters which handle the verification for the user. This leaves the verification and validation of input up to the SQL engine. An example written with SQL Parameters can be seen in Listing \ref{lst:SQL_Injection_Parameters}.
 
 \hfill
 \begin{lstlisting}[
@@ -104,7 +104,7 @@ db.Execute(sqlQuery, userId)
 
 
 \subsubsection{Blind SQL Injection}
-There also exists a blind SQL Injection which is very similar to the SQL Injection. The only difference is that the attacker does not receive the requested information in clear text from the database. The information is instead received by monitoring variables such as how long time the response takes or what kind of error messages it returns. An example of the first kind of information is an SQL query that tells the SQL engine to sleep depending on a condition. An example of this can be seen in Listing \ref{lst:Blind_SQL_Injection_Time} \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
+There also exists a blind SQL Injection which is very similar to the SQL Injection. The only difference is that the attacker does not receive the requested information in clear text from the database. The information is instead received by monitoring variables such as how long time the response takes or what kind of error messages it returns. An example of the first kind is an SQL query that tells the SQL engine to sleep depending on a condition. An example of this can be seen in Listing \ref{lst:Blind_SQL_Injection_Time} \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
 
 \hfill
 \begin{lstlisting}[
@@ -129,7 +129,7 @@ There are three different types of Cross-Site Scripting. These three are reflect
 
 
 \subsubsection{Reflected Cross-Site Scripting}
-Reflected Cross-Site Scripting, mainly conducted through a malicious link that a user has access to. The malicious link will exploit a vulnerable input on the targeted web application and through the input reflect malicious content to the user \parencite{Secure_Web}.
+Reflected Cross-Site Scripting, mainly conducted through a malicious link that a user accesses. The malicious link will exploit a vulnerable input on the targeted web application and through the input reflect malicious content to the user \parencite{Secure_Web}.
 
 
 
@@ -145,11 +145,11 @@ DOM-based Cross-Site Scripting is very similar to Reflected Cross-Site Scripting
 
 \section{Taint Tracking}
 \label{DynamicTaintTracking}
-We have now presented a set of problems that the Taint tracking, also known as taint analysis, is a tool to combat. The application analyzes the flow of information in the application \parencite{Pan2015}. The goal of taint tracking is to prevent possible attacks such as the Injection and Cross-Site Scripting by enforcing the usage of sanitizers on every input data. The Taint tracking can be implemented in two different forms: either static or dynamic. The static taint tracking is an evaluation tool possible to include in the integrated development environment where it notifies the developer of possible security vulnerabilities. The dynamic taint tracking, on the other hand, is a tool used simultaneously as the application execution. The Dynamic tracking analyses the input data to discover vulnerabilities at runtime and achieve higher accuracy compared to static tracking. The advantage with the static form is the ability to run before runtime, but its disadvantage is the lower accuracy in tracking of taint.
+We have now presented a set of problems that the Taint tracking, also known as taint analysis, is a tool to combat. The tool analyzes the flow of information in the application \parencite{Pan2015}. The goal of taint tracking is to prevent possible attacks such as the Injection and Cross-Site Scripting by enforcing the usage of sanitizers on every input data. The Taint tracking can be implemented in two different forms: either static or dynamic. The static taint tracking is an evaluation tool possible to include in the integrated development environment where it notifies the developer of possible security vulnerabilities. The dynamic taint tracking, on the other hand, is a tool used simultaneously as the application execution. The Dynamic tracking analyses the input data to discover vulnerabilities at runtime and achieve higher accuracy compared to static tracking. The advantage with the static form is the ability to run before runtime, but its disadvantage is the lower accuracy in tracking of taint.
 
-The Taint trackers operate by tracking untrusted data and acting upon anything that is trying to enter sinks without first being sanitized. Perl and Ruby are two programming languages which have been adapted to use taint checking \parencite{perl, ruby}. There are some tools which enable taint checking for other platforms. One of them is TaintDroid \parencite{Ma2010} for the Android platform. This thesis will discuss dynamic taint tracking and how it can improve the security of Java-based web applications.
+The Taint trackers operate by tracking untrusted data and acting upon anything that is trying to enter sensitive code areas without first being sanitized. Perl and Ruby are two programming languages which have been adapted to use taint checking \parencite{perl, ruby}. There are some tools which enable taint checking for other platforms. One of them is TaintDroid \parencite{Ma2010} for the Android platform.
 
-The process of taint tracking contains four steps which are described in Table \ref{table:taintTracking}. The first step is to mark all data from untrusted sources as tainted. This is done through a taint flag attached to the input variables. Step two is the possibility of detainting data, but this is only done after that the data has been sanitized through predefined sanitizers. The third step is propagating taint where tainted data propagates its tainted flag onto all data it comes in contact with. The fourth and last step is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink varies depending on the application. However, remedial actions should be conducted. These actions should be, depending on the application owner´s choice, logging the events, throwing an error, or modifying the tainted values into safe predefined values. 
+The process of taint tracking contains of four steps which are described in Table \ref{table:taintTracking}. The first step is to mark all data from untrusted sources as tainted. This is done through a taint flag attached to the input variables. Step two is the possibility of detainting data, but this is only done after that the data has been sanitized through predefined sanitizers. The third step is propagating taint where tainted data propagates its tainted flag onto all data it comes in contact with. The fourth and last step is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink varies depending on the application. However, remedial actions should be conducted. These actions should be, depending on the application owner´s choice, logging the events, throwing an error, or modifying the tainted values into safe predefined values. 
 
 \begin{table}[H]
   \centering
@@ -202,13 +202,14 @@ Figure \ref{fig:JVM} illustrates the architecture of the Java Virtual Machine. T
 
 
 \subsection{Instrumentation}
-The Java instrumentation is a way to modify the execution of an application without knowing or modifying the application code itself. Good use cases for Java instrumentation are, for example, monitoring agents, event loggers and taint trackers. Instrumentation is an official Java package that provides services needed to modify the bytecode of program instructions. It is conducted through implementing an Agent that makes it possible to transform every class loaded by the Class Loader before being used for the first time. However, there is a library of classes which cannot be instrumented by an Agent. This library is the rt.jar containing the Base Java Runtime Environment which is needed to start up the Java Virtual Machine including the Class Loader. The instrumentation of the Base Java Runtime Environment needs to be done before running the Java application.
+\label{Instrumentation}
+Java instrumentation is a way to modify the execution of an application without knowing or modifying the application code itself. Good use cases for Java instrumentation are, for example, monitoring agents, event loggers and taint trackers. Instrumentation is an official Java package that provides services needed to modify the bytecode of program instructions. It is conducted through implementing an Agent that makes it possible to transform every class loaded by the Class Loader before being used for the first time. However, there is a library of classes which cannot be instrumented by an Agent. This library is the rt.jar containing the Base Java Runtime Environment which is needed to start up the Java Virtual Machine including the Class Loader. The instrumentation of the Base Java Runtime Environment needs to be done before running the Java application.
 
 The Java Agent operates on bytecode which is time-consuming work for the developer. To ease the task of instrumentation is the bytecode instrumentation library Javassist used \parencite{Java_Instrument, Javassist}.
 
 
 
 \subsection{Javassist}
-There exist several libraries that can be of help to the developer in the task of creating a Java Agent. The help comes in libraries of methods to manipulate Java bytecode. The library used in this thesis is Javassist. Javassist stands for Java programming Assistant and provides two levels of API. The two are on source respectively bytecode level. We used the source level API which is providing the functionality of manipulating Java bytecode with little bytecode knowledge \parencite{Javassist}.
+There exist several libraries that can be of help to the developer in the task of creating a Java Agent. The help comes in libraries of methods to manipulate Java bytecode. The library used in this thesis is Javassist. Javassist stands for Java Programming Assistant and provides two levels of API. The two are on source respectively bytecode level. We used the source level API which is providing the functionality of manipulating Java bytecode with little bytecode knowledge \parencite{Javassist}.
 
 The Javassist source level API provides classes representing instances of classes, methods, and fields. These API classes contain methods to use when computing if the given class, method or field should be instrumented. The classes representing methods do also contain the methods \textit{insertBefore}, \textit{insertAfter} or \textit{insertAt}. These three methods allow inserting Java code to the beginning, the end or at a specific position of the method.
