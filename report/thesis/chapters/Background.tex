@@ -1,6 +1,6 @@
 \chapter{Background}
 \label{Background}
-\textit{The chapter starts with a general description about the \textit{\nameref{WebApplication}} structure. It is followed by a presentation of the \textit{\nameref{cia}} commonly used when discussing information security. Then follows a section about web applications \textit{\nameref{SecurityVulnerabilities}}. Finally two sections describing \textit{\nameref{DynamicTaintTracking}} and the programming language \textit{\nameref{JavaInstrumentation}}.}
+\textit{Chapter starts with a general description about the \textit{\nameref{WebApplication}} structure. It is followed by a presentation of the \textit{\nameref{cia}} commonly used when discussing information security. Then follows a section about web applications \textit{\nameref{SecurityVulnerabilities}}. Finally two sections describing \textit{\nameref{DynamicTaintTracking}} and the programming language \textit{\nameref{JavaInstrumentation}}.}
 
 
 
@@ -17,12 +17,12 @@ To make applications available and accessible from almost everywhere, companies 
 
 From Figure \ref{fig:webApplication-Haldar} it can be seen that a tier only communicates with the tier closest to themselves. This demands the logic tier to become a safeguard for the storage tier where valuable and possibly sensitive information is stored. The sensitive information might, for example, consist of username, email, personal security numbers and credit card information \parencite{JustinClarke-Salt2009SIAa}.
 
-The scope of the thesis lies in the logic tier where both trusted and untrusted data is processed. This is the specific space where validations are needed to ensure security. The programming language for the logic tier can vary a lot, but one commonly used and the chosen language for this thesis is Java.
+The scope of the thesis lies in the logic tier where both trusted and untrusted data is processed. This is the tier where validation is needed to ensure security. The programming language for the logic tier can vary a lot, but one commonly used and the chosen language for this thesis is Java.
 
 
 
 \subsection{Structured Query Language}
-Communication between the logic and storage tier is done through a standardized language called Structured Query Language, mostly known as SQL. The SQL is created to manipulate and access databases programmatically. The majority of today's database uses SQL. The language works by building queries specifying the required information or task. The query is then evaluated and handled up upon by the SQL engine \parencite{DarieCristian2003TPGt}.
+Communication between the logic and storage tier is done through a standardized language called Structured Query Language, mostly known as SQL. The SQL is created to manipulate and access databases programmatically. The majority of today's database uses SQL \parencite{Survey}. The language works by building queries specifying the required information or task. The query is then evaluated and handled by the SQL engine \parencite{DarieCristian2003TPGt}.
 
 
 
@@ -53,7 +53,7 @@ Injection attacks are executed towards a broad set of different areas, but the a
 
 
 \subsubsection{SQL Injection}
-The SQL Injection occurs when an SQL query is tampered with resulting in gaining content or executing a command on the database which was not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays an SQL query which is open to SQL Injections. This due to that the variable UserId never is validated before it is propagated into the query \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
+The SQL Injection occurs when an SQL query is tampered with, resulting in gaining content or executing a command on the database which was not intended. Listing \ref{lst:acceptable_to_SQL_Injection} displays an SQL query which is open to SQL Injections. This due to that the variable UserId never is validated before it is propagated into the query \parencite{JustinClarke-Salt2009SIAa, Secure_Web}.
 
 \hfill
 \begin{lstlisting}[
@@ -89,7 +89,7 @@ isInteger(userId)
 \end{lstlisting}
 \hfill
 
-A second common alternative is to resolve the attack is to use SQL Parameters which handle the verification for the user. This leaves the verification and validation of input up to the SQL engine. An example written with SQL Parameters can be seen in Listing \ref{lst:SQL_Injection_Parameters}.
+A second common alternative to resolve the attack is to use SQL Parameters which handle the verification for the user. This leaves the verification and validation of input up to the SQL engine. An example written with SQL Parameters can be seen in Listing \ref{lst:SQL_Injection_Parameters}.
 
 \hfill
 \begin{lstlisting}[
@@ -129,7 +129,7 @@ There are three different types of Cross-Site Scripting. These three are reflect
 
 
 \subsubsection{Reflected Cross-Site Scripting}
-Reflected Cross-Site Scripting, mainly conducted through a malicious link that a user accesses. The malicious link will exploit a vulnerable input on the targeted web application and through the input reflect malicious content to the user \parencite{Secure_Web}.
+Reflected Cross-Site Scripting is mainly conducted through a malicious link that a user accesses. The malicious link will exploit a vulnerable input on the targeted web application and through the input reflect malicious content to the user \parencite{Secure_Web}.
 
 
 
@@ -149,7 +149,7 @@ We have now presented a set of problems that the Taint tracking, also known as t
 
 The Taint trackers operate by tracking untrusted data and acting upon anything that is trying to enter sensitive code areas without first being sanitized. Perl and Ruby are two programming languages which have been adapted to use taint checking \parencite{perl, ruby}. There are some tools which enable taint checking for other platforms. One of them is TaintDroid \parencite{Ma2010} for the Android platform.
 
-The process of taint tracking contains of four steps which are described in Table \ref{table:taintTracking}. The first step is to mark all data from untrusted sources as tainted. This is done through a taint flag attached to the input variables. Step two is the possibility of detainting data, but this is only done after that the data has been sanitized through predefined sanitizers. The third step is propagating taint where tainted data propagates its tainted flag onto all data it comes in contact with. The fourth and last step is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink varies depending on the application. However, remedial actions should be conducted. These actions should be, depending on the application owner´s choice, logging the events, throwing an error, or modifying the tainted values into safe predefined values. 
+The process of taint tracking consists of four steps which are described in Table \ref{table:taintTracking}. The first step is to mark all data from untrusted sources as tainted. This is done through a taint flag attached to the input variables. Step two is the possibility of detainting data, but this is only done after that the data has been sanitized through predefined sanitizers. The third step is propagating taint where tainted data propagates its tainted flag onto all data it comes in contact with. The fourth and last step is checking the taint flags in areas called sinks which are entry points to sensitive code \parencite{Pan2015, Venkataramani2008}. The decision of what to do if a tainted variable tries to pass through a sink varies depending on the application. However, remedial actions should be conducted. These actions should be, depending on the application owner´s choice, logging the events, throwing an error, or modifying the tainted values into safe predefined values. 
 
 \begin{table}[H]
   \centering
