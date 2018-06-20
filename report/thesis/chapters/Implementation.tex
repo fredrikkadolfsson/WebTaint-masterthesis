@@ -1,6 +1,6 @@
 \chapter{Implementation}
 \label{Implementation}
-\textit{This chapter presents the implementation process of WebTaint. The chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. Thereafter a description of how  \textit{\nameref{souresSS}} were specified and lastly an explanation of the  \textit{\nameref{SoftwareArchitecture}} architecture.}
+\textit{This chapter presents the implementation process of WebTaint. Chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. Thereafter a description of how  \textit{\nameref{souresSS}} were specified and lastly an explanation of the  \textit{\nameref{SoftwareArchitecture}} architecture.}
 
 
 
@@ -171,7 +171,7 @@ Classes found to be a source, sinks or sanitizer are instrumented by iterating t
     \end{tabular}
 \end{table}
 
-The instrumented logic of sinks is an assertion of the current object and arguments not to be tainted. If this assertion comes back incorrect is a remedial action needed. This action could be, a logging event, throwing a TaintException or modifying the tainted value into a safe predefined value. During the evaluations, the option of using a predefined value and logging the event is used.
+The instrumented logic of sinks is an assertion of the current object and arguments to not be tainted. If this assertion comes back incorrect, a remedial action is needed. This action could be, a logging event, throwing a TaintException or modifying the tainted value into a safe predefined value. During the evaluations, the option of using a predefined value and logging the event is used.
 
 
 

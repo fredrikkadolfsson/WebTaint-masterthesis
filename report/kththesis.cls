@@ -213,6 +213,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{rotating}
 \renewcommand{\lstlistlistingname}{List of Listings}
+\usepackage[font=small,labelfont=bf]{caption}
 
 \lstset{
   escapeinside={(*@}{@*)},
