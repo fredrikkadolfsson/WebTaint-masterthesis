@@ -14,13 +14,13 @@ Memory overhead tells a different story. The two most extended executions, toget
 
 \section{Taint Propagation}
 \label{propagation}
-Due to time issues, only the classes String, StringBuilder and StringBuffer were implemented to support taint propagation. The limitation is justifiable as these are the most important classes for taint tracking when securing web applications. However, there is important to take into account the risk of losing the tracking of taint since some libraries use charArrays and byteArrays for String operations. The results prove that the implemented classes have a significant influence on the outcome. Nevertheless, the optimal solution would be with complete integration for all data types in Java. Just like the Phosphor, but with the ability to sanitize variables.
+Due to time issues, only the classes String, StringBuilder, and StringBuffer were implemented to support taint propagation. The limitation is justifiable as these are the most important classes for taint tracking when securing web applications. However, there is important to take into account the risk of losing the tracking of taint since some libraries use charArrays and byteArrays for String operations. The results prove that the implemented classes have a significant influence on the outcome. Nevertheless, the optimal solution would be with complete integration for all data types in Java. Just like the Phosphor, but with the ability to sanitize variables.
 
 
 
 \section{Sources, Sinks \& Sanitizers}
 \label{sss}
-During the planning phase of the thesis was the task of defining sources, sinks and sanitizers believed to be minor task. Taint trackers depend on these and it is essential to dedicate work to define these correctly. However, this was a time-consuming task that was out of the scope of the thesis. The solution was to compile definitions of sources, sinks, and sanitizers from sources found online. These consisted of bloggers putting together what they believed some of the sources, sinks, and sanitizers should be.
+During the planning phase of the thesis was the task of defining sources, sinks and sanitizers believed to be a minor task. Taint trackers depend on these and it is essential to dedicate work to define these correctly. However, this was a time-consuming task that was out of the scope of the thesis. The solution was to compile definitions of sources, sinks, and sanitizers from sources found online. These consisted of bloggers putting together what they believed some of the sources, sinks, and sanitizers should be.
 
 The optimal solution to define sources, sinks and sanitizers would be extensive research where lists for each library, framework, and deployment utility used by Java-based web applications were compiled. These lists could then be used depending on what functionality the implemented web application is using. The best situation would be that every developer of Java libraries, frameworks, and deployment utilities compiled lists for their implementations.
 
