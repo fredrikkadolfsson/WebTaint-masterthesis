@@ -1,6 +1,6 @@
 \chapter{Implementation}
 \label{Implementation}
-\textit{This chapter presents the implementation process of WebTaint. Chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. Thereafter a description of how  \textit{\nameref{souresSS}} were specified and lastly an explanation of the  \textit{\nameref{SoftwareArchitecture}} architecture.}
+\textit{This chapter presents the implementation process of WebTaint. The chapter starts with a section describing \textit{\nameref{Policies}} enforced by the application. Thereafter a description of how  \textit{\nameref{souresSS}} were specified and lastly an explanation of the  \textit{\nameref{SoftwareArchitecture}} architecture.}
 
 
 
@@ -36,7 +36,7 @@ The second policy is the confidentiality policy which defines that data given to
 
 This policy entails that no information from confidential sources shall pass through a public sink unless it has the permission to do so.
 
-\textit{While monitoring for confidentiality vulnerabilities are the sources, and sinks roles reversed compared to integrity flow analysis. The information wanted to protect is marked as sources and sinks are the systems public exit points.}
+While monitoring for confidentiality vulnerabilities are the sources and sinks roles reversed compared to integrity flow analysis. The information wanted to protect is marked as sources and sinks are the systems public exit points.
 
 
 
@@ -177,8 +177,8 @@ The instrumented logic of sinks is an assertion of the current object and argume
 
 \subsection{Limitations}
 \label{NotableProblems}
-One of the first problems that were introduced during the development of the application was that some classes could not be instrumented during runtime. More precisely, the classes that the Java Virtual Machine relies on can't be instrumented at runtime. However, the solution to this is to pre-instrument the Base Java Runtime Environment and create a new instrumented rt.jar file with statically modified versions of the classes. The created jar file loads through the option \textit{Xbootclasspath/p} \parencite{xboot} that appends the classes in the front of the bootstrap classpath. This triggers the Java Virtual Machine to utilize the instrumented rt.jar before the original version.
+One of the first problems that occurred during the development of the application was that some classes could not be instrumented during runtime. More precisely, the classes that the Java Virtual Machine relies on cannot be instrumented at runtime. However, the solution to this is to pre-instrument the Base Java Runtime Environment and create a new instrumented rt.jar file with statically modified versions of the classes. The created jar file loads through the option \textit{Xbootclasspath/p} \parencite{xboot} that appends the classes in the front of the bootstrap classpath. This triggers the Java Virtual Machine to utilize the instrumented rt.jar before the original version.
 
-Another problem is that instrumentation of primitives and arrays is not possible. The implementation of WebTaint aims to support propagation of taint for Strings. However, the problem of not being able to instrument primitives and arrays creates the risk of possibly losing the taint when string operations are done with the help of byteArrays or charArrays. So, the solution to this is to create shadow variables as \textcite{BellJ.2014PIdd} did while developing Phosphor \parencite{phosphor}. However, another possible solution is to create a centralized memory bank just as \textcite{EnckWilliam2014Taif} did when implementing TaintDroid.
+Another problem is that instrumentation of primitives and arrays is not possible. The implementation of WebTaint aims to support propagation of taint for Strings. However, the problem of not being able to instrument primitives and arrays creates the risk of possibly losing the taint when string operations are done with the help of byteArrays or charArrays. So, the solution is to create shadow variables as \textcite{BellJ.2014PIdd} did while developing Phosphor \parencite{phosphor}. However, another possible solution could be to create a centralized memory bank just as \textcite{EnckWilliam2014Taif} did when implementing TaintDroid.
 
 There is also the problem with primitive operations which are direct bytecode translations. Two examples of these are the usage of + (addition) and - (subtraction). Adding operations to these through Javassist's source level API is therefore not possible. Hence, solving these operations on bytecode level is therefore necessary. \parencite{Javassist}.
